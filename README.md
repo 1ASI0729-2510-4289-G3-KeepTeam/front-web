@@ -1,6 +1,34 @@
-# FrontEnd
+# KeeploFrontend
+An Angular application for saving, organizing and sharing any kind of digital item—links, images, products, designs, notes—grouped into custom collections and shareable via QR code.
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.10.
+## Authors
+
+- George Arturo Aliaga Pimentel (U20211c273)
+
+- Bryan Felix Martinez Ramos (U202316246)
+
+- Maria Elena Muñoz Machuca (U202317442)
+
+- Luis Miguel Rojas Piñero (U202220864)
+
+- Sanchez Gonzales (U202310609)
+
+## 🚀 Features
+
+- **Custom Collections**  
+  Create named collections and add items with title, description, image and link.
+
+- **QR Code Sharing**  
+  Generate a QR code for any collection so others can scan and view it instantly.
+
+- **Tags & Filters**  
+  Add tags or keywords to collections for quick filtering and retrieval.
+
+- **Responsive UI**  
+  Built with Angular & Angular Material; works on desktop & mobile.
+
+- **i18n Support**  
+  English/Spanish toggle powered by `@ngx-translate`.
 
 ## Development server
 
