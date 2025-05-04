@@ -1,0 +1,48 @@
+a img {
+  height: 35px;
+  width: auto;
+  display: block;
+}
+mat-toolbar-row{
+  height:50px;
+}
+
+mat-toolbar{
+  min-height: 50px !important;
+
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+div a{
+  text-decoration: none;
+  color: #9D3F23;
+  font-size: small;
+}
+
+div div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  padding: 0 30px 0 30px;
+}
+
+div div a{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div div:hover{
+  background-color: #FFF4C5;
+  transition:all 0.7s;
+}
+
+div{
+  display: flex;
+  gap: 3rem;
+
+}
