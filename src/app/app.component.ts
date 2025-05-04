@@ -4,7 +4,7 @@ import {ToolbarComponent} from './public/components/toolbar/toolbar.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ToolbarComponent],
+  imports: [ToolbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

@@ -9,7 +9,6 @@ import {NgOptimizedImage} from '@angular/common';
     MatToolbarRow,
     MatToolbar,
     MatIconModule,
-    NgOptimizedImage,
   ],
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.css'
