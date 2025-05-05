@@ -1,0 +1,42 @@
+.spacer {
+  flex: 1 1 auto;
+}
+.up-bar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 3rem;
+}
+
+.image-container{
+  position: relative;
+  background-color: #FFFAF3;
+  height: 20rem;
+  width: fit-content;
+}
+
+.image-container img{
+  height: 20rem;
+}
+.image-container mat-icon{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: #9D3535;
+
+}
+
+.image-container p{
+  position: absolute;
+  font-size: 0.8rem;
+  left: 0;
+  bottom: -2rem;
+}
+
+
+h3{
+  color: #9D3F23;
+}
+
+
