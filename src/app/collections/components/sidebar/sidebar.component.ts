@@ -10,13 +10,25 @@ import {NgForOf} from '@angular/common';
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
+  // nav = [
+  //   {
+  //     name: 'Dog Things',
+  //     items: [
+  //       { name: 'Dog bed', link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoNQWiJJy-Z360Hc6d07zViBvCudiZUHWcBQ&s' },
+  //       { name: 'dog food', link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoNQWiJJy-Z360Hc6d07zViBvCudiZUHWcBQ&s'},
+  //       { name: 'perro peruano', link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOdQAXzPAjKTSs-IfZFPqSoEfaCbAcd9H8Hw&s' }
+  //     ]
+  //   },
+  // ];
+
+
   nav = [
     {
-      name: 'Dog Things',
+      name: 'My Collections',
       items: [
-        { name: 'Dog bed', link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoNQWiJJy-Z360Hc6d07zViBvCudiZUHWcBQ&s' },
-        { name: 'dog food', link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoNQWiJJy-Z360Hc6d07zViBvCudiZUHWcBQ&s'},
-        { name: 'perro peruano', link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOdQAXzPAjKTSs-IfZFPqSoEfaCbAcd9H8Hw&s' }
+        { name: 'Dog things', link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoNQWiJJy-Z360Hc6d07zViBvCudiZUHWcBQ&s' },
+        { name: 'Bedroom Dec', link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoNQWiJJy-Z360Hc6d07zViBvCudiZUHWcBQ&s'},
+        { name: 'Art Stuff', link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOdQAXzPAjKTSs-IfZFPqSoEfaCbAcd9H8Hw&s' }
       ]
     },
   ];
