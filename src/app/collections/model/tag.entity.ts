@@ -1,4 +1,9 @@
 export class Tag {
-  name = ''
-  color = ''
+  name: string;
+  color: string;
+
+  constructor() {
+    this.name = '';
+    this.color = '';
+  }
 }

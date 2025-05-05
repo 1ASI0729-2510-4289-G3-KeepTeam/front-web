@@ -12,12 +12,12 @@
 .image-container{
   position: relative;
   background-color: #FFFAF3;
-  height: 20rem;
+  height: fit-content;
   width: fit-content;
 }
 
 .image-container img{
-  height: 20rem;
+  height: 25rem;
 }
 .image-container mat-icon{
   position: absolute;
@@ -35,8 +35,19 @@
 }
 
 
-h3{
+h3, h2, .up-bar mat-icon{
   color: #9D3F23;
 }
 
+.content{
+  display: flex;
+  gap: 2rem;
+  width: fit-content;
+  margin: 2rem 14rem;
+}
 
+a{
+  background-color: #FF8B68 !important;
+  color: #fff;
+  border-radius: 10px;
+}

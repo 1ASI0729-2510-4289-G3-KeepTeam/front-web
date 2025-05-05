@@ -1,10 +1,21 @@
-import {Tag} from './tag.entity';
+import { Tag } from './tag.entity';
 
 export class Wish {
-  id=''
-  title = ''
-  description = ''
-  url = ''
-  imgUrl = ''
-  tags: Tag[] = [];
+  id: string;
+  title: string;
+  description: string;
+  url: string;
+  dateCreation: Date;
+  imgUrl: string;
+  tags: Tag[];
+
+  constructor() {
+    this.id = '';
+    this.title = '';
+    this.description = '';
+    this.url = '';
+    this.imgUrl = '';
+    this.tags = [];
+    this.dateCreation = new Date();
+  }
 }
