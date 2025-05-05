@@ -1,0 +1,12 @@
+
+  <div *ngFor="let navItem of nav">
+    <h3 aria-label="SideNav">{{ navItem.name }}</h3>
+
+    <ul>
+      <li *ngFor="let item of navItem.items">
+        <a [href] = [item.link] target="_blank">{{ item.name }}</a>
+
+      </li>
+    </ul>
+  </div>
+
