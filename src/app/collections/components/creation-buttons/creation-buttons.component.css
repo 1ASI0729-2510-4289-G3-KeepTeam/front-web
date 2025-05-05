@@ -1,0 +1,18 @@
+button{
+  border-radius: 10px;
+}
+
+.buttonContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  background-color: #FFFCE9;
+  width: fit-content;
+  padding: 1rem;
+  border-radius: 10px 0 0 0;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+
+}
