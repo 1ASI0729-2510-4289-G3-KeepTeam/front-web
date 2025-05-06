@@ -5,7 +5,7 @@ div{
   gap: 1rem;
 }
 
-button{
+.editButton{
   background-color: #FFD16E !important;
   color: #CD6464 !important;
   max-height:30px;

@@ -5,6 +5,7 @@ import {Wish} from '../../model/wish.entity';
 import {Tag} from '../../model/tag.entity';
 import {DatePipe} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
+import {TagListComponent} from '../../../public/components/tags/tag-list.component';
 
 @Component({
   selector: 'app-wish-item',
@@ -13,6 +14,7 @@ import {MatButtonModule} from '@angular/material/button';
     ItemActionsComponent,
     DatePipe,
     MatButtonModule,
+    TagListComponent,
   ],
   templateUrl: './wish-item.component.html',
   styleUrl: './wish-item.component.css'
@@ -25,16 +27,20 @@ export class WishItemComponent {
 
   wish: Wish = new Wish();
 
-  constructor() {
+  construct() {
     const tag1 = new Tag();
-    tag1.name = 'Plusies';
+    tag1.name = 'Plushies';
     tag1.color = '#FFC8DF';
 
     const tag2 = new Tag();
     tag2.name = 'Blue Pallete';
     tag2.color = '#C8FDFF';
 
-    this.tagsExample.push(tag1, tag2);
+    const tag3 = new Tag();
+    tag3.name = 'Masterpieces';
+    tag3.color = '#CAFFC8';
+
+    this.tagsExample.push(tag1, tag2,tag3,tag3);
 
     this.wish.id = '123lalele';
     this.wish.title = 'Miku Plushie';

@@ -15,10 +15,12 @@
     <h3>Description</h3>
     <p style="margin-bottom: 2rem">{{wish.description}}</p>
 
-    <a mat-flat-button [href]="wish.url">
+    <a mat-flat-button [href]="wish.url" target="_blank">
       Go to item's link
       <mat-icon>open_in_new</mat-icon>
     </a>
+
+    <app-tag-list [tags]="wish.tags"></app-tag-list>
   </div>
 
 </div>

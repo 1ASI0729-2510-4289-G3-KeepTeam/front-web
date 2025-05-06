@@ -4,5 +4,14 @@ html, body { height: 100%; }
 body { margin: 0;}
 
 *{
-  font-family: "Overpass", sans-serif;
+  font-family: "Overpass", sans-serif !important;
+}
+
+mat-icon{
+  font-family: "Material Icons" !important;
+}
+
+.mat-mdc-standard-chip .mdc-evolution-chip__action--primary::before {
+  border: none !important;
+  box-shadow: 2px 2px 5px #00000017;
 }
