@@ -6,7 +6,15 @@
     <app-search-bar></app-search-bar>
   </div>
 </div>
-<app-creation-buttons></app-creation-buttons>
-
+<app-creation-buttons>
+</app-creation-buttons>
+<div class="collections-container">
+  <app-collection-card
+    *ngFor="let collection of collections"
+    [name]="collection.name"
+    [imageUrls]="collection.imageUrls"
+    [tags]="collection.tags"
+  ></app-collection-card>
+</div>
 
 
