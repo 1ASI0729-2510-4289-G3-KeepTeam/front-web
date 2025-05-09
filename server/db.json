@@ -15,24 +15,9 @@
       "name": "Lu8a",
       "profilePicture": "https://i.pinimg.com/564x/0f/00/16/0f001688d5bcec630a6bd66747646096.jpg",
       "settings": {}
-
     }
   ],
   "collections": [
-    {"id": "198",
-      "idUser": "124",
-      "name": "Bedroom Dec",
-      "visibility":{
-        "view": false,
-        "edit": false
-      },
-      "items": [
-        {
-          "id": "12", "title": "Soft Bed","description": "Really comfy bed",
-          "url": "https://softframedesigns.com/cdn/shop/files/Ultra_web_P_5.webp?v=1745602267&width=1445",
-          "tags": [{"name": "Decoration","color": "#FFC8DF"},{"name": "Gray","color": "#C8FDFF"}]
-        }
-      ]},
     {"id": "098",
       "idUser": "123",
       "name": "Dog Things",
@@ -81,6 +66,18 @@
             }
           ]
         }
-      ]}
-  ]
+      ]},
+    {"id": "198",
+      "idUser": "124","name": "Bedroom Dec", "visibility":{
+    "view": false,
+    "edit": false
+  },
+    "items": [
+    {
+      "id": "12", "title": "Soft Bed","description": "Really comfy bed",
+      "url": "https://softframedesigns.com/cdn/shop/files/Ultra_web_P_5.webp?v=1745602267&width=1445",
+      "tags": [{"name": "Decoration","color": "#FFC8DF"},{"name": "Gray","color": "#C8FDFF"}]
+    }
+  ]}
+]
 }
