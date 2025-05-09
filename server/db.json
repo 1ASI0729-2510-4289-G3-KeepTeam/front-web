@@ -6,57 +6,7 @@
       "password": "doblas",
       "name": "RaulDoblas",
       "profilePicture": "https://media.istockphoto.com/id/1392528328/es/foto/retrato-de-un-hombre-guapo-y-sonriente-con-camiseta-blanca-de-pie-con-los-brazos-cruzados.jpg?s=612x612&w=0&k=20&c=1EtzClRt1iBmW9apxO4HgQEZFKCx6kK_s3Dy3TZteSE=",
-      "settings": {},
-      "collections": [
-        {"id": "098",
-          "idUser": "123",
-          "name": "Dog Things",
-          "visibility":{
-            "view": false,
-            "edit": false
-          },
-          "items": [
-            {
-              "id": "1", "title": "Dog Bed","description": "Really comfy bed",
-              "url": "https://media.istockphoto.com/id/1392528328/es/foto/retrato-de-un-hombre-guapo-y-sonriente-con-camiseta-blanca-de-pie-con-los-brazos-cruzados.jpg?s=612x612&w=0&k=20&c=1EtzClRt1iBmW9apxO4HgQEZFKCx6kK_s3Dy3TZteSE=",
-              "tags": [{"name": "Mascots","color": "#FFC8DF"},{"name": "Furniture","color": "#C8FDFF"}]
-            },
-            {
-              "id": "2", "title": "Dog Bed","description": "Really comfy bed",
-              "url": "https://media.istockphoto.com/id/1392528328/es/foto/retrato-de-un-hombre-guapo-y-sonriente-con-camiseta-blanca-de-pie-con-los-brazos-cruzados.jpg?s=612x612&w=0&k=20&c=1EtzClRt1iBmW9apxO4HgQEZFKCx6kK_s3Dy3TZteSE=",
-              "tags": [{"name": "Mascots","color": "#FFC8DF"},{"name": "Furniture","color": "#C8FDFF"}]
-            },
-            {
-              "id": "3", "title": "Dog Food","description": "Super Nutritious",
-              "url": "https://images.ctfassets.net/u7dr43bszaws/8AFMzTPNTYa1xqRzZBkFt/d2808851bc4fe775e0cb8334653f56fb/canbo.webp",
-              "tags": [{"name": "Mascots","color": "#FFC8DF"}]
-            }
-          ]},
-        {"id": "145",
-          "idUser": "123",
-          "name": "Cat Things",
-          "visibility":{
-            "view": false,
-            "edit": false
-          },
-          "items": [
-            {
-              "id": "1",
-              "title": "Cat Bed",
-              "description": "Really comfy bed",
-              "url": "https://m.media-amazon.com/images/I/615+3kwTQYL._AC_SL1000_.jpg",
-              "tags": [
-                {
-                  "name": "Mascots",
-                  "color": "#FFC8DF"
-                },
-                {
-                  "name": "Furniture",
-                  "color": "#C8FDFF"
-                }
-              ]
-            }
-          ]}]
+      "settings": {}
     },
     {
       "id": "124",
@@ -64,23 +14,73 @@
       "password": "ochoa",
       "name": "Lu8a",
       "profilePicture": "https://i.pinimg.com/564x/0f/00/16/0f001688d5bcec630a6bd66747646096.jpg",
-      "settings": {},
-      "collections": [
-        {"id": "198",
-          "idUser": "124",
-          "name": "Bedroom Dec",
-          "visibility":{
-            "view": false,
-            "edit": false
-          },
-          "items": [
-            {
-              "id": "12", "title": "Soft Bed","description": "Really comfy bed",
-              "url": "https://softframedesigns.com/cdn/shop/files/Ultra_web_P_5.webp?v=1745602267&width=1445",
-              "tags": [{"name": "Decoration","color": "#FFC8DF"},{"name": "Gray","color": "#C8FDFF"}]
-            }
-          ]}
-      ]
+      "settings": {}
+
     }
+  ],
+  "collections": [
+    {"id": "198",
+      "idUser": "124",
+      "name": "Bedroom Dec",
+      "visibility":{
+        "view": false,
+        "edit": false
+      },
+      "items": [
+        {
+          "id": "12", "title": "Soft Bed","description": "Really comfy bed",
+          "url": "https://softframedesigns.com/cdn/shop/files/Ultra_web_P_5.webp?v=1745602267&width=1445",
+          "tags": [{"name": "Decoration","color": "#FFC8DF"},{"name": "Gray","color": "#C8FDFF"}]
+        }
+      ]},
+    {"id": "098",
+      "idUser": "123",
+      "name": "Dog Things",
+      "visibility":{
+        "view": false,
+        "edit": false
+      },
+      "items": [
+        {
+          "id": "1", "title": "Dog Bed","description": "Really comfy bed",
+          "url": "https://media.istockphoto.com/id/1392528328/es/foto/retrato-de-un-hombre-guapo-y-sonriente-con-camiseta-blanca-de-pie-con-los-brazos-cruzados.jpg?s=612x612&w=0&k=20&c=1EtzClRt1iBmW9apxO4HgQEZFKCx6kK_s3Dy3TZteSE=",
+          "tags": [{"name": "Mascots","color": "#FFC8DF"},{"name": "Furniture","color": "#C8FDFF"}]
+        },
+        {
+          "id": "2", "title": "Dog Bed","description": "Really comfy bed",
+          "url": "https://media.istockphoto.com/id/1392528328/es/foto/retrato-de-un-hombre-guapo-y-sonriente-con-camiseta-blanca-de-pie-con-los-brazos-cruzados.jpg?s=612x612&w=0&k=20&c=1EtzClRt1iBmW9apxO4HgQEZFKCx6kK_s3Dy3TZteSE=",
+          "tags": [{"name": "Mascots","color": "#FFC8DF"},{"name": "Furniture","color": "#C8FDFF"}]
+        },
+        {
+          "id": "3", "title": "Dog Food","description": "Super Nutritious",
+          "url": "https://images.ctfassets.net/u7dr43bszaws/8AFMzTPNTYa1xqRzZBkFt/d2808851bc4fe775e0cb8334653f56fb/canbo.webp",
+          "tags": [{"name": "Mascots","color": "#FFC8DF"}]
+        }
+      ]},
+    {"id": "145",
+      "idUser": "123",
+      "name": "Cat Things",
+      "visibility":{
+        "view": false,
+        "edit": false
+      },
+      "items": [
+        {
+          "id": "1",
+          "title": "Cat Bed",
+          "description": "Really comfy bed",
+          "url": "https://m.media-amazon.com/images/I/615+3kwTQYL._AC_SL1000_.jpg",
+          "tags": [
+            {
+              "name": "Mascots",
+              "color": "#FFC8DF"
+            },
+            {
+              "name": "Furniture",
+              "color": "#C8FDFF"
+            }
+          ]
+        }
+      ]}
   ]
 }
