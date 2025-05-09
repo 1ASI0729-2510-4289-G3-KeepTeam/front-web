@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import {ToolbarComponent} from './public/components/toolbar/toolbar.component';
-import {LoginComponent} from './public/pages/login/login-content/login-content.component';
+import {RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [ToolbarComponent, LoginComponent],
+  imports: [ToolbarComponent, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
