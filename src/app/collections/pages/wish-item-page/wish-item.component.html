@@ -2,14 +2,14 @@
   <mat-icon>arrow_back</mat-icon>
   <h2>{{ wish.title }}</h2>
   <div class="spacer"></div>
-  <app-item-actions></app-item-actions>
+  <app-item-actions [wish]="wish"></app-item-actions>
 </div>
 
 <div class="content">
-<div class="image-container">
-<img [src]="wish.imgUrl" alt="image of {{ wish.title }}">
-  <p>{{ wish.dateCreation  | date:'dd/MM/yyyy'}}</p>
-</div>
+  <div class="image-container">
+    <img [src]="wish.imgUrl" alt="image of {{ wish.title }}">
+    <p>{{ wish.dateCreation  | date:'dd/MM/yyyy'}}</p>
+  </div>
 
   <div>
     <h3>Description</h3>
@@ -21,6 +21,7 @@
     </a>
 
     <app-tag-list [tags]="wish.tags"></app-tag-list>
-  </div>
 
+
+  </div>
 </div>
