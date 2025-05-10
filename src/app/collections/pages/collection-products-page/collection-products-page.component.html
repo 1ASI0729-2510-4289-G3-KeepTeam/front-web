@@ -2,7 +2,7 @@
   <div class="sidebar">
     <app-sidebar></app-sidebar>
   </div>
-  <div class="content">
+  <div class="content" *ngIf="productList.length > 0; else noProducts">
     <app-product-item-card
       *ngFor="let product of productList"
       [title]="product.title"
@@ -10,4 +10,7 @@
       [description]="product.description"
     ></app-product-item-card>
   </div>
+  <ng-template #noProducts>
+    <div>There are no products in this collection.</div>
+  </ng-template>
 </div>

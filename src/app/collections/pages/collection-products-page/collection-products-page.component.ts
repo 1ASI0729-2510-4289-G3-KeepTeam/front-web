@@ -4,6 +4,7 @@ import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { ProductItemCardComponent } from '../../components/product-item-card/product-item-card.component';
 import { CollectionsService } from '../../services/collections.service';
 import { Wish } from '../../model/wish.entity';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-collection-products-page',
@@ -13,13 +14,15 @@ import { Wish } from '../../model/wish.entity';
 })
 export class CollectionProductsPageComponent implements OnInit {
   public productList: Wish[] = [];
-  private collectionId = '';
+  private collectionId: string;
 
   // private collectionId = window.location.search;
 
-  constructor(private collectionsService: CollectionsService) {
-    this.collectionId =
-      new URLSearchParams(window.location.search).get('collectionId') ?? '098';
+  constructor(
+    private collectionsService: CollectionsService,
+    private route: ActivatedRoute
+  ) {
+    this.collectionId = this.route.snapshot.paramMap.get('id') ?? '098';
   }
 
   ngOnInit() {
