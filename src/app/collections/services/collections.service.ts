@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { map } from 'rxjs';
 import { Collection } from '../model/collection.entity';
+import { Wish } from '../model/wish.entity';
 
 @Injectable({
   providedIn: 'root',
@@ -23,5 +24,24 @@ export class CollectionsService {
         };
       })
     );
+  }
+
+  getProductsByCollectionId(collectionId: string) {
+    return this.http
+      .get(`${this.baseUrl}/${this.endpoint}/${collectionId}`)
+      .pipe(
+        map((response: any): Wish[] => {
+          return (response.items as any[]).map((item: any) => {
+            return {
+              id: item.id,
+              title: item.title,
+              description: item.description,
+              imgUrl: item.url,
+              tags: item.tags,
+              url: item.url,
+            };
+          });
+        })
+      );
   }
 }

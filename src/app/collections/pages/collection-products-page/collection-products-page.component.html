@@ -3,11 +3,11 @@
     <app-sidebar></app-sidebar>
   </div>
   <div class="content">
-    <!-- <h1>Aqui va el componente</h1> -->
     <app-product-item-card
-      title="Hello"
-      imageUrl="https://media.istockphoto.com/id/1392528328/es/foto/retrato-de-un-hombre-guapo-y-sonriente-con-camiseta-blanca-de-pie-con-los-brazos-cruzados.jpg?s=612x612&w=0&k=20&c=1EtzClRt1iBmW9apxO4HgQEZFKCx6kK_s3Dy3TZteSE="
-      description="Lorem ipsum dolor sit amet."
+      *ngFor="let product of productList"
+      [title]="product.title"
+      [imageUrl]="product.imgUrl"
+      [description]="product.description"
     ></app-product-item-card>
   </div>
 </div>
