@@ -9,7 +9,7 @@ mat-toolbar-row{
 
 mat-toolbar{
   min-height: 50px !important;
-
+  background-color: #FFFAF3;
 }
 
 .spacer {

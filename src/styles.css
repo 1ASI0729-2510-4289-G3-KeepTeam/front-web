@@ -4,7 +4,11 @@ html, body { height: 100%; }
 body { margin: 0;}
 
 *{
-  font-family: "Overpass", sans-serif;
+  font-family: "Overpass", sans-serif !important;
+}
+
+mat-icon{
+  font-family: 'Material Icons' !important;
 }
 
 html, body { height: 100%; }

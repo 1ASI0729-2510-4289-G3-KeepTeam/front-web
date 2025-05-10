@@ -1,0 +1,21 @@
+<div class="collection-card">
+  <div class="image-container">
+    <img *ngFor="let imageUrl of imageUrls; let i = index"
+         [src]="imageUrl"
+         [alt]="name + ' image ' + (i + 1)"
+         [ngClass]="'image-' + (i + 1)">
+    <div class="image-placeholder" *ngIf="imageUrls.length === 0">
+      <span>No images</span>
+    </div>
+  </div>
+  <div class="title-row">
+    <h3>{{ name }}</h3>
+    <div class="more-options">...</div>
+  </div>
+  <mat-chip-set aria-label="Tag List">
+    <mat-chip *ngFor="let tag of displayedTags"
+              [ngStyle]="{ 'background-color': tag.color}">
+      {{ tag.name }}
+    </mat-chip>
+  </mat-chip-set>
+</div>

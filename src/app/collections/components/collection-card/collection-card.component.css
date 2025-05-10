@@ -1,0 +1,63 @@
+.collection-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  width: 300px;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column; /* Los elementos internos se apilan verticalmente */
+}
+
+.image-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 4px;
+  height: auto;
+  margin-bottom: 8px; /* Espacio entre las imágenes y el título */
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  width: 100%;
+  background-color: #eee;
+  color: #777;
+}
+
+.title-row {
+  display: flex; /* Alinear el título y los puntos horizontalmente */
+  justify-content: space-between; /* Espacio máximo entre el título y los puntos */
+  align-items: center; /* Alinear verticalmente al centro */
+  margin-bottom: 8px; /* Espacio entre el título y los tags */
+}
+
+h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 1.5em;
+}
+
+.more-options {
+  color: #777;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+
+mat-chip-set {
+  margin-bottom: 8px;
+}
+
+.mat-chip {
+  font-size: 0.9em;
+}
