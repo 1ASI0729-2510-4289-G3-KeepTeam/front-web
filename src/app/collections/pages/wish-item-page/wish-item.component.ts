@@ -1,33 +1,32 @@
 import { Component } from '@angular/core';
-import {MatIconModule} from '@angular/material/icon';
-import {ItemActionsComponent} from '../../components/item-actions/item-actions.component';
-import {Wish} from '../../model/wish.entity';
-import {Tag} from '../../model/tag.entity';
-import {DatePipe} from '@angular/common';
-import {MatButtonModule} from '@angular/material/button';
-import {TagListComponent} from '../../../public/components/tags/tag-list.component';
+import { MatIconModule } from '@angular/material/icon';
+import { ItemActionsComponent } from '../../components/item-actions/item-actions.component';
+import { Wish } from '../../model/wish.entity';
+import { Tag } from '../../model/tag.entity';
+// import { DatePipe } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { TagListComponent } from '../../../public/components/tags/tag-list.component';
 
 @Component({
   selector: 'app-wish-item',
   imports: [
     MatIconModule,
     ItemActionsComponent,
-    DatePipe,
+    // DatePipe,
     MatButtonModule,
     TagListComponent,
   ],
   templateUrl: './wish-item.component.html',
-  styleUrl: './wish-item.component.css'
+  styleUrl: './wish-item.component.css',
 })
 export class WishItemComponent {
-
   // todo lo de aca es para probar que pueden leer de entities :D
 
   tagsExample: Tag[] = [];
 
   wish: Wish = new Wish();
 
-  construct() {
+  constructor() {
     const tag1 = new Tag();
     tag1.name = 'Plushies';
     tag1.color = '#FFC8DF';
@@ -40,14 +39,16 @@ export class WishItemComponent {
     tag3.name = 'Masterpieces';
     tag3.color = '#CAFFC8';
 
-    this.tagsExample.push(tag1, tag2,tag3,tag3);
+    this.tagsExample.push(tag1, tag2, tag3, tag3);
 
     this.wish.id = '123lalele';
     this.wish.title = 'Miku Plushie';
-    this.wish.description = 'A miku plushie, very affordable, very blue, i like blue things, thats the only reason its here, idont know what else to add, thankyou';
+    this.wish.description =
+      'A miku plushie, very affordable, very blue, i like blue things, thats the only reason its here, idont know what else to add, thankyou';
     this.wish.url = 'https://mikuexpo.com';
-    this.wish.imgUrl = 'https://m.media-amazon.com/images/I/61KVfgeYlKL._AC_SL1200_.jpg';
-    this.wish.dateCreation = new Date('2004-07-18T10:10:00Z');
+    this.wish.imgUrl =
+      'https://m.media-amazon.com/images/I/61KVfgeYlKL._AC_SL1200_.jpg';
+    // this.wish.dateCreation = new Date('2004-07-18T10:10:00Z');
     this.wish.tags = this.tagsExample;
   }
 }

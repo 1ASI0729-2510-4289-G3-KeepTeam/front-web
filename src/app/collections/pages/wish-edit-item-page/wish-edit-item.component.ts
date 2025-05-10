@@ -1,23 +1,34 @@
-import { AfterViewInit,Component, ElementRef, signal, computed, model, ViewChild } from '@angular/core';
-import {MatIconModule} from '@angular/material/icon';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {ItemActionsComponent} from '../../components/item-actions/item-actions.component';
-import {Wish} from '../../model/wish.entity';
-import {Tag} from '../../model/tag.entity';
-import {DatePipe, NgForOf} from '@angular/common';
-import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {FormsModule} from '@angular/forms';
-import {MatAutocompleteModule, MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
-import {MatChipInputEvent, MatChipsModule} from '@angular/material/chips';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  signal,
+  computed,
+  model,
+  ViewChild,
+} from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { ItemActionsComponent } from '../../components/item-actions/item-actions.component';
+import { Wish } from '../../model/wish.entity';
+import { Tag } from '../../model/tag.entity';
+import { DatePipe, NgForOf } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import {
+  MatAutocompleteModule,
+  MatAutocompleteSelectedEvent,
+} from '@angular/material/autocomplete';
+import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 
 @Component({
   selector: 'app-edit-wish-item',
   imports: [
     MatIconModule,
     ItemActionsComponent,
-    DatePipe,
+    // DatePipe,
     MatButtonModule,
     MatChipsModule,
     MatInputModule,
@@ -27,10 +38,9 @@ import {MatChipInputEvent, MatChipsModule} from '@angular/material/chips';
     NgForOf,
   ],
   templateUrl: './wish-edit-item.component.html',
-  styleUrl: './wish-edit-item.component.css'
+  styleUrl: './wish-edit-item.component.css',
 })
 export class WishEditItemComponent implements AfterViewInit {
-
   // Entities de prueba
   tagsExample: Tag[] = [];
   wish: Wish = new Wish();
@@ -48,10 +58,12 @@ export class WishEditItemComponent implements AfterViewInit {
 
     this.wish.id = '123laleleimAnID';
     this.wish.title = 'Miku Plushie';
-    this.wish.description = 'A miku plushie, very affordable, very blue, i like blue things, thats the only reason its here, idont know what else to add, thankyou';
+    this.wish.description =
+      'A miku plushie, very affordable, very blue, i like blue things, thats the only reason its here, idont know what else to add, thankyou';
     this.wish.url = 'https://mikuexpo.com';
-    this.wish.imgUrl = 'https://m.media-amazon.com/images/I/61KVfgeYlKL._AC_SL1200_.jpg';
-    this.wish.dateCreation = new Date('2004-07-18T10:10:00Z');
+    this.wish.imgUrl =
+      'https://m.media-amazon.com/images/I/61KVfgeYlKL._AC_SL1200_.jpg';
+    // this.wish.dateCreation = new Date('2004-07-18T10:10:00Z');
     this.wish.tags = this.tagsExample;
   }
 
@@ -83,15 +95,15 @@ export class WishEditItemComponent implements AfterViewInit {
     el.style.height = el.scrollHeight + 'px';
   }
 
-
-
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   readonly currentTag = model('');
   readonly tags = signal(this.wish.tags);
   readonly filteredTags = computed(() => {
     const currentTag = this.currentTag().toLowerCase();
     return currentTag
-      ? this.allTags.filter(tag => tag.name.toLowerCase().includes(currentTag))
+      ? this.allTags.filter((tag) =>
+          tag.name.toLowerCase().includes(currentTag)
+        )
       : this.allTags.slice();
   });
 
@@ -100,18 +112,17 @@ export class WishEditItemComponent implements AfterViewInit {
 
     // Add our fruit
     if (value) {
-
       const colors = ['#FFC8DF', '#C8FDFF', '#CAFFC8'];
       const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
-      let tag = new Tag()
-      tag.name = value
-      tag.color = randomColor
-      this.tags.update(tags => [...tags, tag]);
-      if (!this.wish.tags.some(t => t.name === tag.name)) {
+      let tag = new Tag();
+      tag.name = value;
+      tag.color = randomColor;
+      this.tags.update((tags) => [...tags, tag]);
+      if (!this.wish.tags.some((t) => t.name === tag.name)) {
         this.wish.tags.push(tag);
       }
-      if (!this.allTags.some(t => t.name === tag.name)) {
+      if (!this.allTags.some((t) => t.name === tag.name)) {
         this.allTags.push(tag);
       }
     }
@@ -121,7 +132,6 @@ export class WishEditItemComponent implements AfterViewInit {
   }
 
   remove(tag: Tag): void {
-
     // allTags
     const index = this.allTags.indexOf(tag);
     if (index < 0) {
@@ -143,13 +153,9 @@ export class WishEditItemComponent implements AfterViewInit {
     }
   }
 
-
-
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.tags.update(tags => [...tags]);
+    this.tags.update((tags) => [...tags]);
     this.currentTag.set('');
     event.option.deselect();
   }
-
-
 }

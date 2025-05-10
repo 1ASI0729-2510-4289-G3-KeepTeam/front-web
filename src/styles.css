@@ -1,17 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0;}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+}
 
-*{
+* {
   font-family: "Overpass", sans-serif !important;
 }
 
-mat-icon{
+mat-icon {
   font-family: "Material Icons" !important;
 }
 
 .mat-mdc-standard-chip .mdc-evolution-chip__action--primary::before {
   border: none !important;
   box-shadow: 2px 2px 5px #00000017;
+}
+
+mat-icon {
+  font-family: "Material Icons" !important;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }

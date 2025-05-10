@@ -1,12 +1,18 @@
 import { Component } from '@angular/core';
-import {ToolbarComponent} from './public/components/toolbar/toolbar.component';
-import {WishEditItemComponent} from './collections/pages/wish-edit-item-page/wish-edit-item.component';
+import { ToolbarComponent } from './public/components/toolbar/toolbar.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [ToolbarComponent, WishEditItemComponent],
+  imports: [
+    ToolbarComponent,
+    RouterOutlet,
+    // CollectionProductsPageComponent,
+    // CollectionsGridComponent,
+    // CollectionsPageComponent,
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'front-end';

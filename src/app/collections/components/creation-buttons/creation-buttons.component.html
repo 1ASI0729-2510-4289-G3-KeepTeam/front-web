@@ -1,0 +1,8 @@
+
+<div class="buttonContainer">
+  <div *ngFor="let button of buttons">
+    <a [href]=button.link>
+  <button mat-flat-button  [style]="{ 'background-color': button.backgroundColor, 'color':button.color}">{{button.name}}</button>
+    </a>
+  </div>
+</div>
