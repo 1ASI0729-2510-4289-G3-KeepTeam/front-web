@@ -1,9 +1,14 @@
 <mat-card class="example-card" appearance="outlined">
   <mat-card-header>
-    <mat-card-title>{{ card.name }}</mat-card-title>
+    <mat-card-title>{{ title }}</mat-card-title>
   </mat-card-header>
 
-  <div *ngFor="let item of card.items">
+  <img [src]="imageUrl" [alt]="title" />
+  <mat-card-content>
+    <p>{{ description }}</p>
+  </mat-card-content>
+
+  <!-- <div *ngFor="let item of card.items">
     <img mat-card-image [src]="item.url" [alt]="item.title" />
     <mat-card-content>
       <mat-card-title>{{ item.title }}</mat-card-title>
@@ -22,5 +27,5 @@
       <button mat-button>LIKE</button>
       <button mat-button>SHARE</button>
     </mat-card-actions>
-  </div>
+  </div> -->
 </mat-card>

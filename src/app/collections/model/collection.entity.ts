@@ -1,9 +1,7 @@
-import {Wish} from './wish.entity';
+import { Wish } from './wish.entity';
 
 export class Collection {
-
-  id = ''
-  name = ''
-  items:Wish[] = []
-
+  id = '';
+  name = '';
+  items: Wish[] = [];
 }

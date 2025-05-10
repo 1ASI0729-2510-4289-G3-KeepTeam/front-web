@@ -1,0 +1,12 @@
+.main {
+  display: flex;
+}
+
+.sidebar {
+  flex-shrink: 0;
+}
+
+.content {
+  padding-inline: 2rem;
+  width: 100%;
+}
