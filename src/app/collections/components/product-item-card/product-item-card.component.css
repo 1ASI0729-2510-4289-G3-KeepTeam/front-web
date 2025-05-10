@@ -1,0 +1,18 @@
+.example-card {
+  max-width: 300px;
+  margin: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tags {
+  margin-top: 0.5rem;
+}
+
+.tag {
+  display: inline-block;
+  padding: 4px 10px;
+  margin-right: 5px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  color: #333;
+}

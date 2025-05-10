@@ -18,34 +18,49 @@
     }
   ],
   "collections": [
-    {"id": "098",
+    {
+      "id": "098",
       "idUser": "123",
       "name": "Dog Things",
-      "visibility":{
+      "visibility": {
         "view": false,
         "edit": false
       },
       "items": [
         {
-          "id": "1", "title": "Dog Bed","description": "Really comfy bed",
+          "id": "1",
+          "title": "Dog Bed",
+          "description": "Really comfy bed",
           "url": "https://media.istockphoto.com/id/1392528328/es/foto/retrato-de-un-hombre-guapo-y-sonriente-con-camiseta-blanca-de-pie-con-los-brazos-cruzados.jpg?s=612x612&w=0&k=20&c=1EtzClRt1iBmW9apxO4HgQEZFKCx6kK_s3Dy3TZteSE=",
-          "tags": [{"name": "Mascots","color": "#FFC8DF"},{"name": "Furniture","color": "#C8FDFF"}]
+          "tags": [
+            { "name": "Mascots", "color": "#FFC8DF" },
+            { "name": "Furniture", "color": "#C8FDFF" }
+          ]
         },
         {
-          "id": "2", "title": "Dog Bed","description": "Really comfy bed",
+          "id": "2",
+          "title": "Dog Bed",
+          "description": "Really comfy bed",
           "url": "https://media.istockphoto.com/id/1392528328/es/foto/retrato-de-un-hombre-guapo-y-sonriente-con-camiseta-blanca-de-pie-con-los-brazos-cruzados.jpg?s=612x612&w=0&k=20&c=1EtzClRt1iBmW9apxO4HgQEZFKCx6kK_s3Dy3TZteSE=",
-          "tags": [{"name": "Mascots","color": "#FFC8DF"},{"name": "Furniture","color": "#C8FDFF"}]
+          "tags": [
+            { "name": "Mascots", "color": "#FFC8DF" },
+            { "name": "Furniture", "color": "#C8FDFF" }
+          ]
         },
         {
-          "id": "3", "title": "Dog Food","description": "Super Nutritious",
+          "id": "3",
+          "title": "Dog Food",
+          "description": "Super Nutritious",
           "url": "https://images.ctfassets.net/u7dr43bszaws/8AFMzTPNTYa1xqRzZBkFt/d2808851bc4fe775e0cb8334653f56fb/canbo.webp",
-          "tags": [{"name": "Mascots","color": "#FFC8DF"}]
+          "tags": [{ "name": "Mascots", "color": "#FFC8DF" }]
         }
-      ]},
-    {"id": "145",
+      ]
+    },
+    {
+      "id": "145",
       "idUser": "123",
       "name": "Cat Things",
-      "visibility":{
+      "visibility": {
         "view": false,
         "edit": false
       },
@@ -66,18 +81,28 @@
             }
           ]
         }
-      ]},
-    {"id": "198",
-      "idUser": "124","name": "Bedroom Dec", "visibility":{
-    "view": false,
-    "edit": false
-  },
-    "items": [
+      ]
+    },
     {
-      "id": "12", "title": "Soft Bed","description": "Really comfy bed",
-      "url": "https://softframedesigns.com/cdn/shop/files/Ultra_web_P_5.webp?v=1745602267&width=1445",
-      "tags": [{"name": "Decoration","color": "#FFC8DF"},{"name": "Gray","color": "#C8FDFF"}]
+      "id": "198",
+      "idUser": "124",
+      "name": "Bedroom Dec",
+      "visibility": {
+        "view": false,
+        "edit": false
+      },
+      "items": [
+        {
+          "id": "12",
+          "title": "Soft Bed",
+          "description": "Really comfy bed",
+          "url": "https://softframedesigns.com/cdn/shop/files/Ultra_web_P_5.webp?v=1745602267&width=1445",
+          "tags": [
+            { "name": "Decoration", "color": "#FFC8DF" },
+            { "name": "Gray", "color": "#C8FDFF" }
+          ]
+        }
+      ]
     }
-  ]}
-]
+  ]
 }
