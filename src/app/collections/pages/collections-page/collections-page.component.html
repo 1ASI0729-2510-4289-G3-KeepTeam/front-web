@@ -2,11 +2,18 @@
   <div class="sidebar">
     <app-sidebar></app-sidebar>
   </div>
-  <div class="searchBar">
-    <app-search-bar></app-search-bar>
+
+  <div class="content">
+    <div class="searchBar">
+      <app-search-bar></app-search-bar>
+    </div>
+
+    <div class="card-grid">
+      <div *ngFor="let card of cards">
+        <app-card [card]="card"></app-card>
+      </div>
+    </div>
   </div>
 </div>
+
 <app-creation-buttons></app-creation-buttons>
-
-
-
