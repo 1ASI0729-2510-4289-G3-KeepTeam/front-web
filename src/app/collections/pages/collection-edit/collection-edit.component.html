@@ -1,0 +1,52 @@
+<div [ngStyle]="{ 'background-color': getSelectedBgColor() }" class="page-bg">
+<div class="back-button" (click)="goBack()">
+  <span class="back-arrow">&#8592;</span>
+  <span class="back-title">{{ collectionName }}</span>
+</div>
+
+<div class="edit-container">
+  <div class="preview">
+    <div class="images">
+      <img src="assets/collar.dog.png" alt="Item 1" />
+      <img src="assets/bed.dog.png" alt="Item 2" />
+      <img src="assets/food.dog.png" alt="Item 3" />
+      <img src="assets/collar.pet.png" alt="Item 4" />
+    </div>
+    <h2>{{ collectionName }}</h2>
+  </div>
+
+<div class="form">
+  <label>Collection Name</label>
+  <div class="input-wrapper">
+    <input type="text" [(ngModel)]="collectionName" maxlength="20" class="collection-input" />
+    <span class="char-counter">{{ collectionName.length }} / 20</span>
+  </div>
+
+    <div class="color-selector">
+      <div class="color-list">
+        <div *ngFor="let color of colors" class="color-item">
+          <div
+            class="color-circle"
+            [ngStyle]="{ 'background-color': color.hex }"
+            (click)="setColor(color.value)"
+            [class.selected]="selectedColor === color.value"
+            [title]="color.label"
+          >
+            <span *ngIf="selectedColor === color.value" class="checkmark">✔</span>
+          </div>
+          <div class="color-label">{{ color.label }}</div>
+        </div>
+      </div>
+    </div>
+  <label>Color</label>
+  <div class="buttons">
+    <button class="save">Save</button>
+    <button class="cancel">Cancel</button>
+  </div>
+</div>
+</div>
+</div>
+
+
+
+

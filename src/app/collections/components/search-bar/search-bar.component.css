@@ -1,0 +1,21 @@
+div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20rem;
+  background-color: #FCFAFA;
+  border-radius: 10px;
+}
+
+input {
+  width: 90%;
+  height: 25px;
+  background:none;
+  border:none;
+}
+
+mat-icon {
+  color: #B44646;
+  font-size: 1.3rem;
+  height: 1.3rem;
+}

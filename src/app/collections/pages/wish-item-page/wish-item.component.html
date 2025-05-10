@@ -7,13 +7,13 @@
 
 <div class="content">
   <div class="image-container">
-    <img [src]="wish.imgUrl" alt="image of {{ wish.title }}">
-    <p>{{ wish.dateCreation  | date:'dd/MM/yyyy'}}</p>
+    <img [src]="wish.imgUrl" alt="image of {{ wish.title }}" />
+    <!-- <p>{{ wish.dateCreation  | date:'dd/MM/yyyy'}}</p> -->
   </div>
 
   <div>
     <h3>Description</h3>
-    <p style="margin-bottom: 2rem">{{wish.description}}</p>
+    <p style="margin-bottom: 2rem">{{ wish.description }}</p>
 
     <a mat-flat-button [href]="wish.url" target="_blank">
       Go to item's link
@@ -21,7 +21,5 @@
     </a>
 
     <app-tag-list [tags]="wish.tags"></app-tag-list>
-
-
   </div>
 </div>
