@@ -19,7 +19,7 @@ export class CollectionProductsPageComponent implements OnInit {
 
   constructor(private collectionsService: CollectionsService) {
     this.collectionId =
-      new URLSearchParams(window.location.search).get('collectionId') ?? '';
+      new URLSearchParams(window.location.search).get('collectionId') ?? '098';
   }
 
   ngOnInit() {
