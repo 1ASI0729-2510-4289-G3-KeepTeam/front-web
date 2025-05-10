@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
@@ -14,10 +14,10 @@ import { NgForOf } from '@angular/common';
     SearchBarComponent,
     CreationButtonsComponent,
     CollectionCardComponent,
-    NgForOf
+    NgForOf,
   ],
   templateUrl: './collections-grid.component.html',
-  styleUrl: './collections-grid.component.css'
+  styleUrl: './collections-grid.component.css',
 })
 export class CollectionsGridComponent {
   collections = [
@@ -27,13 +27,13 @@ export class CollectionsGridComponent {
         'https://media.falabella.com/falabellaPE/118072529_01/w=1500,h=1500,fit=pad',
         'https://media.falabella.com/falabellaPE/118072529_01/w=1500,h=1500,fit=pad',
         'https://media.falabella.com/falabellaPE/118072529_01/w=1500,h=1500,fit=pad',
-        'https://media.falabella.com/falabellaPE/118072529_01/w=1500,h=1500,fit=pad'
+        'https://media.falabella.com/falabellaPE/118072529_01/w=1500,h=1500,fit=pad',
       ],
       tags: [
         { name: 'Mascot', color: '#e1f5fe' },
         { name: 'Furniture', color: '#f3e5f5' },
-        { name: 'Inspo', color: '#fff3e0' }
-      ]
+        { name: 'Inspo', color: '#fff3e0' },
+      ],
     },
     {
       name: 'Cat Things',
@@ -41,12 +41,12 @@ export class CollectionsGridComponent {
         'https://via.placeholder.com/150',
         'https://via.placeholder.com/150',
         'https://via.placeholder.com/150',
-        'https://via.placeholder.com/150'
+        'https://via.placeholder.com/150',
       ],
       tags: [
         { name: 'Muebles', color: '#f3e5f5' },
-        { name: 'Hogar', color: '#fff3e0' }
-      ]
+        { name: 'Hogar', color: '#fff3e0' },
+      ],
     },
     {
       name: 'Colección de Arte',
@@ -54,13 +54,13 @@ export class CollectionsGridComponent {
         'https://via.placeholder.com/150',
         'https://via.placeholder.com/150',
         'https://via.placeholder.com/150',
-        'https://via.placeholder.com/150'
+        'https://via.placeholder.com/150',
       ],
       tags: [
         { name: 'Arte', color: '#fff3e0' },
         { name: 'Pintura', color: '#e0f7fa' },
-        { name: 'Escultura', color: '#e1f5fe' }
-      ]
+        { name: 'Escultura', color: '#e1f5fe' },
+      ],
     },
     {
       name: 'Nueva Colección',
@@ -68,16 +68,14 @@ export class CollectionsGridComponent {
         'https://via.placeholder.com/150',
         'https://via.placeholder.com/150',
         'https://via.placeholder.com/150',
-        'https://via.placeholder.com/150'
+        'https://via.placeholder.com/150',
       ],
       tags: [
         { name: 'Tag 1', color: '#abcdef' },
         { name: 'Tag 2', color: '#fedcba' },
         { name: 'Tag 3', color: '#abcdef' },
         { name: 'Tag 4', color: '#fedcba' },
-      ]
-    }
-
-
+      ],
+    },
   ];
 }

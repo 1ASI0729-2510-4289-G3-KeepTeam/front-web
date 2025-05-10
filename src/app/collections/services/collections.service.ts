@@ -16,12 +16,14 @@ export class CollectionsService {
 
   getCollections() {
     return this.http.get(`${this.baseUrl}/${this.endpoint}`).pipe(
-      map((response: any): Collection => {
-        return {
-          id: response.id,
-          name: response.name,
-          items: response.items,
-        };
+      map((response: any): Collection[] => {
+        return (response as any[]).map((item) => {
+          return {
+            id: item.id,
+            name: item.name,
+            items: item.items,
+          };
+        });
       })
     );
   }

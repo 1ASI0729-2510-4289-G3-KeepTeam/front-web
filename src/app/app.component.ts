@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ToolbarComponent } from './public/components/toolbar/toolbar.component';
+import { RouterOutlet } from '@angular/router';
 import { CollectionProductsPageComponent } from './collections/pages/collection-products-page/collection-products-page.component';
 // import { CollectionsGridComponent } from './collections/pages/collections-grid/collections-grid.component';
 // import { CollectionsPageComponent } from './collections/pages/collections-page/collections-page.component';
@@ -8,7 +9,8 @@ import { CollectionProductsPageComponent } from './collections/pages/collection-
   selector: 'app-root',
   imports: [
     ToolbarComponent,
-    CollectionProductsPageComponent,
+    RouterOutlet,
+    // CollectionProductsPageComponent,
     // CollectionsGridComponent,
     // CollectionsPageComponent,
   ],
