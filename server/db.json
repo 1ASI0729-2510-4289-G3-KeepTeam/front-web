@@ -4,15 +4,16 @@
       "id": "123",
       "email": "doblas@gmail.com",
       "password": "doblas",
-      "name": "RaulDoblas",
+      "username": "RaulDoblas",
       "profilePicture": "https://media.istockphoto.com/id/1392528328/es/foto/retrato-de-un-hombre-guapo-y-sonriente-con-camiseta-blanca-de-pie-con-los-brazos-cruzados.jpg?s=612x612&w=0&k=20&c=1EtzClRt1iBmW9apxO4HgQEZFKCx6kK_s3Dy3TZteSE=",
-      "settings": {}
+      "settings": {},
+      "paymentInfo": {}
     },
     {
       "id": "124",
       "email": "luciana@gmail.com",
       "password": "ochoa",
-      "name": "Lu8a",
+      "username": "Lu8a",
       "profilePicture": "https://i.pinimg.com/564x/0f/00/16/0f001688d5bcec630a6bd66747646096.jpg",
       "settings": {}
     }
@@ -21,88 +22,177 @@
     {
       "id": "098",
       "idUser": "123",
-      "name": "Dog Things",
-      "visibility": {
-        "view": false,
-        "edit": false
-      },
-      "items": [
-        {
-          "id": "1",
-          "title": "Dog Bed",
-          "description": "Really comfy bed",
-          "url": "https://media.istockphoto.com/id/1392528328/es/foto/retrato-de-un-hombre-guapo-y-sonriente-con-camiseta-blanca-de-pie-con-los-brazos-cruzados.jpg?s=612x612&w=0&k=20&c=1EtzClRt1iBmW9apxO4HgQEZFKCx6kK_s3Dy3TZteSE=",
-          "tags": [
-            { "name": "Mascots", "color": "#FFC8DF" },
-            { "name": "Furniture", "color": "#C8FDFF" }
-          ]
-        },
-        {
-          "id": "2",
-          "title": "Dog Bed",
-          "description": "Really comfy bed",
-          "url": "https://media.istockphoto.com/id/1392528328/es/foto/retrato-de-un-hombre-guapo-y-sonriente-con-camiseta-blanca-de-pie-con-los-brazos-cruzados.jpg?s=612x612&w=0&k=20&c=1EtzClRt1iBmW9apxO4HgQEZFKCx6kK_s3Dy3TZteSE=",
-          "tags": [
-            { "name": "Mascots", "color": "#FFC8DF" },
-            { "name": "Furniture", "color": "#C8FDFF" }
-          ]
-        },
-        {
-          "id": "3",
-          "title": "Dog Food",
-          "description": "Super Nutritious",
-          "url": "https://images.ctfassets.net/u7dr43bszaws/8AFMzTPNTYa1xqRzZBkFt/d2808851bc4fe775e0cb8334653f56fb/canbo.webp",
-          "tags": [{ "name": "Mascots", "color": "#FFC8DF" }]
-        }
-      ]
+      "title": "Dog Things",
+      "isInTrash": 0
     },
     {
       "id": "145",
       "idUser": "123",
-      "name": "Cat Things",
-      "visibility": {
-        "view": false,
-        "edit": false
-      },
-      "items": [
-        {
-          "id": "1",
-          "title": "Cat Bed",
-          "description": "Really comfy bed",
-          "url": "https://m.media-amazon.com/images/I/615+3kwTQYL._AC_SL1000_.jpg",
-          "tags": [
-            {
-              "name": "Mascots",
-              "color": "#FFC8DF"
-            },
-            {
-              "name": "Furniture",
-              "color": "#C8FDFF"
-            }
-          ]
-        }
-      ]
+      "title": "Cat Things",
+      "isInTrash": 0
     },
     {
       "id": "198",
       "idUser": "124",
-      "name": "Bedroom Dec",
-      "visibility": {
-        "view": false,
-        "edit": false
-      },
-      "items": [
+      "title": "Bedroom Dec",
+      "isInTrash": 0
+    }
+  ],
+  "items": [
+    {
+      "id": "2",
+      "idCollection": "098",
+      "title": "Dog Bed",
+      "description": "Really comfy bed for a dog dog",
+      "urlImg": "https://m.media-amazon.com/images/I/71MT4YtIxJL._AC_UL640_FMwebp_QL65_.jpg",
+      "redirectUrl": "https://a.co/d/1WZ1R3n",
+      "isInTrash": 0,
+      "tags": [
         {
-          "id": "12",
-          "title": "Soft Bed",
-          "description": "Really comfy bed",
-          "url": "https://softframedesigns.com/cdn/shop/files/Ultra_web_P_5.webp?v=1745602267&width=1445",
-          "tags": [
-            { "name": "Decoration", "color": "#FFC8DF" },
-            { "name": "Gray", "color": "#C8FDFF" }
-          ]
+          "name": "Mascots",
+          "color": "#FFC8DF"
+        },
+        {
+          "name": "Furniture",
+          "color": "#C8FDFF"
+        },
+        {
+          "name": "Pets",
+          "color": "#CAFFC8"
+        },
+        {
+          "name": "NOMORETAGS",
+          "color": "#FFC8DF"
         }
       ]
+    },
+    {
+      "id": "3",
+      "idCollection": "098",
+      "title": "Dog Food WAG 1",
+      "description": "Super Nutritious",
+      "urlImg": "https://m.media-amazon.com/images/I/71j17LT9ZxL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
+      "redirectUrl": "https://a.co/d/1muVhSn",
+      "isInTrash": 0,
+      "tags": [
+        {
+          "name": "Mascots",
+          "color": "#FFC8DF"
+        },
+        {
+          "name": "wauw",
+          "color": "#FFC8DF"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "idCollection": "145",
+      "title": "Cat Bed",
+      "description": "Really comfy bed",
+      "isInTrash": 0,
+      "urlImg": "https://m.media-amazon.com/images/I/91ohn1BKStL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
+      "redirectUrl": "https://a.co/d/1YI0vqQ",
+      "tags": [
+        {
+          "name": "Mascots",
+          "color": "#FFC8DF"
+        },
+        {
+          "name": "Furniture",
+          "color": "#C8FDFF"
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "idCollection": "145",
+      "title": "Cat Bed V3",
+      "isInTrash": 0,
+      "description": "Really comfy bed pt.2",
+      "urlImg": "https://m.media-amazon.com/images/I/91ohn1BKStL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
+      "redirectUrl": "https://a.co/d/1YI0vqQ",
+      "tags": [
+        {
+          "name": "Mascots",
+          "color": "#FFC8DF"
+        },
+        {
+          "name": "Furniture",
+          "color": "#C8FDFF"
+        },
+        {
+          "name": "Cat",
+          "color": "#C8FDFF"
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "idCollection": "198",
+      "title": "Soft Bed",
+      "isInTrash": 0,
+      "description": "Really comfy bed",
+      "urlImg": "https://softframedesigns.com/cdn/shop/files/Ultra_web_P_5.webp?v=1745602267&width=1445",
+      "tags": [
+        {
+          "name": "Decoration",
+          "color": "#FFC8DF"
+        },
+        {
+          "name": "Gray",
+          "color": "#C8FDFF"
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "idCollection": "198",
+      "isInTrash": 0,
+      "title": "Miku Plushie",
+      "description": "A miku plushie, very affordable, very blue, i like blue things, thats the only reason its here, idont know what else to add, thankyou",
+      "urlImg": "https://m.media-amazon.com/images/I/61KVfgeYlKL._AC_SL1200_.jpg",
+      "redirectUrl": "https://mikuexpo.com",
+      "tags": [
+        {
+          "name": "Plushies",
+          "color": "#FFC8DF"
+        },
+        {
+          "name": "Blue Pallete",
+          "color": "#C8FDFF"
+        }
+      ]
+    },
+    {
+      "id": "9",
+      "idCollection": "098",
+      "title": "Dog Food WAG 1 DELETE",
+      "description": "Super Nutritious",
+      "isInTrash": 1,
+      "urlImg": "https://m.media-amazon.com/images/I/71j17LT9ZxL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
+      "redirectUrl": "https://a.co/d/1muVhSn",
+      "tags": [
+        {
+          "name": "Mascots",
+          "color": "#FFC8DF"
+        },
+        {
+          "name": "wauw",
+          "color": "#FFC8DF"
+        }
+      ]
+    }
+  ],
+  "sharedLinks": [
+    {
+      "id": "test",
+      "link": "/collection/share/1 -- /item/share/1",
+      "expireDate": "test",
+      "visibility": {
+        "view": 1,
+        "edit": 1
+      }
     }
   ]
 }
