@@ -1,4 +1,6 @@
-  {
-    "/api/v1/users": "/users",
-    "/api/v1/collections": "/collections"
-  }
+{
+  "/api/v1/users": "/users",
+  "/api/v1/users/:id": "/users/:id",
+  "/api/v1/collections": "/collections",
+  "/api/v1/collections/:collectionId": "/collections/:collectionId"
+}

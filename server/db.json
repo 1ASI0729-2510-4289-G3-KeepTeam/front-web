@@ -23,19 +23,19 @@
       "id": "098",
       "idUser": "123",
       "title": "Dog Things",
-      "isInTrash": 0
+      "isInTrash": false
     },
     {
       "id": "145",
       "idUser": "123",
       "title": "Cat Things",
-      "isInTrash": 0
+      "isInTrash": false
     },
     {
       "id": "198",
       "idUser": "124",
       "title": "Bedroom Dec",
-      "isInTrash": 0
+      "isInTrash": false
     }
   ],
   "items": [
@@ -44,9 +44,9 @@
       "idCollection": "098",
       "title": "Dog Bed",
       "description": "Really comfy bed for a dog dog",
+      "isInTrash": false,
       "urlImg": "https://m.media-amazon.com/images/I/71MT4YtIxJL._AC_UL640_FMwebp_QL65_.jpg",
       "redirectUrl": "https://a.co/d/1WZ1R3n",
-      "isInTrash": 0,
       "tags": [
         {
           "name": "Mascots",
@@ -59,10 +59,6 @@
         {
           "name": "Pets",
           "color": "#CAFFC8"
-        },
-        {
-          "name": "NOMORETAGS",
-          "color": "#FFC8DF"
         }
       ]
     },
@@ -73,7 +69,7 @@
       "description": "Super Nutritious",
       "urlImg": "https://m.media-amazon.com/images/I/71j17LT9ZxL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
       "redirectUrl": "https://a.co/d/1muVhSn",
-      "isInTrash": 0,
+      "isInTrash": false,
       "tags": [
         {
           "name": "Mascots",
@@ -90,7 +86,7 @@
       "idCollection": "145",
       "title": "Cat Bed",
       "description": "Really comfy bed",
-      "isInTrash": 0,
+      "isInTrash": false,
       "urlImg": "https://m.media-amazon.com/images/I/91ohn1BKStL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
       "redirectUrl": "https://a.co/d/1YI0vqQ",
       "tags": [
@@ -108,8 +104,8 @@
       "id": "5",
       "idCollection": "145",
       "title": "Cat Bed V3",
-      "isInTrash": 0,
       "description": "Really comfy bed pt.2",
+      "isInTrash": true,
       "urlImg": "https://m.media-amazon.com/images/I/91ohn1BKStL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
       "redirectUrl": "https://a.co/d/1YI0vqQ",
       "tags": [
@@ -122,8 +118,12 @@
           "color": "#C8FDFF"
         },
         {
-          "name": "Cat",
-          "color": "#C8FDFF"
+          "name": "No more tags",
+          "color": "#CAFFC8"
+        },
+        {
+          "name": "delete",
+          "color": "#CAFFC8"
         }
       ]
     },
@@ -131,7 +131,7 @@
       "id": "6",
       "idCollection": "198",
       "title": "Soft Bed",
-      "isInTrash": 0,
+      "isInTrash": false,
       "description": "Really comfy bed",
       "urlImg": "https://softframedesigns.com/cdn/shop/files/Ultra_web_P_5.webp?v=1745602267&width=1445",
       "tags": [
@@ -148,7 +148,7 @@
     {
       "id": "7",
       "idCollection": "198",
-      "isInTrash": 0,
+      "isInTrash": false,
       "title": "Miku Plushie",
       "description": "A miku plushie, very affordable, very blue, i like blue things, thats the only reason its here, idont know what else to add, thankyou",
       "urlImg": "https://m.media-amazon.com/images/I/61KVfgeYlKL._AC_SL1200_.jpg",
@@ -169,7 +169,7 @@
       "idCollection": "098",
       "title": "Dog Food WAG 1 DELETE",
       "description": "Super Nutritious",
-      "isInTrash": 1,
+      "isInTrash": true,
       "urlImg": "https://m.media-amazon.com/images/I/71j17LT9ZxL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
       "redirectUrl": "https://a.co/d/1muVhSn",
       "tags": [

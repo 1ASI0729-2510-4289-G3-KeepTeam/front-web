@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
@@ -22,7 +22,7 @@ import { NgForOf } from '@angular/common';
 export class CollectionsGridComponent {
   collections = [
     {
-      name: 'Dog Things',
+      title: 'Dog Things',
       imageUrls: [
         'https://media.falabella.com/falabellaPE/118072529_01/w=1500,h=1500,fit=pad',
         'https://media.falabella.com/falabellaPE/118072529_01/w=1500,h=1500,fit=pad',
@@ -36,7 +36,7 @@ export class CollectionsGridComponent {
       ],
     },
     {
-      name: 'Cat Things',
+      title: 'Cat Things',
       imageUrls: [
         'https://via.placeholder.com/150',
         'https://via.placeholder.com/150',
@@ -49,7 +49,7 @@ export class CollectionsGridComponent {
       ],
     },
     {
-      name: 'Colección de Arte',
+      title: 'Colección de Arte',
       imageUrls: [
         'https://via.placeholder.com/150',
         'https://via.placeholder.com/150',
@@ -63,7 +63,7 @@ export class CollectionsGridComponent {
       ],
     },
     {
-      name: 'Nueva Colección',
+      title: 'Nueva Colección',
       imageUrls: [
         'https://via.placeholder.com/150',
         'https://via.placeholder.com/150',

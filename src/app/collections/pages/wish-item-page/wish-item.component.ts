@@ -1,55 +1,58 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { ItemActionsComponent } from '../../components/item-actions/item-actions.component';
-import { Wish } from '../../model/wish.entity';
-import { Tag } from '../../model/tag.entity';
-// import { DatePipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { TagListComponent } from '../../../public/components/tags/tag-list.component';
+import {Wish} from '../../model/wish.entity';
+import {ActivatedRoute} from '@angular/router';
+import {CollectionsService} from '../../services/collections.service';
 
 @Component({
   selector: 'app-wish-item',
   imports: [
     MatIconModule,
     ItemActionsComponent,
-    // DatePipe,
     MatButtonModule,
     TagListComponent,
-    // WishQrShareComponent,
-    // RouterLink,
   ],
   templateUrl: './wish-item.component.html',
   styleUrl: './wish-item.component.css',
 })
-export class WishItemComponent {
-  // todo lo de aca es para probar que pueden leer de entities :D
+export class WishItemComponent implements OnInit {
+  wishId: string | null = null;  // Para almacenar el ID del producto
+  wish: Wish | undefined = undefined;   // Aquí almacenamos la información del producto
 
-  tagsExample: Tag[] = [];
-  wish: Wish = new Wish();
+  constructor(
+    private route: ActivatedRoute,  // Para obtener parámetros de la URL
+    private wishService: CollectionsService// Inyectamos tu servicio
+  ) {}
 
-  constructor() {
-    const tag1 = new Tag();
-    tag1.name = 'Plushies';
-    tag1.color = '#FFC8DF';
+  ngOnInit(): void {
+    // Obtenemos el productId de la URL
+    this.wishId = this.route.snapshot.paramMap.get('productId');
 
-    const tag2 = new Tag();
-    tag2.name = 'Blue Pallete';
-    tag2.color = '#C8FDFF';
-
-    const tag3 = new Tag();
-    tag3.name = 'Masterpieces';
-    tag3.color = '#CAFFC8';
-
-    this.tagsExample.push(tag1, tag2, tag3, tag3);
-
-    this.wish.id = '123lalele';
-    this.wish.title = 'Miku Plushie';
-    this.wish.description =
-      'A miku plushie, very affordable, very blue, i like blue things, thats the only reason its here, idont know what else to add, thankyou';
-    this.wish.url = 'https://mikuexpo.com';
-    this.wish.imgUrl =
-      'https://m.media-amazon.com/images/I/61KVfgeYlKL._AC_SL1200_.jpg';
-    // this.wish.dateCreation = new Date('2004-07-18T10:10:00Z');
-    this.wish.tags = this.tagsExample;
+    // Si tenemos un productId, hacemos la solicitud
+    if (this.wishId) {
+      this.getWishDetails(this.wishId);
+    }
   }
-}
+
+  // Llamamos al servicio para obtener la información del producto
+
+  getWishDetails(id: string): void {
+    this.wishService.getWishById(id).subscribe({
+      next: (data) => {
+        this.wish = {
+          ...data,
+          tags: data.tags || []  // Asegura que siempre sea un arreglo vacío si tags es undefined
+        };
+        console.log(this.wish);
+      },
+      error: (err) => {
+        console.error('Error fetching product details:', err);
+      },
+    });
+  }
+  goBack(): void {
+    history.back();
+  }}
