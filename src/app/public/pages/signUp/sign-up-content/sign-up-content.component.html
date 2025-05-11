@@ -9,7 +9,7 @@
           <h3>Email</h3>
           <mat-form-field appearance="outline">
             <mat-label>Input your account email</mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="email" name="email" type="email" required>
           </mat-form-field>
         </div>
 
@@ -17,7 +17,7 @@
           <h3>Username</h3>
           <mat-form-field appearance="outline">
             <mat-label>Input your account's username</mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="name" name="username" required>
           </mat-form-field>
         </div>
 
@@ -27,7 +27,7 @@
           <h3>Password</h3>
           <mat-form-field appearance="outline">
             <mat-label>Input Password</mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="password" name="password" type="password" required>
           </mat-form-field>
         </div>
 
@@ -35,7 +35,7 @@
           <h3>Repeat</h3>
           <mat-form-field appearance="outline">
             <mat-label>Repeat Password</mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="password" name="password" type="password" required>
           </mat-form-field>
         </div>
 
@@ -48,13 +48,15 @@
 
 
         <div class="signUp">
-          <button  mat-flat-button class="signUpButton">Sign Up</button>
+          <button mat-flat-button class="signUpButton" (click)="onSignUp()">Sign Up</button>
         </div>
       </div>
 
       <div class="imageSection">
         <img src="assets/welcome.png" alt="Welcome Image" class="welcome-image">
       </div>
+
+
     </mat-card-content>
   </mat-card>
 </div>

@@ -6,3 +6,8 @@ body { margin: 0;}
 *{
   font-family: "Overpass", sans-serif;
 }
+
+.snackbar-error {
+  --mdc-filled-snackbar-surface-color: #F44336;
+  color: #fff !important;
+}

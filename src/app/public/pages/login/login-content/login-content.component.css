@@ -87,3 +87,8 @@ mat-form-field {
 }
 
 
+
+.snackbar-error {
+  --mdc-filled-snackbar-surface-color: #F44336;
+  color: #fff !important;
+}
