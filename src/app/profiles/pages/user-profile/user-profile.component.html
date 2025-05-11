@@ -1,0 +1,29 @@
+<mat-card class="profile-card">
+  <div class="profile-header">
+    <img [src]="user?.profilePicture" class="avatar"  alt="profilePicture"/>
+    <h1>Hola, {{ user?.name }} 👋</h1>
+    <button mat-raised-button color="accent">Editar Perfil</button>
+  </div>
+
+  <div class="info-section">
+    <h3>Actividad</h3>
+    <p>Mis colecciones: 13</p>
+    <p>Items guardados: 230</p>
+
+    <h3>Plan actual: Infinite</h3>
+    <p>Email: {{ user?.email }}</p>
+    <p>Contraseña: ********</p>
+    <button mat-stroked-button color="warn">Cambiar contraseña</button>
+  </div>
+
+  <div class="payment-section">
+    <h3>Información de pago</h3>
+    <p>Tarjeta: **0342 (VISA)</p>
+    <p>Titular: {{ user?.name }}</p>
+    <button mat-flat-button color="primary">Editar tarjeta</button>
+  </div>
+
+  <div class="delete-button">
+    <button mat-raised-button color="warn">Eliminar cuenta</button>
+  </div>
+</mat-card>
