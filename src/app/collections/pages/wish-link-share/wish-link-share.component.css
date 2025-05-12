@@ -1,0 +1,37 @@
+.link-share-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  font-family: sans-serif;
+}
+
+.header {
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 2rem;
+}
+
+.header button {
+  margin-right: auto;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+h2 {
+  color: #FF8B68;
+  margin-bottom: 1rem;
+}
+
+.link {
+  font-size: 1.2rem;
+  color: #9D3F23;
+  word-break: break-all;
+  text-align: center;
+}

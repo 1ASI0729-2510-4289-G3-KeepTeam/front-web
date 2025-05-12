@@ -1,0 +1,92 @@
+.share-settings-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  font-family: sans-serif;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 2rem;
+}
+
+.header button {
+  margin-right: 1rem;
+}
+
+.header h2 {
+  margin: 0;
+  color: #9D3F23;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+.content h3 {
+  color: #FF8B68;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+}
+
+.expiry-date,
+.permissions,
+mat-form-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.permissions label {
+  margin-right: 1rem;
+}
+
+.permission-buttons button {
+  padding: 0.75rem 1.5rem;
+  border: 1px solid #fdd835;
+  border-radius: 5px;
+  background-color: #fffde7;
+  color: #fdd835;
+  cursor: pointer;
+  margin-left: 0.5rem;
+}
+
+.permission-buttons button.active {
+  background-color: #fdd835;
+  color: white;
+}
+
+.get-link-button {
+  padding: 1rem 2rem;
+  background-color: #FF8B68;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 2rem;
+}
+
+.get-link-button:hover {
+  background-color: #e67a5a;
+}
+
+.qr-code-button {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center; /* O la alineación que prefieras */
+}
+
+.qr-code-button button {
+  /* Puedes añadir estilos específicos para el botón QR si lo deseas */
+}

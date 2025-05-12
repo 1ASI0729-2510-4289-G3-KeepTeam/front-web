@@ -1,6 +1,18 @@
 <div>
   <a href="#"><mat-icon style="color: #892525">delete</mat-icon></a>
-  <a [routerLink]="['/wish/share', wish?.id]"><mat-icon style="color: #FF8B68">share</mat-icon></a>
+  <button mat-icon-button [matMenuTriggerFor]="shareMenu" #shareMenuTrigger>
+    <mat-icon style="color: #FF8B68">share</mat-icon>
+  </button>
+  <mat-menu #shareMenu="matMenu" [overlapTrigger]="false" yPosition="below">
+    <button mat-menu-item (click)="shareAsQR()">
+      <mat-icon>qr_code</mat-icon>
+      <span>Share as QR</span>
+    </button>
+    <button mat-menu-item (click)="copyLink()">
+      <mat-icon>link</mat-icon>
+      <span>Copy Link</span>
+    </button>
+  </mat-menu>
   <a mat-flat-button href="#" class="editButton">
     Edit
     <mat-icon>edit</mat-icon>
