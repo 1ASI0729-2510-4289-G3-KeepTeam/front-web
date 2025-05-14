@@ -1,17 +1,23 @@
-<div class="main">
+<div class="page-container">
   <div class="sidebar">
     <app-sidebar></app-sidebar>
   </div>
-  <div class="searchBar">
-    <app-search-bar></app-search-bar>
+  <div class="content-area">
+    <div class="searchBar">
+      <app-search-bar></app-search-bar>
+    </div>
+    <app-creation-buttons> </app-creation-buttons>
+    <div class="collections-container">
+      <app-collection-card
+        *ngFor="let collection of collections"
+        [collection]="collection"
+        [name]="collection.name"
+        [imageUrls]="extractPrimerasCuatroImagenes(collection.items)"
+        [tags]="extractPrimerosTresTags(collection.items)"
+        (delete)="deleteCollection($event)"
+        (edit)="editCollection($event)"
+        (share)="shareCollection($event)"
+      ></app-collection-card>
+    </div>
   </div>
-</div>
-<app-creation-buttons> </app-creation-buttons>
-<div class="collections-container">
-  <app-collection-card
-    *ngFor="let collection of collections"
-    [name]="collection.name"
-    [imageUrls]="collection.imageUrls"
-    [tags]="collection.tags"
-  ></app-collection-card>
 </div>
