@@ -13,7 +13,8 @@
 
 <div class="containerContent">
   <div class="searchBar">
-    <app-item-actions></app-item-actions>
+    <app-item-actions [item]="{ collectionId: collectionId }"
+                      [editRoute]="['/collections', ':collectionId', 'edit']"></app-item-actions>
     <app-search-bar></app-search-bar>
   </div>
 

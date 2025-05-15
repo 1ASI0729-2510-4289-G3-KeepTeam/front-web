@@ -9,6 +9,7 @@ import { CollectionsService } from '../../services/collections.service';
 import { Collection } from '../../model/collection.entity';
 import { Wish } from '../../model/wish.entity';
 import { Router } from '@angular/router';
+import {ItemActionsComponent} from '../../components/item-actions/item-actions.component';
 /**
  * @component CollectionsGridComponent
  * @description
@@ -24,6 +25,7 @@ import { Router } from '@angular/router';
     CreationButtonsComponent,
     CollectionCardComponent,
     NgForOf,
+    ItemActionsComponent,
   ],
   templateUrl: './collections-grid.component.html',
   styleUrl: './collections-grid.component.css',
@@ -116,11 +118,12 @@ export class CollectionsGridComponent implements OnInit {
   //todo implementar que aqui se lleve a edit
   /**
    * @function editCollection
-   * @description Handler to trigger editing of a collection.
+   * @description Handler to trigger editing of a collection and redirects user to edit page.
    * @param collection - The collection object to edit.
    */
   editCollection(collection: any){
     console.log('Edit collection:', collection);
+    this.router.navigate(['/collections', collection.id, 'edit']);
   }
 
   /**

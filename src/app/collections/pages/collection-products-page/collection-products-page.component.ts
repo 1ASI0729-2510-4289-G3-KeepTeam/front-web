@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import {MatIcon} from '@angular/material/icon';
 import {ItemActionsComponent} from '../../components/item-actions/item-actions.component';
 import {SearchBarComponent} from '../../components/search-bar/search-bar.component';
+import {Collection} from '../../model/collection.entity';
 /**
  * @component CollectionProductsPageComponent
  * @description
@@ -28,11 +29,12 @@ export class CollectionProductsPageComponent implements OnInit {
    */
   public productList: Wish[] = [];
 
+
   /**
    * @property collectionId
    * @description The ID of the collection, retrieved from the route parameters.
    */
-  private collectionId: string;
+  collectionId: string;
 
   /**
    * @constructor
