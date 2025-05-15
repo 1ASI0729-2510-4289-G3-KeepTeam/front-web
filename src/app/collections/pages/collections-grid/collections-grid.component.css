@@ -22,7 +22,7 @@ app-search-bar {
 .collections-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 100px;
+  gap: 2rem;
   padding: 16px;
   margin: 15px 2rem 0 2rem;
 }

@@ -9,10 +9,9 @@
 .content {
   padding-inline: 2rem;
   width: 100%;
-
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 2rem;
+  gap: 1rem;
 }
 h3, h2, .up-bar mat-icon{
   color: #9D3F23;
@@ -23,7 +22,6 @@ h3, h2, .up-bar mat-icon{
   justify-content: left;
   align-items: flex-start;
   gap: 1rem;
-  margin: 1rem 3rem;
 }
 .searchBar{
   display: flex;
@@ -34,5 +32,6 @@ h3, h2, .up-bar mat-icon{
 }
 
 .containerContent{
-  width: 100%;
+  width: 80%;
+
 }

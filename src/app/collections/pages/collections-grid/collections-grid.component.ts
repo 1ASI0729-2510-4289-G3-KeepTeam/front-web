@@ -9,7 +9,6 @@ import { CollectionsService } from '../../services/collections.service';
 import { Collection } from '../../model/collection.entity';
 import { Wish } from '../../model/wish.entity';
 import { Router } from '@angular/router';
-import {ItemActionsComponent} from '../../components/item-actions/item-actions.component';
 /**
  * @component CollectionsGridComponent
  * @description
@@ -25,7 +24,6 @@ import {ItemActionsComponent} from '../../components/item-actions/item-actions.c
     CreationButtonsComponent,
     CollectionCardComponent,
     NgForOf,
-    ItemActionsComponent,
   ],
   templateUrl: './collections-grid.component.html',
   styleUrl: './collections-grid.component.css',
@@ -81,7 +79,7 @@ export class CollectionsGridComponent implements OnInit {
    */
   extractFirstFourImages(items: Wish[]){
     if (!items) return [];
-    return items.slice(0, 4).map(wish => wish.urlImg);
+    return items.filter(wish => !wish.isInTrash).slice(0, 4).map(wish => wish.urlImg);
   }
 
   /**

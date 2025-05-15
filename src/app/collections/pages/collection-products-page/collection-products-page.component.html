@@ -20,8 +20,6 @@
 
   <div class="content" *ngIf="productList.length > 0; else noProducts">
 
-
-
     <ng-container *ngFor="let product of productList">
       <app-product-item-card
         *ngIf="!product.isInTrash"

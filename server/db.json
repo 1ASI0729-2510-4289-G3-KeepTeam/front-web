@@ -75,29 +75,6 @@
   ],
   "items": [
     {
-      "id": "2",
-      "idCollection": "098",
-      "title": "Dog Bed",
-      "description": "Really comfy bed for a dog, very cute dog",
-      "isInTrash": false,
-      "urlImg": "https://m.media-amazon.com/images/I/71MT4YtIxJL._AC_UL640_FMwebp_QL65_.jpg",
-      "redirectUrl": "https://a.co/d/1WZ1R3n",
-      "tags": [
-        {
-          "name": "Mascots",
-          "color": "#FFC8DF"
-        },
-        {
-          "name": "Furniture",
-          "color": "#C8FDFF"
-        },
-        {
-          "name": "Pets",
-          "color": "#CAFFC8"
-        }
-      ]
-    },
-    {
       "id": "3",
       "idCollection": "098",
       "title": "Dog Food WAG 1",
@@ -111,8 +88,8 @@
           "color": "#FFC8DF"
         },
         {
-          "name": "wauw",
-          "color": "#FFC8DF"
+          "name": "Toys",
+          "color": "#C8FDFF"
         }
       ]
     },
@@ -202,7 +179,7 @@
     {
       "id": "9",
       "idCollection": "098",
-      "title": "Dog Food WAG 1 DELETE",
+      "title": "Dog Food WAG 2",
       "description": "Super Nutritious",
       "isInTrash": true,
       "urlImg": "https://m.media-amazon.com/images/I/71j17LT9ZxL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
@@ -213,7 +190,72 @@
           "color": "#FFC8DF"
         },
         {
-          "name": "wauw",
+          "name": "Toys",
+          "color": "#C8FDFF"
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "idCollection": "098",
+      "title": "Double Leash",
+      "description": "Multifunctional",
+      "isInTrash": false,
+      "urlImg": "https://m.media-amazon.com/images/I/71Ndj8ar0kL._AC_SX679_.jpg",
+      "redirectUrl": "https://a.co/d/csW9y6J",
+      "tags": [
+        {
+          "name": "Mascots",
+          "color": "#FFC8DF"
+        }
+      ]
+    },
+    {
+      "id": "11",
+      "idCollection": "098",
+      "title": "Puzzle Treat",
+      "description": "Very Fun",
+      "isInTrash": false,
+      "urlImg": "https://m.media-amazon.com/images/I/71N5z1w9wML._AC_SX679_.jpg",
+      "redirectUrl": "https://a.co/d/5NwUd3U",
+      "tags": [
+        {
+          "name": "Mascots",
+          "color": "#FFC8DF"
+        },
+        {
+          "name": "Food",
+          "color": "#FFC8DF"
+        }
+      ]
+    }
+  ,
+    {
+      "id": "12",
+      "idCollection": "098",
+      "title": "Dog Ball",
+      "description": "Very Fun ball",
+      "isInTrash": false,
+      "urlImg": "https://m.media-amazon.com/images/I/61ZgPGqgKPL._AC_SX679_.jpg",
+      "redirectUrl": "https://a.co/d/0sa8u9u",
+      "tags": [
+        {
+          "name": "Mascots",
+          "color": "#FFC8DF"
+        }
+      ]
+    },
+    {
+      "id": "13",
+      "idCollection": "098",
+      "title": "Fur Remover",
+      "description": "Very Fun ball",
+      "isInTrash": false,
+      "urlImg": "https://m.media-amazon.com/images/I/71YFOZ2k0XL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
+      "redirectUrl": "https://m.media-amazon.com/images/I/71YFOZ2k0XL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
+      "tags": [
+        {
+          "name": "Mascots",
           "color": "#FFC8DF"
         }
       ]
