@@ -10,7 +10,25 @@
   </div>
   <div class="title-row">
     <h3>{{ name }}</h3>
-    <div class="more-options">...</div>
+    <div class="more-options">
+      <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger>
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="onDelete()">
+          <mat-icon>delete</mat-icon>
+          <span>Delete</span>
+        </button>
+        <button mat-menu-item (click)="onEdit()">
+          <mat-icon>edit</mat-icon>
+          <span>Edit Collection</span>
+        </button>
+        <button mat-menu-item (click)="onShare()">
+          <mat-icon>share</mat-icon>
+          <span>Share</span>
+        </button>
+      </mat-menu>
+    </div>
   </div>
   <mat-chip-set aria-label="Tag List">
     <mat-chip *ngFor="let tag of displayedTags"
