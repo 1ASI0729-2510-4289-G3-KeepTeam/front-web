@@ -1,4 +1,4 @@
-<div class="collection-card">
+<div class="collection-card" (click)="onView()">
   <div class="image-container">
     <img *ngFor="let imageUrl of imageUrls; let i = index"
          [src]="imageUrl"
@@ -11,7 +11,7 @@
   <div class="title-row">
     <h3>{{ name }}</h3>
     <div class="more-options">
-      <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger>
+      <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()" #menuTrigger>
         <mat-icon>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu">

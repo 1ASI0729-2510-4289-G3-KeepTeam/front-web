@@ -29,7 +29,7 @@ export const routes: Routes = [
     component: CollectionsGridComponent,
   },
   {
-    path: 'collections/:id/products',
+    path: 'collections/:id',
     component: CollectionProductsPageComponent,
   },
   {
@@ -37,8 +37,13 @@ export const routes: Routes = [
     component: CollectionEditPageComponent,
   },
   {
-    path: 'collections/:collectionId/products/:productId',
+    path: 'collections/:collectionId/:productId',
     component: WishItemComponent,
+  }
+  ,
+  {
+    path: 'collections/:collectionId/:productId/edit',
+    component: WishEditItemComponent,
   },
   {
     path: 'collections/:collectionId/products/:productId/edit',

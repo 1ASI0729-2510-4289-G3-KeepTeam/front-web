@@ -1,25 +1,28 @@
-<div [ngStyle]="{ 'background-color': getSelectedBgColor() }" class="page-bg">
+<div class="page-bg" >
 <div class="back-button" (click)="goBack()">
   <span class="back-arrow">&#8592;</span>
   <span class="back-title">{{ collectionName }}</span>
 </div>
 
 <div class="edit-container">
-  <div class="preview">
+  <div class="preview" [ngStyle]="{ 'background-color': getSelectedBgColor() }">
     <div class="images">
-      <img src="assets/collar.dog.png" alt="Item 1" />
-      <img src="assets/bed.dog.png" alt="Item 2" />
-      <img src="assets/food.dog.png" alt="Item 3" />
-      <img src="assets/collar.pet.png" alt="Item 4" />
+        <img *ngFor="let imageUrl of imageUrls; let i = index"
+             [src]="imageUrl"
+             [alt]="'image ' + (i + 1)"
+             [ngClass]="'image-' + (i + 1)">
+
+        <div class="image-placeholder" *ngIf="imageUrls?.length === 0">
+          <span>No images</span>
+    </div>
     </div>
     <h2>{{ collectionName }}</h2>
-  </div>
 
 <div class="form">
   <label>Collection Name</label>
   <div class="input-wrapper">
     <input type="text" [(ngModel)]="collectionName" maxlength="20" class="collection-input" />
-    <span class="char-counter">{{ collectionName.length }} / 20</span>
+    <span class="char-counter">{{ collectionName?.length }} / 20</span>
   </div>
 
     <div class="color-selector">
@@ -40,13 +43,10 @@
     </div>
   <label>Color</label>
   <div class="buttons">
-    <button class="save">Save</button>
+    <button class="save" (click)="save()">Save</button>
     <button class="cancel">Cancel</button>
   </div>
 </div>
 </div>
 </div>
-
-
-
-
+</div>
