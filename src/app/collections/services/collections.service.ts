@@ -11,10 +11,14 @@ import {Collection} from '../model/collection.entity';
 })
 export class CollectionsService {
   private readonly baseUrl = environment.fakeAPIBaseUrl;
-  private readonly endpoint = 'collections';
+
 
   constructor(private http: HttpClient) {}
-
+  /**
+   * @function getCollections
+   * @description Fetch all collections and their items.
+   * For each collection, fetch items separately and combine them.
+   */
   getCollections() {
     return this.http.get<any[]>(`${this.baseUrl}/collections`).pipe(
       switchMap(collections => {
@@ -31,7 +35,11 @@ export class CollectionsService {
       })
     );
   }
-
+  /**
+   * @function getWishById
+   * @description Fetch a single wish by its ID, including tags.
+   * @param wishId The ID of the wish to fetch
+   */
   getWishById(wishId: string) {
     console.log(`${this.baseUrl}/items?id=${wishId}`);
     return this.http.get(`${this.baseUrl}/items?id=${wishId}`).pipe(
@@ -62,24 +70,45 @@ export class CollectionsService {
       })
     );
   }
-
+  /**
+   * @function updateWish
+   * @description Update an existing wish.
+   * @param wish Wish object to update
+   */
   updateWish(wish: Wish) {
     return this.http.put<Wish>(`${this.baseUrl}/items/${wish.id}`, wish);
   }
-
+  /**
+   * @function updateCollectionTitle
+   * @description Update the title of a collection by its ID.
+   * @param id Collection ID
+   * @param newTitle New title string
+   */
   updateCollectionTitle(id: string, newTitle: string) {
     return this.http.patch<Collection>(`${this.baseUrl}/collections/${id}`, { title: newTitle });
   }
-
+  /**
+   * @function getCollectionById
+   * @description Fetch a collection by its ID.
+   * @param id Collection ID
+   */
   getCollectionById(id: string) {
     return this.http.get<Collection>(`${this.baseUrl}/collections/${id}`);
   }
 
-
+  /**
+   * @function deleteWish
+   * @description Delete a wish from de database by its ID.
+   * @param id Wish ID
+   */
   deleteWish(id: string) {
     return this.http.delete(`${this.baseUrl}/items/${id}`);
   }
-
+  /**
+   * @function getProductsByIdCollection
+   * @description Fetch all wishes/items by collection ID.
+   * @param idCollection Collection ID
+   */
   getProductsByIdCollection(idCollection: string) {
     console.log(`${this.baseUrl}/items?idCollection=${idCollection}`, "me vuelvo loco");
     return this.http

@@ -6,7 +6,12 @@ import { TagListComponent } from '../../../public/components/tags/tag-list.compo
 import {Wish} from '../../model/wish.entity';
 import {ActivatedRoute} from '@angular/router';
 import {CollectionsService} from '../../services/collections.service';
-
+/**
+ * @component WishItemComponent
+ * @description
+ * Displays the details of a single Wish item fetched by productId from the route.
+ * Includes UI elements like tag list and item actions.
+ */
 @Component({
   selector: 'app-wish-item',
   imports: [
@@ -19,32 +24,52 @@ import {CollectionsService} from '../../services/collections.service';
   styleUrl: './wish-item.component.css',
 })
 export class WishItemComponent implements OnInit {
-  wishId: string | null = null;  // Para almacenar el ID del producto
-  wish: Wish | undefined = undefined;   // Aquí almacenamos la información del producto
+  /**
+   * @property wishId
+   * The productId extracted from the URL route parameters.
+   */
+  wishId: string | null = null;
 
+  /**
+   * @property wish
+   * The Wish object to display, fetched from the service.
+   */
+  wish: Wish | undefined = undefined;
+
+  /**
+   * @constructor
+   * @param route ActivatedRoute for route parameters
+   * @param wishService Service to fetch Wish details
+   */
   constructor(
-    private route: ActivatedRoute,  // Para obtener parámetros de la URL
-    private wishService: CollectionsService// Inyectamos tu servicio
+    private route: ActivatedRoute,
+    private wishService: CollectionsService
   ) {}
 
+  /**
+   * @function ngOnInit
+   * Fetches the productId from route params and loads Wish details if present.
+   */
   ngOnInit(): void {
-    // Obtenemos el productId de la URL
     this.wishId = this.route.snapshot.paramMap.get('productId');
 
-    // Si tenemos un productId, hacemos la solicitud
     if (this.wishId) {
       this.getWishDetails(this.wishId);
     }
   }
 
-  // Llamamos al servicio para obtener la información del producto
-
+  /**
+   * @function getWishDetails
+   * Fetches Wish details by ID and assigns it to the component property.
+   * Ensures tags array exists to avoid null references.
+   * @param id The Wish ID to fetch
+   */
   getWishDetails(id: string): void {
     this.wishService.getWishById(id).subscribe({
       next: (data) => {
         this.wish = {
           ...data,
-          tags: data.tags || []  // Asegura que siempre sea un arreglo vacío si tags es undefined
+          tags: data.tags || [],
         };
         console.log(this.wish);
       },
@@ -53,6 +78,12 @@ export class WishItemComponent implements OnInit {
       },
     });
   }
+
+  /**
+   * @function goBack
+   * Navigates back in browser history.
+   */
   goBack(): void {
     history.back();
-  }}
+  }
+}
