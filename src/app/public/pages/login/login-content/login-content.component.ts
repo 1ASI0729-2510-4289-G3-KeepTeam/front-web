@@ -34,10 +34,13 @@ export class LoginComponent {
   constructor(private authService: AuthorizationService, private snackBar: MatSnackBar,private router: Router) {}
 
   onLogin(): void {
+
     this.authService.login(this.email, this.password).subscribe(users => {
       if (users.length > 0) {
+        const user = users[0];
         console.log('Usuario autenticado:', users[0]);
-        this.router.navigate(['/user-profile']); // Cambia a tu ruta deseada
+        localStorage.setItem('userId', user.id.toString()); // <-- Aquí lo guardas
+        this.router.navigate(['/user-profile']); // Ruta al perfil
       } else {
 
         this.snackBar.open('Email or password incorrect', 'Close', {

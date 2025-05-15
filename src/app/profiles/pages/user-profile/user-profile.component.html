@@ -1,29 +1,41 @@
-<mat-card class="profile-card">
+<div class="profile-container">
   <div class="profile-header">
-    <img [src]="user?.profilePicture" class="avatar"  alt="profilePicture"/>
-    <h1>Hola, {{ user?.name }} 👋</h1>
-    <button mat-raised-button color="accent">Editar Perfil</button>
+    <img [src]="user.profilePicture" alt="Profile Picture">
+    <div>
+      <h2>Hola, {{ user.name }} 👋</h2>
+      <button mat-raised-button color="primary">Edit profile</button>
+    </div>
   </div>
 
-  <div class="info-section">
-    <h3>Actividad</h3>
-    <p>Mis colecciones: 13</p>
-    <p>Items guardados: 230</p>
+  <div class="section">
+    <mat-card class="card">
+      <mat-card-title>Activity</mat-card-title>
+      <mat-card-content>
+        <p><strong>My Collections:</strong> 13</p>
+        <p><strong>Saved Items:</strong> 230</p>
+      </mat-card-content>
+    </mat-card>
 
-    <h3>Plan actual: Infinite</h3>
-    <p>Email: {{ user?.email }}</p>
-    <p>Contraseña: ********</p>
-    <button mat-stroked-button color="warn">Cambiar contraseña</button>
+    <mat-card class="card">
+      <mat-card-title>Payment Information</mat-card-title>
+      <mat-card-content>
+        <p><strong>Linked Card:</strong> ••••0342</p>
+        <p><strong>Holder:</strong> {{ user.name }}</p>
+        <button mat-raised-button class="editButton" color="accent">Edit Card Information</button>
+      </mat-card-content>
+    </mat-card>
   </div>
 
-  <div class="payment-section">
-    <h3>Información de pago</h3>
-    <p>Tarjeta: **0342 (VISA)</p>
-    <p>Titular: {{ user?.name }}</p>
-    <button mat-flat-button color="primary">Editar tarjeta</button>
+  <div class="section">
+    <mat-card class="card">
+      <mat-card-title>Current Plan: Infinite</mat-card-title>
+      <mat-card-content>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Password:</strong> ********</p>
+        <button mat-raised-button color="accent">Change Password</button>
+      </mat-card-content>
+    </mat-card>
   </div>
 
-  <div class="delete-button">
-    <button mat-raised-button color="warn">Eliminar cuenta</button>
-  </div>
-</mat-card>
+  <button mat-raised-button class="delete-button" style="background-color: #B40000; color: #FFFFFF">Delete Account</button>
+</div>
