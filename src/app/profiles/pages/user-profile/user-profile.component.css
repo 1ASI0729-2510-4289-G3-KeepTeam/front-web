@@ -104,3 +104,7 @@ button.mat-raised-button {
   border-radius: 10px;
 }
 
+.change-password-Button{
+  background-color: #FFFCD7 !important;
+  color: #FF9A7C !important;
+}
