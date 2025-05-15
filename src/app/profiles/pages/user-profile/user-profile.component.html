@@ -1,9 +1,11 @@
 <div class="profile-container">
   <div class="profile-header">
     <img [src]="user.profilePicture" alt="Profile Picture">
-    <div>
-      <h2>Hola, {{ user.name }} 👋</h2>
-      <button mat-raised-button color="primary">Edit profile</button>
+    <div class="header-content">
+      <div class="username-and-button">
+        <h1>Hola, {{ user.name }} 👋</h1>
+        <button mat-raised-button color="primary">Edit profile</button>
+      </div>
     </div>
   </div>
 
