@@ -6,6 +6,8 @@ import { TagListComponent } from '../../../public/components/tags/tag-list.compo
 import {Wish} from '../../model/wish.entity';
 import {ActivatedRoute} from '@angular/router';
 import {CollectionsService} from '../../services/collections.service';
+import {MatDialog} from '@angular/material/dialog';
+import { PopConfirmDialogComponent } from '../../../public/components/pop-confirm-dialog/pop-confirm-dialog.component';
 /**
  * @component WishItemComponent
  * @description
@@ -39,11 +41,13 @@ export class WishItemComponent implements OnInit {
   /**
    * @constructor
    * @param route ActivatedRoute for route parameters
-   * @param wishService Service to fetch Wish details
+   * @param dialog Service to fetch Wish details
+   * @param collectionsService Service to fetch Wish details
    */
   constructor(
     private route: ActivatedRoute,
-    private wishService: CollectionsService
+    private dialog: MatDialog,
+    private collectionsService: CollectionsService
   ) {}
 
   /**
@@ -65,7 +69,7 @@ export class WishItemComponent implements OnInit {
    * @param id The Wish ID to fetch
    */
   getWishDetails(id: string): void {
-    this.wishService.getWishById(id).subscribe({
+    this.collectionsService.getWishById(id).subscribe({
       next: (data) => {
         this.wish = {
           ...data,
@@ -86,4 +90,30 @@ export class WishItemComponent implements OnInit {
   goBack(): void {
     history.back();
   }
-}
+  /**
+   * @function handleDelete
+   * @description
+   * Handles the deletion process of an item by showing a confirmation dialog.
+   * If the user confirms, it performs a soft delete by setting `isInTrash` to true
+   * and updating the item using the CollectionsService.
+   *
+   * @param item - The item object to be soft-deleted.
+   */
+  handleDelete(item: any) {
+    const dialogRef = this.dialog.open(PopConfirmDialogComponent, {
+      data: {
+        title: 'Confirm Deletion',
+        message: `¿Are you sure you want to delete ${item.title || item.name}?`
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        const updatedItem = { ...item, isInTrash: true };
+        this.collectionsService.updateWish(updatedItem).subscribe(() => {
+          console.log('Item moved to trashcan');
+        });
+        history.back();
+      }
+    });
+}}
