@@ -12,17 +12,15 @@ body {
   font-family: "Overpass", sans-serif !important;
 }
 
-mat-icon {
-  font-family: "Material Icons" !important;
-}
-
 .mat-mdc-standard-chip .mdc-evolution-chip__action--primary::before {
   border: none !important;
   box-shadow: 2px 2px 5px #00000017;
 }
 
 mat-icon {
-  font-family: "Material Icons" !important;
+  font-family: "Material Icons", sans-serif !important;
+  cursor: pointer;
+
 }
 
 html,

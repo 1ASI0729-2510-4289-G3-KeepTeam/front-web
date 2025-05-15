@@ -1,34 +1,23 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  signal,
-  computed,
-  model,
-  ViewChild,
-} from '@angular/core';
+import {Component, signal, computed, model, OnInit,} from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { ItemActionsComponent } from '../../components/item-actions/item-actions.component';
-import { Wish } from '../../model/wish.entity';
 import { Tag } from '../../model/tag.entity';
-import { DatePipe, NgForOf } from '@angular/common';
+import {  NgForOf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
-import {
-  MatAutocompleteModule,
-  MatAutocompleteSelectedEvent,
-} from '@angular/material/autocomplete';
-import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
+import {MatAutocompleteModule, MatAutocompleteSelectedEvent,} from '@angular/material/autocomplete';
+import {MatChipsModule } from '@angular/material/chips';
+import {CollectionsService} from '../../services/collections.service';
+import {Wish} from '../../model/wish.entity';
+import {ActivatedRoute} from '@angular/router';
+
 
 @Component({
   selector: 'app-edit-wish-item',
   imports: [
     MatIconModule,
-    ItemActionsComponent,
-    // DatePipe,
     MatButtonModule,
     MatChipsModule,
     MatInputModule,
@@ -40,59 +29,37 @@ import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
   templateUrl: './wish-edit-item.component.html',
   styleUrl: './wish-edit-item.component.css',
 })
-export class WishEditItemComponent implements AfterViewInit {
-  // Entities de prueba
-  tagsExample: Tag[] = [];
+export class WishEditItemComponent implements OnInit {
+
   wish: Wish = new Wish();
+  tagInputValue = signal('');
+  productId: string | null = '';
 
-  constructor() {
-    const tag1 = new Tag();
-    tag1.name = 'Plushies';
-    tag1.color = '#FFC8DF';
+  constructor(
+    private route: ActivatedRoute, // obtaining parameters from route
+    private collectionsService: CollectionsService
+  ) {}
 
-    const tag2 = new Tag();
-    tag2.name = 'Blue Pallete';
-    tag2.color = '#C8FDFF';
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params) => {
+      this.productId = params.get('productId');
 
-    this.tagsExample.push(tag1, tag2);
-
-    this.wish.id = '123laleleimAnID';
-    this.wish.title = 'Miku Plushie';
-    this.wish.description =
-      'A miku plushie, very affordable, very blue, i like blue things, thats the only reason its here, idont know what else to add, thankyou';
-    this.wish.url = 'https://mikuexpo.com';
-    this.wish.imgUrl =
-      'https://m.media-amazon.com/images/I/61KVfgeYlKL._AC_SL1200_.jpg';
-    // this.wish.dateCreation = new Date('2004-07-18T10:10:00Z');
-    this.wish.tags = this.tagsExample;
+      if (this.productId) {
+        this.getWish(this.productId)
+      }
+    });
   }
 
-  allTags: Tag[] = [
-    { name: 'Plushies', color: '#FFC8DF' },
-    { name: 'Blue Pallete', color: '#C8FDFF' },
-    { name: 'Brazil', color: '#CAFFC8' },
-  ];
-
-  //fin de entities de prueba
-
-  protected readonly value = signal('');
-
-  @ViewChild('input') input!: ElementRef<HTMLTextAreaElement>;
-
-  ngAfterViewInit(): void {
-    this.adjustHeight();
-  }
-
-  protected onInput(event: Event): void {
-    const newValue = (event.target as HTMLTextAreaElement).value;
-    this.value.set(newValue);
-    this.adjustHeight();
-  }
-
-  private adjustHeight(): void {
-    const el = this.input.nativeElement;
-    el.style.height = '';
-    el.style.height = el.scrollHeight + 'px';
+  private getWish(productId: string): void {
+    this.collectionsService.getWishById(productId).subscribe({
+      next: (wish: Wish) => {
+        this.wish = wish;
+        console.log(this.wish); //confirm received data
+      },
+      error: (err) => {
+        console.error('Error al obtener el wish:', err);
+      },
+    });
   }
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
@@ -101,61 +68,69 @@ export class WishEditItemComponent implements AfterViewInit {
   readonly filteredTags = computed(() => {
     const currentTag = this.currentTag().toLowerCase();
     return currentTag
-      ? this.allTags.filter((tag) =>
-          tag.name.toLowerCase().includes(currentTag)
-        )
-      : this.allTags.slice();
+      ? this.wish.tags.filter((tag) =>
+        tag.name.toLowerCase().includes(currentTag) //only from tags in wish
+      )
+      : this.wish.tags.slice();
   });
 
-  add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
-
-    // Add our fruit
+  add(): void {
+    const value = this.tagInputValue().trim();
     if (value) {
       const colors = ['#FFC8DF', '#C8FDFF', '#CAFFC8'];
       const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
-      let tag = new Tag();
+      const tag = new Tag();
       tag.name = value;
       tag.color = randomColor;
+
       this.tags.update((tags) => [...tags, tag]);
+
       if (!this.wish.tags.some((t) => t.name === tag.name)) {
         this.wish.tags.push(tag);
       }
-      if (!this.allTags.some((t) => t.name === tag.name)) {
-        this.allTags.push(tag);
-      }
     }
 
-    // Clear the input value
-    this.currentTag.set('');
+    this.tagInputValue.set('');
   }
 
   remove(tag: Tag): void {
-    // allTags
-    const index = this.allTags.indexOf(tag);
-    if (index < 0) {
-      console.log(`wish.tags: ${tag.name} not found`);
-    } else {
-      this.allTags.splice(index, 1);
-      console.log(`wish.tags: Removed ${tag.name} from `);
-      console.log(this.allTags);
-    }
-
-    // wish.tags
+    // Eliminar de wish.tags
     const indexWish = this.wish.tags.indexOf(tag);
     if (indexWish < 0) {
       console.log(`wish.tags: ${tag.name} not found`);
     } else {
       this.wish.tags.splice(indexWish, 1);
-      console.log(`wish.tags: Removed ${tag.name} from `);
+      console.log(`wish.tags: Removed ${tag.name}`);
       console.log(this.wish.tags);
     }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
+    // Actualizar las tags al seleccionar una opción
     this.tags.update((tags) => [...tags]);
     this.currentTag.set('');
     event.option.deselect();
   }
-}
+
+  onCancel(): void {
+    history.back();
+  }
+
+
+  onSave(): void {
+    console.log('Saving wish:', this.wish);
+    if (this.wish.id) {
+      this.collectionsService.updateWish(this.wish).subscribe({
+        next: (updatedWish) => {
+          console.log('Wish updated:', updatedWish);
+          history.back();
+        },
+        error: (err) => {
+          console.error('Error updating wish:', err);
+        }
+      });
+    } else {
+        console.error('Error adding because of wish.id');
+    }
+}}

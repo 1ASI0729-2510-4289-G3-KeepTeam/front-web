@@ -1,7 +1,7 @@
 <div>
-  <a href="#"><mat-icon style="color: #892525">delete</mat-icon></a>
+  <a (click)="openDeleteDialog(wish)"><mat-icon style="color: #892525">delete</mat-icon></a>
   <a [routerLink]="['/wish/share', wish?.id]"><mat-icon style="color: #FF8B68">share</mat-icon></a>
-  <a mat-flat-button href="#" class="editButton">
+  <a mat-flat-button [routerLink]="['/collections', wish?.idCollection, 'products', wish?.id, 'edit']" class="editButton">
     Edit
     <mat-icon>edit</mat-icon>
   </a>

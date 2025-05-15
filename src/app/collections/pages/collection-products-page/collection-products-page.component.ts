@@ -21,15 +21,17 @@ export class CollectionProductsPageComponent implements OnInit {
   constructor(
     private collectionsService: CollectionsService,
     private route: ActivatedRoute
+
   ) {
     this.collectionId = this.route.snapshot.paramMap.get('id') ?? '098';
   }
 
   ngOnInit() {
-    this.collectionsService
-      .getProductsByCollectionId(this.collectionId)
-      .subscribe((data) => {
-        this.productList = data;
-      });
-  }
-}
+
+    const id = this.route.snapshot.paramMap.get('id');
+
+    this.collectionsService.getProductsByIdCollection(id!).subscribe((data) => {
+      console.log('Productos recibidos:', data);
+      this.productList = data;
+    });
+  }}

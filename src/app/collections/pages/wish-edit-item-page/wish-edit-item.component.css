@@ -41,6 +41,7 @@ h3, h2, .up-bar mat-icon{
 
 .content{
   display: flex;
+  flex-wrap: wrap;
   gap: 2rem;
   width: fit-content;
   margin: 2rem 14rem;
@@ -71,4 +72,22 @@ textarea, input{
   background-color: #FCFAFA;
   border:none
 }
-
+.action-buttons{
+  display: flex;
+  gap: 1rem;
+  margin: 2rem;
+}
+button{
+  border-radius: 0.8rem;
+}
+.container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.example-form{
+  width: 20rem;
+}
+textarea{
+  width: 10rem;
+}

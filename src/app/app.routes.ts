@@ -16,7 +16,7 @@ export const routes: Routes = [
     component: CollectionsGridComponent,
   },
   {
-    path: 'collections/user/:id',
+    path: 'collections/user/:idUser',
     component: CollectionsGridComponent,
   },
   {
