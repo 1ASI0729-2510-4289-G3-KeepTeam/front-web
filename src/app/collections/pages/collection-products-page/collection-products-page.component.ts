@@ -6,6 +6,8 @@ import { CollectionsService } from '../../services/collections.service';
 import { Wish } from '../../model/wish.entity';
 import { ActivatedRoute } from '@angular/router';
 import {MatIcon} from '@angular/material/icon';
+import {ItemActionsComponent} from '../../components/item-actions/item-actions.component';
+import {SearchBarComponent} from '../../components/search-bar/search-bar.component';
 /**
  * @component CollectionProductsPageComponent
  * @description
@@ -15,7 +17,7 @@ import {MatIcon} from '@angular/material/icon';
  */
 @Component({
   selector: 'app-collection-products-page',
-  imports: [SidebarComponent, ProductItemCardComponent, CommonModule, MatIcon],
+  imports: [SidebarComponent, ProductItemCardComponent, CommonModule, MatIcon, ItemActionsComponent, SearchBarComponent],
   templateUrl: './collection-products-page.component.html',
   styleUrl: './collection-products-page.component.css',
 })

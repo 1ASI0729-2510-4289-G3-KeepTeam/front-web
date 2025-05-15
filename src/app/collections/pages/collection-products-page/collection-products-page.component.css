@@ -19,10 +19,20 @@ h3, h2, .up-bar mat-icon{
 }
 .up-bar{
   display: flex;
+  width: 100%;
   justify-content: left;
   align-items: flex-start;
   gap: 1rem;
   margin: 1rem 3rem;
 }
+.searchBar{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 2rem;
+  gap: 3rem;
+}
 
-
+.containerContent{
+  width: 100%;
+}
