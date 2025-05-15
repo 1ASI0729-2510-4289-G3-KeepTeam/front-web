@@ -6,10 +6,20 @@
       <mat-icon class="clickable-icon" (click)="goBack()">arrow_back</mat-icon>
 
     <app-sidebar></app-sidebar>
+
     </div>
+
+  </div>
+
+<div class="containerContent">
+  <div class="searchBar">
+    <app-item-actions></app-item-actions>
+    <app-search-bar></app-search-bar>
   </div>
 
   <div class="content" *ngIf="productList.length > 0; else noProducts">
+
+
 
     <ng-container *ngFor="let product of productList">
       <app-product-item-card
@@ -25,4 +35,5 @@
   <ng-template #noProducts>
     <div style="text-align: center; margin-top: 10rem">There are no products in this collection.</div>
   </ng-template>
+</div>
 </div>
