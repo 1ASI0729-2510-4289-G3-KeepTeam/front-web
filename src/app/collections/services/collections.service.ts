@@ -4,6 +4,7 @@ import { environment } from '../../../environments/environment';
 import {map,switchMap,tap,forkJoin} from 'rxjs';
 import { Wish } from '../model/wish.entity';
 import {Tag} from '../model/tag.entity';
+import {Collection} from '../model/collection.entity';
 
 @Injectable({
   providedIn: 'root',
@@ -65,6 +66,15 @@ export class CollectionsService {
   updateWish(wish: Wish) {
     return this.http.put<Wish>(`${this.baseUrl}/items/${wish.id}`, wish);
   }
+
+  updateCollectionTitle(id: string, newTitle: string) {
+    return this.http.patch<Collection>(`${this.baseUrl}/collections/${id}`, { title: newTitle });
+  }
+
+  getCollectionById(id: string) {
+    return this.http.get<Collection>(`${this.baseUrl}/collections/${id}`);
+  }
+
 
   deleteWish(id: string) {
     return this.http.delete(`${this.baseUrl}/items/${id}`);

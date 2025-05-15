@@ -4,6 +4,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-collection-card',
@@ -13,6 +14,9 @@ import { MatMenuModule } from '@angular/material/menu';
   styleUrls: ['./collection-card.component.css'],
 })
 export class CollectionCardComponent {
+
+  constructor(private router: Router) {}
+
   @Input() name: string = '';
   @Input() imageUrls: string[] = [];
   @Input() tags: { name: string; color: string }[] = [];
@@ -20,7 +24,7 @@ export class CollectionCardComponent {
   @Output() delete = new EventEmitter<any>();
   @Output() edit = new EventEmitter<any>();
   @Output() share = new EventEmitter<any>();
-
+  @Output() view = new EventEmitter<void>();
   get displayedTags(): { name: string; color: string }[] {
     return this.tags.slice(0, 3);
   }
@@ -30,10 +34,13 @@ export class CollectionCardComponent {
   }
 
   onEdit(): void {
-    this.edit.emit(this.collection);
+    this.router.navigate(['/collections', this.collection.id, 'edit']);
   }
 
   onShare(): void {
     this.share.emit(this.collection);
+  }
+  onView() {
+    this.view.emit();
   }
 }

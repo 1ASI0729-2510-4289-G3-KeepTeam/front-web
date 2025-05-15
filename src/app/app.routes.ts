@@ -31,4 +31,9 @@ export const routes: Routes = [
     path: 'collections/:collectionId/:productId',
     component: WishItemComponent,
   }
+  ,
+  {
+    path: 'collections/:collectionId/:productId/edit',
+    component: WishEditItemComponent,
+  }
 ];
