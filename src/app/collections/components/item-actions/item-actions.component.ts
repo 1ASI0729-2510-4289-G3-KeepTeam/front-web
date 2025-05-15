@@ -1,11 +1,7 @@
-import { Component, Input } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import {RouterLink} from '@angular/router';
-import { Wish } from '../../model/wish.entity';
-import {PopConfirmDialogComponent} from '../../../public/components/pop-confirm-dialog/pop-confirm-dialog.component';
-import {MatDialog} from '@angular/material/dialog';
-import {CollectionsService} from '../../services/collections.service';
 
 /**
  * @component ItemActionsComponent
@@ -23,38 +19,45 @@ import {CollectionsService} from '../../services/collections.service';
 })
 export class ItemActionsComponent {
   /**
-   * @input wish
-   * @description The item (Wish) that this component provides actions for.
+   * @input item
+   * The item object (can be a wish, collection, etc.) on which actions will be performed.
    */
-  @Input() wish: Wish | undefined;
-  /**
-   * @constructor
-   * @param collectionsService - Service for handling collection-related logic, including updating wishes.
-   * @param dialog - Angular Material dialog service used to open confirmation dialogs.
-   */
-  constructor(
-    private collectionsService: CollectionsService,
-    private dialog: MatDialog
-  ) {}
-  /**
-   * @function openDeleteDialog
-   * @description Opens a confirmation dialog to delete an item. If confirmed,
-   * it flags the item as trashed and updates it through the service.
-   * @param item - The item to be marked as deleted.
-   */
-  openDeleteDialog(item: any): void {
-    const dialogRef = this.dialog.open(PopConfirmDialogComponent, {
-      data: { title: item.title },
-    });
+  @Input() item: any;
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        console.log(`Trying to delete ${item.title}`, result);
-        item.isInTrash = true;
-        this.collectionsService.updateWish(item).subscribe(() => {
-          history.back();
-        });
+  /**
+   * @input shareRoute
+   * You can use placeholder segments like ':id' that will be replaced dynamically.
+   */
+  @Input() shareRoute?: any[];
+
+  /**
+   * @input editRoute
+   * Accepts placeholders like ':id', ':collectionId' that are replaced using the item.
+   */
+  @Input() editRoute?: any[];
+
+  /**
+   * @output onDelete
+   * Emits the current item when the delete action is triggered.
+   */
+  @Output() onDelete = new EventEmitter();
+
+  /**
+   * @function buildRoute
+   * @description
+   * Builds a concrete route from a route template by replacing any placeholder segments (e.g., ':id')
+   * with actual values from the `item` object.
+   * @param route - An array of route segments (strings).
+   * @returns {any[]} A new route array with values replaced where applicable.
+   */
+  buildRoute(route: any[] | undefined): any[] {
+    if (!route) return [];
+    return route.map(segment => {
+      if (typeof segment === 'string' && segment.startsWith(':')) {
+        const key = segment.substring(1);
+        return (this.item as any)[key] ?? segment;
       }
+      return segment;
     });
-
-}}
+  }
+}
