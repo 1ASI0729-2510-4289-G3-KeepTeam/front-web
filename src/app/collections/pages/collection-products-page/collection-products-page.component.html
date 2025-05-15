@@ -1,7 +1,12 @@
-<div class="main">
-  <div class="sidebar">
-    <app-sidebar></app-sidebar>
 
+<div class="main">
+
+  <div class="sidebar">
+    <div class="up-bar">
+      <mat-icon class="clickable-icon" (click)="goBack()">arrow_back</mat-icon>
+
+    <app-sidebar></app-sidebar>
+    </div>
   </div>
 
   <div class="content" *ngIf="productList.length > 0; else noProducts">

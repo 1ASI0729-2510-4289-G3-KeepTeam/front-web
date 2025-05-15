@@ -5,10 +5,11 @@ import { ProductItemCardComponent } from '../../components/product-item-card/pro
 import { CollectionsService } from '../../services/collections.service';
 import { Wish } from '../../model/wish.entity';
 import { ActivatedRoute } from '@angular/router';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-collection-products-page',
-  imports: [SidebarComponent, ProductItemCardComponent, CommonModule],
+  imports: [SidebarComponent, ProductItemCardComponent, CommonModule, MatIcon],
   templateUrl: './collection-products-page.component.html',
   styleUrl: './collection-products-page.component.css',
 })
@@ -34,4 +35,7 @@ export class CollectionProductsPageComponent implements OnInit {
       console.log('Productos recibidos:', data);
       this.productList = data;
     });
+  }
+  goBack(): void {
+    history.back();
   }}
