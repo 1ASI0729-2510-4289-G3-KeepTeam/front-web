@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import {map, tap} from 'rxjs';
-import { Collection } from '../model/collection.entity';
+import {map,switchMap,tap,forkJoin} from 'rxjs';
 import { Wish } from '../model/wish.entity';
 import {Tag} from '../model/tag.entity';
 
@@ -16,15 +15,18 @@ export class CollectionsService {
   constructor(private http: HttpClient) {}
 
   getCollections() {
-    return this.http.get(`${this.baseUrl}/${this.endpoint}`).pipe(
-      map((response: any): Collection[] => {
-        return (response as any[]).map((item) => {
-          return {
-            id: item.id,
-            name: item.name,
-            items: item.items,
-          };
-        });
+    return this.http.get<any[]>(`${this.baseUrl}/collections`).pipe(
+      switchMap(collections => {
+        const requests = collections.map((collection: any) =>
+          this.getProductsByIdCollection(collection.id).pipe(
+            map(items => ({
+              id: collection.id,
+              name: collection.title ?? 'Sin nombre',
+              items
+            }))
+          )
+        );
+        return forkJoin(requests); // Espera a que todas las peticiones terminen
       })
     );
   }

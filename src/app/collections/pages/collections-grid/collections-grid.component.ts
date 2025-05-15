@@ -4,10 +4,11 @@ import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
 import { CreationButtonsComponent } from '../../components/creation-buttons/creation-buttons.component';
 import { CollectionCardComponent } from '../../components/collection-card/collection-card.component';
-import { NgForOf, SlicePipe } from '@angular/common';
+import { NgForOf} from '@angular/common';
 import { CollectionsService } from '../../services/collections.service';
 import { Collection } from '../../model/collection.entity';
 import { Wish } from '../../model/wish.entity';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-collections-grid',
@@ -18,7 +19,6 @@ import { Wish } from '../../model/wish.entity';
     CreationButtonsComponent,
     CollectionCardComponent,
     NgForOf,
-    SlicePipe,
   ],
   templateUrl: './collections-grid.component.html',
   styleUrl: './collections-grid.component.css',
@@ -26,35 +26,48 @@ import { Wish } from '../../model/wish.entity';
 export class CollectionsGridComponent implements OnInit {
   collections: { id: string; name: string; items: Wish[] }[] = [];
 
-  constructor(private collectionsService: CollectionsService) {}
+  constructor(private collectionsService: CollectionsService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadCollections();
   }
 
   loadCollections(): void {
-    this.collectionsService.getCollections().subscribe(
-      (data: Collection[]) => {
+    this.collectionsService.getCollections().subscribe({
+      next: (data: Collection[]) => {
         this.collections = data.map(collection => ({
           id: collection.id,
           name: collection.name,
           items: collection.items,
         }));
       },
-      (error) => {
+      error: (error) => {
         console.error('Error al cargar las colecciones:', error);
       }
-    );
+    });
+
+    console.log(this.collections);
   }
 
   extractPrimerasCuatroImagenes(items: Wish[]): string[] {
-    return items.slice(0, 4).map(wish => wish.url);
+    if (!items) return [];
+    return items.slice(0, 4).map(wish => wish.urlImg);
   }
 
   extractPrimerosTresTags(items: Wish[]): { name: string; color: string }[] {
-    return items.slice(0, 3)
-      .filter(wish => wish.tags && wish.tags.length > 0)
-      .map(wish => ({ name: wish.tags[0]?.name || 'Sin Tag', color: wish.tags[0]?.color || '#e0f7fa' }));
+    if (!items) return [];
+    const uniqueTags: { [name: string]: { name: string; color: string } } = {};
+    for (const wish of items) {
+      if (!wish.tags) continue;
+      for (const tag of wish.tags) {
+        if (!uniqueTags[tag.name]) {
+          uniqueTags[tag.name] = { name: tag.name, color: tag.color || '#e0f7fa' };
+        }
+        if (Object.keys(uniqueTags).length >= 3) break;
+      }
+      if (Object.keys(uniqueTags).length >= 3) break;
+    }
+    return Object.values(uniqueTags).slice(0, 3);
   }
 
   deleteCollection(collection: any): void {
@@ -71,4 +84,8 @@ export class CollectionsGridComponent implements OnInit {
     console.log('Compartir colección:', collection);
 
   }
+  navigateToCollection(id: string): void {
+    this.router.navigate(['/collections', id]);
+  }
+
 }

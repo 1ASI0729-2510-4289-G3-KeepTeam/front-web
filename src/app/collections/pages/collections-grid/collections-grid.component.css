@@ -1,35 +1,36 @@
 .page-container {
-  display: flex; /* Usamos Flexbox para la estructura principal */
+  display: flex;
 }
 
 .sidebar {
   padding: 0 2rem;
   width: 12rem;
-  /* No necesitamos más ajustes aquí si solo ocupa el ancho deseado */
 }
 
 .content-area {
-  display: flex; /* Usamos Flexbox para organizar la barra de búsqueda y las colecciones */
-  flex-direction: column; /* Colocamos la barra de búsqueda encima de las colecciones */
-  flex-grow: 1; /* Permite que el área de contenido ocupe el espacio restante */
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 app-search-bar {
-  margin: 2rem 2rem 0 0; /* Ajusta el margen según sea necesario */
-  justify-content: flex-end; /* Asegura que el contenido interno se alinee a la derecha si es necesario */
-  display: flex; /* Necesario para el justify-content */
+  margin: 2rem 2rem 0 0;
+  justify-content: flex-end;
+  display: flex;
 }
 
 .collections-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Define columnas de al menos 300px, ajustándose al espacio */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 100px;
   padding: 16px;
-  margin: 15px 2rem 0 2rem; /* Ajusta los márgenes laterales */
+  margin: 15px 2rem 0 2rem;
 }
 app-creation-buttons {
-  /* Puedes ajustar el estilo de los botones de creación si es necesario */
-  margin: 1rem 2rem 0 0; /* Ajusta el margen para alinearlo con la barra de búsqueda */
+  margin: 1rem 2rem 0 0;
   display: flex;
-  justify-content: flex-end; /* Alinea los botones a la derecha */
+  justify-content: flex-end;
+}
+.main{
+  display: flex;
 }

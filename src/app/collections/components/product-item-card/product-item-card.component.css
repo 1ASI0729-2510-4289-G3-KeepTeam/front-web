@@ -16,3 +16,11 @@
   font-size: 0.8rem;
   color: #333;
 }
+a{
+  text-decoration: none;
+  color: #81270d;
+}
+img{
+  max-height: 200px;
+  object-fit: cover;
+}
