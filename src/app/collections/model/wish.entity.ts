@@ -1,5 +1,10 @@
 import { Tag } from './tag.entity';
-
+/**
+ * @class Wish
+ * @description
+ * Represents a wish item that belongs to a collection.
+ * Contains properties for identification, description, URLs, and tagging.
+ */
 export class Wish {
   id: string;
   idCollection: string;
