@@ -6,6 +6,7 @@ import {SignUpComponent} from './public/pages/signUp/sign-up-content/sign-up-con
 import {UserProfileComponent} from './profiles/pages/user-profile/user-profile.component';
 import {PlansContentComponent} from './public/pages/plans/plans-content/plans-content.component';
 import {UserEditDialogComponent} from './profiles/pages/user-edit-dialog/user-edit-dialog.component';
+import {UserEditCardComponent} from './profiles/pages/user-edit-card/user-edit-card.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -14,6 +15,7 @@ export const routes: Routes = [
   {path: 'user-profile', component: UserProfileComponent },
   {path: 'plans', component: PlansContentComponent },
   {path: 'edit-profile', component: UserEditDialogComponent },
+  {path: 'edit-card', component: UserEditCardComponent },
 ];
 
 @NgModule({

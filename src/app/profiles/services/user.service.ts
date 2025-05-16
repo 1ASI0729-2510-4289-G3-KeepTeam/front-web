@@ -26,4 +26,9 @@ export class UserService {
   deleteUser(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
+
+  updateUserCard(id: number, cardData: any): Observable<any> {
+    return this.http.patch(`${this.baseUrl}/${id}`, { card: cardData });
+  }
+
 }

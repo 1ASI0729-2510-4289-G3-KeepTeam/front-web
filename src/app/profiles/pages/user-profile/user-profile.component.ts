@@ -35,6 +35,10 @@ export class UserProfileComponent implements OnInit {
     this.router.navigate(['/edit-profile']);
   }
 
+  goToEditCardInformation(){
+    this.router.navigate(['/edit-card']);
+  }
+
   deleteProfile(): void {
     this.userService.deleteUser(this.user.id).subscribe(() => {
       alert('Profile deleted successfully!');

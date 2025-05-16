@@ -23,7 +23,7 @@
       <mat-card-content>
         <p><strong>Linked Card:</strong> ••••0342</p>
         <p><strong>Holder:</strong> {{ user.name }}</p>
-        <button mat-raised-button class="editButton" color="accent">Edit Card Information</button>
+        <button mat-raised-button class="editButton" color="accent" (click)="goToEditCardInformation()">Edit Card Information</button>
       </mat-card-content>
     </mat-card>
   </div>

@@ -5,6 +5,12 @@ export class User {
   name: string;
   profilePicture: string;
   settings: any;
+  card?: {
+    cardNumber: string;
+    holder: string;
+    expirationDate: string;
+    cvv: string;
+  };
 
   constructor() {
     this.id = 0;
@@ -13,5 +19,11 @@ export class User {
     this.name = '';
     this.profilePicture = '';
     this.settings = {};
+    this.card = {
+      cardNumber: '',
+      holder: '',
+      expirationDate: '',
+      cvv: ''
+    };
   }
 }

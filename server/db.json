@@ -6,7 +6,13 @@
       "password": "doblas",
       "name": "RaulDoblas",
       "profilePicture": "https://media.istockphoto.com/id/1392528328/es/foto/retrato-de-un-hombre-guapo-y-sonriente-con-camiseta-blanca-de-pie-con-los-brazos-cruzados.jpg?s=612x612&w=0&k=20&c=1EtzClRt1iBmW9apxO4HgQEZFKCx6kK_s3Dy3TZteSE=",
-      "settings": {}
+      "settings": {},
+      "card": {
+        "cardNumber": "4111111111111112",
+        "holder": "Doblas",
+        "expirationDate": "05/29",
+        "cvv": "***"
+      }
     },
     {
       "id": 124,
@@ -14,7 +20,13 @@
       "password": "ochoa",
       "name": "Lu8a",
       "profilePicture": "https://i.pinimg.com/564x/0f/00/16/0f001688d5bcec630a6bd66747646096.jpg",
-      "settings": {}
+      "settings": {},
+      "card": {
+        "cardNumber": "4111111111111111",
+        "holder": "Luciana M",
+        "expiration": "12/26",
+        "cvv": "***"
+      }
     },
     {
       "email": "harry@gmail.com",
