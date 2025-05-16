@@ -1,0 +1,99 @@
+.TitleRegistrationWelcome{
+  color: #FF8B68;
+  font-size: 60px;
+  text-align: center;
+}
+
+
+mat-label{
+  font-size: 24px;
+}
+
+h3{
+  color: #6A1F08;
+  font-size: 24px;
+}
+
+.signUp{
+  display: flex;
+  justify-content: center;
+
+}
+
+.signUpButton {
+  --mdc-filled-button-container-color: #FF8B68;
+  font-size: 24px;
+  width: 100%;
+  max-width: 392px;
+  border-radius: 10px;
+
+}
+
+
+
+
+.card{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.regCard {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 32px;
+}
+
+.cardRegistrationWelcome {
+  flex: 1;
+  padding: 24px;
+}
+
+.imageSection {
+  flex: 1;
+  text-align: center;
+}
+
+.welcome-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.RegistrationCard {
+  padding: 32px;
+}
+
+mat-form-field {
+  width: 100%;
+  max-width: 493px;
+  border-radius: 10px;
+}
+
+.signIn-text {
+  text-align: left;
+  font-size: 20px;
+  margin-top: 16px;
+}
+
+.login-link {
+  color: #6A1F08;
+  text-decoration: none;
+  font-weight: bold;
+}
+.login-link:hover {
+  text-decoration: underline;
+}
+
+.snackbar-success {
+  --mdc-filled-snackbar-surface-color: #4CAF50;
+  color: #fff !important;
+}
+.snackbar-error {
+  --mdc-filled-snackbar-surface-color: #F44336;
+  color: #fff !important;
+}
+

@@ -1,0 +1,103 @@
+.plans-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  background-color: #FFFAF3;
+}
+mat-card-content{
+  flex-grow: 1;
+}
+
+.titlePlans {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.subtitle1{
+  font-weight: normal;
+}
+
+.plan-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.plan-card {
+  width: 360px;
+  min-height: 480px;
+  text-align: center;
+  border-radius: 12px;
+}
+.cards-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.starter {
+  background: #FFFFFF;
+  border-radius: 10px;
+}
+
+.plus {
+  background: #FFFFFF;
+}
+
+.infinite {
+  background: #FFFFFF;
+}
+
+.price {
+  font-size: 1.8rem;
+  margin: 0.5rem 0;
+  color: #F0714B;
+}
+
+.price span {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  margin: 1rem 0;
+}
+
+li {
+  padding: 0.25rem 0;
+}
+
+.titleChoosePlan{
+  color: #6A1F08;
+}
+
+.title-starter{
+  color: #9D3F23;
+}
+
+.title-plus{
+  color: #FFAE00;
+}
+
+.title-infinite{
+  color: #6B7BCC;
+}
+
+.upgrade-plus-button{
+  background-color: #FFE762 !important;
+  color: #7C5300 !important;
+  border-radius: 10px !important;
+  margin-top: 1rem;
+  width: 300px;
+}
+
+.upgrade-infinite-button {
+  background-color: #6B7BCC !important;
+  border-radius: 10px !important;
+  margin-top: 1rem;
+  width: 300px;
+}

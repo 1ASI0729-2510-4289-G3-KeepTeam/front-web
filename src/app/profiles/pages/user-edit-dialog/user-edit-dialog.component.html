@@ -1,0 +1,31 @@
+<div class="edit-profile-container">
+  <button mat-icon-button class="back-button" (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+
+  <h1>Edit profile</h1>
+
+  <div class="profile-photo-section">
+    <img [src]="user.profilePicture" alt="Profile" class="profile-pic" />
+    <button mat-raised-button color="accent" (click)="uploadPhoto()">Upload Photo</button>
+    <input type="file" accept="image/*" #fileInput (change)="onFileSelected($event)" hidden />
+  </div>
+
+  <form class="profile-form">
+    <mat-form-field appearance="fill">
+      <mat-label>Username</mat-label>
+      <input matInput [(ngModel)]="user.name" name="username" />
+    </mat-form-field>
+
+    <div class="avatar-field">
+      <div class="avatar">{{ getInitial(user.name) }}</div>
+    </div>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput [(ngModel)]="user.email" name="email" disabled />
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="saveChanges()">Save Changes</button>
+  </form>
+</div>

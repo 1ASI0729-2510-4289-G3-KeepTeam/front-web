@@ -1,0 +1,62 @@
+<div class="signUpContent">
+  <mat-card class="RegistrationCard">
+    <mat-card-content class="regCard">
+
+      <div class="cardRegistrationWelcome">
+        <h2 class="TitleRegistrationWelcome">Welcome</h2>
+
+        <div class="email-label-r">
+          <h3>Email</h3>
+          <mat-form-field appearance="outline">
+            <mat-label>Input your account email</mat-label>
+            <input matInput [(ngModel)]="email" name="email" type="email" required>
+          </mat-form-field>
+        </div>
+
+        <div class="username-label-r">
+          <h3>Username</h3>
+          <mat-form-field appearance="outline">
+            <mat-label>Input your account's username</mat-label>
+            <input matInput [(ngModel)]="name" name="username" required>
+          </mat-form-field>
+        </div>
+
+
+
+        <div class="password-r">
+          <h3>Password</h3>
+          <mat-form-field appearance="outline">
+            <mat-label>Input Password</mat-label>
+            <input matInput [(ngModel)]="password" name="password" type="password" required>
+          </mat-form-field>
+        </div>
+
+        <div class="repeat_password">
+          <h3>Repeat</h3>
+          <mat-form-field appearance="outline">
+            <mat-label>Repeat Password</mat-label>
+            <input matInput [(ngModel)]="password" name="password" type="password" required>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <p class="signIn-text">
+            Already a member?
+            <a routerLink="/login" class="login-link">Sign In</a>
+          </p>
+        </div>
+
+
+        <div class="signUp">
+          <button mat-flat-button class="signUpButton" (click)="onSignUp()">Sign Up</button>
+        </div>
+      </div>
+
+      <div class="imageSection">
+        <img src="assets/welcome.png" alt="Welcome Image" class="welcome-image">
+      </div>
+
+
+    </mat-card-content>
+  </mat-card>
+</div>
