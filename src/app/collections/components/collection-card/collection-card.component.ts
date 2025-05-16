@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { Router } from '@angular/router';
+import {ShareSettingsComponent} from '../../pages/share-settings/share-settings.component';
 
 /**
  * @component CollectionCardComponent
@@ -16,7 +17,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-collection-card',
   standalone: true,
-  imports: [NgForOf, NgIf, MatChipsModule, NgClass, NgStyle, MatIconModule, MatButtonModule, MatMenuModule],
+  imports: [NgForOf, NgIf, MatChipsModule, NgClass, NgStyle, MatIconModule, MatButtonModule, MatMenuModule, ShareSettingsComponent],
   templateUrl: './collection-card.component.html',
   styleUrls: ['./collection-card.component.css'],
 })
@@ -26,6 +27,11 @@ export class CollectionCardComponent {
    * @constructor
    * @param router - Angular Router used for navigation.
    */
+
+
+  sharingType: 'link' | 'qr' | null = null;
+  qrCodeContent: string = '';
+
 
   constructor(private router: Router) {}
 
@@ -84,6 +90,8 @@ export class CollectionCardComponent {
    * @returns {Array<{ name: string; color: string }>}
    */
 
+  @Output() shareQr = new EventEmitter<any>();
+
   get displayedTags(): { name: string; color: string }[] {
     return this.tags.slice(0, 3);
   }
@@ -117,5 +125,19 @@ export class CollectionCardComponent {
    */
   onView(): void {
     this.view.emit();
+  }
+
+  onShareLink(): void {
+    this.router.navigate(['/share-settings'], {
+      queryParams: { // Usamos queryParams
+        contentType: 'collection',
+        itemId: this.collection.id,
+        previousUrl: this.router.url
+      }
+    });
+  }
+
+  onShareQr(): void {
+    this.shareQr.emit(this.collection);
   }
 }

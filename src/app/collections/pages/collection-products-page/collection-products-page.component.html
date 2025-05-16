@@ -14,7 +14,11 @@
 <div class="containerContent">
   <div class="searchBar">
     <app-item-actions [item]="{ collectionId: collectionId }"
-                      [editRoute]="['/collections', ':collectionId', 'edit']"></app-item-actions>
+                      [editRoute]="['/collections', ':collectionId', 'edit']"
+                      (onShare)="shareCollection()"
+                      (onShareQr)="shareCollectionQr()"
+    ></app-item-actions>
+
     <app-search-bar></app-search-bar>
   </div>
 

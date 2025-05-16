@@ -2,9 +2,19 @@
   <a (click)="onDelete.emit(item)">
     <mat-icon style="color: #892525">delete</mat-icon>
   </a>
-  <a [routerLink]="buildRoute(shareRoute)">
-    <mat-icon style="color: #FF8B68">share</mat-icon>
-  </a>
+  <div class="share-menu-container">
+    <a [matMenuTriggerFor]="shareMenu">
+      <mat-icon style="color: #FF8B68">share</mat-icon>
+    </a>
+    <mat-menu #shareMenu="matMenu">
+      <button mat-menu-item (click)="onShareLink()">
+        <span>Copy Link</span>
+      </button>
+      <button mat-menu-item (click)="onShareQr()">
+        <span>Share as QR</span>
+      </button>
+    </mat-menu>
+  </div>
   <a mat-flat-button [routerLink]="buildRoute(editRoute)" class="editButton">
     Edit
     <mat-icon>edit</mat-icon>
