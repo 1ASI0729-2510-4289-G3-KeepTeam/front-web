@@ -1,0 +1,50 @@
+<div class="share-settings-container">
+  <div class="header">
+    <button mat-icon-button color="primary" (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h2>Share Settings</h2>
+  </div>
+
+  <div class="content">
+    <h3>Almost there</h3>
+
+    <div class="expiry-date">
+      <label>Expiracy date</label>
+      <mat-slide-toggle [(ngModel)]="expiryEnabled"></mat-slide-toggle>
+    </div>
+
+    <mat-form-field>
+      <mat-label>Enter expiracy date</mat-label>
+      <input
+        matInput
+        [(ngModel)]="expiryDate"
+        (focus)="expiryEnabled ? picker.open() : null"
+        (blur)="validateDate()"
+        #dateInput="ngModel"
+        (input)="onDateInputChange()"
+        (keypress)="allowOnlyNumbersAndHyphen($event)"
+        autocomplete="off"
+        placeholder="YYYY-MM-DD"
+        pattern="^\d{4}-\d{2}-\d{2}$"
+        [disabled]="!expiryEnabled"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker" [disabled]="!expiryEnabled"></mat-datepicker-toggle>
+      <mat-datepicker #picker [disabled]="!expiryEnabled"></mat-datepicker>
+
+      <mat-error *ngIf="dateInput.invalid && dateInput.touched">
+        Please enter a valid date in YYYY-MM-DD format.
+      </mat-error>
+    </mat-form-field>
+
+    <div class="permissions">
+      <label>People with this link can</label>
+      <div class="permission-buttons">
+        <button [class.active]="permission === 'view'" (click)="setPermission('view')">View</button>
+        <button [class.active]="permission === 'edit'" (click)="setPermission('edit')">View and Edit</button>
+      </div>
+    </div>
+
+    <button class="get-link-button" (click)="getLink()">Get Link</button>
+</div>
+</div>

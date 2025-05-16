@@ -130,7 +130,15 @@ export class CollectionsGridComponent implements OnInit {
    * @param collection - The collection object to share.
    */
   shareCollection(collection: any): void {
-    console.log('Share collection:', collection);
+    console.log('Compartiendo colección:', collection);
+    console.log('ID de la colección:', collection.id);
+    this.router.navigate(['/share-settings'], {
+      queryParams: {
+        contentType: 'collection',
+        itemId: collection.id,
+        previousUrl: this.router.url
+      }
+    });
   }
 
   /**
@@ -141,4 +149,15 @@ export class CollectionsGridComponent implements OnInit {
   navigateToCollection(id: string): void {
     this.router.navigate(['/collections', id]);
   }
+
+  navigateToQrShare(collection: any): void {
+    this.router.navigate(['/share-qr'], {
+      queryParams: {
+        contentType: 'collection',
+        itemId: collection.id,
+        previousUrl: this.router.url
+      }
+    });
+  }
+
 }

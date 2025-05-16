@@ -3,9 +3,11 @@
   <h2>{{ wish?.title }}</h2>
   <div class="spacer"></div>
   <app-item-actions [item]="wish"
-                    [shareRoute]="['/wish/share', ':id']"
+                    (onShare)="shareWish()"
+                    (shareQr)="shareWishQr(wish)"
                     [editRoute]="['/collections', ':idCollection', ':id', 'edit']"
-                    (onDelete)="handleDelete($event)">></app-item-actions>
+                    (onDelete)="handleDelete($event)">
+  </app-item-actions>
 </div>
 <div class="container">
 <div class="content">
