@@ -34,7 +34,7 @@
       <mat-card-content>
         <p><strong>Email:</strong> {{ user.email }}</p>
         <p><strong>Password:</strong> ********</p>
-        <button mat-raised-button class="change-password-Button" color="accent">Change Password</button>
+        <button mat-raised-button class="change-password-Button" color="accent" (click)="goToEditPassword()">Change Password</button>
       </mat-card-content>
     </mat-card>
   </div>

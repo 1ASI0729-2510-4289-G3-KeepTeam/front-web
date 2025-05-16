@@ -31,4 +31,9 @@ export class UserService {
     return this.http.patch(`${this.baseUrl}/${id}`, { card: cardData });
   }
 
+  changePassword(id: number, currentPassword: string, newPassword: string): Observable<any> {
+    return this.http.patch(`${this.baseUrl}/${id}`, { password: newPassword });
+
+  }
+
 }

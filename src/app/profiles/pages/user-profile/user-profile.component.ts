@@ -38,6 +38,9 @@ export class UserProfileComponent implements OnInit {
   goToEditCardInformation(){
     this.router.navigate(['/edit-card']);
   }
+  goToEditPassword() {
+    this.router.navigate(['/edit-password']);
+  }
 
   deleteProfile(): void {
     this.userService.deleteUser(this.user.id).subscribe(() => {
