@@ -3,7 +3,7 @@ import { User } from '../../model/user'
 import { UserService } from '../../services/user.service';
 import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
 import {MatButton} from '@angular/material/button';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -12,7 +12,8 @@ import {Router} from '@angular/router';
     MatCard,
     MatButton,
     MatCardTitle,
-    MatCardContent
+    MatCardContent,
+    RouterLink
   ],
   styleUrls: ['./user-profile.component.css']
 })
@@ -31,4 +32,7 @@ export class UserProfileComponent implements OnInit {
       this.router.navigate(['/login']);
     }
 }
+  goToEditProfile() {
+    this.router.navigate(['/edit-profile']);
+  }
 }
