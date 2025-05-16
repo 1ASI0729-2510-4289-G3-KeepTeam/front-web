@@ -3,7 +3,7 @@ import { User } from '../../model/user'
 import { UserService } from '../../services/user.service';
 import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
 import {MatButton} from '@angular/material/button';
-import {Router, RouterLink} from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -41,6 +41,8 @@ export class UserProfileComponent implements OnInit {
       this.router.navigate(['/login']); // o tu ruta de perfil
     });
   }
+
+
 
 
 }
