@@ -28,7 +28,8 @@ export class UserProfileComponent implements OnInit {
       });
     } else {
       // Si no hay ID, lo más seguro es redirigir al login
-      this.router.navigate(['/login']);
+      // implemnentar en cuanto haya tokens
+      // this.router.navigate(['/login']);
     }
 }
   goToEditProfile() {

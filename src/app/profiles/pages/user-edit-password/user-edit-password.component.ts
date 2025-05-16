@@ -43,7 +43,8 @@ export class UserEditPasswordComponent implements OnInit {
   ngOnInit(): void {
     const userId = Number(localStorage.getItem('userId'));
     if (!userId) {
-      this.router.navigate(['/login']);
+      //implementar cuando haya tokens
+      //this.router.navigate(['/login']);
       return;
     }
 

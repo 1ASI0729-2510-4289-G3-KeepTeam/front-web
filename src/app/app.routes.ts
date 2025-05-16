@@ -49,7 +49,6 @@ export const routes: Routes = [
     path: 'collections/:collectionId/products/:productId/edit',
     component: WishEditItemComponent,
   },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignUpComponent },
   {path: 'user-profile', component: UserProfileComponent },
@@ -57,6 +56,7 @@ export const routes: Routes = [
   {path: 'edit-profile', component: UserEditDialogComponent },
   {path: 'edit-card', component: UserEditCardComponent },
   {path: 'edit-password', component: UserEditPasswordComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 
 @NgModule({
