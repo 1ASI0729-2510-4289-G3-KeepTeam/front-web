@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  private baseUrl = 'http://localhost:3000/users';
+  private baseUrl = 'https://db-json-server-keeplo-10di.onrender.com/api/v1/users';
 
   constructor(private http: HttpClient) {}
 
