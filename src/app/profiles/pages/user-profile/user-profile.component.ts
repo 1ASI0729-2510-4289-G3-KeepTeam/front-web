@@ -12,8 +12,7 @@ import {Router, RouterLink} from '@angular/router';
     MatCard,
     MatButton,
     MatCardTitle,
-    MatCardContent,
-    RouterLink
+    MatCardContent
   ],
   styleUrls: ['./user-profile.component.css']
 })
@@ -35,4 +34,13 @@ export class UserProfileComponent implements OnInit {
   goToEditProfile() {
     this.router.navigate(['/edit-profile']);
   }
+
+  deleteProfile(): void {
+    this.userService.deleteUser(this.user.id).subscribe(() => {
+      alert('Profile deleted successfully!');
+      this.router.navigate(['/login']); // o tu ruta de perfil
+    });
+  }
+
+
 }
