@@ -22,8 +22,12 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              { "glob": "**/*",
+                "input": "public"},
+              "src/routes.json"
             ],
+
             "styles": [
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.css"
