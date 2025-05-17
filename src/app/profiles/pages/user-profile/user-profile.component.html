@@ -1,0 +1,43 @@
+<div class="profile-container">
+  <div class="profile-header">
+    <img [src]="user.profilePicture" alt="Profile Picture">
+    <div class="header-content">
+      <div class="username-and-button">
+        <h1>Hola, {{ user.name }} 👋</h1>
+        <button mat-raised-button color="primary" (click)="goToEditProfile()">Edit profile</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <mat-card class="card">
+      <mat-card-title>Activity</mat-card-title>
+      <mat-card-content>
+        <p><strong>My Collections:</strong> 13</p>
+        <p><strong>Saved Items:</strong> 230</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="card">
+      <mat-card-title>Payment Information</mat-card-title>
+      <mat-card-content>
+        <p><strong>Linked Card:</strong> ••••0342</p>
+        <p><strong>Holder:</strong> {{ user.name }}</p>
+        <button mat-raised-button class="editButton" color="accent" (click)="goToEditCardInformation()">Edit Card Information</button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="section">
+    <mat-card class="card">
+      <mat-card-title>Current Plan: Infinite</mat-card-title>
+      <mat-card-content>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Password:</strong> ********</p>
+        <button mat-raised-button class="change-password-Button" color="accent" (click)="goToEditPassword()">Change Password</button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <button mat-raised-button class="delete-button" style="background-color: #B40000; color: #FFFFFF" (click)="deleteProfile()">Delete Account</button>
+</div>

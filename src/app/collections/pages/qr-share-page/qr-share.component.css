@@ -1,0 +1,70 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 2rem;
+  padding-top: 5vh;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.qr-share-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px; /* O el ancho que prefieras */
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.header button {
+  background: none; /* Elimina el fondo del botón */
+  border: none; /* Elimina el borde del botón */
+  color: inherit; /* Hereda el color del texto */
+  cursor: pointer;
+  padding: 0; /* Elimina el padding predeterminado */
+  margin-right: 0.5rem; /* Un poco de espacio a la derecha de la flecha */
+  font-size: 1.5rem; /* Ajusta el tamaño del icono si es necesario */
+  outline: none; /* Elimina el contorno al enfocar */
+}
+
+.header h3 {
+  color: #FF8B68;
+  margin: 0;
+  font-size: 1.5rem; /* Ajusta el tamaño del título para que coincida */
+  font-weight: bold; /* Puedes añadir negrita si es necesario */
+}
+
+.qr-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.qr-content img {
+  margin-bottom: 2rem;
+  max-width: 300px;
+  height: auto;
+}
+
+.qr-content button {
+  background-color: #FF8B68 !important;
+  color: #fff;
+  border-radius: 10px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+}
+
+.qr-content button:hover {
+  background-color: #e67a5a !important;
+}

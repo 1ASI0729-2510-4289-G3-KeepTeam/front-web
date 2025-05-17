@@ -1,0 +1,36 @@
+<div class="payment-container">
+  <button mat-icon-button (click)="goBack()" aria-label="Back">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+
+  <h2 class="title">Payment Information</h2>
+
+  <form (ngSubmit)="changeCard()" [formGroup]="paymentForm" class="payment-form">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Card Number</mat-label>
+      <input matInput formControlName="cardNumber" placeholder="Input the card number" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Holder</mat-label>
+      <input matInput formControlName="holder" placeholder="Input name of the holder of the card" required />
+    </mat-form-field>
+
+    <div class="row">
+      <mat-form-field appearance="fill" class="half">
+        <mat-label>FV</mat-label>
+        <input matInput formControlName="expirationDate" placeholder="Expiration Date" required />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="half">
+        <mat-label>CVV</mat-label>
+        <input matInput formControlName="cvv" placeholder="***" type="password" maxlength="3" required />
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button color="accent" type="submit">Change Card</button>
+  </form>
+</div>
+
+

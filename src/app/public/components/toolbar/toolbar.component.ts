@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {MatToolbar, MatToolbarRow} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
+import {RouterLink} from '@angular/router';
 import {Router} from '@angular/router';
 
 @Component({
@@ -8,6 +9,8 @@ import {Router} from '@angular/router';
   imports: [
     MatToolbarRow,
     MatToolbar,
+    MatIconModule,
+    RouterLink,
     MatIconModule
   ],
   templateUrl: './toolbar.component.html',

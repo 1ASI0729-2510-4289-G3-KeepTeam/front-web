@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TagListComponent } from './tag-list.component';
+import { UserEditDialogComponent } from './user-edit-dialog.component';
 
-describe('TagItemComponent', () => {
-  let component: TagListComponent;
-  let fixture: ComponentFixture<TagListComponent>;
+describe('UserEditDialogComponent', () => {
+  let component: UserEditDialogComponent;
+  let fixture: ComponentFixture<UserEditDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TagListComponent]
+      imports: [UserEditDialogComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TagListComponent);
+    fixture = TestBed.createComponent(UserEditDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

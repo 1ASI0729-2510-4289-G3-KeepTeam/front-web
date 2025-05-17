@@ -2,12 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { ItemActionsComponent } from '../../components/item-actions/item-actions.component';
 import { MatButtonModule } from '@angular/material/button';
-import { TagListComponent } from '../../../public/components/tags/tag-list.component';
 import {Wish} from '../../model/wish.entity';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {CollectionsService} from '../../services/collections.service';
 import {MatDialog} from '@angular/material/dialog';
 import { PopConfirmDialogComponent } from '../../../public/components/pop-confirm-dialog/pop-confirm-dialog.component';
+import {Location} from '@angular/common';
+import {TagListComponent} from '../../components/tags/tag-list.component';
+
 /**
  * @component WishItemComponent
  * @description
@@ -22,6 +24,7 @@ import { PopConfirmDialogComponent } from '../../../public/components/pop-confir
     MatButtonModule,
     TagListComponent,
   ],
+
   templateUrl: './wish-item.component.html',
   styleUrl: './wish-item.component.css',
 })
@@ -31,7 +34,7 @@ export class WishItemComponent implements OnInit {
    * The productId extracted from the URL route parameters.
    */
   wishId: string | null = null;
-
+  collectionId: string | null = null;
   /**
    * @property wish
    * The Wish object to display, fetched from the service.
@@ -43,11 +46,15 @@ export class WishItemComponent implements OnInit {
    * @param route ActivatedRoute for route parameters
    * @param dialog Service to fetch Wish details
    * @param collectionsService Service to fetch Wish details
+   * @param router
+   * @param location
    */
   constructor(
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private collectionsService: CollectionsService
+    private collectionsService: CollectionsService,
+    private router: Router,
+    private location: Location
   ) {}
 
   /**
@@ -55,11 +62,13 @@ export class WishItemComponent implements OnInit {
    * Fetches the productId from route params and loads Wish details if present.
    */
   ngOnInit(): void {
-    this.wishId = this.route.snapshot.paramMap.get('productId');
-
-    if (this.wishId) {
-      this.getWishDetails(this.wishId);
-    }
+    this.route.params.subscribe(params => { // Use subscribe
+      this.wishId = params['productId'];
+      this.collectionId = params['collectionId']; // Get collectionId from route
+      if (this.wishId) {
+        this.getWishDetails(this.wishId);
+      }
+    });
   }
 
   /**
@@ -88,8 +97,13 @@ export class WishItemComponent implements OnInit {
    * Navigates back in browser history.
    */
   goBack(): void {
-    history.back();
+    if (this.collectionId) {
+      this.router.navigate(['/collections', this.collectionId]); // Navigate to collection
+    } else {
+      this.location.back(); // Fallback to history.back()
+    }
   }
+
   /**
    * @function handleDelete
    * @description
@@ -116,4 +130,32 @@ export class WishItemComponent implements OnInit {
         history.back();
       }
     });
-}}
+
+}
+  shareWish(): void {
+    if (this.wish) {
+      this.router.navigate(['/share-settings'], {
+        queryParams: {
+          contentType: 'wish',
+          itemId: this.wish.id,
+          previousUrl: this.router.url // Asegúrate de pasar la URL actual
+        }
+      });
+    }
+  }
+
+
+  shareWishQr(item: Wish | undefined): void { // Allow 'undefined'
+    if (item) {
+      this.router.navigate(['/share-qr'], {
+        queryParams: {
+          contentType: 'wish',
+          itemId: item.id,
+          previousUrl: this.router.url
+        }
+      });
+    }
+  }
+
+
+}

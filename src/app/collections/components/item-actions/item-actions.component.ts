@@ -1,7 +1,8 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import {RouterLink} from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 
 /**
  * @component ItemActionsComponent
@@ -13,7 +14,7 @@ import {RouterLink} from '@angular/router';
 @Component({
   selector: 'app-item-actions',
   standalone: true,
-  imports: [MatIconModule, MatButtonModule, RouterLink,],
+  imports: [MatIconModule, MatButtonModule, RouterLink, MatMenuTrigger, MatMenu, MatMenuItem,],
   templateUrl: './item-actions.component.html',
   styleUrl: './item-actions.component.css',
 })
@@ -25,10 +26,16 @@ export class ItemActionsComponent {
   @Input() item: any;
 
   /**
-   * @input shareRoute
+   * @output onShare
    * You can use placeholder segments like ':id' that will be replaced dynamically.
    */
-  @Input() shareRoute?: any[];
+  @Output() onShare = new EventEmitter<void>();
+
+  /**
+   * @output shareQr  <--------------------- THIS IS THE IMPORTANT PART
+   * Emits the item when the share as QR action is triggered.
+   */
+  @Output() shareQr = new EventEmitter<any>();
 
   /**
    * @input editRoute
@@ -42,6 +49,8 @@ export class ItemActionsComponent {
    */
   @Output() onDelete = new EventEmitter();
 
+  constructor(private router: Router) {}
+
   /**
    * @function buildRoute
    * @description
@@ -50,6 +59,8 @@ export class ItemActionsComponent {
    * @param route - An array of route segments (strings).
    * @returns {any[]} A new route array with values replaced where applicable.
    */
+
+
   buildRoute(route: any[] | undefined): any[] {
     if (!route) return [];
     return route.map(segment => {
@@ -60,4 +71,14 @@ export class ItemActionsComponent {
       return segment;
     });
   }
+
+  onShareLink(): void {
+    this.onShare.emit(); // Emit the share event
+  }
+
+  onShareQr(): void { // Corrected function name
+    console.log('onShareQr function in ItemActionsComponent called', this.item);
+    this.shareQr.emit(this.item);
+  }
+
 }
