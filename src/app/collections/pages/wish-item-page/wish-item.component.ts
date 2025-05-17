@@ -2,13 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { ItemActionsComponent } from '../../components/item-actions/item-actions.component';
 import { MatButtonModule } from '@angular/material/button';
-import { TagListComponent } from '../../../public/components/tags/tag-list.component';
 import {Wish} from '../../model/wish.entity';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CollectionsService} from '../../services/collections.service';
 import {MatDialog} from '@angular/material/dialog';
 import { PopConfirmDialogComponent } from '../../../public/components/pop-confirm-dialog/pop-confirm-dialog.component';
 import {Location} from '@angular/common';
+import {TagListComponent} from '../../components/tags/tag-list.component';
 
 /**
  * @component WishItemComponent

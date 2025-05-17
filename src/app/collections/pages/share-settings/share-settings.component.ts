@@ -24,7 +24,6 @@ import {NgIf} from '@angular/common';
     MatButtonModule,
     MatIconModule,
     FormsModule,
-    RouterLink,
     NgIf,
   ],
 })
