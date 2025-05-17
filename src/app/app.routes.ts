@@ -40,10 +40,9 @@ export const routes: Routes = [
     component: CollectionEditPageComponent,
   },
   {
-    path: 'collections/:collectionId/:productId',
+    path: 'collections/:collectionId/products/:productId',
     component: WishItemComponent,
-  }
-  ,
+  },
   {
     path: 'collections/:collectionId/:productId/edit',
     component: WishEditItemComponent,

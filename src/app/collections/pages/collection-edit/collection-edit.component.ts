@@ -83,7 +83,7 @@ export class CollectionEditComponent {
     if (id) {
       this.collectionsService.getCollectionById(id).subscribe(collection => {
         this.selectedCollection = collection;
-        this.collectionName = collection.name;
+        this.collectionName = collection.title;
         this.collectionsService.getProductsByIdCollection(id).subscribe(items => {
           this.items = items;
           this.imageUrls = this.extractFirstFourImages(this.items);

@@ -17,7 +17,7 @@ import {ShareSettingsComponent} from '../../pages/share-settings/share-settings.
 @Component({
   selector: 'app-collection-card',
   standalone: true,
-  imports: [NgForOf, NgIf, MatChipsModule, NgClass, NgStyle, MatIconModule, MatButtonModule, MatMenuModule, ShareSettingsComponent],
+  imports: [NgForOf, NgIf, MatChipsModule, NgClass, NgStyle, MatIconModule, MatButtonModule, MatMenuModule],
   templateUrl: './collection-card.component.html',
   styleUrls: ['./collection-card.component.css'],
 })
