@@ -5,6 +5,7 @@ import {map,switchMap,tap,forkJoin} from 'rxjs';
 import { Wish } from '../model/wish.entity';
 import {Tag} from '../model/tag.entity';
 import {Collection} from '../model/collection.entity';
+import {CollectionAssembler} from './collection.assembler';
 
 @Injectable({
   providedIn: 'root',
@@ -16,25 +17,69 @@ export class CollectionsService {
   constructor(private http: HttpClient) {}
   /**
    * @function getCollections
-   * @description Fetch all collections and their items.
-   * For each collection, fetch items separately and combine them.
+   * @description Fetch all collections.
    */
   getCollections() {
-    return this.http.get<any[]>(`${this.baseUrl}/collections`).pipe(
-      switchMap(collections => {
-        const requests = collections.map((collection: any) =>
+    return this.http.get<Collection[]>(`${this.baseUrl}/collections`).pipe(
+      map(response => CollectionAssembler.toEntitiesFromResponse(response))
+    )
+  }
+
+  /**
+   * @Function getUniqueTags
+   * @description Extracts up to 3 unique tags from a list of wishes, ignoring those in trash.
+   * @param {Array} wishes - Array of Wish objects.
+   */
+
+  getUniqueTags(wishes: Wish[]): { name: string; color: string }[] {
+    const uniqueTagsMap: { [key: string]: { name: string; color: string } } = {};
+
+    for (const wish of wishes) {
+      if (!wish.tags || wish.isInTrash) continue;
+      for (const tag of wish.tags) {
+        if (!uniqueTagsMap[tag.name]) {
+          uniqueTagsMap[tag.name] = { name: tag.name, color: tag.color || '#e0f7fa' };
+        }
+        if (Object.keys(uniqueTagsMap).length >= 3) break;
+      }
+      if (Object.keys(uniqueTagsMap).length >= 3) break;
+    }
+
+    return Object.values(uniqueTagsMap);
+  }
+
+  /**
+   * @Function getFullCollections
+   * @description Fetches collections and enriches each with up to 4 image URLs and up to 3 unique tags.
+   */
+
+  getFullCollections() {
+    return this.getCollections().pipe(
+      switchMap((collections: Collection[]) => {
+        const fullCollectionRequests = collections.map(collection =>
           this.getProductsByIdCollection(collection.id).pipe(
-            map(items => ({
-              id: collection.id,
-              name: collection.title ?? 'Sin nombre',
-              items
-            }))
+            map((wishes: Wish[]) => {
+              const imageUrls = wishes
+                .filter(w => !w.isInTrash)
+                .slice(0, 4)
+                .map(w => w.urlImg);
+
+              const tags = this.getUniqueTags(wishes);
+
+              return {
+                ...collection,
+                imageUrls,
+                tags
+              };
+            })
           )
         );
-        return forkJoin(requests); // Espera a que todas las peticiones terminen
+
+        return forkJoin(fullCollectionRequests);
       })
     );
   }
+
   /**
    * @function getWishById
    * @description Fetch a single wish by its ID, including tags.

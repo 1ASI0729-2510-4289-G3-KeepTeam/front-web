@@ -9,6 +9,7 @@ import { CollectionsService } from '../../services/collections.service';
 import { Collection } from '../../model/collection.entity';
 import { Wish } from '../../model/wish.entity';
 import { Router } from '@angular/router';
+import {FullCollection} from '../../model/fullCollection.entity';
 /**
  * @component CollectionsGridComponent
  * @description
@@ -31,10 +32,10 @@ import { Router } from '@angular/router';
 export class CollectionsGridComponent implements OnInit {
   /**
    * @property collections
-   * @description List of collections with basic details and associated items.
+   * @description List of collections with basic details.
    */
-  collections: { id: string; name: string; items: Wish[] }[] = [];
-
+  collections: FullCollection[] = [];
+  items: Wish[] = [];
   /**
    * @constructor
    * @param collectionsService - Service to fetch collections data.
@@ -54,54 +55,15 @@ export class CollectionsGridComponent implements OnInit {
    * @function loadCollections
    * @description Fetches collections from the service and maps them to the local collections array.
    */
-  loadCollections(){
-    this.collectionsService.getCollections().subscribe({
-      next: (data: Collection[]) => {
-        this.collections = data.map(collection => ({
-          id: collection.id,
-          name: collection.name,
-          items: collection.items,
-        }));
+  loadCollections() {
+    this.collectionsService.getFullCollections().subscribe({
+      next: (data: FullCollection[]) => {
+        this.collections = data;
       },
       error: (error) => {
         console.error('Error loading collections:', error);
       }
     });
-
-    console.log(this.collections);
-  }
-
-  /**
-   * @function extractFirstFourImages
-   * @description Extracts the first four image URLs from a list of wishes.
-   * @param items - Array of Wish objects.
-   * @returns {string[]} Array of image URLs.
-   */
-  extractFirstFourImages(items: Wish[]){
-    if (!items) return [];
-    return items.filter(wish => !wish.isInTrash).slice(0, 4).map(wish => wish.urlImg);
-  }
-
-  /**
-   * @function extractFirstUniqueTags
-   * @description Extracts up to the first three unique tags from a list of wishes.
-   * @param items - Array of Wish objects.
-   * @returns {{ name: string; color: string }[]} Array of unique tag objects.
-   */
-  extractFirstUniqueTags(items: Wish[]){
-    if (!items) return [];
-    const uniqueTags: { [name: string]: { name: string; color: string } } = {};
-    for (const wish of items) {
-      if (!wish.tags) continue;
-      for (const tag of wish.tags) {
-        if (!uniqueTags[tag.name]) {
-          uniqueTags[tag.name] = { name: tag.name, color: tag.color || '#e0f7fa' };
-        }
-        if (Object.keys(uniqueTags).length >= 3) break;
-      }
-      if (Object.keys(uniqueTags).length >= 3) break;
-    }
-    return Object.values(uniqueTags).slice(0, 3);
   }
 
   /**
@@ -113,7 +75,6 @@ export class CollectionsGridComponent implements OnInit {
     console.log('Delete collection:', collection);
   }
 
-  //todo implementar que aqui se lleve a edit
   /**
    * @function editCollection
    * @description Handler to trigger editing of a collection and redirects user to edit page.
