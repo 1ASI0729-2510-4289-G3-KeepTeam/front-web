@@ -6,7 +6,6 @@ import { CreationButtonsComponent } from '../../components/creation-buttons/crea
 import { CollectionCardComponent } from '../../components/collection-card/collection-card.component';
 import { NgForOf} from '@angular/common';
 import { CollectionsService } from '../../services/collections.service';
-import { Collection } from '../../model/collection.entity';
 import { Wish } from '../../model/wish.entity';
 import { Router } from '@angular/router';
 import {FullCollection} from '../../model/fullCollection.entity';
