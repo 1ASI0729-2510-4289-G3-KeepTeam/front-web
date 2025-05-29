@@ -8,6 +8,7 @@ import {MatInput} from '@angular/material/input';
 import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatLabel} from '@angular/material/input';
 import {MatIcon} from '@angular/material/icon';
+import {UploadService} from '../../../shared/services/images.service'
 
 @Component({
   selector: 'app-user-edit-dialog',
@@ -28,7 +29,8 @@ export class UserEditDialogComponent {
 
   constructor(
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private uploadService: UploadService
   ) {}
 
   ngOnInit(): void {
@@ -58,14 +60,21 @@ export class UserEditDialogComponent {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
-      const reader = new FileReader();
+      console.log('Archivo seleccionado:', file);
 
-      reader.onload = () => {
-        const base64 = reader.result as string;
-        this.user.profilePicture = base64; // Actualiza la imagen en el modelo
-      };
 
-      reader.readAsDataURL(file);
+      this.uploadService.uploadImage(file).subscribe({
+        next: res => {
+          console.log('Imagen subida correctamente:', res);
+          this.user.profilePicture = res.secure_url;
+          // Aquí puedes guardar res.secure_url en tu modelo de usuario, por ejemplo
+        },
+        error: err => {
+          console.error('Error al subir imagen a Cloudinary:', err);
+        }
+      });
+    } else {
+      console.warn('No se seleccionó ningún archivo');
     }
   }
 
