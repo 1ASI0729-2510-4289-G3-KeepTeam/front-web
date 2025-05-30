@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WishQrSharePageComponent } from './qr-share.component';
+import { QrShareComponent } from './qr-share.component';
 
 describe('WishQrSharePageComponent', () => {
-  let component: WishQrSharePageComponent;
-  let fixture: ComponentFixture<WishQrSharePageComponent>;
+  let component: QrShareComponent;
+  let fixture: ComponentFixture<QrShareComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [WishQrSharePageComponent]
+      imports: [QrShareComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(WishQrSharePageComponent);
+    fixture = TestBed.createComponent(QrShareComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
