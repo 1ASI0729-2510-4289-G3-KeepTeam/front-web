@@ -40,8 +40,16 @@ export class CollectionProductsPageComponent implements OnInit {
    * @property collectionId
    * @description The ID of the collection, retrieved from the route parameters.
    */
-  collectionId: number;
+  collectionId: number = 0;
   collection: Collection | undefined;
+  creationButtons: { id: number; name: string; link: string; backgroundColor: string; color: string; }[] | undefined
+    /**
+     * @constructor
+     * @param collectionsService - Service to fetch collections and products.
+     * @param route - ActivatedRoute for accessing route parameters.
+     * @param router
+     */
+
 
   /**
    * @constructor
@@ -53,14 +61,8 @@ export class CollectionProductsPageComponent implements OnInit {
     private collectionsService: CollectionsService,
     private route: ActivatedRoute,
     private router: Router,
-  ) {
-    const collectionIdTemp = this.route.snapshot.paramMap.get('id') ?? '1';
-    this.collectionId = Number(collectionIdTemp)
-  }
-  creationButtons: { id: number,name: string; link: string; backgroundColor: string; color: string; }[] | undefined = [
-    { id: 1 ,name: 'Add sub-collection', link: '/collections/1/7', backgroundColor: '#FEDD72', color: '#BD6412' },
-    { id: 2 ,name: 'Add Wish', link: '', backgroundColor: '#FF8B68', color: '#FFFAF3' }
-  ]
+  ) {}
+
 
   /**
    * @function ngOnInit
@@ -68,22 +70,26 @@ export class CollectionProductsPageComponent implements OnInit {
    * when the component is initialized.
    */
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.collectionId = params['id'];
-
-      if (this.collectionId) {
-        this.getCollection(this.collectionId);
-        this.getProducts();
-        this.loadCollections();
-      } else {
+    this.route.paramMap.subscribe(params => {
+      const idParam = params.get('id');
+      if (!idParam) {
         console.error("No collection ID provided in the route!");
         this.router.navigate(['/collections']);
+        return;
       }
+      this.collectionId = Number(idParam);
 
+      this.creationButtons = [
+        { id: 1, name: 'Add sub-collection', link: `/collections/${this.collectionId}/7`, backgroundColor: '#FEDD72', color: '#BD6412' },
+        { id: 2, name: 'Add Wish', link: `/collections/${this.collectionId}/new/edit`, backgroundColor: '#FF8B68', color: '#FFFAF3' }
+      ];
+
+      this.getCollection(this.collectionId);
+      this.getProducts();
+      this.loadCollections();
     });
 
   }
-
 
   filterCreationButtonForSubCollection() {
     if (this.collection!.idParentCollection !== 0) {

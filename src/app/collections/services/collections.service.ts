@@ -118,6 +118,13 @@ export class CollectionsService {
   getCollectionById(id: number) {
     return this.http.get<Collection>(`${this.baseUrl}/collections/${id}`);
   }
+  /**
+   * @function deleteWish
+   * @description Create a new Wish
+   */
+  createWish(wish: Wish) {
+    return this.http.post(`${this.baseUrl}/items`, wish);
+  }
 
   /**
    * @function deleteWish

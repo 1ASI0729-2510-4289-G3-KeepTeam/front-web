@@ -72,10 +72,14 @@ export class WishEditItemComponent implements OnInit {
    */
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
-      this.productId = Number(params.get('productId'));
+      const productIdParam = params.get('productId');
+      this.productId = productIdParam === 'new' ? null : Number(productIdParam);
 
       if (this.productId) {
         this.getWish(this.productId);
+      }else{
+        this.wish = new Wish();
+        this.wish.idCollection = Number(params.get('collectionId'));
       }
     });
   }
@@ -88,8 +92,11 @@ export class WishEditItemComponent implements OnInit {
   private getWish(productId: number): void {
     this.collectionsService.getWishById(productId).subscribe({
       next: (wish: Wish) => {
-        this.wish = wish;
-        console.log(this.wish); // confirm received data
+        if (this.productId) {
+          this.getWish(this.productId);
+        } else {
+          this.wish = new Wish();
+        }
       },
       error: (err) => {
         console.error('Error fetching wish:', err);
@@ -191,6 +198,10 @@ export class WishEditItemComponent implements OnInit {
    * @description Saves the updated wish via the service and navigates back on success.
    */
   onSave(): void {
+    if (!this.wish.title || this.wish.title.trim() === '') {
+      alert('Por favor ingresa un título');
+      return;
+    }
     console.log('Saving wish:', this.wish);
     if (this.wish.id) {
       this.collectionsService.updateWish(this.wish).subscribe({
@@ -203,7 +214,14 @@ export class WishEditItemComponent implements OnInit {
         },
       });
     } else {
-      console.error('Error saving: wish.id is missing');
-    }
-  }
+      this.collectionsService.createWish(this.wish).subscribe({
+        next: (createdWish) => {
+          console.log('Wish created:', createdWish);
+          history.back();
+        },
+        error: (err) => {
+          console.error('Error creating wish:', err);
+        },
+      });
+    }}
 }
