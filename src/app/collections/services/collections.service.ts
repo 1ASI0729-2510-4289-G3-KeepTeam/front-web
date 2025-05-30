@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import {map,switchMap,tap,forkJoin} from 'rxjs';
+import {map,switchMap,forkJoin} from 'rxjs';
 import { Wish } from '../model/wish.entity';
 import {Tag} from '../model/tag.entity';
 import {Collection} from '../model/collection.entity';
