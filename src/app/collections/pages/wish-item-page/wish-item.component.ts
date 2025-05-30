@@ -33,7 +33,7 @@ export class WishItemComponent implements OnInit {
    * @property wishId
    * The productId extracted from the URL route parameters.
    */
-  wishId: string | null = null;
+  wishId: number | null = null;
   collectionId: string | null = null;
   /**
    * @property wish
@@ -63,7 +63,7 @@ export class WishItemComponent implements OnInit {
    */
   ngOnInit(): void {
     this.route.params.subscribe(params => { // Use subscribe
-      this.wishId = params['productId'];
+      this.wishId = Number(params['productId']);
       this.collectionId = params['collectionId']; // Get collectionId from route
       if (this.wishId) {
         this.getWishDetails(this.wishId);
@@ -77,7 +77,7 @@ export class WishItemComponent implements OnInit {
    * Ensures tags array exists to avoid null references.
    * @param id The Wish ID to fetch
    */
-  getWishDetails(id: string): void {
+  getWishDetails(id: number): void {
     this.collectionsService.getWishById(id).subscribe({
       next: (data) => {
         this.wish = {

@@ -2,14 +2,14 @@
   <div class="sidebar">
     <app-sidebar
       [nav]="collections"
-      titleName="My Collections">
+      title="My Collections">
     </app-sidebar>
   </div>
   <div class="content-area">
     <div class="searchBar">
       <app-search-bar></app-search-bar>
     </div>
-    <app-creation-buttons> </app-creation-buttons>
+    <app-creation-buttons [buttons]="creationButtons"></app-creation-buttons>
     <div class="collections-container">
       <div *ngFor="let collection of collections">
       <app-collection-card

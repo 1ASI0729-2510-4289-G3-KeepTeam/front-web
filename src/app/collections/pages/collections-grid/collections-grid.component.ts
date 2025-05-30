@@ -35,6 +35,17 @@ export class CollectionsGridComponent implements OnInit {
    */
   collections: FullCollection[] = [];
   items: Wish[] = [];
+
+  creationButtons: { name: string; link: string; backgroundColor: string; color: string; }[] | undefined = [
+    { name: 'Add sub-collection', link: '/collections/1/7', backgroundColor: '#FEDD72', color: '#BD6412' },
+    { name: 'Add Collection', link: '', backgroundColor: '#FF8B68', color: '#FFFAF3' }
+  ]
+    /**
+     * @constructor
+     * @param collectionsService - Service to fetch collections data.
+     * @param router - Angular Router for navigation.
+     */
+
   /**
    * @constructor
    * @param collectionsService - Service to fetch collections data.
@@ -106,7 +117,7 @@ export class CollectionsGridComponent implements OnInit {
    * @description Navigates to the collection detail page.
    * @param id - The ID of the collection.
    */
-  navigateToCollection(id: string): void {
+  navigateToCollection(id: number): void {
     this.router.navigate(['/collections', id]);
   }
 

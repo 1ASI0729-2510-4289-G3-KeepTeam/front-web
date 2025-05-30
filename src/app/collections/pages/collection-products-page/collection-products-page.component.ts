@@ -13,6 +13,7 @@ import {CollectionCardComponent} from '../../components/collection-card/collecti
 import {FullCollection} from '../../model/fullCollection.entity';
 import {Collection} from '../../model/collection.entity';
 import {Observable} from 'rxjs';
+import {CreationButtonsComponent} from '../../components/creation-buttons/creation-buttons.component';
 
 /**
  * @component CollectionProductsPageComponent
@@ -23,7 +24,7 @@ import {Observable} from 'rxjs';
  */
 @Component({
   selector: 'app-collection-products-page',
-  imports: [SidebarComponent, ProductItemCardComponent, CommonModule, MatIcon, ItemActionsComponent, SearchBarComponent, CollectionCardComponent],
+  imports: [SidebarComponent, ProductItemCardComponent, CommonModule, MatIcon, ItemActionsComponent, SearchBarComponent, CollectionCardComponent, CreationButtonsComponent],
   templateUrl: './collection-products-page.component.html',
   styleUrl: './collection-products-page.component.css',
 })
@@ -39,7 +40,7 @@ export class CollectionProductsPageComponent implements OnInit {
    * @property collectionId
    * @description The ID of the collection, retrieved from the route parameters.
    */
-  collectionId: string;
+  collectionId: number;
   collection: Collection | undefined;
 
   /**
@@ -47,17 +48,19 @@ export class CollectionProductsPageComponent implements OnInit {
    * @param collectionsService - Service to fetch collections and products.
    * @param route - ActivatedRoute for accessing route parameters.
    * @param router
-   * @param location
    */
   constructor(
     private collectionsService: CollectionsService,
     private route: ActivatedRoute,
     private router: Router,
-    private location: Location
   ) {
-    this.collectionId = this.route.snapshot.paramMap.get('id') ?? '098';
-
+    const collectionIdTemp = this.route.snapshot.paramMap.get('id') ?? '1';
+    this.collectionId = Number(collectionIdTemp)
   }
+  creationButtons: { id: number,name: string; link: string; backgroundColor: string; color: string; }[] | undefined = [
+    { id: 1 ,name: 'Add sub-collection', link: '/collections/1/7', backgroundColor: '#FEDD72', color: '#BD6412' },
+    { id: 2 ,name: 'Add Wish', link: '', backgroundColor: '#FF8B68', color: '#FFFAF3' }
+  ]
 
   /**
    * @function ngOnInit
@@ -67,16 +70,25 @@ export class CollectionProductsPageComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.collectionId = params['id'];
+
       if (this.collectionId) {
+        this.getCollection(this.collectionId);
         this.getProducts();
+        this.loadCollections();
       } else {
         console.error("No collection ID provided in the route!");
         this.router.navigate(['/collections']);
       }
-      this.loadCollections();
-      this.getCollection(this.collectionId);
+
     });
 
+  }
+
+
+  filterCreationButtonForSubCollection() {
+    if (this.collection!.idParentCollection !== 0) {
+      this.creationButtons = this.creationButtons!.filter(b => b.id !== 1);
+    }
   }
 
   /**
@@ -84,13 +96,24 @@ export class CollectionProductsPageComponent implements OnInit {
    * @description Navigates back to the previous page in browser history.
    */
   goBack(): void {
-    history.back();
+    if(this.collection?.idParentCollection != 0) {
+      this.router.navigate(['collections',this.collection?.idParentCollection]);
+    } else{
+      const currentUrl = this.router.url;
+      const segments = currentUrl.split('/');
+      segments.pop();
+
+      const newUrl = segments.join('/');
+      this.router.navigate([newUrl]);
+    }
+
   }
 
-  getCollection(collectionId: string) {
+  getCollection(collectionId: number) {
+    this.collection = undefined
     this.collectionsService.getCollectionById(collectionId).subscribe(collection => {
-      console.log(collection);
       this.collection = collection;
+      this.filterCreationButtonForSubCollection()
     });
   }
 
@@ -116,8 +139,10 @@ export class CollectionProductsPageComponent implements OnInit {
    * @description Fetches collections from the service and maps them to the local collections array.
    */
   loadCollections() {
+    this.collections = [];
     this.collectionsService.getSubCollectionsFromCollection(this.collectionId).subscribe({
       next: (data: FullCollection[]) => {
+
         this.collections = data;
       },
       error: (error) => {
@@ -159,7 +184,7 @@ export class CollectionProductsPageComponent implements OnInit {
    * @description Navigates to the collection detail page.
    * @param id - The ID of the collection.
    */
-  navigateToCollection(id: string): void {
+  navigateToCollection(id: number): void {
     this.router.navigate(['/collections', id]);
   }
 

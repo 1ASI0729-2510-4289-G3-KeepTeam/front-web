@@ -63,7 +63,7 @@ export class CollectionsService {
    * @description Fetch a single wish by its ID, including tags.
    * @param wishId The ID of the wish to fetch
    */
-  getWishById(wishId: string) {
+  getWishById(wishId: number) {
     console.log(`${this.baseUrl}/items?id=${wishId}`);
     return this.http.get(`${this.baseUrl}/items?id=${wishId}`).pipe(
       map((response: any): Wish => {
@@ -107,7 +107,7 @@ export class CollectionsService {
    * @param id Collection ID
    * @param newTitle New title string
    */
-  updateCollectionTitle(id: string, newTitle: string) {
+  updateCollectionTitle(id: number, newTitle: string) {
     return this.http.patch<Collection>(`${this.baseUrl}/collections/${id}`, { title: newTitle });
   }
   /**
@@ -115,7 +115,7 @@ export class CollectionsService {
    * @description Fetch a collection by its ID.
    * @param id Collection ID
    */
-  getCollectionById(id: string) {
+  getCollectionById(id: number) {
     return this.http.get<Collection>(`${this.baseUrl}/collections/${id}`);
   }
 
@@ -124,7 +124,7 @@ export class CollectionsService {
    * @description Delete a wish from de database by its ID.
    * @param id Wish ID
    */
-  deleteWish(id: string) {
+  deleteWish(id: number) {
     return this.http.delete(`${this.baseUrl}/items/${id}`);
   }
   /**
@@ -132,7 +132,7 @@ export class CollectionsService {
    * @description Fetch all wishes/items by collection ID.
    * @param idCollection Collection ID
    */
-  getProductsByIdCollection(idCollection: string) {
+  getProductsByIdCollection(idCollection: number) {
     return this.http
       .get<any[]>(`${this.baseUrl}/items?idCollection=${idCollection}`)
       .pipe(
@@ -163,7 +163,7 @@ export class CollectionsService {
       );
 }
 
-  getSubCollectionsFromCollection(idCollection: string){
+  getSubCollectionsFromCollection(idCollection: number){
     const subCollections = this.http.get<Collection[]>(`${this.baseUrl}/collections?idParentCollection=${idCollection}`).pipe(
       map(response => CollectionAssembler.toEntitiesFromResponse(response))
     )

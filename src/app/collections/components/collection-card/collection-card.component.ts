@@ -28,11 +28,6 @@ export class CollectionCardComponent {
    * @param router - Angular Router used for navigation.
    */
 
-
-  sharingType: 'link' | 'qr' | null = null;
-  qrCodeContent: string = '';
-
-
   constructor(private router: Router) {}
 
 

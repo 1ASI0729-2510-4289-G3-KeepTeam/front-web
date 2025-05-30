@@ -6,7 +6,7 @@
  */
 
 export class Collection {
-  id = '';
+  id = 0;
   title = '';
   idUser ='';
   isInTrash = false;

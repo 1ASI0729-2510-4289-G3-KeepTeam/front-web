@@ -54,7 +54,7 @@ export class WishEditItemComponent implements OnInit {
    * @property productId
    * @description The ID of the wish item fetched from the route parameters.
    */
-  productId: string | null = '';
+  productId: number | null = 0;
 
   /**
    * @constructor
@@ -72,7 +72,7 @@ export class WishEditItemComponent implements OnInit {
    */
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
-      this.productId = params.get('productId');
+      this.productId = Number(params.get('productId'));
 
       if (this.productId) {
         this.getWish(this.productId);
@@ -85,7 +85,7 @@ export class WishEditItemComponent implements OnInit {
    * @description Fetches a Wish by ID and assigns it to the component property.
    * @param productId - The ID of the Wish to fetch.
    */
-  private getWish(productId: string): void {
+  private getWish(productId: number): void {
     this.collectionsService.getWishById(productId).subscribe({
       next: (wish: Wish) => {
         this.wish = wish;

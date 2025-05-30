@@ -8,14 +8,14 @@
       <div class="sidebar">
         <app-sidebar *ngIf="collection != undefined"
           [nav]="productList"
-          [titleName]="collection.title">
+          [collection]="collection">
         </app-sidebar>
       </div>
 
     </div>
 
   </div>
-
+  <app-creation-buttons [buttons]="creationButtons"></app-creation-buttons>
 <div class="containerContent">
   <div class="searchBar">
     <app-item-actions [item]="{ collectionId: collectionId }"

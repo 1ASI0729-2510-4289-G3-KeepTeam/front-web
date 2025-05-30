@@ -31,7 +31,7 @@ export class QrShareComponent implements OnInit {
   /**
    * @property {string | null} itemId - ID of the wish or collection item to share.
    */
-  itemId: string | null = null;
+  itemId: number | null = null;
 
   /**
    * @property {string} qrCodeValue - The generated QR code as a data URL.

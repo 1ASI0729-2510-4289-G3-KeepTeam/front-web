@@ -37,6 +37,7 @@ export class ProductItemCardComponent {
    * @input link
    * @description URL to navigate to for more details or actions related to the item.
    */
-  @Input() link: string = '';
+  @Input() link: number = 0;
 
+  protected readonly String = String;
 }

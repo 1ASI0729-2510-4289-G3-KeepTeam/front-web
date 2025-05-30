@@ -79,7 +79,8 @@ export class CollectionEditComponent {
    * Retrieves the collection ID from the route and fetches its data and related items.
    */
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
+    const idTemp: string | null = this.route.snapshot.paramMap.get('id');
+    const id:number = Number(idTemp)
     if (id) {
       this.collectionsService.getCollectionById(id).subscribe(collection => {
         this.selectedCollection = collection;

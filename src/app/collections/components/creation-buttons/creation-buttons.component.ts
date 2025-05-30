@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {NgForOf} from '@angular/common';
+import {RouterLink} from '@angular/router';
 
 /**
  * @component CreationButtonsComponent
@@ -11,7 +12,7 @@ import {NgForOf} from '@angular/common';
 
 @Component({
   selector: 'app-creation-buttons',
-  imports: [MatButtonModule, NgForOf],
+  imports: [MatButtonModule, NgForOf, RouterLink],
   templateUrl: './creation-buttons.component.html',
   styleUrl: './creation-buttons.component.css'
 })
@@ -25,10 +26,6 @@ export class CreationButtonsComponent {
    * - `backgroundColor`: Button background color
    * - `color`: Text color for the button
    */
-
-  buttons = [
-    {name: 'Add sub-collection', link: 'youtube.com', backgroundColor: '#FEDD72', color: '#BD6412'},
-    {name: 'Add Collection', link: 'x.com', backgroundColor: '#FF8B68', color: '#FFFAF3'},
-  ];
+  @Input() buttons: any
 }
 

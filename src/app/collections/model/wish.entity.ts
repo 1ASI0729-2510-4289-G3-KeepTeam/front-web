@@ -6,8 +6,8 @@ import { Tag } from './tag.entity';
  * Contains properties for identification, description, URLs, and tagging.
  */
 export class Wish {
-  id: string;
-  idCollection: string;
+  id: number;
+  idCollection: number;
   title: string;
   description: string;
   isInTrash: boolean;
@@ -16,8 +16,8 @@ export class Wish {
   tags: Tag[];
 
   constructor() {
-    this.id = '';
-    this.idCollection = '';
+    this.id = 0;
+    this.idCollection = 0;
     this.title = '';
     this.isInTrash = false;
     this.description = '';

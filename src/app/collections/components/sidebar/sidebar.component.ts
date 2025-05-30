@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit } from '@angular/core';
 import {NgForOf, NgIf} from '@angular/common';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Collection} from '../../model/collection.entity';
@@ -19,17 +19,25 @@ import {Wish} from '../../model/wish.entity';
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
   /**
    * @property nav
    * @description
    * Navigation structure for the sidebar. Contains a list of grouped items
    * where each item represents a user collection or item with a name and image URL.
    */
-  @Input() titleName: String | undefined;
+  @Input() collection: Collection | undefined;
   @Input() nav: any | undefined;
 
+  @Input() title: string | undefined;
+
   constructor(private router: Router, private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    if (this.collection) {
+      this.title = this.collection.title;
+    }
+  }
 
   goToItem(item: Collection | Wish) {
     let baseRoute = this.route.snapshot.url[0]?.path;
@@ -39,5 +47,4 @@ export class SidebarComponent {
     }
     this.router.navigate([baseRoute , item.id]);
 
-  }
-}
+  }}
