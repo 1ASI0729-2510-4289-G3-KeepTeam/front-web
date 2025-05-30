@@ -33,6 +33,7 @@ export class CollectionProductsPageComponent implements OnInit {
    */
   public productList: Wish[] = [];
   public collections: FullCollection[] = [];
+  public subCollections: Collection[] | undefined;
 
   /**
    * @property collectionId
@@ -68,6 +69,7 @@ export class CollectionProductsPageComponent implements OnInit {
    * when the component is initialized.
    */
   ngOnInit() {
+
     this.route.paramMap.subscribe(params => {
       const idParam = params.get('id');
       if (!idParam) {
@@ -85,6 +87,7 @@ export class CollectionProductsPageComponent implements OnInit {
       this.getCollection(this.collectionId);
       this.getProducts();
       this.loadCollections();
+      this.loadSubCollections();
     });
 
   }
@@ -146,11 +149,23 @@ export class CollectionProductsPageComponent implements OnInit {
     this.collections = [];
     this.collectionsService.getSubCollectionsFromCollection(this.collectionId).subscribe({
       next: (data: FullCollection[]) => {
-
         this.collections = data;
       },
       error: (error) => {
         console.error('Error loading collections:', error);
+      }
+    });
+  }
+
+  loadSubCollections() {
+    this.subCollections = []
+    this.collectionsService.getSubCollectionsByParentId(this.collectionId).subscribe({
+      next: (subCollections: Collection[]) => {
+        this.subCollections = subCollections;
+        console.log(subCollections);
+      },
+      error: (err) => {
+        console.error('Error loading subcollections:', err);
       }
     });
   }
