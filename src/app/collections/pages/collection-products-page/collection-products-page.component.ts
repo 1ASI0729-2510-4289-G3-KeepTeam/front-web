@@ -33,7 +33,7 @@ export class CollectionProductsPageComponent implements OnInit {
    */
   public productList: Wish[] = [];
   public collections: FullCollection[] = [];
-  public subCollections: Collection[] | undefined;
+  public subCollections: Collection[] = [];
 
   /**
    * @property collectionId
