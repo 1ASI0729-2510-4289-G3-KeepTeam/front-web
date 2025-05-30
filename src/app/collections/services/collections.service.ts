@@ -58,6 +58,10 @@ export class CollectionsService {
     return this.transformToFullCollection(this.getCollections())
   }
 
+  getSubCollectionsByParentId(parentId: number): Observable<FullCollection[]> {
+    return this.http.get<FullCollection[]>(`${this.baseUrl}/collections?idParentCollection=${parentId}`);
+  }
+
   /**
    * @function getWishById
    * @description Fetch a single wish by its ID, including tags.

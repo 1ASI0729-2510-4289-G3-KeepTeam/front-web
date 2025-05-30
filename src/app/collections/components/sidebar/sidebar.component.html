@@ -7,3 +7,12 @@
   </li>
 </ul>
 
+<div *ngIf="subCollections && subCollections.length > 0">
+  <h3 aria-label="SideNav">SubCollections</h3>
+
+  <ul *ngFor="let item of subCollections">
+    <li *ngIf="!item.isInTrash">
+      <a  (click)="goToItem(item)" target="_blank">{{ item.title }}</a>
+    </li>
+  </ul>
+</div>

@@ -68,7 +68,7 @@ export class CollectionsGridComponent implements OnInit {
   loadCollections() {
     this.collectionsService.getFullCollections().subscribe({
       next: (data: FullCollection[]) => {
-        this.collections = data;
+        this.collections = data.filter(c => c.idParentCollection === 0);
       },
       error: (error) => {
         console.error('Error loading collections:', error);

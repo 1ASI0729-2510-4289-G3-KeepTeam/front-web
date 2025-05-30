@@ -28,10 +28,12 @@ export class SidebarComponent implements OnInit {
    */
   @Input() collection: Collection | undefined;
   @Input() nav: any | undefined;
+  @Input() subCollections: Collection[] = [];
 
   @Input() title: string | undefined;
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(private router: Router, private route: ActivatedRoute) {
+  }
 
   ngOnInit() {
     if (this.collection) {
@@ -40,11 +42,21 @@ export class SidebarComponent implements OnInit {
   }
 
   goToItem(item: Collection | Wish) {
+
+    console.log('subCollections',this.subCollections);
+    if(this.subCollections.length > 0){
+      if (!(item instanceof Wish)) {
+        this.router.navigate(['/collections', item.id]);
+        return
+      }
+    }
+
     let baseRoute = this.route.snapshot.url[0]?.path;
 
-    if(this.route.snapshot.url[1]) {
+    if (this.route.snapshot.url[1]) {
       baseRoute = baseRoute + '/' + this.route.snapshot.url[1].path;
     }
-    this.router.navigate([baseRoute , item.id]);
+    this.router.navigate([baseRoute, item.id]);
 
-  }}
+  }
+}
