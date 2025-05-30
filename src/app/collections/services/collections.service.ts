@@ -158,8 +158,6 @@ export class CollectionsService {
     return this.http
       .get<any[]>(`${this.baseUrl}/items?idCollection=${idCollection}`)
       .pipe(
-        tap((response: any) => {
-        }),
         map((response): Wish[] => {
           if (!response || !Array.isArray(response)) {
             console.error('La respuesta no es un array válido:', response);
