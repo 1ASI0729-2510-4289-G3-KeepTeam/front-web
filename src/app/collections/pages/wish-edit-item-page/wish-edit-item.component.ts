@@ -93,7 +93,7 @@ export class WishEditItemComponent implements OnInit {
     this.collectionsService.getWishById(productId).subscribe({
       next: (wish: Wish) => {
         if (this.productId) {
-          this.getWish(this.productId);
+          this.wish = wish;
         } else {
           this.wish = new Wish();
         }

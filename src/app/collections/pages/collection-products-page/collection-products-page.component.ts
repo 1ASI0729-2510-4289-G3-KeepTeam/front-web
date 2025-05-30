@@ -8,11 +8,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MatIcon} from '@angular/material/icon';
 import {ItemActionsComponent} from '../../components/item-actions/item-actions.component';
 import {SearchBarComponent} from '../../components/search-bar/search-bar.component';
-import {Location} from "@angular/common";
 import {CollectionCardComponent} from '../../components/collection-card/collection-card.component';
 import {FullCollection} from '../../model/fullCollection.entity';
 import {Collection} from '../../model/collection.entity';
-import {Observable} from 'rxjs';
 import {CreationButtonsComponent} from '../../components/creation-buttons/creation-buttons.component';
 
 /**
