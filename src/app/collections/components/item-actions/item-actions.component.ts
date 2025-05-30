@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { Router, RouterLink } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 
 /**
@@ -14,7 +14,7 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 @Component({
   selector: 'app-item-actions',
   standalone: true,
-  imports: [MatIconModule, MatButtonModule, RouterLink, MatMenuTrigger, MatMenu, MatMenuItem,],
+  imports: [MatIconModule, MatButtonModule, MatMenuTrigger, MatMenu, MatMenuItem,],
   templateUrl: './item-actions.component.html',
   styleUrl: './item-actions.component.css',
 })
@@ -38,38 +38,30 @@ export class ItemActionsComponent {
   @Output() shareQr = new EventEmitter<any>();
 
   /**
-   * @input editRoute
-   * Accepts placeholders like ':id', ':collectionId' that are replaced using the item.
-   */
-  @Input() editRoute?: any[];
-
-  /**
    * @output onDelete
    * Emits the current item when the delete action is triggered.
    */
   @Output() onDelete = new EventEmitter();
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
   /**
-   * @function buildRoute
+   * @function editRoute
    * @description
-   * Builds a concrete route from a route template by replacing any placeholder segments (e.g., ':id')
-   * with actual values from the `item` object.
-   * @param route - An array of route segments (strings).
-   * @returns {any[]} A new route array with values replaced where applicable.
+   * Routing to edit page of current page
    */
 
 
-  buildRoute(route: any[] | undefined): any[] {
-    if (!route) return [];
-    return route.map(segment => {
-      if (typeof segment === 'string' && segment.startsWith(':')) {
-        const key = segment.substring(1);
-        return (this.item as any)[key] ?? segment;
-      }
-      return segment;
-    });
+  editRoute(){
+    let baseRouteSegments = this.route.snapshot.url;
+    let baseRoute = ''
+    console.log('Segments: ', baseRouteSegments);
+    for(let segment in baseRouteSegments) {
+      baseRoute = baseRoute + '/' + baseRouteSegments[segment].path;
+      console.log(baseRoute);
+    }
+    console.log('Final:', baseRoute);
+    this.router.navigate([baseRoute, 'edit']);
   }
 
   onShareLink(): void {

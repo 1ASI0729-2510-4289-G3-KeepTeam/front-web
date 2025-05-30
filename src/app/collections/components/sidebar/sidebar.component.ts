@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
-import {NgForOf} from '@angular/common';
+import {Component, Input} from '@angular/core';
+import {NgForOf, NgIf} from '@angular/common';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Collection} from '../../model/collection.entity';
+import {Wish} from '../../model/wish.entity';
 /**
  * @component SidebarComponent
  * @description
@@ -10,7 +13,8 @@ import {NgForOf} from '@angular/common';
 @Component({
   selector: 'app-sidebar',
   imports: [
-    NgForOf
+    NgForOf,
+    NgIf
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
@@ -20,16 +24,20 @@ export class SidebarComponent {
    * @property nav
    * @description
    * Navigation structure for the sidebar. Contains a list of grouped items
-   * where each item represents a user collection with a name and image URL.
+   * where each item represents a user collection or item with a name and image URL.
    */
-  nav = [
-    {
-      name: 'My Collections',
-      items: [
-        { name: 'Dog things', link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoNQWiJJy-Z360Hc6d07zViBvCudiZUHWcBQ&s' },
-        { name: 'Bedroom Dec', link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoNQWiJJy-Z360Hc6d07zViBvCudiZUHWcBQ&s'},
-        { name: 'Art Stuff', link: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOdQAXzPAjKTSs-IfZFPqSoEfaCbAcd9H8Hw&s' }
-      ]
-    },
-  ];
+  @Input() titleName: String | undefined;
+  @Input() nav: any | undefined;
+
+  constructor(private router: Router, private route: ActivatedRoute) {}
+
+  goToItem(item: Collection | Wish) {
+    let baseRoute = this.route.snapshot.url[0]?.path;
+
+    if(this.route.snapshot.url[1]) {
+      baseRoute = baseRoute + '/' + this.route.snapshot.url[1].path;
+    }
+    this.router.navigate([baseRoute , item.id]);
+
+  }
 }

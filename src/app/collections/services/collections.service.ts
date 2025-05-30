@@ -155,17 +155,15 @@ export class CollectionsService {
    * @param idCollection Collection ID
    */
   getProductsByIdCollection(idCollection: string) {
-    console.log(`${this.baseUrl}/items?idCollection=${idCollection}`, "me vuelvo loco");
     return this.http
       .get<any[]>(`${this.baseUrl}/items?idCollection=${idCollection}`)
       .pipe(
         tap((response: any) => {
-          console.log('Respuesta de la API:', response); // Asegúrate de ver la respuesta aquí
         }),
         map((response): Wish[] => {
           if (!response || !Array.isArray(response)) {
             console.error('La respuesta no es un array válido:', response);
-            return []; // Retorna un array vacío si no es válido
+            return [];
           }
 
           return response.map((item) => {

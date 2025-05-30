@@ -1,11 +1,9 @@
-<div *ngFor="let navItem of nav">
-    <h3 aria-label="SideNav">{{ navItem.name }}</h3>
 
-    <ul>
-      <li *ngFor="let item of navItem.items">
-        <a [href] = [item.link] target="_blank">{{ item.name }}</a>
+<h3 aria-label="SideNav">{{ titleName }}</h3>
 
-      </li>
-    </ul>
-  </div>
+<ul *ngFor="let item of nav">
+  <li *ngIf="!item.isInTrash">
+    <a  (click)="goToItem(item)" target="_blank">{{ item.title }}</a>
+  </li>
+</ul>
 

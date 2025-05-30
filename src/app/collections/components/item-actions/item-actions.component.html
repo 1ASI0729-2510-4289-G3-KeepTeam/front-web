@@ -15,8 +15,8 @@
       </button>
     </mat-menu>
   </div>
-  <a mat-flat-button [routerLink]="buildRoute(editRoute)" class="editButton">
+  <button mat-flat-button (click)="editRoute()" class="editButton">
     Edit
     <mat-icon>edit</mat-icon>
-  </a>
+  </button>
 </div>
