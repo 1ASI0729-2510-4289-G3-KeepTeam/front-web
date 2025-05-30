@@ -50,8 +50,6 @@ export class ItemActionsComponent {
    * @description
    * Routing to edit page of current page
    */
-
-
   editRoute(){
     let baseRouteSegments = this.route.snapshot.url;
     let baseRoute = ''
@@ -65,10 +63,10 @@ export class ItemActionsComponent {
   }
 
   onShareLink(): void {
-    this.onShare.emit(); // Emit the share event
+    this.onShare.emit();
   }
 
-  onShareQr(): void { // Corrected function name
+  onShareQr(): void {
     console.log('onShareQr function in ItemActionsComponent called', this.item);
     this.shareQr.emit(this.item);
   }
