@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Wish } from '../../model/wish.entity';
@@ -20,7 +20,7 @@ import { Collection } from '../../model/collection.entity';
   styleUrls: ['./collection-edit.component.css'],
   imports: [CommonModule, FormsModule]
 })
-export class CollectionEditComponent {
+export class CollectionEditComponent implements OnInit {
 
   /**
    * @property selectedCollection
@@ -161,5 +161,4 @@ export class CollectionEditComponent {
   extractFirstFourImages(items: Wish[]): string[] {
     if (!items) return [];
     return items.slice(0, 4).map(wish => wish.urlImg);
-  }
-}
+  }}
