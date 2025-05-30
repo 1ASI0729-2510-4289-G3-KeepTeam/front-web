@@ -9,6 +9,10 @@ import {MatIcon} from '@angular/material/icon';
 import {ItemActionsComponent} from '../../components/item-actions/item-actions.component';
 import {SearchBarComponent} from '../../components/search-bar/search-bar.component';
 import {Location} from "@angular/common";
+import {CollectionCardComponent} from '../../components/collection-card/collection-card.component';
+import {FullCollection} from '../../model/fullCollection.entity';
+import {Collection} from '../../model/collection.entity';
+import {Observable} from 'rxjs';
 
 /**
  * @component CollectionProductsPageComponent
@@ -19,7 +23,7 @@ import {Location} from "@angular/common";
  */
 @Component({
   selector: 'app-collection-products-page',
-  imports: [SidebarComponent, ProductItemCardComponent, CommonModule, MatIcon, ItemActionsComponent, SearchBarComponent],
+  imports: [SidebarComponent, ProductItemCardComponent, CommonModule, MatIcon, ItemActionsComponent, SearchBarComponent, CollectionCardComponent],
   templateUrl: './collection-products-page.component.html',
   styleUrl: './collection-products-page.component.css',
 })
@@ -29,13 +33,14 @@ export class CollectionProductsPageComponent implements OnInit {
    * @description Array of wishes/products to be displayed on the page.
    */
   public productList: Wish[] = [];
-
+  public collections: FullCollection[] = [];
 
   /**
    * @property collectionId
    * @description The ID of the collection, retrieved from the route parameters.
    */
   collectionId: string;
+  collection: Collection | undefined;
 
   /**
    * @constructor
@@ -62,15 +67,16 @@ export class CollectionProductsPageComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.collectionId = params['id'];
-      if (this.collectionId) {  // Check if collectionId has a value
+      if (this.collectionId) {
         this.getProducts();
       } else {
-        // Handle the case where there's no collectionId in the route
         console.error("No collection ID provided in the route!");
-        // Maybe redirect to /collections or show an error message
-        this.router.navigate(['/collections']); // Example: Redirect
+        this.router.navigate(['/collections']);
       }
+      this.loadCollections();
+      this.getCollection(this.collectionId);
     });
+
   }
 
   /**
@@ -78,20 +84,18 @@ export class CollectionProductsPageComponent implements OnInit {
    * @description Navigates back to the previous page in browser history.
    */
   goBack(): void {
-    const currentUrl = this.router.url;
-    const parentUrl = currentUrl.substring(0, currentUrl.lastIndexOf('/'));
+    history.back();
+  }
 
-    if (parentUrl === '/collections' || currentUrl === '/collections') {
-      this.router.navigate(['/collections']);
-    } else if (this.collectionId && currentUrl === `/collections/${this.collectionId}`) { // Check collectionId
-      this.router.navigate(['/collections']);
-    } else {
-      this.location.back();
-    }
+  getCollection(collectionId: string) {
+    this.collectionsService.getCollectionById(collectionId).subscribe(collection => {
+      console.log(collection);
+      this.collection = collection;
+    });
   }
 
   getProducts() {
-    if (this.collectionId) { // Check before using collectionId
+    if (this.collectionId) {
       this.collectionsService.getProductsByIdCollection(this.collectionId).subscribe((data) => {
         this.productList = data;
       });
@@ -107,6 +111,20 @@ export class CollectionProductsPageComponent implements OnInit {
       }
     });
   }
+  /**
+   * @function loadCollections
+   * @description Fetches collections from the service and maps them to the local collections array.
+   */
+  loadCollections() {
+    this.collectionsService.getSubCollectionsFromCollection(this.collectionId).subscribe({
+      next: (data: FullCollection[]) => {
+        this.collections = data;
+      },
+      error: (error) => {
+        console.error('Error loading collections:', error);
+      }
+    });
+  }
 
   shareCollectionQr(): void {
     this.router.navigate(['/share-qr'], {
@@ -117,5 +135,42 @@ export class CollectionProductsPageComponent implements OnInit {
       }
     });
   }
+  /**
+   * @function deleteCollection
+   * @description Handler to trigger deletion of a collection.
+   * @param collection - The collection object to delete.
+   */
+  deleteCollection(collection: any){
+    console.log('Delete collection:', collection);
+  }
 
-}
+  /**
+   * @function editCollection
+   * @description Handler to trigger editing of a collection and redirects user to edit page.
+   * @param collection - The collection object to edit.
+   */
+  editCollection(collection: any){
+    console.log('Edit collection:', collection);
+    this.router.navigate(['/collections', collection.id, 'edit']);
+  }
+
+  /**
+   * @function navigateToCollection
+   * @description Navigates to the collection detail page.
+   * @param id - The ID of the collection.
+   */
+  navigateToCollection(id: string): void {
+    this.router.navigate(['/collections', id]);
+  }
+
+  navigateToQrShare(collection: any): void {
+    this.router.navigate(['/share-qr'], {
+      queryParams: {
+        contentType: 'collection',
+        itemId: collection.id,
+        previousUrl: this.router.url
+      }
+    });
+  }
+
+  }

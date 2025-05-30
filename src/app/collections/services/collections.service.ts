@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import {map,switchMap,forkJoin} from 'rxjs';
+import {map, switchMap, forkJoin, Observable} from 'rxjs';
 import { Wish } from '../model/wish.entity';
 import {Tag} from '../model/tag.entity';
 import {Collection} from '../model/collection.entity';
 import {CollectionAssembler} from './collection.assembler';
+import {FullCollection} from '../model/fullCollection.entity';
 
 @Injectable({
   providedIn: 'root',
@@ -54,30 +55,7 @@ export class CollectionsService {
    */
 
   getFullCollections() {
-    return this.getCollections().pipe(
-      switchMap((collections: Collection[]) => {
-        const fullCollectionRequests = collections.map(collection =>
-          this.getProductsByIdCollection(collection.id).pipe(
-            map((wishes: Wish[]) => {
-              const imageUrls = wishes
-                .filter(w => !w.isInTrash)
-                .slice(0, 4)
-                .map(w => w.urlImg);
-
-              const tags = this.getUniqueTags(wishes);
-
-              return {
-                ...collection,
-                imageUrls,
-                tags
-              };
-            })
-          )
-        );
-
-        return forkJoin(fullCollectionRequests);
-      })
-    );
+    return this.transformToFullCollection(this.getCollections())
   }
 
   /**
@@ -183,6 +161,41 @@ export class CollectionsService {
           });
         })
       );
-}}
+}
+
+  getSubCollectionsFromCollection(idCollection: string){
+    const subCollections = this.http.get<Collection[]>(`${this.baseUrl}/collections?idParentCollection=${idCollection}`).pipe(
+      map(response => CollectionAssembler.toEntitiesFromResponse(response))
+    )
+    return this.transformToFullCollection(subCollections);
+  }
+
+  transformToFullCollection(fullCollectionRequests: Observable<Collection[]>): Observable<FullCollection[]> {
+    return fullCollectionRequests.pipe(
+      switchMap((collections: Collection[]) => {
+        const fullCollectionRequests = collections.map(collection =>
+          this.getProductsByIdCollection(collection.id).pipe(
+            map((wishes: Wish[]) => {
+              const imageUrls = wishes
+                .filter(w => !w.isInTrash)
+                .slice(0, 4)
+                .map(w => w.urlImg);
+
+              const tags = this.getUniqueTags(wishes);
+
+              return {
+                ...collection,
+                imageUrls,
+                tags
+              } as FullCollection;
+            })
+          )
+        );
+
+        return forkJoin(fullCollectionRequests);
+      })
+    );
+  }
+}
 
 

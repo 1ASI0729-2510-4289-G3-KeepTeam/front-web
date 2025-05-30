@@ -1,4 +1,3 @@
-import { Wish } from './wish.entity';
 
 /**
  * @class Collection
@@ -11,4 +10,5 @@ export class Collection {
   title = '';
   idUser ='';
   isInTrash = false;
+  idParentCollection = 0;
 }

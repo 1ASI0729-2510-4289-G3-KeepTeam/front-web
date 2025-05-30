@@ -4,7 +4,7 @@ import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
 import { CreationButtonsComponent } from '../../components/creation-buttons/creation-buttons.component';
 import { CollectionCardComponent } from '../../components/collection-card/collection-card.component';
-import { NgForOf} from '@angular/common';
+import { CommonModule} from '@angular/common';
 import { CollectionsService } from '../../services/collections.service';
 import { Wish } from '../../model/wish.entity';
 import { Router } from '@angular/router';
@@ -23,7 +23,7 @@ import {FullCollection} from '../../model/fullCollection.entity';
     SearchBarComponent,
     CreationButtonsComponent,
     CollectionCardComponent,
-    NgForOf,
+    CommonModule,
   ],
   templateUrl: './collections-grid.component.html',
   styleUrl: './collections-grid.component.css',

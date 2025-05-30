@@ -55,28 +55,35 @@
   ],
   "collections": [
     {
-      "id": "098",
-      "idUser": "123",
+      "id": 1,
+      "idUser": 123,
       "title": "Dog Things",
       "isInTrash": false
     },
     {
-      "id": "145",
-      "idUser": "123",
+      "id": 2,
+      "idUser": 123,
       "title": "Cat Things",
       "isInTrash": false
     },
     {
-      "id": "198",
+      "id": 3,
       "idUser": "124",
       "title": "Bedroom Dec",
+      "isInTrash": false
+    },
+    {
+      "id": 4,
+      "idUser": 123,
+      "idParentCollection": 1,
+      "title": "More Dog Things",
       "isInTrash": false
     }
   ],
   "items": [
     {
-      "id": "3",
-      "idCollection": "098",
+      "id": 1,
+      "idCollection": 1,
       "title": "Dog Food WAG 1",
       "description": "Super Nutritious",
       "urlImg": "https://m.media-amazon.com/images/I/71j17LT9ZxL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
@@ -94,8 +101,8 @@
       ]
     },
     {
-      "id": "4",
-      "idCollection": "145",
+      "id": 2,
+      "idCollection": 2,
       "title": "Cat Bed",
       "description": "Really comfy bed",
       "isInTrash": false,
@@ -113,8 +120,8 @@
       ]
     },
     {
-      "id": "5",
-      "idCollection": "145",
+      "id": 3,
+      "idCollection": 2,
       "title": "Cat Bed V3",
       "description": "Really comfy bed pt.2",
       "isInTrash": true,
@@ -140,8 +147,8 @@
       ]
     },
     {
-      "id": "6",
-      "idCollection": "198",
+      "id": 4,
+      "idCollection": 3,
       "title": "Soft Bed",
       "isInTrash": false,
       "description": "Really comfy bed",
@@ -158,8 +165,8 @@
       ]
     },
     {
-      "id": "7",
-      "idCollection": "198",
+      "id": 5,
+      "idCollection": 3,
       "isInTrash": false,
       "title": "Miku Plushie",
       "description": "A miku plushie, very affordable, very blue, i like blue things, thats the only reason its here, idont know what else to add, thankyou",
@@ -177,8 +184,8 @@
       ]
     },
     {
-      "id": "9",
-      "idCollection": "098",
+      "id": 6,
+      "idCollection": 1,
       "title": "Dog Food WAG 2",
       "description": "Super Nutritious",
       "isInTrash": true,
@@ -196,8 +203,8 @@
       ]
     },
     {
-      "id": "10",
-      "idCollection": "098",
+      "id": 7,
+      "idCollection": 1,
       "title": "Double Leash",
       "description": "Multifunctional",
       "isInTrash": false,
@@ -211,8 +218,8 @@
       ]
     },
     {
-      "id": "11",
-      "idCollection": "098",
+      "id": 8,
+      "idCollection": 1,
       "title": "Puzzle Treat",
       "description": "Very Fun",
       "isInTrash": false,
@@ -231,8 +238,8 @@
     }
   ,
     {
-      "id": "12",
-      "idCollection": "098",
+      "id": 9,
+      "idCollection": 1,
       "title": "Dog Ball",
       "description": "Very Fun ball",
       "isInTrash": false,
@@ -246,8 +253,23 @@
       ]
     },
     {
-      "id": "13",
-      "idCollection": "098",
+      "id": 10,
+      "idCollection": 1,
+      "title": "Fur Remover",
+      "description": "Very Fun ball",
+      "isInTrash": false,
+      "urlImg": "https://m.media-amazon.com/images/I/71YFOZ2k0XL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
+      "redirectUrl": "https://m.media-amazon.com/images/I/71YFOZ2k0XL.__AC_SX300_SY300_QL70_FMwebp_.jpg",
+      "tags": [
+        {
+          "name": "Mascots",
+          "color": "#FFC8DF"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "idCollection": "879",
       "title": "Fur Remover",
       "description": "Very Fun ball",
       "isInTrash": false,

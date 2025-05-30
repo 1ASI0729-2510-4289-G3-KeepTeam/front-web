@@ -15,7 +15,8 @@ export class CollectionAssembler {
       id: collection.id,
       title: collection.title,
       idUser: collection.idUser,
-      isInTrash: collection.isInTrash
+      isInTrash: collection.isInTrash,
+      idParentCollection: collection.idParentCollection,
     };
   }
 
