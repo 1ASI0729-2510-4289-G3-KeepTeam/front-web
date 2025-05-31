@@ -1,4 +1,3 @@
-// src/app/services/auth.service.ts
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -26,7 +25,5 @@ export class AuthorizationService {
   registerUser(user: any): Observable<any> {
     return this.http.post<any>(`${environment.fakeAPIBaseUrl}/users`, user);
   }
-
-
 
 }

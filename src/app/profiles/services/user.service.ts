@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../model/user';
 import { Observable } from 'rxjs';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private baseUrl = 'https://db-json-server-keeplo-10di.onrender.com/api/v1/users';
+  private baseUrl = environment.fakeAPIBaseUrl.replace(/\/$/, '') + environment.usersEndpointPath;
 
   constructor(private http: HttpClient) {}
 
