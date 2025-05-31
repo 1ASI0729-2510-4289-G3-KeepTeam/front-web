@@ -12,6 +12,7 @@ import {MatChipsModule } from '@angular/material/chips';
 import {CollectionsService} from '../../services/collections.service';
 import {Wish} from '../../model/wish.entity';
 import {ActivatedRoute} from '@angular/router';
+import {UploadService} from '../../../shared/services/images.service';
 
 /**
  * @component WishEditItemComponent
@@ -60,10 +61,12 @@ export class WishEditItemComponent implements OnInit {
    * @constructor
    * @param route - ActivatedRoute to get route parameters.
    * @param collectionsService - Service to get/update wish data.
+   * @param uploadService
    */
   constructor(
     private route: ActivatedRoute,
-    private collectionsService: CollectionsService
+    private collectionsService: CollectionsService,
+    private uploadService: UploadService
   ) {}
 
   /**
@@ -224,4 +227,30 @@ export class WishEditItemComponent implements OnInit {
         },
       });
     }}
+
+  /**
+   * @function onFileSelected
+   * @description Saves the updated image of item
+   */
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      console.log('Archivo seleccionado:', file);
+
+
+      this.uploadService.uploadImage(file).subscribe({
+        next: res => {
+          console.log('Imagen subida correctamente:', res);
+          this.wish.urlImg = res.secure_url;
+        },
+        error: err => {
+          console.error('Error al subir imagen a Cloudinary:', err);
+        }
+      });
+    } else {
+      console.warn('No se seleccionó ningún archivo');
+    }
+  }
 }

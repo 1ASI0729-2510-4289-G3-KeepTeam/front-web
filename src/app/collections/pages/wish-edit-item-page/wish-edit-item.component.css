@@ -11,6 +11,8 @@
 }
 
 .image-container{
+  display: flex;
+  flex-direction: column;
   position: relative;
   height: fit-content;
   width: fit-content;
@@ -90,4 +92,26 @@ button{
 }
 textarea{
   width: 10rem;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  width: 30%;
+  text-align: center;
+  align-self: center;
+  margin: 1rem;
+  padding: 8px 20px;
+  cursor: pointer;
+  background-color: #FF8B68;
+  color: white;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.custom-file-upload:hover {
+  background-color: #af4a2e;
 }
