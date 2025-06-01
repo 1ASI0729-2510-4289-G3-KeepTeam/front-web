@@ -16,6 +16,7 @@ import {UserEditPasswordComponent} from './profiles/pages/user-edit-password/use
 import {ShareSettingsComponent} from './collections/pages/share-settings/share-settings.component';
 import {LinkShareComponent} from './collections/pages/link-share-page/link-share.component';
 import {QrShareComponent} from './collections/pages/qr-share-page/qr-share.component';
+import {TrashcanComponent} from './collections/pages/trashcan/trashcan.component';
 
 export const routes: Routes = [
   {
@@ -62,6 +63,7 @@ export const routes: Routes = [
   {path: 'link-share', component: LinkShareComponent },
   { path: 'collections/:collectionId/:productId', component: WishItemComponent },
   { path: 'share-qr', component: QrShareComponent },
+  { path: 'trashcan', component: TrashcanComponent },
 { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 

@@ -32,7 +32,7 @@ export class ItemActionsComponent {
   @Output() onShare = new EventEmitter<void>();
 
   /**
-   * @output shareQr  <--------------------- THIS IS THE IMPORTANT PART
+   * @output shareQr
    * Emits the item when the share as QR action is triggered.
    */
   @Output() shareQr = new EventEmitter<any>();
@@ -62,13 +62,17 @@ export class ItemActionsComponent {
     this.router.navigate([baseRoute, 'edit']);
   }
 
-  onShareLink(): void {
+  onShareLink(){
     this.onShare.emit();
   }
 
-  onShareQr(): void {
+  onShareQr(){
     console.log('onShareQr function in ItemActionsComponent called', this.item);
     this.shareQr.emit(this.item);
   }
 
+  deleteEntity(event: MouseEvent){
+    event.stopPropagation();
+    this.onDelete.emit(this.item);
+  }
 }

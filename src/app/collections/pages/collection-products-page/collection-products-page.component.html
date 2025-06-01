@@ -19,7 +19,8 @@
   <app-creation-buttons [buttons]="creationButtons"></app-creation-buttons>
 <div class="containerContent">
   <div class="searchBar">
-    <app-item-actions [item]="{ collectionId: collectionId }"
+    <app-item-actions [item]="collection"
+                      (onDelete)="deleteCollection($event)"
                       (onShare)="shareCollection()"
                       (shareQr)="shareCollectionQr()"
     ></app-item-actions>

@@ -1,6 +1,5 @@
-<h2 mat-dialog-title>Delete {{item.title}}</h2>
-<mat-dialog-content>
-  Would you like to move <strong>{{ item.title }}</strong>  to the trashcan?
+<h2 mat-dialog-title>{{item.title}}</h2>
+<mat-dialog-content [innerHTML]="item.message">
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close (click)="onCancel()">No</button>

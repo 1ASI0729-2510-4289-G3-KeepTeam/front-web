@@ -12,6 +12,8 @@ import {CollectionCardComponent} from '../../components/collection-card/collecti
 import {FullCollection} from '../../model/fullCollection.entity';
 import {Collection} from '../../model/collection.entity';
 import {CreationButtonsComponent} from '../../components/creation-buttons/creation-buttons.component';
+import {PopConfirmDialogComponent} from '../../../public/components/pop-confirm-dialog/pop-confirm-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
 
 /**
  * @component CollectionProductsPageComponent
@@ -55,11 +57,13 @@ export class CollectionProductsPageComponent implements OnInit {
    * @param collectionsService - Service to fetch collections and products.
    * @param route - ActivatedRoute for accessing route parameters.
    * @param router
+   * @param dialog
    */
   constructor(
     private collectionsService: CollectionsService,
     private route: ActivatedRoute,
     private router: Router,
+    private dialog: MatDialog,
   ) {}
 
 
@@ -182,10 +186,27 @@ export class CollectionProductsPageComponent implements OnInit {
   /**
    * @function deleteCollection
    * @description Handler to trigger deletion of a collection.
-   * @param collection - The collection object to delete.
+   * @param collection
    */
   deleteCollection(collection: any){
     console.log('Delete collection:', collection);
+    const dialogRef = this.dialog.open(PopConfirmDialogComponent, {
+      data: {
+        title: 'Confirm Deletion',
+        message: `¿Are you sure you want to delete <strong>${collection.title}</strong>? <br> You can later restore it in the trashcan section`
+      }
+    });
+
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        const updatedItem = { ...collection, isInTrash: true };
+        this.collectionsService.updateCollection(updatedItem).subscribe(() => {
+          console.log('Collection moved to trashcan');
+        });
+        this.router.navigate(['/collections'])
+      }
+    });
   }
 
   /**

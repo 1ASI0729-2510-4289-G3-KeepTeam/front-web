@@ -105,6 +105,15 @@ export class CollectionsService {
   updateWish(wish: Wish) {
     return this.http.put<Wish>(`${this.baseUrl}/items/${wish.id}`, wish);
   }
+
+  /**
+   * @function updateCollection
+   * @description Update an existing wish.
+   * @param col Wish object to update
+   */
+  updateCollection(col: Collection) {
+    return this.http.put<Collection>(`${this.baseUrl}/collections/${col.id}`, col);
+  }
   /**
    * @function updateCollectionTitle
    * @description Update the title of a collection by its ID.
@@ -137,6 +146,15 @@ export class CollectionsService {
    */
   deleteWish(id: number) {
     return this.http.delete(`${this.baseUrl}/items/${id}`);
+  }
+
+  /**
+   * @function deleteCollection
+   * @description Delete a wish from de database by its ID.
+   * @param id Wish ID
+   */
+  deleteCollection(id: number) {
+    return this.http.delete(`${this.baseUrl}/collections/${id}`);
   }
   /**
    * @function getProductsByIdCollection
@@ -207,6 +225,50 @@ export class CollectionsService {
       })
     );
   }
+  /**
+   * @function getTrashedCollections
+   * @description Fetch all isInTrash collections.
+   */
+  getTrashedCollections() {
+    return this.http.get<Collection[]>(`${this.baseUrl}/collections?isInTrash=true`).pipe(
+      map(response => CollectionAssembler.toEntitiesFromResponse(response))
+    )
+  }
+
+  /**
+   * @function getTrashedItems
+   * @description Fetch all isInTrash Items.
+   */
+  getTrashedItems() {
+      return this.http
+        .get<any[]>(`${this.baseUrl}/items?isInTrash=true`)
+        .pipe(
+          map((response): Wish[] => {
+            console.log(response);
+            if (!response || !Array.isArray(response)) {
+              console.error('La respuesta no es un array válido:', response);
+              return [];
+            }
+            return response.map((item) => {
+              const wish = new Wish();
+              wish.id = item.id;
+              wish.idCollection = item.idCollection;
+              wish.title = item.title;
+              wish.description = item.description;
+              wish.urlImg = item.urlImg;
+              wish.isInTrash =  Boolean(item.isInTrash);
+              wish.redirectUrl = item.redirectUrl;
+              wish.tags = (item.tags ?? []).map((tag: any) => {
+                const tagInstance = new Tag();
+                tagInstance.name = tag.name;
+                tagInstance.color = tag.color;
+                return tagInstance;
+              });
+              return wish;
+            });
+          })
+        );
+    }
 }
 
 

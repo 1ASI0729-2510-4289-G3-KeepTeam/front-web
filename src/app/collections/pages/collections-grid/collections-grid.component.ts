@@ -40,11 +40,6 @@ export class CollectionsGridComponent implements OnInit {
     { name: 'Add sub-collection', link: '/collections/1/7', backgroundColor: '#FEDD72', color: '#BD6412' },
     { name: 'Add Collection', link: '', backgroundColor: '#FF8B68', color: '#FFFAF3' }
   ]
-    /**
-     * @constructor
-     * @param collectionsService - Service to fetch collections data.
-     * @param router - Angular Router for navigation.
-     */
 
   /**
    * @constructor

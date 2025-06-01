@@ -1,6 +1,6 @@
 <div>
   <a (click)="onDelete.emit(item)">
-    <mat-icon style="color: #892525">delete</mat-icon>
+    <mat-icon style="color: #892525" (click)="deleteEntity($event)">delete</mat-icon>
   </a>
   <div class="share-menu-container">
     <a [matMenuTriggerFor]="shareMenu">
