@@ -3,6 +3,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import {MatChip, MatChipSet} from '@angular/material/chips';
+import {Tag} from '../../model/tag.entity';
 /**
  * @component ProductItemCardComponent
  * @description This component displays an item as a card,
@@ -10,7 +12,7 @@ import { RouterModule } from '@angular/router';
  */
 @Component({
   selector: 'app-product-item-card',
-  imports: [CommonModule, MatCardModule, MatButtonModule, RouterModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, RouterModule, MatChip, MatChipSet],
   templateUrl: './product-item-card.component.html',
   styleUrl: './product-item-card.component.css',
 })
@@ -20,6 +22,11 @@ export class ProductItemCardComponent {
    * @description URL of the image displayed at the top of the card.
    */
   @Input() imageUrl: string = '';
+  /**
+   * @input tags
+   * @description tags array of a wish / item.
+   */
+  @Input() tags?: Tag[];
 
   /**
    * @input title

@@ -34,6 +34,7 @@
       <app-product-item-card
         *ngIf="!product.isInTrash"
         [title]="product.title"
+        [tags]="product.tags"
         [imageUrl]="product.urlImg"
         [description]="product.description"
         [link]="product.id"

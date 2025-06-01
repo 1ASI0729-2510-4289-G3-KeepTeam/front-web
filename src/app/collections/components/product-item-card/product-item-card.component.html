@@ -7,6 +7,15 @@
     <img [src]="imageUrl" [alt]="title" />
     <mat-card-content>
       <p>{{ description }}</p>
+
+
+      <mat-chip-set aria-label="Tag List">
+        <mat-chip *ngFor="let tag of tags"
+                  [ngStyle]="{ 'background-color': tag.color}">
+          {{ tag.name }}
+        </mat-chip>
+
+      </mat-chip-set>
     </mat-card-content>
   </mat-card>
 </a>
