@@ -1,5 +1,5 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {MatButton, MatIconButton} from '@angular/material/button';
+import {Component, OnInit} from '@angular/core';
+import {MatIconButton} from '@angular/material/button';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatIcon} from '@angular/material/icon';
 import {CollectionsService} from '../../services/collections.service';
@@ -14,7 +14,6 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 @Component({
   selector: 'app-trashcan',
   imports: [
-    MatButton,
     MatTableModule,
     MatIcon,
     MatIconButton,
