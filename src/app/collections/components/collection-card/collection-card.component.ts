@@ -3,8 +3,8 @@ import { NgClass, NgForOf, NgStyle, NgIf } from '@angular/common';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatMenuModule } from '@angular/material/menu';
 import { Router } from '@angular/router';
+import {EntityOptionsMenuComponent} from '../../../public/components/entity-options-menu/entity-options-menu.component';
 
 /**
  * @component CollectionCardComponent
@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-collection-card',
   standalone: true,
-  imports: [NgForOf, NgIf, MatChipsModule, NgClass, NgStyle, MatIconModule, MatButtonModule, MatMenuModule],
+  imports: [NgForOf, NgIf, MatChipsModule, NgClass, NgStyle, MatIconModule, MatButtonModule, EntityOptionsMenuComponent],
   templateUrl: './collection-card.component.html',
   styleUrls: ['./collection-card.component.css'],
 })
@@ -90,12 +90,31 @@ export class CollectionCardComponent {
     return this.tags.slice(0, 3);
   }
 
+  handleCollectionAction(event: { actionType: string, entity: any }): void {
+    const { actionType, entity } = event;
+
+    switch (actionType) {
+      case 'delete':
+        this.onDelete(entity);
+        break;
+      case 'edit':
+        this.onEdit();
+        break;
+      case 'shareQr':
+        this.onShareQr(entity);
+        break;
+      case 'shareLink':
+        this.onShareLink();
+        break;
+    }
+  }
+
   /**
    * @function onDelete
    * @description Emits the delete event with the collection object.
    */
-  onDelete(): void {
-    this.delete.emit(this.collection);
+  onDelete(collection: any): void {
+    this.delete.emit(collection);
   }
   /**
    * @function onEdit
@@ -123,7 +142,7 @@ export class CollectionCardComponent {
 
   onShareLink(): void {
     this.router.navigate(['/share-settings'], {
-      queryParams: { // Usamos queryParams
+      queryParams: {
         contentType: 'collection',
         itemId: this.collection.id,
         previousUrl: this.router.url
@@ -131,7 +150,7 @@ export class CollectionCardComponent {
     });
   }
 
-  onShareQr(): void {
-    this.shareQr.emit(this.collection);
+  onShareQr(collection: any): void {
+    this.shareQr.emit(collection);
   }
 }

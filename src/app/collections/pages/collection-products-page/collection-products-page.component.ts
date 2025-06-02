@@ -24,7 +24,7 @@ import {MatDialog} from '@angular/material/dialog';
  */
 @Component({
   selector: 'app-collection-products-page',
-  imports: [SidebarComponent, ProductItemCardComponent, CommonModule, MatIcon, ItemActionsComponent, SearchBarComponent, CollectionCardComponent, CreationButtonsComponent],
+  imports: [SidebarComponent, ProductItemCardComponent, CommonModule, MatIcon, ItemActionsComponent, SearchBarComponent, CollectionCardComponent, CreationButtonsComponent, CollectionCardComponent],
   templateUrl: './collection-products-page.component.html',
   styleUrl: './collection-products-page.component.css',
 })
@@ -44,12 +44,12 @@ export class CollectionProductsPageComponent implements OnInit {
   collectionId: number = 0;
   collection: Collection | undefined;
   creationButtons: { id: number; name: string; link: string; backgroundColor: string; color: string; }[] | undefined
-    /**
-     * @constructor
-     * @param collectionsService - Service to fetch collections and products.
-     * @param route - ActivatedRoute for accessing route parameters.
-     * @param router
-     */
+  /**
+   * @constructor
+   * @param collectionsService - Service to fetch collections and products.
+   * @param route - ActivatedRoute for accessing route parameters.
+   * @param router
+   */
 
 
   /**
@@ -203,8 +203,8 @@ export class CollectionProductsPageComponent implements OnInit {
         const updatedItem = { ...collection, isInTrash: true };
         this.collectionsService.updateCollection(updatedItem).subscribe(() => {
           console.log('Collection moved to trashcan');
+          this.loadCollections();
         });
-        this.router.navigate(['/collections'])
       }
     });
   }
@@ -238,4 +238,81 @@ export class CollectionProductsPageComponent implements OnInit {
     });
   }
 
+  /**
+   * @function deleteWish
+   * @description Handles the deletion process of a Wish item.
+   * Shows a confirmation dialog and performs a soft delete.
+   * @param wish - The Wish object to be soft-deleted.
+   */
+  deleteWish(wish: Wish) {
+    const dialogRef = this.dialog.open(PopConfirmDialogComponent, {
+      data: {
+        title: 'Confirm Deletion',
+        message: `¿Are you sure you want to delete <strong>${wish.title}</strong>? <br> You can later restore it in the trashcan section`
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        const updatedWish = { ...wish, isInTrash: true };
+        this.collectionsService.updateWish(updatedWish).subscribe(() => {
+          console.log('Wish moved to trashcan');
+          this.productList = this.productList.filter(p => p.id !== wish.id);
+        }, error => {
+          console.error('Error updating wish to trashcan:', error);
+        });
+      }
+    });
   }
+
+  /**
+   * @function editWish
+   * @description Handles the editing of a Wish item and redirects to its edit page.
+   * @param wish - The Wish object to edit.
+   */
+  editWish(wish: Wish) {
+    if (wish && wish.id && wish.idCollection) {
+      this.router.navigate(['/collections', wish.idCollection, wish.id, 'edit']);
+    } else {
+      console.warn('Cannot edit wish: Missing wish.id or wish.idCollection', wish);
+    }
+  }
+
+  /**
+   * @function shareWishLink
+   * @description Handles sharing a Wish item via link.
+   * @param wish - The Wish object to share.
+   */
+  shareWishLink(wish: Wish): void {
+    if (wish && wish.id) {
+      this.router.navigate(['/share-settings'], {
+        queryParams: {
+          contentType: 'wish',
+          itemId: wish.id,
+          previousUrl: this.router.url
+        }
+      });
+    } else {
+      console.warn('Cannot share wish link: Missing wish.id', wish);
+    }
+  }
+
+  /**
+   * @function shareWishQr
+   * @description Handles sharing a Wish item via QR code.
+   * @param wish - The Wish object to share.
+   */
+  shareWishQr(wish: Wish): void {
+    if (wish && wish.id) {
+      this.router.navigate(['/share-qr'], {
+        queryParams: {
+          contentType: 'wish',
+          itemId: wish.id,
+          previousUrl: this.router.url
+        }
+      });
+    } else {
+      console.warn('Cannot share wish QR: Missing wish.id', wish);
+    }
+  }
+}

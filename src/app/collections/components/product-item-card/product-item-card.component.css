@@ -2,6 +2,9 @@
   max-width: 300px;
   margin: auto;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  cursor: pointer;
+
 }
 
 .tags {
@@ -23,4 +26,25 @@ a{
 img{
   max-height: 200px;
   object-fit: cover;
+}
+
+.description-and-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.description-and-options p {
+  margin: 0;
+  flex-grow: 1;
+}
+
+.product-item-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.item-options {
+  flex-shrink: 0;
 }

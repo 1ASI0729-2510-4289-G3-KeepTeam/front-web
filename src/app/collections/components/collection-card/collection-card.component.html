@@ -24,55 +24,11 @@
 
     <div class="more-options">
 
-      <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()" #menuTrigger>
-
-        <mat-icon>more_vert</mat-icon>
-
-      </button>
-
-      <mat-menu #menu="matMenu">
-
-        <button mat-menu-item (click)="onDelete()">
-
-          <mat-icon>delete</mat-icon>
-
-          <span>Delete</span>
-
-        </button>
-
-        <button mat-menu-item (click)="onEdit()">
-
-          <mat-icon>edit</mat-icon>
-
-          <span>Edit Collection</span>
-
-        </button>
-
-        <button mat-menu-item [matMenuTriggerFor]="shareSubMenu">
-
-          <mat-icon>share</mat-icon>
-
-          <span>Share</span>
-
-        </button>
-
-        <mat-menu #shareSubMenu="matMenu">
-
-          <button mat-menu-item (click)="onShareQr()">
-
-            <span>Share as QR</span>
-
-          </button>
-
-          <button mat-menu-item (click)="onShareLink()">
-
-            <span>Copy Link</span>
-
-          </button>
-
-        </mat-menu>
-
-      </mat-menu>
+      <app-entity-options-menu
+        [entityType]="'collection'"
+        [entity]="collection"
+        (action)="handleCollectionAction($event)">
+      </app-entity-options-menu>
 
     </div>
 
@@ -91,7 +47,3 @@
   </mat-chip-set>
 
 </div>
-
-
-
-

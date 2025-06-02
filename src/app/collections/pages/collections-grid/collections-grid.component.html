@@ -1,30 +1,60 @@
 <div class="main">
+
   <div class="sidebar">
+
     <app-sidebar
+
       [nav]="collections"
+
       title="My Collections">
+
     </app-sidebar>
+
   </div>
+
   <div class="content-area">
+
     <div class="searchBar">
+
       <app-search-bar></app-search-bar>
+
     </div>
+
     <app-creation-buttons [buttons]="creationButtons"></app-creation-buttons>
+
     <div class="collections-container">
+
       <div *ngFor="let collection of collections">
-      <app-collection-card
-        *ngIf="!collection.isInTrash"
-        [collection]="collection"
-        [name]="collection.title"
-        [imageUrls]="collection.imageUrls"
-        [tags]="collection.tags"
-        (delete)="deleteCollection($event)"
-        (edit)="editCollection($event)"
-        (share)="shareCollection($event)"
-        (shareQr)="navigateToQrShare(collection)"
-        (view)="navigateToCollection(collection.id)"
-      ></app-collection-card>
+
+        <app-collection-card
+
+          *ngIf="!collection.isInTrash"
+
+          [collection]="collection"
+
+          [name]="collection.title"
+
+          [imageUrls]="collection.imageUrls"
+
+          [tags]="collection.tags"
+
+          (delete)="deleteCollection($event)"
+
+          (edit)="editCollection($event)"
+
+          (share)="shareCollection($event)"
+
+          (shareQr)="navigateToQrShare(collection)"
+
+          (view)="navigateToCollection(collection.id)"
+
+        ></app-collection-card>
+
       </div>
+
     </div>
+
   </div>
+
 </div>
+
