@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router'; // Importamos Router
+import { RouterModule, Router } from '@angular/router';
 import {MatChip, MatChipSet} from '@angular/material/chips';
 import {Tag} from '../../model/tag.entity';
 import { EntityOptionsMenuComponent } from '../../../public/components/entity-options-menu/entity-options-menu.component';
@@ -126,11 +126,9 @@ export class ProductItemCardComponent {
    * @description Navega a la página de detalles del ítem cuando la tarjeta es clickeada.
    */
   navigateToItem(): void {
-    // ¡¡¡CORRECCIÓN IMPORTANTE AQUÍ: Cambiado de this.item.collectionId a this.item.idCollection!!!
     if (this.item && this.item.id && this.item.idCollection) {
       this.router.navigate(['/collections', this.item.idCollection, this.item.id]);
     } else {
-      // Muestra una advertencia si faltan datos para la navegación, pero no detiene la app
       console.warn(
         'ProductItemCardComponent: No se puede navegar al ítem. Falta item.id o item.idCollection en el input "item".',
         'Objeto "item" actual:', this.item,

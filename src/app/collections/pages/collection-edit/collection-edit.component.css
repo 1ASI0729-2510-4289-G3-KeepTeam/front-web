@@ -184,3 +184,28 @@ button.cancel {
   transition: background-color 0.3s;
 }
 
+button.save {
+  background-color: #fcd84a;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer; /* Asegura que el cursor cambie al pasar el mouse */
+  transition: background-color 0.3s ease; /* Añade una transición suave para el hover */
+}
+
+button.save:hover {
+  background-color: #e6c53d; /* Un color ligeramente más oscuro/claro al pasar el mouse */
+}
+
+button.cancel {
+  background-color: #f1958a;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer; /* Asegura que el cursor cambie al pasar el mouse */
+  transition: background-color 0.3s ease; /* Añade una transición suave para el hover */
+}
+
+button.cancel:hover {
+  background-color: #d88175; /* Un color ligeramente más oscuro/claro al pasar el mouse */
+}

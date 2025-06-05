@@ -1,3 +1,5 @@
+// src/app/collections/services/collections.service.ts
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
@@ -72,20 +74,16 @@ export class CollectionsService {
     return this.http.get(`${this.baseUrl}/items?id=${wishId}`).pipe(
       map((response: any): Wish => {
         console.log('Respuesta de la API:', response);
-        // Aseguramos que accedemos al primer objeto de la respuesta
-        const wishData = response[0];  // Primero accedemos al primer objeto del arreglo
+        const wishData = response[0];
         const wish = new Wish();
 
-        // Asignamos los datos del objeto a las propiedades del wish
         wish.id = wishData.id;
-        wish.idCollection = wishData.idCollection;  // Asegúrate de usar el nombre correcto
+        wish.idCollection = wishData.idCollection;
         wish.title = wishData.title;
         wish.description = wishData.description;
         wish.urlImg = wishData.urlImg;
         wish.redirectUrl = wishData.redirectUrl;
 
-        // Aquí es donde necesitamos acceder a los tags correctamente
-        // Asegurándonos de que existan tags antes de intentar acceder a ellos
         wish.tags = (wishData.tags || []).map((tag: any) => {
           const tagInstance = new Tag();
           tagInstance.name = tag.name;
@@ -108,15 +106,33 @@ export class CollectionsService {
 
   /**
    * @function updateCollection
-   * @description Update an existing wish.
-   * @param col Wish object to update
+   * @description Update an existing collection.
+   * @param col Collection object to update. This method now handles updating all relevant fields.
    */
-  updateCollection(col: Collection) {
+  updateCollection(col: Collection): Observable<Collection> {
     return this.http.put<Collection>(`${this.baseUrl}/collections/${col.id}`, col);
   }
+
+  /**
+   * @function createCollection
+   * @description Create a new collection.
+   * @param collection Collection object to create.
+   */
+  createCollection(collection: Collection): Observable<Collection> {
+    const collectionDataToSend = {
+      title: collection.title,
+      idUser: collection.idUser,
+      isInTrash: collection.isInTrash,
+      idParentCollection: collection.idParentCollection,
+      color: collection.color
+    };
+    return this.http.post<Collection>(`${this.baseUrl}/collections`, collectionDataToSend);
+  }
+
+
   /**
    * @function updateCollectionTitle
-   * @description Update the title of a collection by its ID.
+   * @description Update the title of a collection by its ID. (Puede que ya no sea necesaria si updateCollection es más genérico)
    * @param id Collection ID
    * @param newTitle New title string
    */
@@ -150,8 +166,8 @@ export class CollectionsService {
 
   /**
    * @function deleteCollection
-   * @description Delete a wish from de database by its ID.
-   * @param id Wish ID
+   * @description Delete a collection from the database by its ID.
+   * @param id Collection ID
    */
   deleteCollection(id: number) {
     return this.http.delete(`${this.baseUrl}/collections/${id}`);
@@ -190,7 +206,7 @@ export class CollectionsService {
           });
         })
       );
-}
+  }
 
   getSubCollectionsFromCollection(idCollection: number){
     const subCollections = this.http.get<Collection[]>(`${this.baseUrl}/collections?idParentCollection=${idCollection}`).pipe(
@@ -240,35 +256,33 @@ export class CollectionsService {
    * @description Fetch all isInTrash Items.
    */
   getTrashedItems() {
-      return this.http
-        .get<any[]>(`${this.baseUrl}/items?isInTrash=true`)
-        .pipe(
-          map((response): Wish[] => {
-            console.log(response);
-            if (!response || !Array.isArray(response)) {
-              console.error('La respuesta no es un array válido:', response);
-              return [];
-            }
-            return response.map((item) => {
-              const wish = new Wish();
-              wish.id = item.id;
-              wish.idCollection = item.idCollection;
-              wish.title = item.title;
-              wish.description = item.description;
-              wish.urlImg = item.urlImg;
-              wish.isInTrash =  Boolean(item.isInTrash);
-              wish.redirectUrl = item.redirectUrl;
-              wish.tags = (item.tags ?? []).map((tag: any) => {
-                const tagInstance = new Tag();
-                tagInstance.name = tag.name;
-                tagInstance.color = tag.color;
-                return tagInstance;
-              });
-              return wish;
+    return this.http
+      .get<any[]>(`${this.baseUrl}/items?isInTrash=true`)
+      .pipe(
+        map((response): Wish[] => {
+          console.log(response);
+          if (!response || !Array.isArray(response)) {
+            console.error('La respuesta no es un array válido:', response);
+            return [];
+          }
+          return response.map((item) => {
+            const wish = new Wish();
+            wish.id = item.id;
+            wish.idCollection = item.idCollection;
+            wish.title = item.title;
+            wish.description = item.description;
+            wish.urlImg = item.urlImg;
+            wish.isInTrash =  Boolean(item.isInTrash);
+            wish.redirectUrl = item.redirectUrl;
+            wish.tags = (item.tags ?? []).map((tag: any) => {
+              const tagInstance = new Tag();
+              tagInstance.name = tag.name;
+              tagInstance.color = tag.color;
+              return tagInstance;
             });
-          })
-        );
-    }
+            return wish;
+          });
+        })
+      );
+  }
 }
-
-

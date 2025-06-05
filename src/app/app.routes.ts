@@ -65,6 +65,8 @@ export const routes: Routes = [
   { path: 'share-qr', component: QrShareComponent },
   { path: 'trashcan', component: TrashcanComponent },
 { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'collections/new/edit', component: CollectionEditPageComponent },
+  { path: 'collections/:id/edit', component: CollectionEditPageComponent },
 ];
 
 @NgModule({

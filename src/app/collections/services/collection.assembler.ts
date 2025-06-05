@@ -7,26 +7,28 @@ export class CollectionAssembler {
 
   /**
    * @function toEntityFromResource
-   * @param {Collection} collection - A Collection resource object.
-   * @description Maps a Collection resource to a simpler entity representation.
+   * @param {any} resource - A collection resource object from the API.
+   * @description Maps a collection resource to a simpler entity representation.
    */
-  static toEntityFromResource(collection: Collection) {
-    return {
-      id: collection.id,
-      title: collection.title,
-      idUser: collection.idUser,
-      isInTrash: collection.isInTrash,
-      idParentCollection: collection.idParentCollection,
-    };
+
+  static toEntityFromResource(resource: any): Collection {
+    const collection = new Collection();
+    collection.id = resource.id;
+    collection.title = resource.title;
+    collection.idUser = resource.idUser;
+    collection.isInTrash = resource.isInTrash;
+    collection.idParentCollection = resource.idParentCollection;
+    collection.color = resource.color || '';
+    return collection;
   }
 
   /**
    * @function toEntitiesFromResponse
-   * @param {Collection[]} response - Array of Collection resource objects.
-   * @description Maps an array of Collection resources to an array of entity objects using toEntityFromResource.
+   * @param {any[]} response - Array of collection resource objects from the API.
+   * @description Maps an array of collection resources to an array of entity objects using toEntityFromResource.
    */
-  static toEntitiesFromResponse(response: Collection[]) {
-    return response.map(col => this.toEntityFromResource(col));
+  static toEntitiesFromResponse(response: any[]): Collection[] {
+    return response.map(res => this.toEntityFromResource(res));
   }
 
 }

@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Wish } from '../../model/wish.entity';
 import { CollectionsService } from '../../services/collections.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Collection } from '../../model/collection.entity';
+import {Observable} from 'rxjs';
 
 /**
  * @component CollectionEditComponent
@@ -25,8 +26,10 @@ export class CollectionEditComponent implements OnInit {
   /**
    * @property selectedCollection
    * @description Currently selected collection being edited.
+   * Typed as Collection as per your current model,
+   * which now includes 'imageUrls'.
    */
-  selectedCollection!: Collection;
+  selectedCollection!: Collection; // Se mantiene como Collection
 
   /**
    * @input collectionName
@@ -43,12 +46,16 @@ export class CollectionEditComponent implements OnInit {
   /**
    * @input items
    * @description List of wishes/items belonging to the selected collection.
+   * This is primarily used to extract imageUrls for display.
    */
   @Input() items: Wish[] = [];
 
   /**
    * @property imageUrls
    * @description Array of URLs for preview images extracted from the collection's items.
+   * This property now holds the images for the *preview display*,
+   * separate from `selectedCollection.imageUrls` which is the one
+   * that potentially gets persisted.
    */
   imageUrls: string[] = [];
 
@@ -67,39 +74,65 @@ export class CollectionEditComponent implements OnInit {
    * @constructor
    * @param collectionsService - Service to interact with collection data.
    * @param route - ActivatedRoute for accessing route parameters.
+   * @param router - Angular Router for programmatic navigation.
    */
   constructor(
     private collectionsService: CollectionsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   /**
    * @function ngOnInit
    * @description Lifecycle hook that initializes the component.
    * Retrieves the collection ID from the route and fetches its data and related items.
+   * Handles both editing existing collections and creating new ones.
    */
   ngOnInit() {
-    const idTemp: string | null = this.route.snapshot.paramMap.get('id');
-    const id:number = Number(idTemp)
-    if (id) {
-      this.collectionsService.getCollectionById(id).subscribe(collection => {
-        this.selectedCollection = collection;
-        this.collectionName = collection.title;
-        this.collectionsService.getProductsByIdCollection(id).subscribe(items => {
-          this.items = items;
-          this.imageUrls = this.extractFirstFourImages(this.items);
-        });
-        console.log('Collection received:', collection);
-      });
+    const idParam: string | null = this.route.snapshot.paramMap.get('id');
+    const id: number = idParam === 'new' ? 0 : Number(idParam);
+
+    if (id === 0) {
+      this.selectedCollection = new Collection();
+      this.selectedCollection.id = 0;
+      this.selectedCollection.title = '';
+      this.selectedCollection.color = this.colors[0].value;
+      this.selectedCollection.idParentCollection = 0;
+
+      this.collectionName = this.selectedCollection.title;
+      this.selectedColor = this.selectedCollection.color;
+      this.items = [];
+      this.imageUrls = [];
+      console.log('Inicializando para crear una nueva colección.');
+    } else {
+      this.collectionsService.getCollectionById(id).subscribe(
+        collection => {
+          this.selectedCollection = collection;
+          this.collectionName = collection.title;
+          this.selectedColor = collection.color || this.colors[0].value;
+
+          this.collectionsService.getProductsByIdCollection(id).subscribe(items => {
+            this.items = items;
+            this.imageUrls = this.extractFirstFourImages(this.items);
+
+          });
+          console.log('Colección recibida para edición:', collection);
+        },
+        error => {
+          console.error('Error al cargar la colección:', error);
+          this.router.navigate(['/collections']);
+        }
+      );
     }
   }
 
+
   /**
    * @function goBack
-   * @description Navigates back to the previous page in browser history.
+   * @description Navigates back to the main collections page for consistent navigation.
    */
   goBack() {
-    window.history.back();
+    this.router.navigate(['/collections']); // Navegación explícita para consistencia
   }
 
   /**
@@ -113,33 +146,49 @@ export class CollectionEditComponent implements OnInit {
 
   /**
    * @function save
-   * @description Saves changes to the collection's title by calling the CollectionsService.
-   * Handles success and error responses.
+   * @description Saves changes to the collection's title and color.
+   * If it's a new collection, it creates it. Otherwise, it updates.
+   * Handles success and error responses and navigates back to the main collections page.
    */
   save() {
-    if (!this.selectedCollection) return;
+    if (!this.selectedCollection) {
+      console.error('No hay colección seleccionada para guardar.');
+      return;
+    }
 
-    const id = this.selectedCollection.id;
-    const newTitle = this.collectionName;
+    this.selectedCollection.title = this.collectionName;
+    this.selectedCollection.color = this.selectedColor;
 
-    this.collectionsService.updateCollectionTitle(id, newTitle).subscribe({
-      next: updatedCollection => {
-        console.log('Collection title updated:', updatedCollection);
-        this.selectedCollection = updatedCollection;
+
+    let saveObservable: Observable<Collection>;
+
+    if (this.selectedCollection.id === 0) {
+      console.log('Intentando crear nueva colección:', this.selectedCollection);
+      saveObservable = this.collectionsService.createCollection(this.selectedCollection);
+    } else {
+      console.log('Intentando actualizar colección:', this.selectedCollection);
+      saveObservable = this.collectionsService.updateCollection(this.selectedCollection);
+    }
+
+    saveObservable.subscribe({
+      next: (responseCollection) => {
+        console.log('Colección guardada/actualizada exitosamente:', responseCollection);
+        this.router.navigate(['/collections']);
       },
-      error: err => {
-        console.error('Error updating collection title:', err);
+      error: (err) => {
+        console.error('Error al guardar/actualizar la colección:', err);
       }
     });
   }
 
+
   /**
    * @function cancel
-   * @description Cancels editing and navigates back.
+   * @description Cancels editing and navigates back to the main collections page.
    */
   cancel() {
-    console.log('Cancelled');
-    this.goBack();
+    console.log('Edición cancelada.');
+    this.router.navigate(['/collections']);
   }
 
   /**
@@ -161,4 +210,5 @@ export class CollectionEditComponent implements OnInit {
   extractFirstFourImages(items: Wish[]): string[] {
     if (!items) return [];
     return items.slice(0, 4).map(wish => wish.urlImg);
-  }}
+  }
+}
