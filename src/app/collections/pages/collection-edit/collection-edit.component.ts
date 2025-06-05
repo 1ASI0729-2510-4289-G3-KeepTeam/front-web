@@ -29,7 +29,7 @@ export class CollectionEditComponent implements OnInit {
    * Typed as Collection as per your current model,
    * which now includes 'imageUrls'.
    */
-  selectedCollection!: Collection; // Se mantiene como Collection
+  selectedCollection!: Collection;
 
   /**
    * @input collectionName
@@ -132,7 +132,7 @@ export class CollectionEditComponent implements OnInit {
    * @description Navigates back to the main collections page for consistent navigation.
    */
   goBack() {
-    this.router.navigate(['/collections']); // Navegación explícita para consistencia
+    this.router.navigate(['/collections']);
   }
 
   /**

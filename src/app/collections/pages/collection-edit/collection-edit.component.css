@@ -189,12 +189,12 @@ button.save {
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 8px;
-  cursor: pointer; /* Asegura que el cursor cambie al pasar el mouse */
-  transition: background-color 0.3s ease; /* Añade una transición suave para el hover */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 button.save:hover {
-  background-color: #e6c53d; /* Un color ligeramente más oscuro/claro al pasar el mouse */
+  background-color: #e6c53d;
 }
 
 button.cancel {
@@ -202,10 +202,10 @@ button.cancel {
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 8px;
-  cursor: pointer; /* Asegura que el cursor cambie al pasar el mouse */
-  transition: background-color 0.3s ease; /* Añade una transición suave para el hover */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 button.cancel:hover {
-  background-color: #d88175; /* Un color ligeramente más oscuro/claro al pasar el mouse */
+  background-color: #d88175;
 }
