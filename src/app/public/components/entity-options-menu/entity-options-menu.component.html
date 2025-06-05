@@ -1,0 +1,29 @@
+<button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
+    <mat-icon>more_vert</mat-icon>
+</button>
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="onAction('delete')">
+        <mat-icon>delete</mat-icon>
+        <span>{{ entityType === 'collection' ? 'Delete Collection' : 'Delete Item' }}</span>
+    </button>
+
+    <button mat-menu-item (click)="onAction('edit')">
+        <mat-icon>edit</mat-icon>
+        <span>{{ entityType === 'collection' ? 'Edit Collection' : 'Edit Item' }}</span>
+    </button>
+
+    <button mat-menu-item [matMenuTriggerFor]="shareSubMenu">
+        <mat-icon>share</mat-icon>
+        <span>Share</span>
+    </button>
+
+    <mat-menu #shareSubMenu="matMenu">
+        <button mat-menu-item (click)="onAction('shareQr')">
+            <span>Share as QR</span>
+        </button>
+        <button mat-menu-item (click)="onAction('shareLink')">
+            <span>Copy Link</span>
+        </button>
+    </mat-menu>
+</mat-menu>
