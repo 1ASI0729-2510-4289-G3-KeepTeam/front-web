@@ -53,7 +53,7 @@ export class CollectionProductsPageComponent implements OnInit {
    * @description The ID of the collection, retrieved from the route parameters.
    */
   collectionId: number = 0;
-  collection: Collection | undefined; // La colección padre de la página
+  collection: Collection | undefined;
   creationButtons: { id: number; name: string; link: string; backgroundColor: string; color: string; }[] | undefined
 
   constructor(
@@ -72,7 +72,6 @@ export class CollectionProductsPageComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       const idParam = params.get('id');
       if (!idParam) {
-        console.error("No collection ID provided in the route!");
         this.router.navigate(['/collections']);
         return;
       }
@@ -90,6 +89,10 @@ export class CollectionProductsPageComponent implements OnInit {
     });
   }
 
+  /**
+   * @function filterCreationButtonForSubCollection
+   * @description Adjusts creation buttons based on whether the current collection is a sub-collection.
+   */
   filterCreationButtonForSubCollection() {
     if (this.collection!.idParentCollection !== 0) {
       this.creationButtons = this.creationButtons!.filter(b => b.id !== 1);
@@ -98,7 +101,7 @@ export class CollectionProductsPageComponent implements OnInit {
 
   /**
    * @function goBack
-   * @description Navigates back to the previous page in browser history.
+   * @description Navigates back to the previous collection page or root collections page.
    */
   goBack(): void {
     if(this.collection?.idParentCollection != 0) {
@@ -106,13 +109,17 @@ export class CollectionProductsPageComponent implements OnInit {
     } else{
       const currentUrl = this.router.url;
       const segments = currentUrl.split('/');
-      segments.pop(); // Elimina el último segmento (el ID actual)
-
+      segments.pop();
       const newUrl = segments.join('/');
       this.router.navigate([newUrl]);
     }
   }
 
+  /**
+   * @function getCollection
+   * @description Fetches the current collection's details by ID.
+   * @param collectionId The ID of the collection to fetch.
+   */
   getCollection(collectionId: number) {
     this.collection = undefined;
     this.collectionsService.getCollectionById(collectionId).subscribe(collection => {
@@ -121,6 +128,10 @@ export class CollectionProductsPageComponent implements OnInit {
     });
   }
 
+  /**
+   * @function getProducts
+   * @description Fetches all wishes/items belonging to the current collection.
+   */
   getProducts() {
     if (this.collectionId) {
       this.collectionsService.getProductsByIdCollection(this.collectionId).subscribe((data) => {
@@ -131,21 +142,24 @@ export class CollectionProductsPageComponent implements OnInit {
 
   /**
    * @function handleItemSelected
-   * @description Handles the event when an item (Wish) is selected from the search bar autocomplete.
-   * @param result
+   * @description Handles the event when an item (Wish or SubCollection) is selected from the search bar autocomplete.
+   * Navigates to the item's edit page or the subcollection's detail page.
+   * @param result - The selected search result.
    */
   handleItemSelected(result: SearchResult): void {
-    console.log('Resultado de búsqueda seleccionado:', result);
     if (result.type === 'wish') {
-
+      // Assuming navigation to edit page for a wish
       this.router.navigate(['/collections', this.collectionId, result.id, 'edit']);
     } else if (result.type === 'collection') {
       this.navigateToCollection(result.id);
     } else {
-      console.warn('Tipo de resultado inesperado en CollectionProductsPage:', result);
     }
   }
 
+  /**
+   * @function shareCollection
+   * @description Navigates to the share settings page for the current collection.
+   */
   shareCollection(): void {
     this.router.navigate(['/share-settings'], {
       queryParams: {
@@ -157,14 +171,13 @@ export class CollectionProductsPageComponent implements OnInit {
   }
   /**
    * @function loadCollections
-   * @description Fetches sub-collections (as FullCollection) from the service and maps them to the local collections array.
-   * Used for displaying sub-collections as cards.
+   * @description Fetches sub-collections (as FullCollection) from the service for display as cards.
    */
   loadCollections() {
     this.collections = [];
     this.collectionsService.getSubCollectionsFromCollection(this.collectionId).subscribe({
       next: (data: FullCollection[]) => {
-        this.collections = data;
+        this.collections = data.filter(c => !c.isInTrash);
       },
       error: (error) => {
         console.error('Error loading collections:', error);
@@ -174,14 +187,13 @@ export class CollectionProductsPageComponent implements OnInit {
 
   /**
    * @function loadSubCollections
-   * @description Fetches sub-collections (as Collection) for the sidebar.
+   * @description Fetches sub-collections (as Collection) for the sidebar navigation.
    */
   loadSubCollections() {
     this.subCollections = [];
     this.collectionsService.getSubCollectionsByParentId(this.collectionId).subscribe({
       next: (subCollections: Collection[]) => {
-        this.subCollections = subCollections;
-        console.log("Sub-colecciones para sidebar:", subCollections);
+        this.subCollections = subCollections.filter(c => !c.isInTrash);
       },
       error: (err) => {
         console.error('Error loading subcollections:', err);
@@ -189,6 +201,10 @@ export class CollectionProductsPageComponent implements OnInit {
     });
   }
 
+  /**
+   * @function shareCollectionQr
+   * @description Navigates to the QR share page for the current collection.
+   */
   shareCollectionQr(): void {
     this.router.navigate(['/share-qr'], {
       queryParams: {
@@ -198,13 +214,16 @@ export class CollectionProductsPageComponent implements OnInit {
       }
     });
   }
+
   /**
-   * @function deleteCollection
-   * @description Handler to trigger deletion of a collection.
-   * @param collection
+   * @function deleteSubCollectionCard
+   * @description Handler to trigger deletion of a sub-collection shown as a card (soft delete).
+   * Opens a confirmation dialog and performs a soft delete if confirmed.
+   * After deletion, it reloads the sub-collections and sidebar to update the view.
+   * This method is called when deleting a sub-collection card.
+   * @param collection - The sub-collection object to be soft-deleted.
    */
-  deleteCollection(collection: any){
-    console.log('Delete collection:', collection);
+  deleteSubCollectionCard(collection: any){
     const dialogRef = this.dialog.open(PopConfirmDialogComponent, {
       data: {
         title: 'Confirm Deletion',
@@ -217,13 +236,46 @@ export class CollectionProductsPageComponent implements OnInit {
       if (result === true) {
         const updatedItem = { ...collection, isInTrash: true };
         this.collectionsService.updateCollection(updatedItem).subscribe(() => {
-          console.log('Collection moved to trashcan');
           this.loadCollections();
           this.loadSubCollections();
+        }, error => {
+          console.error('Error moving collection to trashcan:', error);
         });
       }
     });
   }
+
+  /**
+   * @function handleCurrentCollectionDeletion
+   * @description Handles the deletion of the *current* collection being viewed on the page.
+   * Opens a confirmation dialog, performs a soft delete, and then navigates away from the page.
+   * This method is called from ItemActionsComponent for the main collection.
+   * @param collection - The current collection object to be soft-deleted.
+   */
+  handleCurrentCollectionDeletion(collection: any): void {
+    const dialogRef = this.dialog.open(PopConfirmDialogComponent, {
+      data: {
+        title: 'Confirm Deletion',
+        message: `¿Are you sure you want to delete <strong>${collection.title}</strong>? <br> You can later restore it in the trashcan section`
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        const updatedCollection = { ...collection, isInTrash: true };
+        this.collectionsService.updateCollection(updatedCollection).subscribe(() => {
+          if (this.collection?.idParentCollection !== 0) {
+            this.router.navigate(['/collections', this.collection?.idParentCollection]);
+          } else {
+            this.router.navigate(['/collections']);
+          }
+        }, error => {
+          console.error('Error moving current collection to trashcan:', error);
+        });
+      }
+    });
+  }
+
 
   /**
    * @function editCollection
@@ -231,7 +283,6 @@ export class CollectionProductsPageComponent implements OnInit {
    * @param collection - The collection object to edit.
    */
   editCollection(collection: any){
-    console.log('Edit collection:', collection);
     this.router.navigate(['/collections', collection.id, 'edit']);
   }
 
@@ -244,6 +295,11 @@ export class CollectionProductsPageComponent implements OnInit {
     this.router.navigate(['/collections', id]);
   }
 
+  /**
+   * @function navigateToQrShare
+   * @description Navigates to the QR share page for a given collection.
+   * @param collection - The collection object to share via QR.
+   */
   navigateToQrShare(collection: any): void {
     this.router.navigate(['/share-qr'], {
       queryParams: {
@@ -272,7 +328,6 @@ export class CollectionProductsPageComponent implements OnInit {
       if (result === true) {
         const updatedWish = { ...wish, isInTrash: true };
         this.collectionsService.updateWish(updatedWish).subscribe(() => {
-          console.log('Wish moved to trashcan');
           this.productList = this.productList.filter(p => p.id !== wish.id);
         }, error => {
           console.error('Error updating wish to trashcan:', error);
@@ -290,7 +345,6 @@ export class CollectionProductsPageComponent implements OnInit {
     if (wish && wish.id && wish.idCollection) {
       this.router.navigate(['/collections', wish.idCollection, wish.id, 'edit']);
     } else {
-      console.warn('Cannot edit wish: Missing wish.id or wish.idCollection', wish);
     }
   }
 
@@ -309,7 +363,6 @@ export class CollectionProductsPageComponent implements OnInit {
         }
       });
     } else {
-      console.warn('Cannot share wish link: Missing wish.id', wish);
     }
   }
 
@@ -328,7 +381,6 @@ export class CollectionProductsPageComponent implements OnInit {
         }
       });
     } else {
-      console.warn('Cannot share wish QR: Missing wish.id', wish);
     }
   }
 }

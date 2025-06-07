@@ -1,5 +1,4 @@
 <div class="main">
-
   <div class="sidebar">
     <div class="up-bar">
       <mat-icon class="clickable-icon" (click)="goBack()">arrow_back</mat-icon>
@@ -18,11 +17,11 @@
   <app-creation-buttons [buttons]="creationButtons"></app-creation-buttons>
   <div class="containerContent">
     <div class="searchBar">
-      <app-item-actions [item]="collection"
-                        (onDelete)="deleteCollection($event)"
-                        (onShare)="shareCollection()"
-                        (shareQr)="shareCollectionQr()"
-      ></app-item-actions>
+      <app-item-actions
+        [item]="collection"
+        (onDelete)="handleCurrentCollectionDeletion($event)" (onShare)="shareCollection()"
+        (shareQr)="shareCollectionQr()">
+      </app-item-actions>
 
       <app-search-bar
         [searchType]="'items'"
@@ -55,8 +54,7 @@
           [name]="collection.title"
           [imageUrls]="collection.imageUrls"
           [tags]="collection.tags"
-          (delete)="deleteCollection($event)"
-          (edit)="editCollection($event)"
+          (delete)="deleteSubCollectionCard($event)" (edit)="editCollection($event)"
           (share)="shareCollection()"
           (shareQr)="navigateToQrShare(collection)"
           (view)="navigateToCollection(collection.id)">

@@ -10,6 +10,8 @@ import { Wish } from '../../model/wish.entity';
 import { Router } from '@angular/router';
 import {FullCollection} from '../../model/fullCollection.entity';
 import {SearchResult} from '../../../shared/models/search-result.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { PopConfirmDialogComponent } from '../../../public/components/pop-confirm-dialog/pop-confirm-dialog.component';
 
 /**
  * @component CollectionsGridComponent
@@ -48,8 +50,13 @@ export class CollectionsGridComponent implements OnInit {
    * @constructor
    * @param collectionsService - Service to fetch collections data.
    * @param router - Angular Router for navigation.
+   * @param dialog - MatDialog service for opening confirmation dialogs.
    */
-  constructor(private collectionsService: CollectionsService, private router: Router) {}
+  constructor(
+    private collectionsService: CollectionsService,
+    private router: Router,
+    private dialog: MatDialog,
+  ) {}
 
   /**
    * @function ngOnInit
@@ -62,11 +69,12 @@ export class CollectionsGridComponent implements OnInit {
   /**
    * @function loadCollections
    * @description Fetches collections from the service and maps them to the local collections array.
+   * Only loads top-level collections (idParentCollection === 0) that are not in trash.
    */
   loadCollections() {
     this.collectionsService.getFullCollections().subscribe({
       next: (data: FullCollection[]) => {
-        this.collections = data.filter(c => c.idParentCollection === 0);
+        this.collections = data.filter(c => c.idParentCollection === 0 && !c.isInTrash);
       },
       error: (error) => {
         console.error('Error loading collections:', error);
@@ -77,14 +85,12 @@ export class CollectionsGridComponent implements OnInit {
   /**
    * @function handleCollectionSelected
    * @description Handles the event when a collection is selected from the search bar autocomplete.
-   * @param result
+   * @param result - The selected search result.
    */
   handleCollectionSelected(result: SearchResult): void {
-    console.log('Resultado de búsqueda seleccionado:', result);
     if (result.type === 'collection') {
       this.navigateToCollection(result.id);
     } else {
-      console.warn('Tipo de resultado inesperado en CollectionsGrid:', result);
     }
   }
 
@@ -92,11 +98,28 @@ export class CollectionsGridComponent implements OnInit {
   /**
    * @function deleteCollection
    * @description Handler to trigger deletion of a collection.
+   * Opens a confirmation dialog and performs a soft delete (moves to trash) if confirmed.
+   * After deletion, it reloads the collections to update the view.
    * @param collection - The collection object to delete.
    */
   deleteCollection(collection: any){
-    console.log('Delete collection:', collection);
+    const dialogRef = this.dialog.open(PopConfirmDialogComponent, {
+      data: {
+        title: 'Confirm Deletion',
+        message: `¿Are you sure you want to delete <strong>${collection.title}</strong>? <br> You can later restore it in the trashcan section`
+      }
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        const updatedCollection = { ...collection, isInTrash: true };
+        this.collectionsService.updateCollection(updatedCollection).subscribe(() => {
+          this.loadCollections();
+        }, error => {
+          console.error('Error moving collection to trashcan:', error);
+        });
+      }
+    });
   }
 
   /**
@@ -105,18 +128,16 @@ export class CollectionsGridComponent implements OnInit {
    * @param collection - The collection object to edit.
    */
   editCollection(collection: any){
-    console.log('Edit collection:', collection);
     this.router.navigate(['/collections', collection.id, 'edit']);
   }
 
   /**
    * @function shareCollection
    * @description Handler to trigger sharing of a collection.
+   * Navigates to the share settings page with relevant query parameters.
    * @param collection - The collection object to share.
    */
   shareCollection(collection: any): void {
-    console.log('Compartiendo colección:', collection);
-    console.log('ID de la colección:', collection.id);
     this.router.navigate(['/share-settings'], {
       queryParams: {
         contentType: 'collection',
@@ -135,6 +156,11 @@ export class CollectionsGridComponent implements OnInit {
     this.router.navigate(['/collections', id]);
   }
 
+  /**
+   * @function navigateToQrShare
+   * @description Navigates to the QR share page for a given collection.
+   * @param collection - The collection object to share via QR.
+   */
   navigateToQrShare(collection: any): void {
     this.router.navigate(['/share-qr'], {
       queryParams: {
