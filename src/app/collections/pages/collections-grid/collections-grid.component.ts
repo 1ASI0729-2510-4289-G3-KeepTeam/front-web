@@ -42,7 +42,6 @@ export class CollectionsGridComponent implements OnInit {
   items: Wish[] = [];
 
   creationButtons: { name: string; link: string; backgroundColor: string; color: string; }[] | undefined = [
-    { name: 'Add sub-collection', link: '/collections/1/7', backgroundColor: '#FEDD72', color: '#BD6412' },
     { name: 'Add Collection', link: '/collections/new/edit', backgroundColor: '#FF8B68', color: '#FFFAF3' }
   ]
 
