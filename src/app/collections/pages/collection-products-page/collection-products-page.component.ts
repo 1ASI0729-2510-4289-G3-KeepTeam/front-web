@@ -14,6 +14,7 @@ import {Collection} from '../../model/collection.entity';
 import {CreationButtonsComponent} from '../../components/creation-buttons/creation-buttons.component';
 import {PopConfirmDialogComponent} from '../../../public/components/pop-confirm-dialog/pop-confirm-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+import {SearchResult} from '../../../shared/models/search-result.interface';
 
 /**
  * @component CollectionProductsPageComponent
@@ -24,7 +25,17 @@ import {MatDialog} from '@angular/material/dialog';
  */
 @Component({
   selector: 'app-collection-products-page',
-  imports: [SidebarComponent, ProductItemCardComponent, CommonModule, MatIcon, ItemActionsComponent, SearchBarComponent, CollectionCardComponent, CreationButtonsComponent, CollectionCardComponent],
+  standalone: true,
+  imports: [
+    SidebarComponent,
+    ProductItemCardComponent,
+    CommonModule,
+    MatIcon,
+    ItemActionsComponent,
+    SearchBarComponent,
+    CollectionCardComponent,
+    CreationButtonsComponent
+  ],
   templateUrl: './collection-products-page.component.html',
   styleUrl: './collection-products-page.component.css',
 })
@@ -42,23 +53,9 @@ export class CollectionProductsPageComponent implements OnInit {
    * @description The ID of the collection, retrieved from the route parameters.
    */
   collectionId: number = 0;
-  collection: Collection | undefined;
+  collection: Collection | undefined; // La colección padre de la página
   creationButtons: { id: number; name: string; link: string; backgroundColor: string; color: string; }[] | undefined
-  /**
-   * @constructor
-   * @param collectionsService - Service to fetch collections and products.
-   * @param route - ActivatedRoute for accessing route parameters.
-   * @param router
-   */
 
-
-  /**
-   * @constructor
-   * @param collectionsService - Service to fetch collections and products.
-   * @param route - ActivatedRoute for accessing route parameters.
-   * @param router
-   * @param dialog
-   */
   constructor(
     private collectionsService: CollectionsService,
     private route: ActivatedRoute,
@@ -66,14 +63,12 @@ export class CollectionProductsPageComponent implements OnInit {
     private dialog: MatDialog,
   ) {}
 
-
   /**
    * @function ngOnInit
    * @description Lifecycle hook that fetches items for the collection
    * when the component is initialized.
    */
   ngOnInit() {
-
     this.route.paramMap.subscribe(params => {
       const idParam = params.get('id');
       if (!idParam) {
@@ -93,7 +88,6 @@ export class CollectionProductsPageComponent implements OnInit {
       this.loadCollections();
       this.loadSubCollections();
     });
-
   }
 
   filterCreationButtonForSubCollection() {
@@ -112,19 +106,18 @@ export class CollectionProductsPageComponent implements OnInit {
     } else{
       const currentUrl = this.router.url;
       const segments = currentUrl.split('/');
-      segments.pop();
+      segments.pop(); // Elimina el último segmento (el ID actual)
 
       const newUrl = segments.join('/');
       this.router.navigate([newUrl]);
     }
-
   }
 
   getCollection(collectionId: number) {
-    this.collection = undefined
+    this.collection = undefined;
     this.collectionsService.getCollectionById(collectionId).subscribe(collection => {
       this.collection = collection;
-      this.filterCreationButtonForSubCollection()
+      this.filterCreationButtonForSubCollection();
     });
   }
 
@@ -133,6 +126,23 @@ export class CollectionProductsPageComponent implements OnInit {
       this.collectionsService.getProductsByIdCollection(this.collectionId).subscribe((data) => {
         this.productList = data;
       });
+    }
+  }
+
+  /**
+   * @function handleItemSelected
+   * @description Handles the event when an item (Wish) is selected from the search bar autocomplete.
+   * @param result
+   */
+  handleItemSelected(result: SearchResult): void {
+    console.log('Resultado de búsqueda seleccionado:', result);
+    if (result.type === 'wish') {
+
+      this.router.navigate(['/collections', this.collectionId, result.id, 'edit']);
+    } else if (result.type === 'collection') {
+      this.navigateToCollection(result.id);
+    } else {
+      console.warn('Tipo de resultado inesperado en CollectionProductsPage:', result);
     }
   }
 
@@ -147,7 +157,8 @@ export class CollectionProductsPageComponent implements OnInit {
   }
   /**
    * @function loadCollections
-   * @description Fetches collections from the service and maps them to the local collections array.
+   * @description Fetches sub-collections (as FullCollection) from the service and maps them to the local collections array.
+   * Used for displaying sub-collections as cards.
    */
   loadCollections() {
     this.collections = [];
@@ -161,12 +172,16 @@ export class CollectionProductsPageComponent implements OnInit {
     });
   }
 
+  /**
+   * @function loadSubCollections
+   * @description Fetches sub-collections (as Collection) for the sidebar.
+   */
   loadSubCollections() {
-    this.subCollections = []
+    this.subCollections = [];
     this.collectionsService.getSubCollectionsByParentId(this.collectionId).subscribe({
       next: (subCollections: Collection[]) => {
         this.subCollections = subCollections;
-        console.log(subCollections);
+        console.log("Sub-colecciones para sidebar:", subCollections);
       },
       error: (err) => {
         console.error('Error loading subcollections:', err);
@@ -204,6 +219,7 @@ export class CollectionProductsPageComponent implements OnInit {
         this.collectionsService.updateCollection(updatedItem).subscribe(() => {
           console.log('Collection moved to trashcan');
           this.loadCollections();
+          this.loadSubCollections();
         });
       }
     });

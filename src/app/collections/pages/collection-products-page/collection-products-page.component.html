@@ -24,11 +24,14 @@
                         (shareQr)="shareCollectionQr()"
       ></app-item-actions>
 
-      <app-search-bar></app-search-bar>
+      <app-search-bar
+        [searchType]="'items'"
+        [currentCollectionId]="collectionId"
+        (optionSelected)="handleItemSelected($event)">
+      </app-search-bar>
     </div>
 
-    <div class="content" *ngIf="productList.length > 0; else noProducts">
-
+    <div class="content" *ngIf="productList.length > 0 || collections.length > 0; else noContent">
       <ng-container *ngFor="let product of productList">
         <app-product-item-card
           *ngIf="!product.isInTrash"
@@ -38,8 +41,13 @@
           [description]="product.description"
           [link]="product.id"
           [item]="product"
-          (delete)="deleteWish($event)"           (edit)="editWish($event)"               (shareQr)="shareWishQr($event)"         (shareLink)="shareWishLink($event)"     ></app-product-item-card>
+          (delete)="deleteWish($event)"
+          (edit)="editWish($event)"
+          (shareQr)="shareWishQr($event)"
+          (shareLink)="shareWishLink($event)">
+        </app-product-item-card>
       </ng-container>
+
       <ng-container *ngFor="let collection of collections">
         <app-collection-card
           *ngIf="!collection.isInTrash"
@@ -51,13 +59,13 @@
           (edit)="editCollection($event)"
           (share)="shareCollection()"
           (shareQr)="navigateToQrShare(collection)"
-          (view)="navigateToCollection(collection.id)"
-        ></app-collection-card>
+          (view)="navigateToCollection(collection.id)">
+        </app-collection-card>
       </ng-container>
 
     </div>
-    <ng-template #noProducts>
-      <div style="text-align: center; margin-top: 10rem">There are no products in this collection.</div>
+    <ng-template #noContent>
+      <div style="text-align: center; margin-top: 10rem">There is no content in this collection or subcollections.</div>
     </ng-template>
   </div>
 </div>

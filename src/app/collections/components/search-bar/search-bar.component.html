@@ -1,4 +1,15 @@
-<div>
-  <input type="text" maxlength="30" placeholder="Search...">
+<div class="search-bar">
+  <input type="text" maxlength="30" placeholder="Search..."
+         (input)="onInputChange($event)"
+         (keydown)="onKeydown($event)"
+         [(ngModel)]="searchText">
   <mat-icon>search</mat-icon>
+
+  <ul *ngIf="showSuggestions && filteredOptions.length > 0" class="custom-autocomplete-dropdown">
+    <li *ngFor="let option of filteredOptions"
+        (click)="selectOption(option)"
+        [class.highlighted]="option === highlightedOption">
+      {{ option.title }}
+    </li>
+  </ul>
 </div>

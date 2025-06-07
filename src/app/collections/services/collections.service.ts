@@ -3,12 +3,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import {map, switchMap, forkJoin, Observable} from 'rxjs';
+import {map, switchMap, forkJoin, Observable, of} from 'rxjs';
 import { Wish } from '../model/wish.entity';
 import {Tag} from '../model/tag.entity';
 import {Collection} from '../model/collection.entity';
 import {CollectionAssembler} from './collection.assembler';
 import {FullCollection} from '../model/fullCollection.entity';
+import { SearchResult } from '../../shared/models/search-result.interface';
+
 
 @Injectable({
   providedIn: 'root',
@@ -57,7 +59,7 @@ export class CollectionsService {
    */
 
   getFullCollections() {
-    return this.transformToFullCollection(this.getCollections())
+    return this.transformToFullCollection(this.getCollections());
   }
 
   getSubCollectionsByParentId(parentId: number): Observable<FullCollection[]> {
@@ -284,5 +286,88 @@ export class CollectionsService {
           });
         })
       );
+  }
+
+  /**
+   * @function searchCollections
+   * @description Searches for collections by title and maps them to SearchResult type, EXCLUDING trashed collections AND subcollections.
+   * @param query The search string.
+   * @returns Observable of SearchResult array.
+   */
+  searchCollections(query: string): Observable<SearchResult[]> {
+    const url = `${this.baseUrl}/collections?title_like=${query}&isInTrash=false&idParentCollection=0`; // <-- ¡NUEVO FILTRO!
+    if (!query.trim()) {
+      return this.getFullCollections().pipe(
+
+        map(cols => cols.filter(c => c.idParentCollection === 0 && !c.isInTrash)),
+        map(cols => cols.map(col => ({ id: col.id, title: col.title, type: 'collection' } as SearchResult)))
+      );
+    }
+    return this.http.get<Collection[]>(url).pipe(
+      map(response => CollectionAssembler.toEntitiesFromResponse(response)),
+      map(collections => collections.map(col => ({ id: col.id, title: col.title, type: 'collection' } as SearchResult)))
+    );
+  }
+
+  /**
+   * @function searchItems
+   * @description Searches for wishes/items by title within a specific collection and maps them to SearchResult type, EXCLUDING trashed items.
+   * This search SHOULD include subcollections if they are considered "items" within the parent collection.
+   * @param query The search string.
+   * @param collectionId The ID of the collection to search within.
+   * @returns Observable of SearchResult array.
+   */
+  searchItems(query: string, collectionId: number): Observable<SearchResult[]> {
+
+    const wishSearchUrl = `${this.baseUrl}/items?idCollection=${collectionId}&title_like=${query}&isInTrash=false`;
+    const wishes$: Observable<SearchResult[]> = this.http.get<Wish[]>(wishSearchUrl).pipe(
+      map((response): Wish[] => {
+        if (!response || !Array.isArray(response)) {
+          console.error('La respuesta de items no es un array válido:', response);
+          return [];
+        }
+        return response.map((item) => {
+          const wish = new Wish();
+          wish.id = item.id;
+          wish.idCollection = item.idCollection;
+          wish.title = item.title;
+          wish.description = item.description;
+          wish.urlImg = item.urlImg;
+          wish.isInTrash =  Boolean(item.isInTrash);
+          wish.redirectUrl = item.redirectUrl;
+          wish.tags = (item.tags ?? []).map((tag: any) => {
+            const tagInstance = new Tag();
+            tagInstance.name = tag.name;
+            tagInstance.color = tag.color;
+            return tagInstance;
+          });
+          return wish;
+        });
+      }),
+      map(wishes => wishes.map(wish => ({ id: wish.id, title: wish.title, type: 'wish' } as SearchResult)))
+    );
+
+    const subCollectionSearchUrl = `${this.baseUrl}/collections?idParentCollection=${collectionId}&title_like=${query}&isInTrash=false`;
+    const subCollections$: Observable<SearchResult[]> = this.http.get<Collection[]>(subCollectionSearchUrl).pipe(
+      map(response => CollectionAssembler.toEntitiesFromResponse(response)),
+      map(subCollections => subCollections.map(subCol => ({ id: subCol.id, title: subCol.title, type: 'collection' } as SearchResult)))
+    );
+
+    if (!query.trim()) {
+      return forkJoin([
+        this.getProductsByIdCollection(collectionId).pipe(
+          map(wishes => wishes.filter(wish => !wish.isInTrash)),
+          map(wishes => wishes.map(wish => ({ id: wish.id, title: wish.title, type: 'wish' } as SearchResult)))
+        ),
+        this.getSubCollectionsFromCollection(collectionId).pipe(
+          map(cols => cols.filter(c => !c.isInTrash)), // Filtro por si acaso
+          map(subCols => subCols.map(subCol => ({ id: subCol.id, title: subCol.title, type: 'collection' } as SearchResult)))
+        )
+      ]).pipe(map(([wishes, subCollections]) => [...wishes, ...subCollections]));
+    }
+
+    return forkJoin([wishes$, subCollections$]).pipe(
+      map(([wishes, subCollections]) => [...wishes, ...subCollections])
+    );
   }
 }
