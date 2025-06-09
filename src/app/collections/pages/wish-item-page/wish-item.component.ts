@@ -9,6 +9,7 @@ import {MatDialog} from '@angular/material/dialog';
 import { PopConfirmDialogComponent } from '../../../public/components/pop-confirm-dialog/pop-confirm-dialog.component';
 import {Location} from '@angular/common';
 import {TagListComponent} from '../../components/tags/tag-list.component';
+import {TranslatePipe} from '@ngx-translate/core';
 
 /**
  * @component WishItemComponent
@@ -23,6 +24,7 @@ import {TagListComponent} from '../../components/tags/tag-list.component';
     ItemActionsComponent,
     MatButtonModule,
     TagListComponent,
+    TranslatePipe,
   ],
 
   templateUrl: './wish-item.component.html',

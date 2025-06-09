@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import {TranslatePipe} from '@ngx-translate/core';
 
 /**
  * @component EntityOptionsMenuComponent
@@ -15,7 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-entity-options-menu',
   standalone: true,
-  imports: [CommonModule, MatMenuModule, MatIconModule, MatButtonModule],
+  imports: [CommonModule, MatMenuModule, MatIconModule, MatButtonModule, TranslatePipe],
   templateUrl: './entity-options-menu.component.html',
   styleUrl: './entity-options-menu.component.css',
 })

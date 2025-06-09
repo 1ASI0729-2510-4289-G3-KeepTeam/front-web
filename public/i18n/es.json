@@ -1,0 +1,36 @@
+{
+  "header": {
+    "dashboard": "Panel Inicio",
+    "plans": "Planes",
+    "trashcan": "Papelera"
+  },
+  "navs": {
+    "myCollections": "Mis Colecciones",
+    "subCollections": "SubColecciones",
+    "search": "Buscar",
+    "addCollection": "Agregar Colección",
+    "addSubCollection": "Agregar Subcolección",
+    "addWish": "Agregar Deseo"
+  },
+  "item": {
+    "title": "Título",
+    "description": "Descripción",
+    "goToItemsLink": "Ir a link de Deseo",
+    "itemsLink": "Enlace de Ítem",
+    "tags": "Etiquetas",
+    "selectImage": "Seleccionar Imagen"
+  },
+  "cancel": "Cancelar",
+  "save": "Guardar",
+  "itemsAction": {
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "share": "Compartir",
+    "copyLink": "Copiar enlace",
+    "shareQr": "Compartir como QR",
+    "deleteCollection": "Eliminar colección",
+    "deleteItem": "Eliminar ítem",
+    "editCollection": "Editar colección",
+    "editItem": "Editar ítem"
+  }
+}

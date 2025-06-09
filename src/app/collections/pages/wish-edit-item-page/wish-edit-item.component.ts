@@ -13,6 +13,7 @@ import {CollectionsService} from '../../services/collections.service';
 import {Wish} from '../../model/wish.entity';
 import {ActivatedRoute} from '@angular/router';
 import {UploadService} from '../../../shared/services/images.service';
+import {TranslatePipe} from '@ngx-translate/core';
 
 /**
  * @component WishEditItemComponent
@@ -33,6 +34,7 @@ import {UploadService} from '../../../shared/services/images.service';
     FormsModule,
     MatAutocompleteModule,
     NgForOf,
+    TranslatePipe,
   ],
   templateUrl: './wish-edit-item.component.html',
   styleUrl: './wish-edit-item.component.css',

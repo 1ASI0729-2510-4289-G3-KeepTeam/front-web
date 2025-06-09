@@ -4,82 +4,92 @@
   <div class="spacer"></div>
 </div>
 <div class="container">
-<div class="content">
-  <div class="image-container">
-    <img [src]="wish.urlImg" alt="image of {{ wish.title }}" />
-    <label for="file-upload" class="custom-file-upload">
-      Select Image
-    </label>
-    <input id="file-upload" type="file" accept="image/*" (change)="onFileSelected($event)" />
-  </div>
+  <div class="content">
+    <div class="image-container">
+      <img [src]="wish.urlImg" alt="image of {{ wish.title }}" />
+      <label for="file-upload" class="custom-file-upload">
+        {{ 'item.selectImage' | translate }}
+      </label>
+      <input id="file-upload" type="file" accept="image/*" (change)="onFileSelected($event)" />
+    </div>
 
-  <div>
-    <form class="example-form">
-      <h3>Title</h3>
-      <div class="inputContainer">
-        <textarea
-          #input
-          maxlength="20"
-          [(ngModel)]="wish.title"
-          name="title"
-        ></textarea>
-        <p style="justify-content: end">{{ wish.title.length || 0 }}/20</p>
-      </div>
-      <h3>Description</h3>
-      <div class="inputContainer">
-        <textarea
-          #input
-          maxlength="200"
-          [(ngModel)]="wish.description"
-          name="description"
+    <div>
+      <form class="example-form">
+        <h3>{{ 'item.title' | translate }}</h3>
+        <div class="inputContainer">
+          <textarea
+            #input
+            maxlength="20"
+            [(ngModel)]="wish.title"
+            name="title"
+          ></textarea>
+          <p style="justify-content: end">{{ wish.title.length || 0 }}/20</p>
+        </div>
+        <h3>{{ 'item.description' | translate }}</h3>
+        <div class="inputContainer">
+          <textarea
+            #input
+            maxlength="200"
+            [(ngModel)]="wish.description"
+            name="description"
+          ></textarea>
+          <p style="justify-content: end">{{ wish.description.length || 0 }}/200</p>
+        </div>
 
-        ></textarea>
-        <p style="justify-content: end">{{ wish.description.length || 0 }}/200</p>
-      </div>
+        <h3>{{ 'item.goToItemsLink' | translate }}</h3>
+        <div class="inputContainer">
+          <input #input [(ngModel)]="wish.redirectUrl" name="redirectUrl" />
+        </div>
+        <h3>{{ 'item.tags' | translate }}</h3>
+        <mat-chip-grid #chipGrid>
+          <mat-chip
+            *ngFor="let tag of wish.tags"
+            (removed)="remove(tag)"
+            [style.background]="tag.color"
+          >
+            {{ tag.name }}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+          <input
+            class="chip-list"
+            name="current Tag"
+            [placeholder]="'item.tags' | translate"
+            #TagInput
+            [value]="tagInputValue()"
+            (input)="tagInputValue.set($any($event.target).value)"
+            [matChipInputFor]="chipGrid"
+            [matAutocomplete]="auto"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add()"
+          />
+        </mat-chip-grid>
 
-      <h3>Item's Link</h3>
-      <div class="inputContainer">
-        <input #input  [(ngModel)]="wish.redirectUrl"  name="redirectUrl"/>
-      </div>
-      <h3>Tags</h3>
-      <mat-chip-grid #chipGrid>
-        <mat-chip
-          *ngFor="let tag of wish.tags"
-          (removed)="remove(tag)"
-          [style.background]="tag.color"
+        <mat-autocomplete
+          #auto="matAutocomplete"
+          (optionSelected)="selected($event)"
         >
-          {{ tag.name }}
-          <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
-        <input
-          class="chip-list"
-          name="current Tag"
-          placeholder="Enter a New or Existent Tag"
-          #TagInput
-          [value]="tagInputValue()"
-          (input)="tagInputValue.set($any($event.target).value)"
-          [matChipInputFor]="chipGrid"
-          [matAutocomplete]="auto"
-          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-          (matChipInputTokenEnd)="add()"
-        />
-      </mat-chip-grid>
+          <mat-option *ngFor="let tag of filteredTags()" [value]="tag.name">
+            {{ tag.name }}
+          </mat-option>
+        </mat-autocomplete>
 
-      <mat-autocomplete
-        #auto="matAutocomplete"
-        (optionSelected)="selected($event)"
-      >
-        <mat-option *ngFor="let tag of filteredTags()" [value]="tag.name">
-          {{ tag.name }}
-        </mat-option>
-      </mat-autocomplete>
-
-      <div class="action-buttons">
-        <button mat-flat-button style="background-color: #FFE260; color: #2A3011" (click)="onCancel()">Cancel</button>
-        <button mat-flat-button style="background-color: #E5827D; color: #FFFFFF" (click)="onSave()">Save</button>
-      </div>
-
-    </form>
+        <div class="action-buttons">
+          <button
+            mat-flat-button
+            style="background-color: #FFE260; color: #2A3011"
+            (click)="onCancel()"
+          >
+            {{ 'cancel' | translate }}
+          </button>
+          <button
+            mat-flat-button
+            style="background-color: #E5827D; color: #FFFFFF"
+            (click)="onSave()"
+          >
+            {{ 'save' | translate }}
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
-</div>
 </div>

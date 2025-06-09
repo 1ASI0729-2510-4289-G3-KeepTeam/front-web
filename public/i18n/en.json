@@ -1,0 +1,36 @@
+{
+  "header": {
+    "dashboard": "Dashboard",
+    "plans": "Plans",
+    "trashcan": "Trashcan"
+  },
+  "navs": {
+    "myCollections": "My Colllections",
+    "subCollections": "SubCollections",
+    "search": "Search",
+    "addCollection": "Add Collection",
+    "addSubCollection": "Add Sub-Collection",
+    "addWish": "Add Wish"
+  },
+  "item": {
+    "title": "Title",
+    "description": "Description",
+    "goToItemsLink": "Go to Items Link",
+    "itemsLink": "Items Link",
+    "tags": "Tags",
+    "selectImage": "Select Image"
+  },
+  "cancel": "Cancel",
+  "save": "Save",
+  "itemsAction": {
+    "delete": "Delete",
+    "edit": "Edit",
+    "share": "Share",
+    "copyLink": "Copy Link",
+    "shareQr": "Share as QR",
+    "deleteCollection": "Delete Collection",
+    "deleteItem": "Delete Item",
+    "editCollection": "Edit Collection",
+    "editItem": "Edit Item"
+  }
+}

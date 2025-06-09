@@ -15,6 +15,8 @@ import {CreationButtonsComponent} from '../../components/creation-buttons/creati
 import {PopConfirmDialogComponent} from '../../../public/components/pop-confirm-dialog/pop-confirm-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 import {SearchResult} from '../../../shared/models/search-result.interface';
+import {Subscription} from 'rxjs';
+import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
 
 /**
  * @component CollectionProductsPageComponent
@@ -54,14 +56,31 @@ export class CollectionProductsPageComponent implements OnInit {
    */
   collectionId: number = 0;
   collection: Collection | undefined;
-  creationButtons: { id: number; name: string; link: string; backgroundColor: string; color: string; }[] | undefined
+  creationButtons: { id: number; name: string; link: string; backgroundColor: string; color: string; }[] | undefined;
+
+  private langChangeSub: Subscription | undefined;
 
   constructor(
     private collectionsService: CollectionsService,
     private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
-  ) {}
+    private translate: TranslateService
+  ) {
+    this.setCreationButtons();
+
+    this.langChangeSub = this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.setCreationButtons();
+    });
+  }
+
+  private setCreationButtons() {
+    this.creationButtons = [
+      { id: 1, name: this.translate.instant('navs.addSubCollection'), link: `/collections/${this.collectionId}/7`, backgroundColor: '#FEDD72', color: '#BD6412' },
+      { id: 2, name: this.translate.instant('navs.addWish'), link: `/collections/${this.collectionId}/new/edit`, backgroundColor: '#FF8B68', color: '#FFFAF3' }
+
+    ];
+  }
 
   /**
    * @function ngOnInit
@@ -76,11 +95,6 @@ export class CollectionProductsPageComponent implements OnInit {
         return;
       }
       this.collectionId = Number(idParam);
-
-      this.creationButtons = [
-        { id: 1, name: 'Add sub-collection', link: `/collections/${this.collectionId}/7`, backgroundColor: '#FEDD72', color: '#BD6412' },
-        { id: 2, name: 'Add Wish', link: `/collections/${this.collectionId}/new/edit`, backgroundColor: '#FF8B68', color: '#FFFAF3' }
-      ];
 
       this.getCollection(this.collectionId);
       this.getProducts();

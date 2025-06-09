@@ -1,5 +1,5 @@
 <div class="search-bar">
-  <input type="text" maxlength="30" placeholder="Search..."
+  <input type="text" maxlength="30" placeholder="{{'navs.search' | translate }}..."
          (input)="onInputChange($event)"
          (keydown)="onKeydown($event)"
          [(ngModel)]="searchText">

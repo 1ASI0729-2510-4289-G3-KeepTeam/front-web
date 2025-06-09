@@ -3,6 +3,7 @@ import {MatToolbar, MatToolbarRow} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {RouterLink} from '@angular/router';
 import {Router} from '@angular/router';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-toolbar',
@@ -11,7 +12,8 @@ import {Router} from '@angular/router';
     MatToolbar,
     MatIconModule,
     RouterLink,
-    MatIconModule
+    MatIconModule,
+    TranslatePipe
   ],
   templateUrl: './toolbar.component.html',
   styleUrl: './toolbar.component.css'

@@ -3,6 +3,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
+import {TranslatePipe} from '@ngx-translate/core';
 
 /**
  * @component ItemActionsComponent
@@ -14,7 +15,7 @@ import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 @Component({
   selector: 'app-item-actions',
   standalone: true,
-  imports: [MatIconModule, MatButtonModule, MatMenuTrigger, MatMenu, MatMenuItem,],
+  imports: [MatIconModule, MatButtonModule, MatMenuTrigger, MatMenu, MatMenuItem, TranslatePipe,],
   templateUrl: './item-actions.component.html',
   styleUrl: './item-actions.component.css',
 })

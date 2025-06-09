@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
@@ -12,6 +12,8 @@ import {FullCollection} from '../../model/fullCollection.entity';
 import {SearchResult} from '../../../shared/models/search-result.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { PopConfirmDialogComponent } from '../../../public/components/pop-confirm-dialog/pop-confirm-dialog.component';
+import {LangChangeEvent, TranslatePipe, TranslateService} from '@ngx-translate/core';
+import {Subscription} from 'rxjs';
 
 /**
  * @component CollectionsGridComponent
@@ -29,34 +31,57 @@ import { PopConfirmDialogComponent } from '../../../public/components/pop-confir
     CreationButtonsComponent,
     CollectionCardComponent,
     CommonModule,
+    TranslatePipe,
   ],
   templateUrl: './collections-grid.component.html',
   styleUrl: './collections-grid.component.css',
 })
-export class CollectionsGridComponent implements OnInit {
+export class CollectionsGridComponent implements OnInit, OnDestroy {
   /**
    * @property collections
    * @description List of collections with basic details.
    */
   collections: FullCollection[] = [];
   items: Wish[] = [];
-
-  creationButtons: { name: string; link: string; backgroundColor: string; color: string; }[] | undefined = [
-    { name: 'Add Collection', link: '/collections/new/edit', backgroundColor: '#FF8B68', color: '#FFFAF3' }
-  ]
-
+  creationButtons: { name: string; link: string; backgroundColor: string; color: string }[] = [];
+  langChangeSub: Subscription;
   /**
    * @constructor
    * @param collectionsService - Service to fetch collections data.
    * @param router - Angular Router for navigation.
    * @param dialog - MatDialog service for opening confirmation dialogs.
+   * @param translate
    */
   constructor(
     private collectionsService: CollectionsService,
     private router: Router,
     private dialog: MatDialog,
-  ) {}
+    private translate: TranslateService
+  ) {
+    this.setCreationButtons();
+    this.langChangeSub = this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.setCreationButtons();
+    });
+  }
 
+
+setCreationButtons() {
+  const translatedName = this.translate.instant('navs.addCollection');
+  this.creationButtons = [
+    {
+      name: translatedName,
+      link: '/collections/new/edit',
+      backgroundColor: '#FF8B68',
+      color: '#FFFAF3',
+    }
+  ];
+}
+
+  ngOnDestroy() {
+    if (this.langChangeSub) {
+      this.langChangeSub.unsubscribe();
+    }
+  }
   /**
    * @function ngOnInit
    * @description Lifecycle hook that triggers loading of collections when component initializes.

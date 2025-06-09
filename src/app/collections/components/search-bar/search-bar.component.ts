@@ -6,6 +6,7 @@ import { debounceTime, distinctUntilChanged, switchMap, takeUntil } from 'rxjs/o
 import { Subject, Observable } from 'rxjs';
 import { CollectionsService } from '../../services/collections.service';
 import {SearchResult} from '../../../shared/models/search-result.interface';
+import {TranslatePipe} from '@ngx-translate/core';
 
 /**
  * @Component SearchBarComponent
@@ -28,6 +29,7 @@ import {SearchResult} from '../../../shared/models/search-result.interface';
     FormsModule,
     MatIconModule,
     CommonModule,
+    TranslatePipe,
   ],
   styleUrls: ['./search-bar.component.css']
 })

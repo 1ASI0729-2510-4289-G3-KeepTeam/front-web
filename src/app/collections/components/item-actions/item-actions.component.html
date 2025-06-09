@@ -1,22 +1,26 @@
 <div>
   <a (click)="onDelete.emit(item)">
-    <mat-icon style="color: #892525" (click)="deleteEntity($event)">delete</mat-icon>
+    <mat-icon style="color: #892525" (click)="deleteEntity($event)">
+      delete
+    </mat-icon>
   </a>
+
   <div class="share-menu-container">
     <a [matMenuTriggerFor]="shareMenu">
       <mat-icon style="color: #FF8B68">share</mat-icon>
     </a>
     <mat-menu #shareMenu="matMenu">
       <button mat-menu-item (click)="onShareLink()">
-        <span>Copy Link</span>
+        <span>{{ 'itemsAction.copyLink' | translate }}</span>
       </button>
       <button mat-menu-item (click)="onShareQr()">
-        <span>Share as QR</span>
+        <span>{{ 'itemsAction.shareQr' | translate }}</span>
       </button>
     </mat-menu>
   </div>
+
   <button mat-flat-button (click)="editRoute()" class="editButton">
-    Edit
+    {{ 'itemsAction.edit' | translate }}
     <mat-icon>edit</mat-icon>
   </button>
 </div>

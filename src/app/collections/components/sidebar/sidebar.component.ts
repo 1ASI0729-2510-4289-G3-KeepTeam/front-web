@@ -3,6 +3,7 @@ import {NgForOf, NgIf} from '@angular/common';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Collection} from '../../model/collection.entity';
 import {Wish} from '../../model/wish.entity';
+import {TranslatePipe} from '@ngx-translate/core';
 /**
  * @component SidebarComponent
  * @description
@@ -14,7 +15,8 @@ import {Wish} from '../../model/wish.entity';
   selector: 'app-sidebar',
   imports: [
     NgForOf,
-    NgIf
+    NgIf,
+    TranslatePipe
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
