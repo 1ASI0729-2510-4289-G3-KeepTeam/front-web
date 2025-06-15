@@ -12,6 +12,7 @@ import {NgIf} from '@angular/common';
 import {Router} from '@angular/router';
 import { Location } from '@angular/common';
 import {MatError} from '@angular/material/input';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-edit-password',
@@ -24,7 +25,8 @@ import {MatError} from '@angular/material/input';
     NgIf,
     MatIcon,
     MatIconButton,
-    MatError
+    MatError,
+    TranslatePipe
   ],
   templateUrl: './user-edit-password.component.html',
   styleUrl: './user-edit-password.component.css'
@@ -37,7 +39,8 @@ export class UserEditPasswordComponent implements OnInit {
     private fb: FormBuilder,
     private location: Location,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+  private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -81,8 +84,16 @@ export class UserEditPasswordComponent implements OnInit {
     if (this.passwordForm.valid) {
       const { currentPassword, newPassword } = this.passwordForm.value;
       this.userService.changePassword(this.user.id, currentPassword, newPassword).subscribe({
-        next: () => alert('Password changed successfully!'),
-        error: () => alert('Failed to change password.')
+        next: () => {
+          this.translate.get('passwordEdit.passwordChangedSuccess').subscribe((res: string) => {
+            alert(res);
+          });
+        },
+        error: () => {
+          this.translate.get('passwordEdit.passwordChangedError').subscribe((res: string) => {
+            alert(res);
+          });
+        }
       });
       this.passwordForm.reset();
     } else {

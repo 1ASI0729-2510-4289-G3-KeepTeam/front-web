@@ -32,5 +32,50 @@
     "deleteItem": "Eliminar ítem",
     "editCollection": "Editar colección",
     "editItem": "Editar ítem"
+  },
+  "profile": {
+    "greeting": "Hola, {{ name }} 👋",
+    "editProfileButton": "Editar perfil",
+    "activityTitle": "Actividad",
+    "savedItems": "Ítems Guardados",
+    "paymentInformationTitle": "Información de Pago",
+    "linkedCard": "Tarjeta Vinculada",
+    "holder": "Titular",
+    "editCardInfoButton": "Editar Información de Tarjeta",
+    "currentPlan": "Plan Actual",
+    "password": "Contraseña",
+    "changePasswordButton": "Cambiar Contraseña",
+    "deleteAccountButton": "Eliminar Cuenta",
+    "deleteProfileSuccess": "¡Perfil eliminado exitosamente!"
+  },
+  "passwordEdit": {
+    "title": "Editar Contraseña",
+    "currentPassword": "Contraseña Actual",
+    "newPassword": "Nueva Contraseña",
+    "repeatNewPassword": "Repetir Nueva Contraseña",
+    "passwordMismatchError": "Las contraseñas no coinciden",
+    "changePasswordButton": "Cambiar Contraseña",
+    "passwordChangedSuccess": "¡Contraseña cambiada exitosamente!",
+    "passwordChangedError": "Fallo al cambiar contraseña."
+  },
+  "profileEdit": {
+    "title": "Editar perfil",
+    "uploadPhotoButton": "Subir Foto",
+    "usernameLabel": "Nombre de usuario",
+    "saveChangesButton": "Guardar Cambios",
+    "uploadPhotoNotImplemented": "Funcionalidad de subir foto no implementada aún.",
+    "profileUpdatedSuccess": "¡Perfil actualizado!"
+  },
+  "paymentInfo": {
+    "title": "Información de Pago",
+    "cardNumber": "Número de Tarjeta",
+    "cardNumberPlaceholder": "Ingresa el número de tarjeta",
+    "holder": "Titular",
+    "holderPlaceholder": "Ingresa el nombre del titular de la tarjeta",
+    "expirationDate": "Fecha de Vencimiento",
+    "expirationDatePlaceholder": "Fecha de Vencimiento",
+    "changeCardButton": "Cambiar Tarjeta",
+    "cardUpdateSuccess": "¡Tarjeta actualizada exitosamente!",
+    "cardUpdateError": "Fallo al actualizar la tarjeta."
   }
 }

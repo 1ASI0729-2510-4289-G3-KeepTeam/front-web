@@ -10,25 +10,33 @@ import { Location } from '@angular/common';
 import { UserService } from '../../services/user.service';
 import {User} from '../../model/user';
 import {Router} from '@angular/router';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-edit-card',
-    imports: [
-        MatButton,
-        MatFormField,
-        MatIcon,
-        MatIconButton,
-        MatInput,
-        MatLabel,
-        ReactiveFormsModule
-    ],
+  imports: [
+    MatButton,
+    MatFormField,
+    MatIcon,
+    MatIconButton,
+    MatInput,
+    MatLabel,
+    ReactiveFormsModule,
+    TranslatePipe
+  ],
   templateUrl: './user-edit-card.component.html',
   styleUrl: './user-edit-card.component.css'
 })
 export class UserEditCardComponent implements OnInit {
   paymentForm!: FormGroup;
   user: User = new User();
-  constructor(private fb: FormBuilder, private location: Location, private userService: UserService, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private location: Location,
+    private userService: UserService,
+    private router: Router,
+    private translate: TranslateService
+  ) {
     this.paymentForm = this.fb.group({
       cardNumber: ['', Validators.required],
       holder: ['', Validators.required],
@@ -61,8 +69,16 @@ export class UserEditCardComponent implements OnInit {
       const cardData = this.paymentForm.value;
 
       this.userService.updateUserCard(this.user.id, cardData).subscribe({
-        next: () => alert('Card updated successfully!'),
-        error: () => alert('Failed to update card.')
+        next: () => {
+          this.translate.get('paymentInfo.cardUpdateSuccess').subscribe((res: string) => {
+            alert(res);
+          });
+        },
+        error: () => {
+          this.translate.get('paymentInfo.cardUpdateError').subscribe((res: string) => {
+            alert(res);
+          });
+        }
       });
     } else {
       this.paymentForm.markAllAsTouched();

@@ -9,6 +9,7 @@ import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatLabel} from '@angular/material/input';
 import {MatIcon} from '@angular/material/icon';
 import {UploadService} from '../../../shared/services/images.service'
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-edit-dialog',
@@ -20,6 +21,7 @@ import {UploadService} from '../../../shared/services/images.service'
     MatLabel,
     MatIcon,
     MatIconButton,
+    TranslatePipe,
   ],
   templateUrl: './user-edit-dialog.component.html',
   styleUrl: './user-edit-dialog.component.css'
@@ -30,11 +32,12 @@ export class UserEditDialogComponent {
   constructor(
     private userService: UserService,
     private router: Router,
-    private uploadService: UploadService
+    private uploadService: UploadService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
-    const userId = Number(localStorage.getItem('userId')); // o tu lógica de login
+    const userId = Number(localStorage.getItem('userId'));
     if (userId) {
       this.userService.getUserById(userId).subscribe(data => this.user = data);
     }
@@ -48,12 +51,14 @@ export class UserEditDialogComponent {
     return name?.charAt(0).toUpperCase();
   }
 
-  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>; // Importa ElementRef y ViewChild
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   defaultImage = 'assets/default-avatar.png';
 
   uploadPhoto() {
     this.fileInput.nativeElement.click();
-    alert('Upload photo feature not implemented yet.');
+    this.translate.get('profileEdit.uploadPhotoNotImplemented').subscribe((res: string) => {
+      alert(res);
+    });
   }
 
   onFileSelected(event: Event): void {
@@ -67,7 +72,7 @@ export class UserEditDialogComponent {
         next: res => {
           console.log('Imagen subida correctamente:', res);
           this.user.profilePicture = res.secure_url;
-          // Aquí puedes guardar res.secure_url en tu modelo de usuario, por ejemplo
+
         },
         error: err => {
           console.error('Error al subir imagen a Cloudinary:', err);
@@ -78,13 +83,12 @@ export class UserEditDialogComponent {
     }
   }
 
-
-
   saveChanges(): void {
     this.userService.updateUser(this.user).subscribe(() => {
-      alert('Profile updated!');
-      this.router.navigate(['/user-profile']); // o tu ruta de perfil
+      this.translate.get('profileEdit.profileUpdatedSuccess').subscribe((res: string) => {
+        alert(res);
+      });
+      this.router.navigate(['/user-profile']);
     });
   }
 }
-

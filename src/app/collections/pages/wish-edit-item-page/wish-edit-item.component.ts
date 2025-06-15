@@ -80,11 +80,17 @@ export class WishEditItemComponent implements OnInit {
       const productIdParam = params.get('productId');
       this.productId = productIdParam === 'new' ? null : Number(productIdParam);
 
-      if (this.productId) {
+      if (this.productId !== null) {
         this.getWish(this.productId);
-      }else{
+      } else {
+        // Create mode
         this.wish = new Wish();
-        this.wish.idCollection = Number(params.get('collectionId'));
+        const collectionIdParam = params.get('collectionId');
+        if (collectionIdParam) {
+          this.wish.idCollection = Number(collectionIdParam);
+        } else {
+          console.warn('No se recibió collectionId en la ruta');
+        }
       }
     });
   }
@@ -207,8 +213,14 @@ export class WishEditItemComponent implements OnInit {
       alert('Por favor ingresa un título');
       return;
     }
-    console.log('Saving wish:', this.wish);
+
+    if (!this.wish.idCollection) {
+      alert('No se ha establecido una colección válida');
+      return;
+    }
+
     if (this.wish.id) {
+      // Edit
       this.collectionsService.updateWish(this.wish).subscribe({
         next: (updatedWish) => {
           console.log('Wish updated:', updatedWish);
@@ -219,6 +231,7 @@ export class WishEditItemComponent implements OnInit {
         },
       });
     } else {
+      // Create
       this.collectionsService.createWish(this.wish).subscribe({
         next: (createdWish) => {
           console.log('Wish created:', createdWish);
@@ -228,7 +241,8 @@ export class WishEditItemComponent implements OnInit {
           console.error('Error creating wish:', err);
         },
       });
-    }}
+    }
+  }
 
   /**
    * @function onFileSelected

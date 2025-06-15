@@ -4,6 +4,7 @@ import { UserService } from '../../services/user.service';
 import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
 import {MatButton} from '@angular/material/button';
 import {Router} from '@angular/router';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile',
@@ -12,7 +13,8 @@ import {Router} from '@angular/router';
     MatCard,
     MatButton,
     MatCardTitle,
-    MatCardContent
+    MatCardContent,
+    TranslatePipe
   ],
   styleUrls: ['./user-profile.component.css']
 })

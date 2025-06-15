@@ -32,5 +32,49 @@
     "deleteItem": "Delete Item",
     "editCollection": "Edit Collection",
     "editItem": "Edit Item"
+  },
+  "profile": {
+    "greeting": "Hello, {{ name }} 👋",
+    "editProfileButton": "Edit profile",
+    "activityTitle": "Activity",
+    "savedItems": "Saved Items",
+    "paymentInformationTitle": "Payment Information",
+    "linkedCard": "Linked Card",
+    "holder": "Holder",
+    "editCardInfoButton": "Edit Card Information",
+    "currentPlan": "Current Plan",
+    "password": "Password",
+    "changePasswordButton": "Change Password",
+    "deleteAccountButton": "Delete Account",
+    "deleteProfileSuccess": "Profile deleted successfully!"
+  },
+  "passwordEdit": {
+    "title": "Edit Password",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "repeatNewPassword": "Repeat New Password",
+    "passwordMismatchError": "Passwords do not match",
+    "changePasswordButton": "Change Password",
+    "passwordChangedSuccess": "Password changed successfully!",
+    "passwordChangedError": "Failed to change password."
+  },
+  "profileEdit": {
+    "title": "Edit profile",
+    "uploadPhotoButton": "Upload Photo",
+    "usernameLabel": "Username",
+    "saveChangesButton": "Save Changes",
+    "uploadPhotoNotImplemented": "Upload photo feature not implemented yet.",
+    "profileUpdatedSuccess": "Profile updated!"
+  },
+  "paymentInfo": {
+    "title": "Payment Information",
+    "cardNumber": "Card Number",
+    "cardNumberPlaceholder": "Input the card number",
+    "holder": "Holder",
+    "expirationDate": "FV",
+    "expirationDatePlaceholder": "Expiration Date",
+    "changeCardButton": "Change Card",
+    "cardUpdateSuccess": "Card updated successfully!",
+    "cardUpdateError": "Failed to update card."
   }
 }
