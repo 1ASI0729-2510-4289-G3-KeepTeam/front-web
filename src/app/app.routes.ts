@@ -66,7 +66,7 @@ export const routes: Routes = [
   { path: 'trashcan', component: TrashcanComponent },
 { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'collections/new/edit', component: CollectionEditPageComponent },
-  { path: 'collections/:id/edit', component: CollectionEditPageComponent },
+  { path: 'collections/:collectionId/edit', component: CollectionEditPageComponent },
 ];
 
 @NgModule({
