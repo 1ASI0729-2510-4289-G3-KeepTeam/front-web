@@ -72,11 +72,24 @@ button.mat-raised-button {
   width: 100%;
 }
 
-.delete-button {
+.logout-button {
   border-radius: 10px;
   color: #FFFFFF;
   margin-left: auto;
+  background-color: #FF8B68 !important;
 }
+
+.button-row {
+  display: flex;
+  justify-content: flex-end; /* Alinea los botones hacia la derecha */
+  gap: 1rem;
+
+}
+.delete-button {
+  border-radius: 10px;
+  color: #FFFFFF;
+}
+
 .button-container {
   display: flex;
   justify-content: flex-end;
