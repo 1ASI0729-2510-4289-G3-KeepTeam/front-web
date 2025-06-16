@@ -5,6 +5,7 @@ import { Wish } from '../../model/wish.entity';
 import { CollectionsService } from '../../services/collections.service';
 import { ActivatedRoute } from '@angular/router';
 import { Collection } from '../../model/collection.entity';
+import {MatButton} from '@angular/material/button';
 
 /**
  * @component CollectionEditComponent
@@ -18,7 +19,7 @@ import { Collection } from '../../model/collection.entity';
   standalone: true,
   templateUrl: './collection-edit.component.html',
   styleUrls: ['./collection-edit.component.css'],
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule, MatButton]
 })
 export class CollectionEditComponent {
 
@@ -126,6 +127,7 @@ export class CollectionEditComponent {
       next: updatedCollection => {
         console.log('Collection title updated:', updatedCollection);
         this.selectedCollection = updatedCollection;
+        window.history.back();
       },
       error: err => {
         console.error('Error updating collection title:', err);
