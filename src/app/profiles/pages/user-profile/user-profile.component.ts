@@ -56,7 +56,8 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-
-
+  goToLogin(): void {
+    this.router.navigate(['/login']);
+  }
 
 }
