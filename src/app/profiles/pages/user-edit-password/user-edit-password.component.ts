@@ -12,6 +12,7 @@ import {NgIf} from '@angular/common';
 import {Router} from '@angular/router';
 import { Location } from '@angular/common';
 import {MatError} from '@angular/material/input';
+import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
 
 @Component({
   selector: 'app-user-edit-password',
@@ -24,7 +25,8 @@ import {MatError} from '@angular/material/input';
     NgIf,
     MatIcon,
     MatIconButton,
-    MatError
+    MatError,
+    ToolbarComponent
   ],
   templateUrl: './user-edit-password.component.html',
   styleUrl: './user-edit-password.component.css'

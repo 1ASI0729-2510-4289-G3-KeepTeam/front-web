@@ -14,6 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PopConfirmDialogComponent } from '../../../public/components/pop-confirm-dialog/pop-confirm-dialog.component';
 import {LangChangeEvent, TranslatePipe, TranslateService} from '@ngx-translate/core';
 import {Subscription} from 'rxjs';
+import {ToolbarComponent} from "../../../public/components/toolbar/toolbar.component";
 
 /**
  * @component CollectionsGridComponent
@@ -32,6 +33,7 @@ import {Subscription} from 'rxjs';
     CollectionCardComponent,
     CommonModule,
     TranslatePipe,
+    ToolbarComponent,
   ],
   templateUrl: './collections-grid.component.html',
   styleUrl: './collections-grid.component.css',

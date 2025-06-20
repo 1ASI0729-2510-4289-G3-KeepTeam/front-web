@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import {NgIf} from '@angular/common';
+import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
 
 /**
  * @Component ShareSettingsComponent
@@ -31,6 +32,7 @@ import {NgIf} from '@angular/common';
     MatIconModule,
     FormsModule,
     NgIf,
+    ToolbarComponent,
   ],
 })
 export class ShareSettingsComponent implements OnInit {

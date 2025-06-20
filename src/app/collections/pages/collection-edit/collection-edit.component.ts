@@ -6,6 +6,7 @@ import { CollectionsService } from '../../services/collections.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Collection } from '../../model/collection.entity';
 import {Observable} from 'rxjs';
+import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
 
 /**
  * @component CollectionEditComponent
@@ -19,7 +20,7 @@ import {Observable} from 'rxjs';
   standalone: true,
   templateUrl: './collection-edit.component.html',
   styleUrls: ['./collection-edit.component.css'],
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule, ToolbarComponent]
 })
 export class CollectionEditComponent implements OnInit {
 

@@ -14,6 +14,7 @@ import {Wish} from '../../model/wish.entity';
 import {ActivatedRoute} from '@angular/router';
 import {UploadService} from '../../../shared/services/images.service';
 import {TranslatePipe} from '@ngx-translate/core';
+import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
 
 /**
  * @component WishEditItemComponent
@@ -35,6 +36,7 @@ import {TranslatePipe} from '@ngx-translate/core';
     MatAutocompleteModule,
     NgForOf,
     TranslatePipe,
+    ToolbarComponent,
   ],
   templateUrl: './wish-edit-item.component.html',
   styleUrl: './wish-edit-item.component.css',

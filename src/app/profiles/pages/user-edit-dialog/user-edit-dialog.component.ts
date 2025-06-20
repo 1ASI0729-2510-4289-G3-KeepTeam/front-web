@@ -9,6 +9,7 @@ import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatLabel} from '@angular/material/input';
 import {MatIcon} from '@angular/material/icon';
 import {UploadService} from '../../../shared/services/images.service'
+import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
 
 @Component({
   selector: 'app-user-edit-dialog',
@@ -20,6 +21,7 @@ import {UploadService} from '../../../shared/services/images.service'
     MatLabel,
     MatIcon,
     MatIconButton,
+    ToolbarComponent,
   ],
   templateUrl: './user-edit-dialog.component.html',
   styleUrl: './user-edit-dialog.component.css'

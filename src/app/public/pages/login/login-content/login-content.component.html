@@ -1,50 +1,47 @@
 <div class="viewContent">
-  <mat-card class="WelcomeCard">
-    <mat-card-content class="welcomeCard">
+  <div class="WelcomeCard">
+    <div class="welcomeCard">
 
       <div class="cardWelcome">
-        <h2 class="TitleWelcome">Welcome back</h2>
+        <h2 class="TitleWelcome">{{ 'login.title' | translate }}</h2>
 
         <div class="email-label">
-          <h3>Email</h3>
+          <h3>{{ 'login.emailLabel' | translate }}</h3>
           <mat-form-field appearance="outline">
-            <mat-label>Input your account email</mat-label>
+            <mat-label>{{ 'login.emailPlaceholder' | translate }}</mat-label>
             <input matInput [(ngModel)]="email" type="email">
           </mat-form-field>
         </div>
 
-
-
         <div class="password">
-          <h3>Password</h3>
+          <h3>{{ 'login.passwordLabel' | translate }}</h3>
           <mat-form-field appearance="outline">
-            <mat-label>Input your password</mat-label>
+            <mat-label>{{ 'login.passwordPlaceholder' | translate }}</mat-label>
             <input matInput [(ngModel)]="password" type="password">
           </mat-form-field>
         </div>
 
         <div>
           <p class="signup-text">
-            Not a member yet?
-            <a routerLink="/signup" class="signup-link">Sign Up</a>
-
+            {{ 'login.noAccount' | translate }}
+            <a routerLink="/signup" class="signup-link">{{ 'login.signUpLink' | translate }}</a>
           </p>
         </div>
 
-
         <div class="signIn">
-          <button mat-flat-button class="signInButton" (click)="onLogin()">Sign in</button>
+          <button mat-flat-button class="signInButton" (click)="onLogin()">
+            {{ 'login.signInButton' | translate }}
+          </button>
           <a routerLink="/user-profile" class="user-profile-link"></a>
-
         </div>
-
 
       </div>
 
       <div class="imageSection">
         <img src="assets/welcome-back.png" alt="Welcome Image" class="welcome-image">
       </div>
-    </mat-card-content>
-  </mat-card>
+
+    </div>
+  </div>
 </div>
 

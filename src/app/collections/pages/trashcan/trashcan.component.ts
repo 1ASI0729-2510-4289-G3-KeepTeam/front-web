@@ -10,6 +10,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {SnackbarComponent} from '../../../public/components/snackbar/snackbar.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
 
 @Component({
   selector: 'app-trashcan',
@@ -18,7 +19,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
     MatIcon,
     MatIconButton,
     CommonModule,
-    MatButtonModule
+    MatButtonModule,
+    ToolbarComponent
   ],
   templateUrl: './trashcan.component.html',
   styleUrl: './trashcan.component.css'

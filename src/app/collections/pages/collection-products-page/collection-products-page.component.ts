@@ -17,6 +17,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {SearchResult} from '../../../shared/models/search-result.interface';
 import {Subscription} from 'rxjs';
 import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
+import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
 
 /**
  * @component CollectionProductsPageComponent
@@ -36,7 +37,8 @@ import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
     ItemActionsComponent,
     SearchBarComponent,
     CollectionCardComponent,
-    CreationButtonsComponent
+    CreationButtonsComponent,
+    ToolbarComponent
   ],
   templateUrl: './collection-products-page.component.html',
   styleUrl: './collection-products-page.component.css',

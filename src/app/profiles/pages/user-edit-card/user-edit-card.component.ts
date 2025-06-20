@@ -10,18 +10,20 @@ import { Location } from '@angular/common';
 import { UserService } from '../../services/user.service';
 import {User} from '../../model/user';
 import {Router} from '@angular/router';
+import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
 
 @Component({
   selector: 'app-user-edit-card',
-    imports: [
-        MatButton,
-        MatFormField,
-        MatIcon,
-        MatIconButton,
-        MatInput,
-        MatLabel,
-        ReactiveFormsModule
-    ],
+  imports: [
+    MatButton,
+    MatFormField,
+    MatIcon,
+    MatIconButton,
+    MatInput,
+    MatLabel,
+    ReactiveFormsModule,
+    ToolbarComponent
+  ],
   templateUrl: './user-edit-card.component.html',
   styleUrl: './user-edit-card.component.css'
 })
