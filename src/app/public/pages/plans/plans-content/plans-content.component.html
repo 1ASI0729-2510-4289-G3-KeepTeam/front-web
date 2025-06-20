@@ -1,67 +1,66 @@
 <div class="plans-container">
   <div class="titlePlans">
-    <h1 class="titleChoosePlan">Choose your plan</h1>
-    <h3 class="subtitle1">From casual collectors to power organizers — <span style="color: #f77f5c;">we’ve got you covered.</span></h3>
+    <h1 class="titleChoosePlan">{{ 'plansPage.chooseYourPlanTitle' | translate }}</h1>
+    <h3 class="subtitle1">
+      {{ 'plansPage.subtitlePart1' | translate }}
+      <span style="color: #f77f5c;">{{ 'plansPage.subtitlePart2' | translate }}</span>
+    </h3>
   </div>
 
   <div class="cards-wrapper">
     <div class="plan-group">
-    <mat-card class="plan-card starter">
-      <mat-card-content>
-        <h2 class="title-starter">Starter</h2>
-        <h3 class="price">Free</h3>
-        <ul>
-          <li>✅ Up to 2 collections</li>
-          <li>✅ Up to 20 items per Collection</li>
-          <li>✅ Basic sharing via link</li>
-          <li>✅ Web access only</li>
-          <li>❌ No custom tags</li>
-          <li>❌ No customizables</li>
-          <li>❌ No sharing</li>
-        </ul>
-      </mat-card-content>
-    </mat-card>
-</div>
-
-    <div class="plan-group">
-    <mat-card class="plan-card plus">
-      <mat-card-content>
-        <h2 class="title-plus">Plus</h2>
-        <h3 class="price">4.99 $<br><span>/ month</span></h3>
-        <ul>
-          <li>✅ Up to 15 collections</li>
-          <li>✅ Up to 300 items per Collection</li>
-          <li>✅ Basic sharing via QR</li>
-          <li>✅ Customizable Collections</li>
-          <li>✅ Custom tags</li>
-          <li>✅ Sharing</li>
-        </ul>
-
-      </mat-card-content>
-    </mat-card>
-      <button mat-flat-button class="upgrade-plus-button" color="primary" routerLink="/upgrade">Upgrade now</button>
+      <mat-card class="plan-card starter">
+        <mat-card-content>
+          <h2 class="title-starter">{{ 'plansPage.starterPlan.title' | translate }}</h2>
+          <h3 class="price">{{ 'plansPage.starterPlan.price' | translate }}</h3>
+          <ul>
+            <li>✅ {{ 'plansPage.starterPlan.feature1' | translate }}</li>
+            <li>✅ {{ 'plansPage.starterPlan.feature2' | translate }}</li>
+            <li>✅ {{ 'plansPage.starterPlan.feature3' | translate }}</li>
+            <li>✅ {{ 'plansPage.starterPlan.feature4' | translate }}</li>
+            <li>❌ {{ 'plansPage.starterPlan.feature5' | translate }}</li>
+            <li>❌ {{ 'plansPage.starterPlan.feature6' | translate }}</li>
+            <li>❌ {{ 'plansPage.starterPlan.feature7' | translate }}</li>
+          </ul>
+        </mat-card-content>
+      </mat-card>
     </div>
 
-
-
     <div class="plan-group">
-    <mat-card class="plan-card infinite">
-      <mat-card-content>
-        <h2 class="title-infinite">Infinite</h2>
-        <h3 class="price">9.99 $<br><span>/ month</span></h3>
-        <ul>
-          <li>✅ Up to 100 collections</li>
-          <li>✅ Up to 8000 items per Collection</li>
-          <li>✅ Sharing via QR and PDF</li>
-          <li>✅ Customizable Collections</li>
-          <li>✅ Custom tags</li>
-          <li>✅ Sharing via QR/Link/Export</li>
-          <li>✅ Moodboard</li>
-        </ul>
-      </mat-card-content>
-    </mat-card>
-      <button mat-flat-button class="upgrade-infinite-button" color="accent" routerLink="/upgrade">Upgrade now</button>
+      <mat-card class="plan-card plus">
+        <mat-card-content>
+          <h2 class="title-plus">{{ 'plansPage.plusPlan.title' | translate }}</h2>
+          <h3 class="price">4.99 $<br><span>{{ 'plansPage.perMonth' | translate }}</span></h3>
+          <ul>
+            <li>✅ {{ 'plansPage.plusPlan.feature1' | translate }}</li>
+            <li>✅ {{ 'plansPage.plusPlan.feature2' | translate }}</li>
+            <li>✅ {{ 'plansPage.plusPlan.feature3' | translate }}</li>
+            <li>✅ {{ 'plansPage.plusPlan.feature4' | translate }}</li>
+            <li>✅ {{ 'plansPage.plusPlan.feature5' | translate }}</li>
+            <li>✅ {{ 'plansPage.plusPlan.feature6' | translate }}</li>
+          </ul>
+        </mat-card-content>
+      </mat-card>
+      <button mat-flat-button class="upgrade-plus-button" color="primary" routerLink="/upgrade">{{ 'plansPage.upgradeNowButton' | translate }}</button>
     </div>
 
+    <div class="plan-group">
+      <mat-card class="plan-card infinite">
+        <mat-card-content>
+          <h2 class="title-infinite">{{ 'plansPage.infinitePlan.title' | translate }}</h2>
+          <h3 class="price">9.99 $<br><span>{{ 'plansPage.perMonth' | translate }}</span></h3>
+          <ul>
+            <li>✅ {{ 'plansPage.infinitePlan.feature1' | translate }}</li>
+            <li>✅ {{ 'plansPage.infinitePlan.feature2' | translate }}</li>
+            <li>✅ {{ 'plansPage.infinitePlan.feature3' | translate }}</li>
+            <li>✅ {{ 'plansPage.infinitePlan.feature4' | translate }}</li>
+            <li>✅ {{ 'plansPage.infinitePlan.feature5' | translate }}</li>
+            <li>✅ {{ 'plansPage.infinitePlan.feature6' | translate }}</li>
+            <li>✅ {{ 'plansPage.infinitePlan.feature7' | translate }}</li>
+          </ul>
+        </mat-card-content>
+      </mat-card>
+      <button mat-flat-button class="upgrade-infinite-button" color="accent" routerLink="/upgrade">{{ 'plansPage.upgradeNowButton' | translate }}</button>
+    </div>
   </div>
 </div>

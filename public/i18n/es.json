@@ -77,5 +77,42 @@
     "changeCardButton": "Cambiar Tarjeta",
     "cardUpdateSuccess": "¡Tarjeta actualizada exitosamente!",
     "cardUpdateError": "Fallo al actualizar la tarjeta."
+  },
+  "plansPage": {
+    "chooseYourPlanTitle": "Elige tu plan",
+    "subtitlePart1": "Desde coleccionistas casuales hasta organizadores profesionales —",
+    "subtitlePart2": "tenemos lo que necesitas.",
+    "perMonth": "/ mes",
+    "upgradeNowButton": "Mejorar ahora",
+    "starterPlan": {
+      "title": "Inicial",
+      "price": "Gratis",
+      "feature1": "Hasta 2 colecciones",
+      "feature2": "Hasta 20 ítems por Colección",
+      "feature3": "Compartir básico vía enlace",
+      "feature4": "Solo acceso web",
+      "feature5": "Sin etiquetas personalizadas",
+      "feature6": "Sin personalizables",
+      "feature7": "Sin compartir"
+    },
+    "plusPlan": {
+      "title": "Plus",
+      "feature1": "Hasta 15 colecciones",
+      "feature2": "Hasta 300 ítems por Colección",
+      "feature3": "Compartir básico vía QR",
+      "feature4": "Colecciones personalizables",
+      "feature5": "Etiquetas personalizadas",
+      "feature6": "Compartir"
+    },
+    "infinitePlan": {
+      "title": "Infinito",
+      "feature1": "Hasta 100 colecciones",
+      "feature2": "Hasta 8000 ítems por Colección",
+      "feature3": "Compartir vía QR y PDF",
+      "feature4": "Colecciones personalizables",
+      "feature5": "Etiquetas personalizadas",
+      "feature6": "Compartir vía QR/Enlace/Exportar",
+      "feature7": "Moodboard"
+    }
   }
 }

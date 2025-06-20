@@ -76,5 +76,42 @@
     "changeCardButton": "Change Card",
     "cardUpdateSuccess": "Card updated successfully!",
     "cardUpdateError": "Failed to update card."
+  },
+  "plansPage": {
+    "chooseYourPlanTitle": "Choose your plan",
+    "subtitlePart1": "From casual collectors to power organizers —",
+    "subtitlePart2": "we’ve got you covered.",
+    "perMonth": "/ month",
+    "upgradeNowButton": "Upgrade now",
+    "starterPlan": {
+      "title": "Starter",
+      "price": "Free",
+      "feature1": "Up to 2 collections",
+      "feature2": "Up to 20 items per Collection",
+      "feature3": "Basic sharing via link",
+      "feature4": "Web access only",
+      "feature5": "No custom tags",
+      "feature6": "No customizables",
+      "feature7": "No sharing"
+    },
+    "plusPlan": {
+      "title": "Plus",
+      "feature1": "Up to 15 collections",
+      "feature2": "Up to 300 items per Collection",
+      "feature3": "Basic sharing via QR",
+      "feature4": "Customizable Collections",
+      "feature5": "Custom tags",
+      "feature6": "Sharing"
+    },
+    "infinitePlan": {
+      "title": "Infinite",
+      "feature1": "Up to 100 collections",
+      "feature2": "Up to 8000 items per Collection",
+      "feature3": "Sharing via QR and PDF",
+      "feature4": "Customizable Collections",
+      "feature5": "Custom tags",
+      "feature6": "Sharing via QR/Link/Export",
+      "feature7": "Moodboard"
+    }
   }
 }
