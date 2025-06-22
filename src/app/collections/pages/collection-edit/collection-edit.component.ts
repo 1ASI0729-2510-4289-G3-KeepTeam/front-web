@@ -90,22 +90,25 @@ export class CollectionEditComponent implements OnInit {
    * Handles both editing existing collections and creating new ones.
    */
   ngOnInit() {
-    const idParam: string | null = this.route.snapshot.paramMap.get('id');
-    const id: number = idParam === 'new' ? 0 : Number(idParam);
+    const collectionIdParam = this.route.snapshot.paramMap.get('collectionId');
+    const isCreating = this.route.snapshot.routeConfig?.path === 'collections/create';
 
-    if (id === 0) {
+    if (isCreating) {
       this.selectedCollection = new Collection();
       this.selectedCollection.id = 0;
       this.selectedCollection.title = '';
       this.selectedCollection.color = this.colors[0].value;
-      this.selectedCollection.idParentCollection = 0;
+
+      const parentId = this.route.snapshot.queryParamMap.get('parentId');
+      this.selectedCollection.idParentCollection = parentId ? Number(parentId) : 0;
 
       this.collectionName = this.selectedCollection.title;
       this.selectedColor = this.selectedCollection.color;
       this.items = [];
       this.imageUrls = [];
-      console.log('Inicializando para crear una nueva colección.');
-    } else {
+      console.log('Inicializando para crear una nueva colección con parentId:', this.selectedCollection.idParentCollection);
+    } else if (collectionIdParam) {
+      const id = Number(collectionIdParam);
       this.collectionsService.getCollectionById(id).subscribe(
         collection => {
           this.selectedCollection = collection;
@@ -115,17 +118,14 @@ export class CollectionEditComponent implements OnInit {
           this.collectionsService.getProductsByIdCollection(id).subscribe(items => {
             this.items = items;
             this.imageUrls = this.extractFirstFourImages(this.items);
-
           });
-          console.log('Colección recibida para edición:', collection);
         },
         error => {
           console.error('Error al cargar la colección:', error);
           this.router.navigate(['/collections']);
         }
       );
-    }
-  }
+    }}
 
 
   /**
@@ -174,7 +174,7 @@ export class CollectionEditComponent implements OnInit {
     saveObservable.subscribe({
       next: (responseCollection) => {
         console.log('Colección guardada/actualizada exitosamente:', responseCollection);
-        this.router.navigate(['/collections']);
+        history.back()
       },
       error: (err) => {
         console.error('Error al guardar/actualizar la colección:', err);
@@ -189,7 +189,7 @@ export class CollectionEditComponent implements OnInit {
    */
   cancel() {
     console.log('Edición cancelada.');
-    this.router.navigate(['/collections']);
+    history.back()
   }
 
   /**

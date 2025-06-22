@@ -28,6 +28,8 @@ export const routes: Routes = [
     path: 'collections',
     component: CollectionsGridComponent,
   },
+  { path: 'collections/create', component: CollectionEditPageComponent },
+  { path: 'collections/:collectionId/edit', component: CollectionEditPageComponent },
   {
     path: 'collections/user/:idUser',
     component: CollectionsGridComponent,
@@ -35,10 +37,6 @@ export const routes: Routes = [
   {
     path: 'collections/:id',
     component: CollectionProductsPageComponent,
-  },
-  {
-    path: 'collections/:id/edit',
-    component: CollectionEditPageComponent,
   },
   {
     path: 'collections/:collectionId/products/:productId',
@@ -65,8 +63,6 @@ export const routes: Routes = [
   { path: 'share-qr', component: QrShareComponent },
   { path: 'trashcan', component: TrashcanComponent },
 { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'collections/new/edit', component: CollectionEditPageComponent },
-  { path: 'collections/:collectionId/edit', component: CollectionEditPageComponent },
 ];
 
 @NgModule({

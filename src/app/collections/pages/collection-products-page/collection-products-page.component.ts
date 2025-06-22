@@ -58,7 +58,7 @@ export class CollectionProductsPageComponent implements OnInit {
    */
   collectionId: number = 0;
   collection: Collection | undefined;
-  creationButtons: { id: number; name: string; link: string; backgroundColor: string; color: string; }[] | undefined;
+  creationButtons: { id: number; name: string; link: string | any[];queryParams?: any; backgroundColor: string; color: string; }[] | undefined;
 
   private langChangeSub: Subscription | undefined;
 
@@ -78,7 +78,12 @@ export class CollectionProductsPageComponent implements OnInit {
 
   private setCreationButtons() {
     this.creationButtons = [
-      { id: 1, name: this.translate.instant('navs.addSubCollection'), link: `/collections/${this.collectionId}/7`, backgroundColor: '#FEDD72', color: '#BD6412' },
+      {  id: 1,
+        name: this.translate.instant('navs.addSubCollection'),
+        link: ['/collections/create'],
+        queryParams: { parentId: this.collectionId },
+        backgroundColor: '#FEDD72',
+        color: '#BD6412'},
       { id: 2, name: this.translate.instant('navs.addWish'), link: `/collections/${this.collectionId}/new/edit`, backgroundColor: '#FF8B68', color: '#FFFAF3' }
 
     ];
@@ -97,11 +102,13 @@ export class CollectionProductsPageComponent implements OnInit {
         return;
       }
       this.collectionId = Number(idParam);
-
+      this.setCreationButtons();
       this.getCollection(this.collectionId);
       this.getProducts();
       this.loadCollections();
       this.loadSubCollections();
+
+
     });
   }
 
