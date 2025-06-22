@@ -2,6 +2,7 @@
 <div class="main">
   <div class="sidebar">
     <app-sidebar
+      *ngIf="collections"
       [nav]="collections"
       title="{{'navs.myCollections'|translate}}">
     </app-sidebar>
@@ -20,7 +21,6 @@
     <div class="collections-container">
       <div *ngFor="let collection of collections">
         <app-collection-card
-          *ngIf="!collection.isInTrash"
           [collection]="collection"
           [name]="collection.title"
           [imageUrls]="collection.imageUrls"

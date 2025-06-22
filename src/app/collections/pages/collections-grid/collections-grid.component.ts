@@ -99,10 +99,12 @@ export class CollectionsGridComponent implements OnInit, OnDestroy {
    * @description Fetches collections from the service and maps them to the local collections array.
    * Only loads top-level collections (idParentCollection === 0) that are not in trash.
    */
+  /**.filter(c => c.idParentCollection != 0 && !c.isInTrash);*/
   loadCollections() {
     this.collectionsService.getFullCollections().subscribe({
       next: (data: FullCollection[]) => {
-        this.collections = data.filter(c => c.idParentCollection === 0 && !c.isInTrash);
+        this.collections = data
+        console.log(this.collections)
       },
       error: (error) => {
         console.error('Error loading collections:', error);

@@ -8,7 +8,8 @@
         <app-sidebar *ngIf="collection != undefined"
                      [nav]="productList"
                      [subCollections]="subCollections"
-                     [collection]="collection">
+                     [collection]="collection"
+                      [title]="collection.title">
         </app-sidebar>
       </div>
 

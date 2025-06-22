@@ -72,19 +72,19 @@ export class CollectionsService {
    * @param wishId The ID of the wish to fetch
    */
   getWishById(wishId: number) {
-    console.log(`${this.baseUrl}/items?id=${wishId}`);
-    return this.http.get(`${this.baseUrl}/items?id=${wishId}`).pipe(
+    console.log(`${this.baseUrl}/wishes/${wishId}`);
+    return this.http.get(`${this.baseUrl}/wishes/${wishId}`).pipe(
       map((response: any): Wish => {
         console.log('Respuesta de la API:', response);
-        const wishData = response[0];
+        const wishData = response;
         const wish = new Wish();
 
-        wish.id = wishData.id;
-        wish.idCollection = wishData.idCollection;
+        wish.id = wishId;
+        wish.idCollection = wishData.collectionId  ?? 1;
         wish.title = wishData.title;
         wish.description = wishData.description;
-        wish.urlImg = wishData.urlImg;
-        wish.redirectUrl = wishData.redirectUrl;
+        wish.urlImg = wishData.url;
+        wish.redirectUrl = wishData.redirectUrl ?? null;
 
         wish.tags = (wishData.tags || []).map((tag: any) => {
           const tagInstance = new Tag();
@@ -103,7 +103,7 @@ export class CollectionsService {
    * @param wish Wish object to update
    */
   updateWish(wish: Wish) {
-    return this.http.put<Wish>(`${this.baseUrl}/items/${wish.id}`, wish);
+    return this.http.put<Wish>(`${this.baseUrl}/wishes/${wish.id}`, wish);
   }
 
   /**
@@ -154,7 +154,7 @@ export class CollectionsService {
    * @description Create a new Wish
    */
   createWish(wish: Wish) {
-    return this.http.post(`${this.baseUrl}/items`, wish);
+    return this.http.post(`${this.baseUrl}/wishes`, wish);
   }
 
   /**
@@ -163,7 +163,7 @@ export class CollectionsService {
    * @param id Wish ID
    */
   deleteWish(id: number) {
-    return this.http.delete(`${this.baseUrl}/items/${id}`);
+    return this.http.delete(`${this.baseUrl}/wishes/${id}`);
   }
 
   /**
@@ -181,7 +181,7 @@ export class CollectionsService {
    */
   getProductsByIdCollection(idCollection: number) {
     return this.http
-      .get<any[]>(`${this.baseUrl}/items?idCollection=${idCollection}`)
+      .get<any[]>(`${this.baseUrl}/wishes/collection/${idCollection}`)
       .pipe(
         map((response): Wish[] => {
           if (!response || !Array.isArray(response)) {
@@ -192,12 +192,12 @@ export class CollectionsService {
           return response.map((item) => {
             const wish = new Wish();
             wish.id = item.id;
-            wish.idCollection = item.idCollection;
+            wish.idCollection = item.collectionId;
             wish.title = item.title;
             wish.description = item.description;
-            wish.urlImg = item.urlImg;
-            wish.isInTrash =  Boolean(item.isInTrash);
-            wish.redirectUrl = item.redirectUrl;
+            wish.urlImg = item.url;
+            wish.isInTrash =  Boolean(item.isInTrash) ?? false;
+            wish.redirectUrl = item.url;
             wish.tags = (item.tags ?? []).map((tag: any) => {
               const tagInstance = new Tag();
               tagInstance.name = tag.name;
@@ -259,7 +259,7 @@ export class CollectionsService {
    */
   getTrashedItems() {
     return this.http
-      .get<any[]>(`${this.baseUrl}/items?isInTrash=true`)
+      .get<any[]>(`${this.baseUrl}/wishes?isInTrash=true`)
       .pipe(
         map((response): Wish[] => {
           console.log(response);

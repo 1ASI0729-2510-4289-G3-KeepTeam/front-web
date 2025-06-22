@@ -14,11 +14,11 @@ export class CollectionAssembler {
   static toEntityFromResource(resource: any): Collection {
     const collection = new Collection();
     collection.id = resource.id;
-    collection.title = resource.title;
-    collection.idUser = resource.idUser;
-    collection.isInTrash = resource.isInTrash;
+    collection.title = resource.name;
+    collection.idUser = resource.idUser ?? null;
+    collection.isInTrash = resource.isPublic;
     collection.idParentCollection = resource.idParentCollection;
-    collection.color = resource.color || '';
+    collection.color = resource.color ?? null;
     return collection;
   }
 

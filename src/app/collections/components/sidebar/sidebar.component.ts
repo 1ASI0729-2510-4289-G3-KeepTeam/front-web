@@ -38,9 +38,6 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.collection) {
-      this.title = this.collection.title;
-    }
   }
 
   goToItem(item: Collection | Wish) {
