@@ -17,6 +17,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {SearchResult} from '../../../shared/models/search-result.interface';
 import {Subscription} from 'rxjs';
 import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
+import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
 
 /**
  * @component CollectionProductsPageComponent
@@ -36,7 +37,8 @@ import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
     ItemActionsComponent,
     SearchBarComponent,
     CollectionCardComponent,
-    CreationButtonsComponent
+    CreationButtonsComponent,
+    ToolbarComponent
   ],
   templateUrl: './collection-products-page.component.html',
   styleUrl: './collection-products-page.component.css',
@@ -56,7 +58,7 @@ export class CollectionProductsPageComponent implements OnInit, OnDestroy {
    */
   collectionId: number = 0;
   collection: Collection | undefined;
-  creationButtons: { id: number; name: string; link: string; backgroundColor: string; color: string; }[] | undefined;
+  creationButtons: { id: number; name: string; link: string | any[];queryParams?: any; backgroundColor: string; color: string; }[] | undefined;
 
   private langChangeSub: Subscription | undefined;
   private routeSub: Subscription | undefined; // To unsubscribe from paramMap
@@ -76,12 +78,16 @@ export class CollectionProductsPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  // This function now relies on `this.collectionId` being already set.
   private setCreationButtons() {
     this.creationButtons = [
-
-      { id: 1, name: this.translate.instant('navs.addSubCollection'), link: `/collections/${this.collectionId}/7`, backgroundColor: '#FEDD72', color: '#BD6412' },
+      {  id: 1,
+        name: this.translate.instant('navs.addSubCollection'),
+        link: ['/collections/create'],
+        queryParams: { parentId: this.collectionId },
+        backgroundColor: '#FEDD72',
+        color: '#BD6412'},
       { id: 2, name: this.translate.instant('navs.addWish'), link: `/collections/${this.collectionId}/new/edit`, backgroundColor: '#FF8B68', color: '#FFFAF3' }
+
     ];
   }
 
@@ -91,18 +97,14 @@ export class CollectionProductsPageComponent implements OnInit, OnDestroy {
    * when the component is initialized.
    */
   ngOnInit() {
-    // Subscribe to route parameters to get the current collection ID
-    this.routeSub = this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe(params => {
       const idParam = params.get('id');
       if (!idParam) {
         this.router.navigate(['/collections']);
         return;
       }
-      this.collectionId = Number(idParam); // collectionId is now correctly updated
-
-      // IMPORTANT: Call setCreationButtons() *after* collectionId has been updated.
+      this.collectionId = Number(idParam);
       this.setCreationButtons();
-
       this.getCollection(this.collectionId);
       this.getProducts();
       this.loadCollections();

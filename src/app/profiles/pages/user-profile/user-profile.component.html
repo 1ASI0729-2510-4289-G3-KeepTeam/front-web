@@ -38,6 +38,10 @@
       </mat-card-content>
     </mat-card>
   </div>
+</div>
 
   <button mat-raised-button class="delete-button" style="background-color: #B40000; color: #FFFFFF" (click)="deleteProfile()">{{ 'profile.deleteAccountButton' | translate }}</button>
+<div class="button-row">
+  <button mat-raised-button class="logout-button" style="color: #FFFFFF" (click)="goToLogin()">Log out</button>
+  <button mat-raised-button class="delete-button" style="background-color: #B40000; color: #FFFFFF" (click)="deleteProfile()">Delete Account</button>
 </div>

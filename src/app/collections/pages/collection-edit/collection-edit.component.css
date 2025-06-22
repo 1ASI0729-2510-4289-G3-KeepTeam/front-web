@@ -85,15 +85,15 @@
   align-items: center;
 }
 
-button.save {
-  background-color: #fcd84a;
+.save-button {
+  background-color: #fcd84a !important;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 8px;
 }
 
-button.cancel {
-  background-color: #f1958a;
+.cancel-button {
+  background-color: #f1958a !important;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 8px;

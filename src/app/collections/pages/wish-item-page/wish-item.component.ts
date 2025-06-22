@@ -10,6 +10,7 @@ import { PopConfirmDialogComponent } from '../../../public/components/pop-confir
 import {Location} from '@angular/common';
 import {TagListComponent} from '../../components/tags/tag-list.component';
 import {TranslatePipe} from '@ngx-translate/core';
+import {ToolbarComponent} from "../../../public/components/toolbar/toolbar.component";
 
 /**
  * @component WishItemComponent
@@ -19,13 +20,14 @@ import {TranslatePipe} from '@ngx-translate/core';
  */
 @Component({
   selector: 'app-wish-item',
-  imports: [
-    MatIconModule,
-    ItemActionsComponent,
-    MatButtonModule,
-    TagListComponent,
-    TranslatePipe,
-  ],
+    imports: [
+        MatIconModule,
+        ItemActionsComponent,
+        MatButtonModule,
+        TagListComponent,
+        TranslatePipe,
+        ToolbarComponent,
+    ],
 
   templateUrl: './wish-item.component.html',
   styleUrl: './wish-item.component.css',

@@ -12,6 +12,7 @@ import {NgIf} from '@angular/common';
 import {Router} from '@angular/router';
 import { Location } from '@angular/common';
 import {MatError} from '@angular/material/input';
+import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
 import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 @Component({
@@ -26,6 +27,7 @@ import {TranslatePipe, TranslateService} from '@ngx-translate/core';
     MatIcon,
     MatIconButton,
     MatError,
+    ToolbarComponent,
     TranslatePipe
   ],
   templateUrl: './user-edit-password.component.html',
@@ -46,9 +48,7 @@ export class UserEditPasswordComponent implements OnInit {
   ngOnInit(): void {
     const userId = Number(localStorage.getItem('userId'));
     if (!userId) {
-      //implementar cuando haya tokens
-      //this.router.navigate(['/login']);
-      return;
+       return;
     }
 
     this.userService.getUserById(userId).subscribe(user => {

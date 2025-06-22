@@ -1,6 +1,5 @@
-:host {
+.profile-container {
   display: block;
-  padding: 2rem;
   font-family: 'Roboto', sans-serif;
   background-color: #fff;
   color: #4E1B12; /* marrón oscuro */
@@ -35,7 +34,6 @@
 .section {
   margin-top: 2rem;
   display: flex;
-  justify-content: space-around;
   flex-wrap: wrap;
   gap: 2rem;
 
@@ -67,7 +65,6 @@ button.mat-raised-button {
 
 .username-and-button {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   width: 100%;
 }
@@ -76,6 +73,8 @@ button.mat-raised-button {
   border-radius: 10px;
   color: #FFFFFF;
   margin-left: auto;
+  margin-right: 4rem;
+  justify-content: flex-start;
 }
 .button-container {
   display: flex;
@@ -99,9 +98,10 @@ button.mat-raised-button {
 .profile-header button {
   background-color: #ffe49e;
   color: #4E1B12;
-  margin-left: auto;
   flex-shrink: 0;
   border-radius: 10px;
+  margin-left: auto;
+  margin-right: 4rem;
 }
 
 .change-password-Button{

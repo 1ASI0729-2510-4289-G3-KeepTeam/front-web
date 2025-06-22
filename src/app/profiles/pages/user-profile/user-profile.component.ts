@@ -5,6 +5,7 @@ import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
 import {MatButton} from '@angular/material/button';
 import {Router} from '@angular/router';
 import {TranslatePipe} from '@ngx-translate/core';
+import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
 
 @Component({
   selector: 'app-profile',
@@ -14,7 +15,8 @@ import {TranslatePipe} from '@ngx-translate/core';
     MatButton,
     MatCardTitle,
     MatCardContent,
-    TranslatePipe
+    TranslatePipe,
+    ToolbarComponent
   ],
   styleUrls: ['./user-profile.component.css']
 })
@@ -56,7 +58,8 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-
-
+  goToLogin(): void {
+    this.router.navigate(['/login']);
+  }
 
 }

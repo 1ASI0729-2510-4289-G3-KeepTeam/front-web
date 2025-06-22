@@ -11,6 +11,7 @@ import { UserService } from '../../services/user.service';
 import {User} from '../../model/user';
 import {Router} from '@angular/router';
 import {TranslatePipe, TranslateService} from '@ngx-translate/core';
+import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
 
 @Component({
   selector: 'app-user-edit-card',
@@ -22,6 +23,7 @@ import {TranslatePipe, TranslateService} from '@ngx-translate/core';
     MatInput,
     MatLabel,
     ReactiveFormsModule,
+    ToolbarComponent,
     TranslatePipe
   ],
   templateUrl: './user-edit-card.component.html',
@@ -52,8 +54,7 @@ export class UserEditCardComponent implements OnInit {
       this.userService.getUserById(userId).subscribe(user => {
         this.user = user;
 
-        // Rellenar el formulario con los datos existentes si hay
-        this.paymentForm = this.fb.group({
+         this.paymentForm = this.fb.group({
           cardNumber: [user.card?.cardNumber || ''],
           holder: [user.card?.holder || ''],
           expirationDate: [user.card?.expirationDate || ''],

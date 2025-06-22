@@ -142,6 +142,44 @@
     "attemptingUpdateCollection": "Attempting to update collection:",
     "collectionSavedSuccessfully": "Collection saved/updated successfully:",
     "errorSavingCollection": "Error saving/updating collection:",
-    "editCanceled": "Edit canceled."
+    "editCanceled": "Edit canceled.",
+    "editItem": "Edit Item"
+  },
+  "login": {
+    "title": "Welcome back",
+    "emailLabel": "Email",
+    "emailPlaceholder": "Input your account email",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Input your password",
+    "noAccount": "Not a member yet?",
+    "signUpLink": "Sign Up",
+    "signInButton": "Sign in",
+
+    "fillAllFields": "Please complete all fields.",
+    "invalidEmail": "The email address is not valid.",
+    "incorrectCredentials": "Email or password is incorrect."
+  },
+  "signup": {
+    "title": "Welcome",
+    "emailLabel": "Email",
+    "emailPlaceholder": "Input your account email",
+    "usernameLabel": "Username",
+    "usernamePlaceholder": "Input your account's username",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Input a password",
+    "repeatPasswordLabel": "Repeat",
+    "repeatPasswordPlaceholder": "Repeat the password",
+    "alreadyMember": "Already a member?",
+    "signInLink": "Sign In",
+    "signUpButton": "Sign Up",
+
+    "allFieldsRequired": "All fields are required.",
+    "invalidEmail": "The email is not valid.",
+    "passwordMismatch": "Passwords do not match.",
+    "emailExists": "An account with this email already exists.",
+    "registrationSuccess": "Registration successful. You can now log in."
+  },
+  "buttons": {
+    "close": "Close"
   }
 }

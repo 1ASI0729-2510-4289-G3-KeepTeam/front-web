@@ -43,6 +43,44 @@
     "deleteCollection": "Eliminar colección",
     "deleteItem": "Eliminar ítem",
     "editCollection": "Editar colección",
+    "editItem": "Editar ítem"
+  },
+  "login": {
+    "title": "Bienvenido de nuevo",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "Introduce tu correo",
+    "passwordLabel": "Contraseña",
+    "passwordPlaceholder": "Introduce tu contraseña",
+    "noAccount": "¿Aún no tienes una cuenta?",
+    "signUpLink": "Regístrate",
+    "signInButton": "Iniciar sesión",
+
+    "fillAllFields": "Por favor, complete todos los campos.",
+    "invalidEmail": "El correo ingresado no es válido.",
+    "incorrectCredentials": "Email o contraseña incorrectos."
+  },
+  "signup": {
+    "title": "Bienvenido",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "Introduce tu correo",
+    "usernameLabel": "Nombre de usuario",
+    "usernamePlaceholder": "Introduce tu nombre de usuario",
+    "passwordLabel": "Contraseña",
+    "passwordPlaceholder": "Introduce una contraseña",
+    "repeatPasswordLabel": "Repetir contraseña",
+    "repeatPasswordPlaceholder": "Repite la contraseña",
+    "alreadyMember": "¿Ya tienes una cuenta?",
+    "signInLink": "Inicia sesión",
+    "signUpButton": "Registrarse",
+
+    "allFieldsRequired": "Todos los campos son obligatorios.",
+    "invalidEmail": "El correo no es válido.",
+    "passwordMismatch": "Las contraseñas no coinciden.",
+    "emailExists": "Ya existe una cuenta con ese correo.",
+    "registrationSuccess": "Registro exitoso. Ahora puedes iniciar sesión."
+  },
+  "buttons": {
+    "close": "Cerrar",
     "editItem": "Editar ítem",
     "deleteCollectionConfirm": "¿Estás seguro de que quieres eliminar <strong>{{ title }}</strong>? <br> Puedes restaurarlo más tarde en la sección de papelera",
     "deleteItemConfirm": "¿Estás seguro de que quieres eliminar <strong>{{ title }}</strong>? <br> Puedes restaurarlo más tarde en la sección de papelera"

@@ -9,6 +9,7 @@ import {MatButton, MatIconButton} from '@angular/material/button';
 import {MatLabel} from '@angular/material/input';
 import {MatIcon} from '@angular/material/icon';
 import {UploadService} from '../../../shared/services/images.service'
+import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
 import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 @Component({
@@ -21,6 +22,7 @@ import {TranslatePipe, TranslateService} from '@ngx-translate/core';
     MatLabel,
     MatIcon,
     MatIconButton,
+    ToolbarComponent,
     TranslatePipe,
   ],
   templateUrl: './user-edit-dialog.component.html',
@@ -92,3 +94,4 @@ export class UserEditDialogComponent {
     });
   }
 }
+

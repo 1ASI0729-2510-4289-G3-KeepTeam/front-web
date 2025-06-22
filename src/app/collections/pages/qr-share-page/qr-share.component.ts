@@ -4,7 +4,8 @@ import * as QRCode from 'qrcode';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { NgIf } from '@angular/common';
-import { CollectionsService } from '../../services/collections.service'; // Importa el servicio
+import { CollectionsService } from '../../services/collections.service';
+import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component'; // Importa el servicio
 /**
  * @Component QrShareComponent
  * @description Generates and displays a QR code for a wish or collection item based on query parameters.
@@ -20,6 +21,7 @@ import { CollectionsService } from '../../services/collections.service'; // Impo
     MatIconModule,
     MatIconButton,
     NgIf,
+    ToolbarComponent,
   ]
 })
 export class QrShareComponent implements OnInit {
