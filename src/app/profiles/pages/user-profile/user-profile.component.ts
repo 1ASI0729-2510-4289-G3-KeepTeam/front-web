@@ -42,8 +42,8 @@ export class UserProfileComponent implements OnInit {
 
         this.router.navigate(['/login']);
       });
+
     } else {
-      // If no ID, redirect to login
       this.router.navigate(['/login']);
     }
   }

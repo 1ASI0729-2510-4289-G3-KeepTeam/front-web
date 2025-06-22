@@ -105,6 +105,8 @@ export class CollectionEditComponent implements OnInit {
       this.items = [];
       this.imageUrls = [];
       console.log('Inicializando para crear una nueva colección. parentId:', parentId);
+      console.log('ID de colección a consultar:', this.selectedCollection.id); // o como se llame en tu componente
+
     } else {
       this.collectionsService.getCollectionById(id).subscribe(
         collection => {

@@ -18,7 +18,6 @@ import { SearchResult } from '../../shared/models/search-result.interface';
 export class CollectionsService {
   private readonly baseUrl = environment.APIBaseUrl;
 
-
   constructor(private http: HttpClient) {}
   /**
    * @function getCollections
@@ -29,6 +28,7 @@ export class CollectionsService {
       map(response => CollectionAssembler.toEntitiesFromResponse(response))
     )
   }
+
 
   /**
    * @Function getUniqueTags
@@ -163,7 +163,7 @@ export class CollectionsService {
    * @param id Wish ID
    */
   deleteWish(id: number) {
-    return this.http.delete(`${this.baseUrl}/wishes/${id}`);
+    return this.http.delete(`${this.baseUrl}/items/${id}`);
   }
 
   /**
@@ -181,7 +181,7 @@ export class CollectionsService {
    */
   getProductsByIdCollection(idCollection: number) {
     return this.http
-      .get<any[]>(`${this.baseUrl}/wishes/collection/${idCollection}`)
+      .get<any[]>(`${this.baseUrl}/items?idCollection=${idCollection}`)
       .pipe(
         map((response): Wish[] => {
           if (!response || !Array.isArray(response)) {
@@ -319,7 +319,7 @@ export class CollectionsService {
    */
   searchItems(query: string, collectionId: number): Observable<SearchResult[]> {
 
-    const wishSearchUrl = `${this.baseUrl}/items?idCollection=${collectionId}&title_like=${query}&isInTrash=false`;
+    const wishSearchUrl = `${this.baseUrl}/wishes?idCollection=${collectionId}&title_like=${query}&isInTrash=false`;
     const wishes$: Observable<SearchResult[]> = this.http.get<Wish[]>(wishSearchUrl).pipe(
       map((response): Wish[] => {
         if (!response || !Array.isArray(response)) {

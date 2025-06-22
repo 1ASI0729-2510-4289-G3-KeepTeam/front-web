@@ -3,4 +3,3 @@ export const environment = {
   APIBaseUrl: 'https://back-end-6f02.onrender.com/api/v1',
   usersEndpointPath: '/users',
 };
-
