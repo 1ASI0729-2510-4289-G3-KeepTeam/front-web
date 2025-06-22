@@ -18,7 +18,19 @@
     "goToItemsLink": "Go to Items Link",
     "itemsLink": "Items Link",
     "tags": "Tags",
-    "selectImage": "Select Image"
+    "selectImage": "Select Image",
+    "newCollection": "New Collection",
+    "newCollectionPlaceholder": "New Collection Title",
+    "noImages": "No images",
+    "imageAlt": "image {{ index }}",
+    "collectionName": "Collection Name",
+    "color": "Color"
+  },
+  "colors": {
+    "cream": "Cream",
+    "orange": "Orange",
+    "lemon": "Lemon",
+    "sky": "Sky"
   },
   "cancel": "Cancel",
   "save": "Save",
@@ -116,5 +128,20 @@
       "feature7": "Moodboard"
     }
   },
-  "noContent": "There is no content in this collection or subcollections."
+  "noContent": "There is no content in this collection or subcollections.",
+  "consoleMessages": {
+    "initializingNewWish": "Initializing for new wish creation (though this component primarily handles collections).",
+    "initializingCollection": "Initializing for collection with ID: {{ id }}.",
+    "initializingNewCollection": "Initializing to create a new top-level collection.",
+    "initializingNewSubCollection": "Initializing to create a new sub-collection under parent ID: {{ parentId }}.",
+    "warnNewWishInCollectionEdit": "Warning: CollectionEditComponent is attempting to handle a new Wish. Consider dedicated WishEditComponent.",
+    "collectionReceivedForEdit": "Collection received for editing: {{ collection }}.",
+    "errorLoadingCollection": "Error loading collection:",
+    "noCollectionToSave": "No collection selected to save.",
+    "attemptingCreateNewCollection": "Attempting to create new collection:",
+    "attemptingUpdateCollection": "Attempting to update collection:",
+    "collectionSavedSuccessfully": "Collection saved/updated successfully:",
+    "errorSavingCollection": "Error saving/updating collection:",
+    "editCanceled": "Edit canceled."
+  }
 }

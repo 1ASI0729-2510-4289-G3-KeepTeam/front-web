@@ -6,6 +6,7 @@ import { CollectionsService } from '../../services/collections.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Collection } from '../../model/collection.entity';
 import {Observable} from 'rxjs';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 /**
  * @component CollectionEditComponent
@@ -19,7 +20,7 @@ import {Observable} from 'rxjs';
   standalone: true,
   templateUrl: './collection-edit.component.html',
   styleUrls: ['./collection-edit.component.css'],
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule, TranslatePipe]
 })
 export class CollectionEditComponent implements OnInit {
 
@@ -64,22 +65,26 @@ export class CollectionEditComponent implements OnInit {
    * @description Predefined color options available for collection theming.
    */
   colors: { value: string; label: string; hex: string; bg: string }[] = [
-    { value: 'Cream', label: 'Cream', hex: '#f8f3ed', bg: '#f8f3ed' },
-    { value: 'Naranja', label: 'Naranja', hex: '#fbd9b8', bg: '#fbd9b8' },
-    { value: 'Lemon', label: 'Lemon', hex: '#fdf8c0', bg: '#fdf8c0' },
-    { value: 'Sky', label: 'Sky', hex: '#c9e6f9', bg: '#c9e6f9' }
+    // Labels for colors will be translated dynamically in HTML
+    { value: 'Cream', label: 'colors.cream', hex: '#f8f3ed', bg: '#f8f3ed' },
+    { value: 'Naranja', label: 'colors.orange', hex: '#fbd9b8', bg: '#fbd9b8' },
+    { value: 'Lemon', label: 'colors.lemon', hex: '#fdf8c0', bg: '#fdf8c0' },
+    { value: 'Sky', label: 'colors.sky', hex: '#c9e6f9', bg: '#c9e6f9' }
   ];
+
 
   /**
    * @constructor
    * @param collectionsService - Service to interact with collection data.
    * @param route - ActivatedRoute for accessing route parameters.
    * @param router - Angular Router for programmatic navigation.
+   * @param translate - TranslateService for internationalization.
    */
   constructor(
     private collectionsService: CollectionsService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private translate: TranslateService // Injected TranslateService
   ) {}
 
   /**
@@ -90,9 +95,26 @@ export class CollectionEditComponent implements OnInit {
    */
   ngOnInit() {
     const idParam: string | null = this.route.snapshot.paramMap.get('id');
-    const id: number = idParam === 'new' ? 0 : Number(idParam);
+    const collectionIdParam: string | null = this.route.snapshot.paramMap.get('collectionId');
 
-    if (id === 0) {
+    let id: number = 0;
+    let isNewWish = false;
+
+
+    if (idParam === 'new' && collectionIdParam) {
+      id = Number(collectionIdParam);
+      isNewWish = true;
+      console.log(this.translate.instant('consoleMessages.initializingNewWish'));
+    } else if (idParam) {
+      id = Number(idParam);
+      console.log(this.translate.instant('consoleMessages.initializingCollection', { id: id }));
+    } else {
+
+      this.router.navigate(['/collections']);
+      return;
+    }
+
+    if (id === 0 && !isNewWish) {
       this.selectedCollection = new Collection();
       this.selectedCollection.id = 0;
       this.selectedCollection.title = '';
@@ -103,23 +125,41 @@ export class CollectionEditComponent implements OnInit {
       this.selectedColor = this.selectedCollection.color;
       this.items = [];
       this.imageUrls = [];
-      console.log('Inicializando para crear una nueva colección.');
-    } else {
+      console.log(this.translate.instant('consoleMessages.initializingNewCollection'));
+
+    } else if (id !== 0) {
       this.collectionsService.getCollectionById(id).subscribe(
         collection => {
           this.selectedCollection = collection;
           this.collectionName = collection.title;
           this.selectedColor = collection.color || this.colors[0].value;
 
-          this.collectionsService.getProductsByIdCollection(id).subscribe(items => {
-            this.items = items;
-            this.imageUrls = this.extractFirstFourImages(this.items);
+          if (this.route.snapshot.paramMap.get('productId') === '7') {
+            const parentCollectionId = id;
+            this.selectedCollection = new Collection();
+            this.selectedCollection.id = 0;
+            this.selectedCollection.title = '';
+            this.selectedCollection.color = this.colors[0].value;
+            this.selectedCollection.idParentCollection = parentCollectionId;
+            this.collectionName = this.selectedCollection.title;
+            this.selectedColor = this.selectedCollection.color;
+            this.items = [];
+            this.imageUrls = [];
+            console.log(this.translate.instant('consoleMessages.initializingNewSubCollection', { parentId: parentCollectionId }));
+          } else if (isNewWish) {
+            console.warn(this.translate.instant('consoleMessages.warnNewWishInCollectionEdit'));
 
-          });
-          console.log('Colección recibida para edición:', collection);
+          } else {
+
+            this.collectionsService.getProductsByIdCollection(id).subscribe(items => {
+              this.items = items;
+              this.imageUrls = this.extractFirstFourImages(this.items);
+            });
+            console.log(this.translate.instant('consoleMessages.collectionReceivedForEdit', { collection: collection.title }));
+          }
         },
         error => {
-          console.error('Error al cargar la colección:', error);
+          console.error(this.translate.instant('consoleMessages.errorLoadingCollection'), error);
           this.router.navigate(['/collections']);
         }
       );
@@ -132,7 +172,12 @@ export class CollectionEditComponent implements OnInit {
    * @description Navigates back to the main collections page for consistent navigation.
    */
   goBack() {
-    this.router.navigate(['/collections']);
+
+    if (this.selectedCollection && this.selectedCollection.idParentCollection !== 0) {
+      this.router.navigate(['/collections', this.selectedCollection.idParentCollection]);
+    } else {
+      this.router.navigate(['/collections']);
+    }
   }
 
   /**
@@ -152,31 +197,34 @@ export class CollectionEditComponent implements OnInit {
    */
   save() {
     if (!this.selectedCollection) {
-      console.error('No hay colección seleccionada para guardar.');
+      console.error(this.translate.instant('consoleMessages.noCollectionToSave'));
       return;
     }
 
     this.selectedCollection.title = this.collectionName;
     this.selectedCollection.color = this.selectedColor;
 
-
     let saveObservable: Observable<Collection>;
 
     if (this.selectedCollection.id === 0) {
-      console.log('Intentando crear nueva colección:', this.selectedCollection);
+      console.log(this.translate.instant('consoleMessages.attemptingCreateNewCollection'), this.selectedCollection);
       saveObservable = this.collectionsService.createCollection(this.selectedCollection);
     } else {
-      console.log('Intentando actualizar colección:', this.selectedCollection);
+      console.log(this.translate.instant('consoleMessages.attemptingUpdateCollection'), this.selectedCollection);
       saveObservable = this.collectionsService.updateCollection(this.selectedCollection);
     }
 
     saveObservable.subscribe({
       next: (responseCollection) => {
-        console.log('Colección guardada/actualizada exitosamente:', responseCollection);
-        this.router.navigate(['/collections']);
+        console.log(this.translate.instant('consoleMessages.collectionSavedSuccessfully'), responseCollection);
+        if (responseCollection.idParentCollection !== 0) {
+          this.router.navigate(['/collections', responseCollection.idParentCollection]);
+        } else {
+          this.router.navigate(['/collections']);
+        }
       },
       error: (err) => {
-        console.error('Error al guardar/actualizar la colección:', err);
+        console.error(this.translate.instant('consoleMessages.errorSavingCollection'), err);
       }
     });
   }
@@ -187,8 +235,13 @@ export class CollectionEditComponent implements OnInit {
    * @description Cancels editing and navigates back to the main collections page.
    */
   cancel() {
-    console.log('Edición cancelada.');
-    this.router.navigate(['/collections']);
+    console.log(this.translate.instant('consoleMessages.editCanceled'));
+    // Navigate back to the parent collection if it was a sub-collection, otherwise to root collections.
+    if (this.selectedCollection && this.selectedCollection.idParentCollection !== 0) {
+      this.router.navigate(['/collections', this.selectedCollection.idParentCollection]);
+    } else {
+      this.router.navigate(['/collections']);
+    }
   }
 
   /**

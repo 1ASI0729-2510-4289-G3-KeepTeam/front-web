@@ -1,7 +1,7 @@
 <div class="page-bg" >
   <div class="back-button" (click)="goBack()">
     <span class="back-arrow">&#8592;</span>
-    <span class="back-title">{{ collectionName }}</span>
+    <span class="back-title">{{ collectionName || ('item.newCollection' | translate) }}</span>
   </div>
 
   <div class="edit-container">
@@ -9,17 +9,17 @@
       <div class="images">
         <img *ngFor="let imageUrl of imageUrls; let i = index"
              [src]="imageUrl"
-             [alt]="'image ' + (i + 1)"
+             [alt]="'item.imageAlt' | translate: { index: i + 1 }"
              [ngClass]="'image-' + (i + 1)">
 
         <div class="image-placeholder" *ngIf="imageUrls?.length === 0">
-          <span>No images</span>
+          <span>{{ 'item.noImages' | translate }}</span>
         </div>
       </div>
-      <h2>{{ collectionName }}</h2>
+      <h2>{{ collectionName || ('item.newCollectionPlaceholder' | translate) }}</h2>
 
       <div class="form">
-        <label>Collection Name</label>
+        <label>{{ 'item.collectionName' | translate }}</label>
         <div class="input-wrapper">
           <input type="text" [(ngModel)]="collectionName" maxlength="20" class="collection-input" />
           <span class="char-counter">{{ collectionName.length }} / 20</span>
@@ -33,18 +33,19 @@
                 [ngStyle]="{ 'background-color': color.hex }"
                 (click)="setColor(color.value)"
                 [class.selected]="selectedColor === color.value"
-                [title]="color.label"
+                [title]="color.label | translate"
               >
                 <span *ngIf="selectedColor === color.value" class="checkmark">✔</span>
               </div>
-              <div class="color-label">{{ color.label }}</div>
+              <div class="color-label">{{ color.label | translate }}</div>
             </div>
           </div>
         </div>
-        <label>Color</label>
+        <label>{{ 'item.color' | translate }}</label>
         <div class="buttons">
-          <button class="save" (click)="save()">Save</button>
-          <button class="cancel" (click)="cancel()">Cancel</button> </div>
+          <button class="save" (click)="save()">{{ 'save' | translate }}</button>
+          <button class="cancel" (click)="cancel()">{{ 'cancel' | translate }}</button>
+        </div>
       </div>
     </div>
   </div>

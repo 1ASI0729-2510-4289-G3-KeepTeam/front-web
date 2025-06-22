@@ -18,7 +18,19 @@
     "goToItemsLink": "Ir a link de Deseo",
     "itemsLink": "Enlace de Ítem",
     "tags": "Etiquetas",
-    "selectImage": "Seleccionar Imagen"
+    "selectImage": "Seleccionar Imagen",
+    "newCollection": "Nueva Colección",
+    "newCollectionPlaceholder": "Título Nueva Colección",
+    "noImages": "No hay imágenes",
+    "imageAlt": "imagen {{ index }}",
+    "collectionName": "Nombre de Colección",
+    "color": "Color"
+  },
+  "colors": {
+    "cream": "Crema",
+    "orange": "Naranja",
+    "lemon": "Limón",
+    "sky": "Cielo"
   },
   "cancel": "Cancelar",
   "save": "Guardar",
@@ -117,5 +129,20 @@
       "feature7": "Moodboard"
     }
   },
-  "noContent": "No hay contenido en esta colección o subcolecciones."
+  "noContent": "No hay contenido en esta colección o subcolecciones.",
+  "consoleMessages": {
+    "initializingNewWish": "Inicializando para la creación de un nuevo deseo (aunque este componente maneja principalmente colecciones).",
+    "initializingCollection": "Inicializando para la colección con ID: {{ id }}.",
+    "initializingNewCollection": "Inicializando para crear una nueva colección de nivel superior.",
+    "initializingNewSubCollection": "Inicializando para crear una nueva subcolección bajo el ID padre: {{ parentId }}.",
+    "warnNewWishInCollectionEdit": "Advertencia: CollectionEditComponent está intentando manejar un nuevo deseo. Considere un WishEditComponent dedicado.",
+    "collectionReceivedForEdit": "Colección recibida para edición: {{ collection }}.",
+    "errorLoadingCollection": "Error al cargar la colección:",
+    "noCollectionToSave": "No hay colección seleccionada para guardar.",
+    "attemptingCreateNewCollection": "Intentando crear nueva colección:",
+    "attemptingUpdateCollection": "Intentando actualizar colección:",
+    "collectionSavedSuccessfully": "Colección guardada/actualizada exitosamente:",
+    "errorSavingCollection": "Error al guardar/actualizar la colección:",
+    "editCanceled": "Edición cancelada."
+  }
 }
