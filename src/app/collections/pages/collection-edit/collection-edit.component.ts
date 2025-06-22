@@ -5,6 +5,7 @@ import { Wish } from '../../model/wish.entity';
 import { CollectionsService } from '../../services/collections.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Collection } from '../../model/collection.entity';
+import {MatButton} from '@angular/material/button';
 import {Observable} from 'rxjs';
 import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
 
@@ -20,15 +21,13 @@ import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.compo
   standalone: true,
   templateUrl: './collection-edit.component.html',
   styleUrls: ['./collection-edit.component.css'],
-  imports: [CommonModule, FormsModule, ToolbarComponent]
+  imports: [CommonModule, FormsModule, ToolbarComponent,MatButton]
 })
 export class CollectionEditComponent implements OnInit {
 
   /**
    * @property selectedCollection
    * @description Currently selected collection being edited.
-   * Typed as Collection as per your current model,
-   * which now includes 'imageUrls'.
    */
   selectedCollection!: Collection;
 
@@ -47,16 +46,12 @@ export class CollectionEditComponent implements OnInit {
   /**
    * @input items
    * @description List of wishes/items belonging to the selected collection.
-   * This is primarily used to extract imageUrls for display.
    */
   @Input() items: Wish[] = [];
 
   /**
    * @property imageUrls
    * @description Array of URLs for preview images extracted from the collection's items.
-   * This property now holds the images for the *preview display*,
-   * separate from `selectedCollection.imageUrls` which is the one
-   * that potentially gets persisted.
    */
   imageUrls: string[] = [];
 
@@ -75,7 +70,6 @@ export class CollectionEditComponent implements OnInit {
    * @constructor
    * @param collectionsService - Service to interact with collection data.
    * @param route - ActivatedRoute for accessing route parameters.
-   * @param router - Angular Router for programmatic navigation.
    */
   constructor(
     private collectionsService: CollectionsService,
@@ -87,7 +81,6 @@ export class CollectionEditComponent implements OnInit {
    * @function ngOnInit
    * @description Lifecycle hook that initializes the component.
    * Retrieves the collection ID from the route and fetches its data and related items.
-   * Handles both editing existing collections and creating new ones.
    */
   ngOnInit() {
     const collectionIdParam = this.route.snapshot.paramMap.get('collectionId');
@@ -185,7 +178,7 @@ export class CollectionEditComponent implements OnInit {
 
   /**
    * @function cancel
-   * @description Cancels editing and navigates back to the main collections page.
+   * @description Cancels editing and navigates back.
    */
   cancel() {
     console.log('Edición cancelada.');
