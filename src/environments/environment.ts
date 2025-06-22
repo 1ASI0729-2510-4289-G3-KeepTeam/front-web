@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  fakeAPIBaseUrl: 'https://db-json-server-keeplo-10di.onrender.com/api/v1',
+  APIBaseUrl: 'https://back-end-6f02.onrender.com/api/v1',
   usersEndpointPath: '/users',
 };
 

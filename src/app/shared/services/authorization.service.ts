@@ -11,19 +11,19 @@ export class AuthorizationService {
   constructor(private http: HttpClient) {}
 
   login(email: string, password: string): Observable<any> {
-    return this.http.get<any[]>(`${environment.fakeAPIBaseUrl}/users`, {
+    return this.http.get<any[]>(`${environment.APIBaseUrl}/users`, {
       params: { email, password }
     });
   }
 
   getUserByEmail(email: string): Observable<any[]> {
-    return this.http.get<any[]>(`${environment.fakeAPIBaseUrl}/users`, {
+    return this.http.get<any[]>(`${environment.APIBaseUrl}/users`, {
       params: { email }
     });
   }
 
   registerUser(user: any): Observable<any> {
-    return this.http.post<any>(`${environment.fakeAPIBaseUrl}/users`, user);
+    return this.http.post<any>(`${environment.APIBaseUrl}/users`, user);
   }
 
 }

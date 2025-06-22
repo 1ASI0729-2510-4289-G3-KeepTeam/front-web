@@ -16,7 +16,7 @@ import { SearchResult } from '../../shared/models/search-result.interface';
   providedIn: 'root',
 })
 export class CollectionsService {
-  private readonly baseUrl = environment.fakeAPIBaseUrl;
+  private readonly baseUrl = environment.APIBaseUrl;
 
 
   constructor(private http: HttpClient) {}

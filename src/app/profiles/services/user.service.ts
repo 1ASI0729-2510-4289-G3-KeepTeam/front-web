@@ -8,7 +8,7 @@ import {environment} from '../../../environments/environment';
   providedIn: 'root'
 })
 export class UserService {
-  private baseUrl = environment.fakeAPIBaseUrl.replace(/\/$/, '') + environment.usersEndpointPath;
+  private baseUrl = environment.APIBaseUrl.replace(/\/$/, '') + environment.usersEndpointPath;
 
   constructor(private http: HttpClient) {}
 
