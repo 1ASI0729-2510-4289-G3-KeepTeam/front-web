@@ -28,8 +28,8 @@ export const routes: Routes = [
     path: 'collections',
     component: CollectionsGridComponent,
   },
-  { path: 'collections/create', component: CollectionEditPageComponent },
-  { path: 'collections/:collectionId/edit', component: CollectionEditPageComponent },
+  { path: 'collections/new/edit', component: CollectionEditPageComponent },
+  { path: 'collections/:id/edit', component: CollectionEditPageComponent },
   {
     path: 'collections/user/:idUser',
     component: CollectionsGridComponent,

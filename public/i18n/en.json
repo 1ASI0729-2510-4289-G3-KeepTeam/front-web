@@ -40,10 +40,12 @@
     "share": "Share",
     "copyLink": "Copy Link",
     "shareQr": "Share as QR",
+    "shareLink": "Share as Link",
     "deleteCollection": "Delete Collection",
     "deleteItem": "Delete Item",
     "editCollection": "Edit Collection",
     "editItem": "Edit Item",
+    "viewCollection": "View Collection",
     "deleteCollectionConfirm": "Are you sure you want to delete <strong>{{ title }}</strong>? <br> You can later restore it in the trashcan section",
     "deleteItemConfirm": "Are you sure you want to delete <strong>{{ title }}</strong>? <br> You can later restore it in the trashcan section"
   },
@@ -128,7 +130,9 @@
       "feature7": "Moodboard"
     }
   },
-  "noContent": "There is no content in this collection or subcollections.",
+  "collectionPage": {
+    "noContent": "There is no content in this collection or subcollections."
+  },
   "consoleMessages": {
     "initializingNewWish": "Initializing for new wish creation (though this component primarily handles collections).",
     "initializingCollection": "Initializing for collection with ID: {{ id }}.",
@@ -143,7 +147,15 @@
     "collectionSavedSuccessfully": "Collection saved/updated successfully:",
     "errorSavingCollection": "Error saving/updating collection:",
     "editCanceled": "Edit canceled.",
-    "editItem": "Edit Item"
+    "unsupportedSearchResultType": "Unsupported search result type:",
+    "errorLoadingCollections": "Error loading collections:",
+    "errorLoadingSubcollections": "Error loading subcollections:",
+    "errorMovingCollectionToTrash": "Error moving collection to trashcan:",
+    "errorMovingCurrentCollectionToTrash": "Error moving current collection to trashcan:",
+    "errorUpdatingWishToTrashcan": "Error updating wish to trashcan:",
+    "errorEditingWish": "Error editing wish (missing ID or collection ID):",
+    "errorSharingWish": "Error sharing wish (missing wish ID):",
+    "errorSharingWishQr": "Error sharing wish QR (missing wish ID):"
   },
   "login": {
     "title": "Welcome back",
@@ -154,7 +166,6 @@
     "noAccount": "Not a member yet?",
     "signUpLink": "Sign Up",
     "signInButton": "Sign in",
-
     "fillAllFields": "Please complete all fields.",
     "invalidEmail": "The email address is not valid.",
     "incorrectCredentials": "Email or password is incorrect."
@@ -172,7 +183,6 @@
     "alreadyMember": "Already a member?",
     "signInLink": "Sign In",
     "signUpButton": "Sign Up",
-
     "allFieldsRequired": "All fields are required.",
     "invalidEmail": "The email is not valid.",
     "passwordMismatch": "Passwords do not match.",

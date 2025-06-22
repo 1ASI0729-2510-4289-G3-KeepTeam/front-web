@@ -40,10 +40,14 @@
     "share": "Compartir",
     "copyLink": "Copiar enlace",
     "shareQr": "Compartir como QR",
+    "shareLink": "Compartir como Enlace",
     "deleteCollection": "Eliminar colección",
     "deleteItem": "Eliminar ítem",
     "editCollection": "Editar colección",
-    "editItem": "Editar ítem"
+    "editItem": "Editar ítem",
+    "viewCollection": "Ver Colección",
+    "deleteCollectionConfirm": "¿Estás seguro de que quieres eliminar <strong>{{ title }}</strong>? <br> Puedes restaurarlo más tarde en la sección de papelera",
+    "deleteItemConfirm": "¿Estás seguro de que quieres eliminar <strong>{{ title }}</strong>? <br> Puedes restaurarlo más tarde en la sección de papelera"
   },
   "login": {
     "title": "Bienvenido de nuevo",
@@ -54,7 +58,6 @@
     "noAccount": "¿Aún no tienes una cuenta?",
     "signUpLink": "Regístrate",
     "signInButton": "Iniciar sesión",
-
     "fillAllFields": "Por favor, complete todos los campos.",
     "invalidEmail": "El correo ingresado no es válido.",
     "incorrectCredentials": "Email o contraseña incorrectos."
@@ -72,7 +75,6 @@
     "alreadyMember": "¿Ya tienes una cuenta?",
     "signInLink": "Inicia sesión",
     "signUpButton": "Registrarse",
-
     "allFieldsRequired": "Todos los campos son obligatorios.",
     "invalidEmail": "El correo no es válido.",
     "passwordMismatch": "Las contraseñas no coinciden.",
@@ -80,10 +82,7 @@
     "registrationSuccess": "Registro exitoso. Ahora puedes iniciar sesión."
   },
   "buttons": {
-    "close": "Cerrar",
-    "editItem": "Editar ítem",
-    "deleteCollectionConfirm": "¿Estás seguro de que quieres eliminar <strong>{{ title }}</strong>? <br> Puedes restaurarlo más tarde en la sección de papelera",
-    "deleteItemConfirm": "¿Estás seguro de que quieres eliminar <strong>{{ title }}</strong>? <br> Puedes restaurarlo más tarde en la sección de papelera"
+    "close": "Cerrar"
   },
   "profile": {
     "greeting": "Hola, {{ name }} 👋",
@@ -167,7 +166,9 @@
       "feature7": "Moodboard"
     }
   },
-  "noContent": "No hay contenido en esta colección o subcolecciones.",
+  "collectionPage": {
+    "noContent": "No hay contenido en esta colección o subcolecciones."
+  },
   "consoleMessages": {
     "initializingNewWish": "Inicializando para la creación de un nuevo deseo (aunque este componente maneja principalmente colecciones).",
     "initializingCollection": "Inicializando para la colección con ID: {{ id }}.",
@@ -181,6 +182,15 @@
     "attemptingUpdateCollection": "Intentando actualizar colección:",
     "collectionSavedSuccessfully": "Colección guardada/actualizada exitosamente:",
     "errorSavingCollection": "Error al guardar/actualizar la colección:",
-    "editCanceled": "Edición cancelada."
+    "editCanceled": "Edición cancelada.",
+    "unsupportedSearchResultType": "Tipo de resultado de búsqueda no soportado:",
+    "errorLoadingCollections": "Error al cargar colecciones:",
+    "errorLoadingSubcollections": "Error al cargar subcolecciones:",
+    "errorMovingCollectionToTrash": "Error al mover la colección a la papelera:",
+    "errorMovingCurrentCollectionToTrash": "Error al mover la colección actual a la papelera:",
+    "errorUpdatingWishToTrashcan": "Error al actualizar el deseo a la papelera:",
+    "errorEditingWish": "Error al editar el deseo (ID o ID de colección faltante):",
+    "errorSharingWish": "Error al compartir el deseo (ID del deseo faltante):",
+    "errorSharingWishQr": "Error al compartir el deseo por QR (ID del deseo faltante):"
   }
 }

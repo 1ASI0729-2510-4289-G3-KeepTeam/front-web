@@ -72,7 +72,7 @@ setCreationButtons() {
   this.creationButtons = [
     {
       name: translatedName,
-      link: '/collections/create',
+      link: '/collections/new/edit',
       backgroundColor: '#FF8B68',
       color: '#FFFAF3',
     }

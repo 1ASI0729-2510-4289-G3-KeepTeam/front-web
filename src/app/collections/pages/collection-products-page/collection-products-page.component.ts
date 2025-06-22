@@ -16,7 +16,7 @@ import {PopConfirmDialogComponent} from '../../../public/components/pop-confirm-
 import {MatDialog} from '@angular/material/dialog';
 import {SearchResult} from '../../../shared/models/search-result.interface';
 import {Subscription} from 'rxjs';
-import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
+import {LangChangeEvent, TranslatePipe, TranslateService} from '@ngx-translate/core';
 import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
 
 /**
@@ -38,7 +38,8 @@ import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.compo
     SearchBarComponent,
     CollectionCardComponent,
     CreationButtonsComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    TranslatePipe
   ],
   templateUrl: './collection-products-page.component.html',
   styleUrl: './collection-products-page.component.css',
@@ -61,19 +62,16 @@ export class CollectionProductsPageComponent implements OnInit, OnDestroy {
   creationButtons: { id: number; name: string; link: string | any[];queryParams?: any; backgroundColor: string; color: string; }[] | undefined;
 
   private langChangeSub: Subscription | undefined;
-  private routeSub: Subscription | undefined; // To unsubscribe from paramMap
+  private routeSub: Subscription | undefined;
 
   constructor(
     private collectionsService: CollectionsService,
     private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
-    private translate: TranslateService // Injected TranslateService
+    private translate: TranslateService
   ) {
-
-
     this.langChangeSub = this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
-
       this.setCreationButtons();
     });
   }
@@ -82,12 +80,12 @@ export class CollectionProductsPageComponent implements OnInit, OnDestroy {
     this.creationButtons = [
       {  id: 1,
         name: this.translate.instant('navs.addSubCollection'),
-        link: ['/collections/create'],
+        link: ['/collections', 'new', 'edit'],
         queryParams: { parentId: this.collectionId },
         backgroundColor: '#FEDD72',
         color: '#BD6412'},
-      { id: 2, name: this.translate.instant('navs.addWish'), link: `/collections/${this.collectionId}/new/edit`, backgroundColor: '#FF8B68', color: '#FFFAF3' }
 
+      { id: 2, name: this.translate.instant('navs.addWish'), link: ['/collections', this.collectionId, 'products', 'new', 'edit'], backgroundColor: '#FF8B68', color: '#FFFAF3' }
     ];
   }
 
@@ -189,6 +187,8 @@ export class CollectionProductsPageComponent implements OnInit, OnDestroy {
     } else if (result.type === 'collection') {
       this.navigateToCollection(result.id);
     } else {
+
+      console.warn(this.translate.instant('consoleMessages.unsupportedSearchResultType'), result.type);
     }
   }
 
@@ -216,7 +216,8 @@ export class CollectionProductsPageComponent implements OnInit, OnDestroy {
         this.collections = data.filter(c => !c.isInTrash);
       },
       error: (error) => {
-        console.error('Error loading collections:', error);
+
+        console.error(this.translate.instant('consoleMessages.errorLoadingCollections'), error);
       }
     });
   }
@@ -232,7 +233,8 @@ export class CollectionProductsPageComponent implements OnInit, OnDestroy {
         this.subCollections = subCollections.filter(c => !c.isInTrash);
       },
       error: (err) => {
-        console.error('Error loading subcollections:', err);
+
+        console.error(this.translate.instant('consoleMessages.errorLoadingSubcollections'), err);
       }
     });
   }
@@ -267,7 +269,6 @@ export class CollectionProductsPageComponent implements OnInit, OnDestroy {
       }
     });
 
-
     dialogRef.afterClosed().subscribe(result => {
       if (result === true) {
         const updatedItem = { ...collection, isInTrash: true };
@@ -275,7 +276,8 @@ export class CollectionProductsPageComponent implements OnInit, OnDestroy {
           this.loadCollections();
           this.loadSubCollections();
         }, error => {
-          console.error('Error moving collection to trashcan:', error);
+          // Mensaje de error traducido
+          console.error(this.translate.instant('consoleMessages.errorMovingCollectionToTrash'), error);
         });
       }
     });
@@ -306,7 +308,8 @@ export class CollectionProductsPageComponent implements OnInit, OnDestroy {
             this.router.navigate(['/collections']);
           }
         }, error => {
-          console.error('Error moving current collection to trashcan:', error);
+
+          console.error(this.translate.instant('consoleMessages.errorMovingCurrentCollectionToTrash'), error);
         });
       }
     });
@@ -366,7 +369,8 @@ export class CollectionProductsPageComponent implements OnInit, OnDestroy {
         this.collectionsService.updateWish(updatedWish).subscribe(() => {
           this.productList = this.productList.filter(p => p.id !== wish.id);
         }, error => {
-          console.error('Error updating wish to trashcan:', error);
+
+          console.error(this.translate.instant('consoleMessages.errorUpdatingWishToTrashcan'), error);
         });
       }
     });
@@ -381,6 +385,8 @@ export class CollectionProductsPageComponent implements OnInit, OnDestroy {
     if (wish && wish.id && wish.idCollection) {
       this.router.navigate(['/collections', wish.idCollection, wish.id, 'edit']);
     } else {
+
+      console.warn(this.translate.instant('consoleMessages.errorEditingWish'), wish);
     }
   }
 
@@ -399,6 +405,8 @@ export class CollectionProductsPageComponent implements OnInit, OnDestroy {
         }
       });
     } else {
+
+      console.warn(this.translate.instant('consoleMessages.errorSharingWish'), wish);
     }
   }
 
@@ -417,6 +425,7 @@ export class CollectionProductsPageComponent implements OnInit, OnDestroy {
         }
       });
     } else {
+      console.warn(this.translate.instant('consoleMessages.errorSharingWishQr'), wish);
     }
   }
 }

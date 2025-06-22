@@ -20,7 +20,8 @@
     <div class="searchBar">
       <app-item-actions
         [item]="collection"
-        (onDelete)="handleCurrentCollectionDeletion($event)" (onShare)="shareCollection()"
+        (onDelete)="handleCurrentCollectionDeletion($event)"
+        (onShare)="shareCollection()"
         (shareQr)="shareCollectionQr()">
       </app-item-actions>
 
@@ -55,7 +56,8 @@
           [name]="collection.title"
           [imageUrls]="collection.imageUrls"
           [tags]="collection.tags"
-          (delete)="deleteSubCollectionCard($event)" (edit)="editCollection($event)"
+          (delete)="deleteSubCollectionCard($event)"
+          (edit)="editCollection($event)"
           (share)="shareCollection()"
           (shareQr)="navigateToQrShare(collection)"
           (view)="navigateToCollection(collection.id)">
@@ -64,7 +66,7 @@
 
     </div>
     <ng-template #noContent>
-      <div style="text-align: center; margin-top: 10rem">There is no content in this collection or subcollections.</div>
+      <div style="text-align: center; margin-top: 10rem">{{ 'collectionPage.noContent' | translate }}</div>
     </ng-template>
   </div>
 </div>

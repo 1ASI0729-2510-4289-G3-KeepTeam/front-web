@@ -3,6 +3,7 @@ import {MatCard, MatCardContent} from '@angular/material/card';
 import {MatButton} from '@angular/material/button';
 import {Router, RouterLink} from '@angular/router';
 import {TranslatePipe} from '@ngx-translate/core';
+import {ToolbarComponent} from '../../../components/toolbar/toolbar.component';
 
 @Component({
   selector: 'app-plans-content',
@@ -11,7 +12,8 @@ import {TranslatePipe} from '@ngx-translate/core';
     MatCardContent,
     MatButton,
     RouterLink,
-    TranslatePipe
+    TranslatePipe,
+    ToolbarComponent
   ],
   templateUrl: './plans-content.component.html',
   styleUrl: './plans-content.component.css'
