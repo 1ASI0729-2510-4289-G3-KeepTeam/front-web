@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 import { ProductItemCardComponent } from '../../components/product-item-card/product-item-card.component';
@@ -41,7 +41,7 @@ import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
   templateUrl: './collection-products-page.component.html',
   styleUrl: './collection-products-page.component.css',
 })
-export class CollectionProductsPageComponent implements OnInit {
+export class CollectionProductsPageComponent implements OnInit, OnDestroy {
   /**
    * @property productList
    * @description Array of wishes/products to be displayed on the page.
@@ -59,26 +59,29 @@ export class CollectionProductsPageComponent implements OnInit {
   creationButtons: { id: number; name: string; link: string; backgroundColor: string; color: string; }[] | undefined;
 
   private langChangeSub: Subscription | undefined;
+  private routeSub: Subscription | undefined; // To unsubscribe from paramMap
 
   constructor(
     private collectionsService: CollectionsService,
     private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
-    private translate: TranslateService
+    private translate: TranslateService // Injected TranslateService
   ) {
-    this.setCreationButtons();
+
 
     this.langChangeSub = this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+
       this.setCreationButtons();
     });
   }
 
+  // This function now relies on `this.collectionId` being already set.
   private setCreationButtons() {
     this.creationButtons = [
+
       { id: 1, name: this.translate.instant('navs.addSubCollection'), link: `/collections/${this.collectionId}/7`, backgroundColor: '#FEDD72', color: '#BD6412' },
       { id: 2, name: this.translate.instant('navs.addWish'), link: `/collections/${this.collectionId}/new/edit`, backgroundColor: '#FF8B68', color: '#FFFAF3' }
-
     ];
   }
 
@@ -88,19 +91,36 @@ export class CollectionProductsPageComponent implements OnInit {
    * when the component is initialized.
    */
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
+    // Subscribe to route parameters to get the current collection ID
+    this.routeSub = this.route.paramMap.subscribe(params => {
       const idParam = params.get('id');
       if (!idParam) {
         this.router.navigate(['/collections']);
         return;
       }
-      this.collectionId = Number(idParam);
+      this.collectionId = Number(idParam); // collectionId is now correctly updated
+
+      // IMPORTANT: Call setCreationButtons() *after* collectionId has been updated.
+      this.setCreationButtons();
 
       this.getCollection(this.collectionId);
       this.getProducts();
       this.loadCollections();
       this.loadSubCollections();
     });
+  }
+
+  /**
+   * @function ngOnDestroy
+   * @description Lifecycle hook to unsubscribe from observables to prevent memory leaks.
+   */
+  ngOnDestroy(): void {
+    if (this.langChangeSub) {
+      this.langChangeSub.unsubscribe();
+    }
+    if (this.routeSub) {
+      this.routeSub.unsubscribe();
+    }
   }
 
   /**
@@ -240,8 +260,8 @@ export class CollectionProductsPageComponent implements OnInit {
   deleteSubCollectionCard(collection: any){
     const dialogRef = this.dialog.open(PopConfirmDialogComponent, {
       data: {
-        title: 'Confirm Deletion',
-        message: `¿Are you sure you want to delete <strong>${collection.title}</strong>? <br> You can later restore it in the trashcan section`
+        title: this.translate.instant('itemsAction.deleteCollection'),
+        message: this.translate.instant('itemsAction.deleteCollectionConfirm', { title: collection.title })
       }
     });
 
@@ -269,8 +289,8 @@ export class CollectionProductsPageComponent implements OnInit {
   handleCurrentCollectionDeletion(collection: any): void {
     const dialogRef = this.dialog.open(PopConfirmDialogComponent, {
       data: {
-        title: 'Confirm Deletion',
-        message: `¿Are you sure you want to delete <strong>${collection.title}</strong>? <br> You can later restore it in the trashcan section`
+        title: this.translate.instant('itemsAction.deleteCollection'),
+        message: this.translate.instant('itemsAction.deleteCollectionConfirm', { title: collection.title })
       }
     });
 
@@ -333,8 +353,8 @@ export class CollectionProductsPageComponent implements OnInit {
   deleteWish(wish: Wish) {
     const dialogRef = this.dialog.open(PopConfirmDialogComponent, {
       data: {
-        title: 'Confirm Deletion',
-        message: `¿Are you sure you want to delete <strong>${wish.title}</strong>? <br> You can later restore it in the trashcan section`
+        title: this.translate.instant('itemsAction.deleteItem'),
+        message: this.translate.instant('itemsAction.deleteItemConfirm', { title: wish.title })
       }
     });
 

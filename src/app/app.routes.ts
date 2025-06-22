@@ -67,6 +67,8 @@ export const routes: Routes = [
 { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'collections/new/edit', component: CollectionEditPageComponent },
   { path: 'collections/:collectionId/edit', component: CollectionEditPageComponent },
+  { path: 'collections/:collectionId/new/edit', component: CollectionEditPageComponent },
+
 ];
 
 @NgModule({

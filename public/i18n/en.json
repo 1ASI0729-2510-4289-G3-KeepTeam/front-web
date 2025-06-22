@@ -31,7 +31,9 @@
     "deleteCollection": "Delete Collection",
     "deleteItem": "Delete Item",
     "editCollection": "Edit Collection",
-    "editItem": "Edit Item"
+    "editItem": "Edit Item",
+    "deleteCollectionConfirm": "Are you sure you want to delete <strong>{{ title }}</strong>? <br> You can later restore it in the trashcan section",
+    "deleteItemConfirm": "Are you sure you want to delete <strong>{{ title }}</strong>? <br> You can later restore it in the trashcan section"
   },
   "profile": {
     "greeting": "Hello, {{ name }} 👋",
@@ -113,5 +115,6 @@
       "feature6": "Sharing via QR/Link/Export",
       "feature7": "Moodboard"
     }
-  }
+  },
+  "noContent": "There is no content in this collection or subcollections."
 }

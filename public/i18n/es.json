@@ -31,7 +31,9 @@
     "deleteCollection": "Eliminar colección",
     "deleteItem": "Eliminar ítem",
     "editCollection": "Editar colección",
-    "editItem": "Editar ítem"
+    "editItem": "Editar ítem",
+    "deleteCollectionConfirm": "¿Estás seguro de que quieres eliminar <strong>{{ title }}</strong>? <br> Puedes restaurarlo más tarde en la sección de papelera",
+    "deleteItemConfirm": "¿Estás seguro de que quieres eliminar <strong>{{ title }}</strong>? <br> Puedes restaurarlo más tarde en la sección de papelera"
   },
   "profile": {
     "greeting": "Hola, {{ name }} 👋",
@@ -114,5 +116,6 @@
       "feature6": "Compartir vía QR/Enlace/Exportar",
       "feature7": "Moodboard"
     }
-  }
+  },
+  "noContent": "No hay contenido en esta colección o subcolecciones."
 }
