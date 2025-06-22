@@ -13,8 +13,8 @@ import {SearchResult} from '../../../shared/models/search-result.interface';
 import { MatDialog } from '@angular/material/dialog';
 import { PopConfirmDialogComponent } from '../../../public/components/pop-confirm-dialog/pop-confirm-dialog.component';
 import {LangChangeEvent, TranslatePipe, TranslateService} from '@ngx-translate/core';
-import {Subscription} from 'rxjs';
-import {ToolbarComponent} from "../../../public/components/toolbar/toolbar.component";
+import {forkJoin, Subscription} from 'rxjs';
+import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component'; // Import forkJoin
 
 /**
  * @component CollectionsGridComponent
@@ -34,6 +34,7 @@ import {ToolbarComponent} from "../../../public/components/toolbar/toolbar.compo
     CommonModule,
     TranslatePipe,
     ToolbarComponent,
+    // ToolbarComponent, // Assuming ToolbarComponent is already correctly imported and displays its own translations
   ],
   templateUrl: './collections-grid.component.html',
   styleUrl: './collections-grid.component.css',
@@ -52,7 +53,7 @@ export class CollectionsGridComponent implements OnInit, OnDestroy {
    * @param collectionsService - Service to fetch collections data.
    * @param router - Angular Router for navigation.
    * @param dialog - MatDialog service for opening confirmation dialogs.
-   * @param translate
+   * @param translate - TranslateService for internationalization.
    */
   constructor(
     private collectionsService: CollectionsService,
@@ -67,17 +68,17 @@ export class CollectionsGridComponent implements OnInit, OnDestroy {
   }
 
 
-setCreationButtons() {
-  const translatedName = this.translate.instant('navs.addCollection');
-  this.creationButtons = [
-    {
-      name: translatedName,
-      link: '/collections/new/edit',
-      backgroundColor: '#FF8B68',
-      color: '#FFFAF3',
-    }
-  ];
-}
+  setCreationButtons() {
+    const translatedName = this.translate.instant('navs.addCollection');
+    this.creationButtons = [
+      {
+        name: translatedName,
+        link: '/collections/new/edit',
+        backgroundColor: '#FF8B68',
+        color: '#FFFAF3',
+      }
+    ];
+  }
 
   ngOnDestroy() {
     if (this.langChangeSub) {
@@ -117,6 +118,7 @@ setCreationButtons() {
     if (result.type === 'collection') {
       this.navigateToCollection(result.id);
     } else {
+      // Handle item selection if needed
     }
   }
 
@@ -129,22 +131,28 @@ setCreationButtons() {
    * @param collection - The collection object to delete.
    */
   deleteCollection(collection: any){
-    const dialogRef = this.dialog.open(PopConfirmDialogComponent, {
-      data: {
-        title: 'Confirm Deletion',
-        message: `¿Are you sure you want to delete <strong>${collection.title}</strong>? <br> You can later restore it in the trashcan section`
-      }
-    });
+    // Use forkJoin to get multiple translations at once
+    forkJoin({
+      title: this.translate.get('itemsAction.deleteCollectionConfirmTitle'), // New key for dialog title
+      message: this.translate.get('itemsAction.deleteCollectionConfirm', { title: collection.title })
+    }).subscribe(translations => {
+      const dialogRef = this.dialog.open(PopConfirmDialogComponent, {
+        data: {
+          title: translations.title,
+          message: translations.message
+        }
+      });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === true) {
-        const updatedCollection = { ...collection, isInTrash: true };
-        this.collectionsService.updateCollection(updatedCollection).subscribe(() => {
-          this.loadCollections();
-        }, error => {
-          console.error('Error moving collection to trashcan:', error);
-        });
-      }
+      dialogRef.afterClosed().subscribe(result => {
+        if (result === true) {
+          const updatedCollection = { ...collection, isInTrash: true };
+          this.collectionsService.updateCollection(updatedCollection).subscribe(() => {
+            this.loadCollections();
+          }, error => {
+            console.error('Error moving collection to trashcan:', error);
+          });
+        }
+      });
     });
   }
 

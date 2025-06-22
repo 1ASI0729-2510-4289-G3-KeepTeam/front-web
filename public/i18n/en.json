@@ -46,6 +46,7 @@
     "editCollection": "Edit Collection",
     "editItem": "Edit Item",
     "viewCollection": "View Collection",
+    "deleteCollectionConfirmTitle": "Confirm Deletion",
     "deleteCollectionConfirm": "Are you sure you want to delete <strong>{{ title }}</strong>? <br> You can later restore it in the trashcan section",
     "deleteItemConfirm": "Are you sure you want to delete <strong>{{ title }}</strong>? <br> You can later restore it in the trashcan section"
   },
@@ -84,7 +85,8 @@
   "buttons": {
     "close": "Close",
     "no": "No",
-    "yes": "Yes"
+    "yes": "Yes",
+    "logout": "Log Out"
   },
   "profile": {
     "greeting": "Hello, {{ name }} 👋",

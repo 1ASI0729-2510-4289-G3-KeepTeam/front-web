@@ -46,6 +46,7 @@
     "editCollection": "Editar colección",
     "editItem": "Editar ítem",
     "viewCollection": "Ver Colección",
+    "deleteCollectionConfirmTitle": "Confirmar Eliminación",
     "deleteCollectionConfirm": "¿Estás seguro de que quieres eliminar <strong>{{ title }}</strong>? <br> Puedes restaurarlo más tarde en la sección de papelera",
     "deleteItemConfirm": "¿Estás seguro de que quieres eliminar <strong>{{ title }}</strong>? <br> Puedes restaurarlo más tarde en la sección de papelera"
   },
@@ -84,7 +85,8 @@
   "buttons": {
     "close": "Cerrar",
     "no": "No",
-    "yes": "Sí"
+    "yes": "Sí",
+    "logout": "Cerrar Sesión"
   },
   "profile": {
     "greeting": "Hola, {{ name }} 👋",
