@@ -22,7 +22,7 @@ import {TranslatePipe, TranslateService} from '@ngx-translate/core';
   standalone: true,
   templateUrl: './collection-edit.component.html',
   styleUrls: ['./collection-edit.component.css'],
-  imports: [CommonModule, FormsModule, ToolbarComponent,MatButton,TranslatePipe]
+  imports: [CommonModule, FormsModule, ToolbarComponent,TranslatePipe]
 })
 export class CollectionEditComponent implements OnInit {
 
@@ -97,13 +97,14 @@ export class CollectionEditComponent implements OnInit {
       this.selectedCollection.id = 0;
       this.selectedCollection.title = '';
       this.selectedCollection.color = this.colors[0].value;
-      this.selectedCollection.idParentCollection = 0;
+      const parentId = Number(this.route.snapshot.queryParamMap.get('parentId')) || 0;
+      this.selectedCollection.idParentCollection = parentId;
 
       this.collectionName = this.selectedCollection.title;
       this.selectedColor = this.selectedCollection.color;
       this.items = [];
       this.imageUrls = [];
-      console.log('Inicializando para crear una nueva colección.');
+      console.log('Inicializando para crear una nueva colección. parentId:', parentId);
     } else {
       this.collectionsService.getCollectionById(id).subscribe(
         collection => {

@@ -26,14 +26,14 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
     const userId = Number(localStorage.getItem('userId'));
-    console.log('User ID from localStorage:', userId);  // <-- Aquí para verificar el ID
+    console.log('User ID from localStorage:', userId);  //
 
     if (userId) {
       this.userService.getUserById(userId).subscribe(user => {
-        console.log('User API response:', user); // <-- Aquí para ver qué devuelve la API
+        console.log('User API response:', user);
         this.user = user;
       }, error => {
-        console.error('Error fetching user:', error); // <-- Opcional, para errores
+        console.error('Error fetching user:', error);
       });
     } else {
       // Si no hay ID, redirigir al login
