@@ -1,59 +1,59 @@
 <app-toolbar></app-toolbar>
 <div class="page-wrapper">
   <div class="up-bar">
-    <h1>Trashcan</h1>
+    <h1>{{ 'trashcanPage.title' | translate }}</h1>
   </div>
-<div class="table-trash">
+  <div class="table-trash">
 
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> ID </th>
-      <td mat-cell *matCellDef="let item"> {{ item.id }} </td>
-    </ng-container>
-
-
-    <ng-container matColumnDef="photo">
-      <th mat-header-cell *matHeaderCellDef> Photo </th>
-      <td mat-cell *matCellDef="let item">
-        <img *ngIf="!item.isCollection; else noImage" [src]="item.urlImg" alt="{{ item.title }}" width="50" height="50">
-        <ng-template #noImage>
-          <span>Collection</span>
-        </ng-template>
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> {{ 'trashcanPage.tableHeaders.id' | translate }} </th>
+        <td mat-cell *matCellDef="let item"> {{ item.id }} </td>
+      </ng-container>
 
 
-    <ng-container matColumnDef="title">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let item"> {{ item.title }} </td>
-    </ng-container>
+      <ng-container matColumnDef="photo">
+        <th mat-header-cell *matHeaderCellDef> {{ 'trashcanPage.tableHeaders.photo' | translate }} </th>
+        <td mat-cell *matCellDef="let item">
+          <img *ngIf="!item.isCollection; else noImage" [src]="item.urlImg" alt="{{ 'trashcanPage.qrCodeAlt' | translate: { title: item.title } }}" width="50" height="50">
+          <ng-template #noImage>
+            <span>{{ 'trashcanPage.tableCells.collectionText' | translate }}</span>
+          </ng-template>
+        </td>
+      </ng-container>
 
 
-    <ng-container matColumnDef="type">
-      <th mat-header-cell *matHeaderCellDef> Type </th>
-      <td mat-cell *matCellDef="let item">
-        {{ item.isCollection ? 'Collection' : 'Item' }}
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef> Actions </th>
-      <td mat-cell *matCellDef="let item">
-        <button mat-icon-button color="primary" (click)="restore(item)">
-          <mat-icon>restore</mat-icon>
-        </button>
-        <button mat-icon-button color="warn" (click)="delete(item)">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> {{ 'trashcanPage.tableHeaders.name' | translate }} </th>
+        <td mat-cell *matCellDef="let item"> {{ item.title }} </td>
+      </ng-container>
 
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
-    </tr>
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef> {{ 'trashcanPage.tableHeaders.type' | translate }} </th>
+        <td mat-cell *matCellDef="let item">
+          {{ item.isCollection ? ('trashcanPage.tableCells.collectionText' | translate) : ('trashcanPage.tableCells.itemText' | translate) }}
+        </td>
+      </ng-container>
 
-  </table>
-</div>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> {{ 'trashcanPage.tableHeaders.actions' | translate }} </th>
+        <td mat-cell *matCellDef="let item">
+          <button mat-icon-button color="primary" (click)="restore(item)" [attr.aria-label]="'trashcanPage.restoreButtonAria' | translate">
+            <mat-icon>restore</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="delete(item)" [attr.aria-label]="'trashcanPage.deleteButtonAria' | translate">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+      </tr>
+
+    </table>
+  </div>
 </div>

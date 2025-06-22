@@ -8,15 +8,18 @@ import {
   MatDialogRef
 } from '@angular/material/dialog';
 import {MatButton} from '@angular/material/button';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-pop-confirm-dialog',
+  standalone: true,
   imports: [
     MatDialogTitle,
     MatDialogContent,
     MatDialogActions,
     MatButton,
-    MatDialogClose
+    MatDialogClose,
+    TranslateModule
   ],
   templateUrl: './pop-confirm-dialog.component.html',
   styleUrl: './pop-confirm-dialog.component.css'

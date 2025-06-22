@@ -1,7 +1,7 @@
-<h2 mat-dialog-title>{{item.title}}</h2>
+<h2 mat-dialog-title>{{ item.title }}</h2>
 <mat-dialog-content [innerHTML]="item.message">
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close (click)="onCancel()">No</button>
-  <button mat-button mat-dialog-close (click)="onConfirm()">Yes</button>
+  <button mat-button (click)="onCancel()">{{ 'buttons.no' | translate }}</button>
+  <button mat-button color="primary" (click)="onConfirm()">{{ 'buttons.yes' | translate }}</button>
 </mat-dialog-actions>

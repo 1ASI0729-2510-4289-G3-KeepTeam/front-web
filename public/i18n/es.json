@@ -82,9 +82,10 @@
     "registrationSuccess": "Registro exitoso. Ahora puedes iniciar sesión."
   },
   "buttons": {
-    "close": "Cerrar"
+    "close": "Cerrar",
+    "no": "No",
+    "yes": "Sí"
   },
-
   "profile": {
     "greeting": "Hola, {{ name }} 👋",
     "editProfileButton": "Editar perfil",
@@ -167,11 +168,9 @@
       "feature7": "Moodboard"
     }
   },
-
   "collectionPage": {
     "noContent": "No hay contenido en esta colección o subcolecciones."
   },
-
   "shareSettings": {
     "title": "Configuración de Compartir",
     "almostThere": "Casi listo",
@@ -194,5 +193,33 @@
   "linkShare": {
     "title": "Tu enlace está listo",
     "copyAndShareMessage": "¡Puedes copiar y compartir este enlace!"
+  },
+  "trashcanPage": {
+    "title": "Papelera",
+    "tableHeaders": {
+      "id": "ID",
+      "photo": "Foto",
+      "name": "Nombre",
+      "type": "Tipo",
+      "actions": "Acciones"
+    },
+    "tableCells": {
+      "collectionText": "Colección",
+      "itemText": "Ítem"
+    },
+    "restoreButtonAria": "Restaurar",
+    "deleteButtonAria": "Eliminar permanentemente",
+    "confirmPermanentDeletion": {
+      "title": "Confirmar Eliminación Permanente",
+      "message": "¿Estás seguro de que quieres eliminar <strong>{{ title }}</strong> permanentemente?<br>Después de aceptar, no podrás restaurar este elemento."
+    },
+    "itemDeletedPermanently": "{{ title }} eliminado permanentemente.",
+    "collectionDeletedPermanently": "Colección {{ title }} eliminada permanentemente.",
+    "confirmRestore": {
+      "title": "Confirmar Restauración",
+      "message": "¿Estás seguro de que quieres restaurar <strong>{{ title }}</strong>?"
+    },
+    "itemRestored": "{{ title }} restaurado.",
+    "collectionRestored": "Colección {{ title }} restaurada."
   }
 }

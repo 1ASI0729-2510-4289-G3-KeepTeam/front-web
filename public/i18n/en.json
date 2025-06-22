@@ -81,6 +81,11 @@
     "emailExists": "An account with this email already exists.",
     "registrationSuccess": "Registration successful. You can now log in."
   },
+  "buttons": {
+    "close": "Close",
+    "no": "No",
+    "yes": "Yes"
+  },
   "profile": {
     "greeting": "Hello, {{ name }} 👋",
     "editProfileButton": "Edit profile",
@@ -162,17 +167,15 @@
       "feature7": "Moodboard"
     }
   },
-
   "collectionPage": {
     "noContent": "There is no content in this collection or subcollections."
   },
-
   "shareSettings": {
     "title": "Share Settings",
     "almostThere": "Almost there",
     "expiryDateLabel": "Expiracy date",
     "enterExpiryDateLabel": "Enter expiracy date",
-    "invalidDateFormatError": "Please enter a valid date in YYYY-MM-DD format.",
+    "invalidDateFormatError": "Please enter a valid date in IHDA-MM-DD format.",
     "permissionsLabel": "People with this link can",
     "viewPermission": "View",
     "viewAndEditPermission": "View and Edit",
@@ -189,5 +192,33 @@
   "linkShare": {
     "title": "Your link is ready",
     "copyAndShareMessage": "You can copy and share this link!"
+  },
+  "trashcanPage": {
+    "title": "Trashcan",
+    "tableHeaders": {
+      "id": "ID",
+      "photo": "Photo",
+      "name": "Name",
+      "type": "Type",
+      "actions": "Actions"
+    },
+    "tableCells": {
+      "collectionText": "Collection",
+      "itemText": "Item"
+    },
+    "restoreButtonAria": "Restore",
+    "deleteButtonAria": "Delete permanently",
+    "confirmPermanentDeletion": {
+      "title": "Confirm Permanent Deletion",
+      "message": "Are you sure you want to delete <strong>{{ title }}</strong> permanently?<br>After accepting you can't restore this element, it will be deleted permanently."
+    },
+    "itemDeletedPermanently": "{{ title }} deleted permanently.",
+    "collectionDeletedPermanently": "Collection {{ title }} deleted permanently.",
+    "confirmRestore": {
+      "title": "Confirm Restore",
+      "message": "Are you sure you want to restore <strong>{{ title }}</strong>?"
+    },
+    "itemRestored": "{{ title }} Restored.",
+    "collectionRestored": "Collection {{ title }} Restored."
   }
 }
