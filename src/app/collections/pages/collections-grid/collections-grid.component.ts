@@ -14,7 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PopConfirmDialogComponent } from '../../../public/components/pop-confirm-dialog/pop-confirm-dialog.component';
 import {LangChangeEvent, TranslatePipe, TranslateService} from '@ngx-translate/core';
 import {forkJoin, Subscription} from 'rxjs';
-import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component'; // Import forkJoin
+import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
 
 /**
  * @component CollectionsGridComponent
@@ -89,9 +89,10 @@ export class CollectionsGridComponent implements OnInit, OnDestroy {
    * @function ngOnInit
    * @description Lifecycle hook that triggers loading of collections when component initializes.
    */
-  ngOnInit(){
+  ngOnInit() {
     this.loadCollections();
   }
+
 
   /**
    * @function loadCollections

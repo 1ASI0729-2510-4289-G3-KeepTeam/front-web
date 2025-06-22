@@ -1,8 +1,12 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import {HttpClient, provideHttpClient} from '@angular/common/http';
+import {HttpClient, provideHttpClient, withInterceptors} from '@angular/common/http';
 import {provideTranslateService, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import {authInterceptorFn} from './shared/interceptors/auth.interceptor';
+
 
 const httpLoaderFactory: (http: HttpClient) =>
   TranslateLoader = (http: HttpClient) =>
@@ -11,12 +15,13 @@ const httpLoaderFactory: (http: HttpClient) =>
 
 import { routes } from './app.routes';
 
-
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(
+      withInterceptors([authInterceptorFn])
+    ),
     provideTranslateService({
       loader: {
         provide: TranslateLoader,
@@ -24,6 +29,6 @@ export const appConfig: ApplicationConfig = {
         deps: [HttpClient]
       },
       defaultLanguage: 'en',
-    })],
-
+    })
+  ],
 };
