@@ -18,7 +18,6 @@ import { SearchResult } from '../../shared/models/search-result.interface';
 export class CollectionsService {
   private readonly baseUrl = environment.APIBaseUrl;
 
-
   constructor(private http: HttpClient) {}
   /**
    * @function getCollections
@@ -29,6 +28,7 @@ export class CollectionsService {
       map(response => CollectionAssembler.toEntitiesFromResponse(response))
     )
   }
+
 
   /**
    * @Function getUniqueTags
@@ -72,8 +72,8 @@ export class CollectionsService {
    * @param wishId The ID of the wish to fetch
    */
   getWishById(wishId: number) {
-    console.log(`${this.baseUrl}/items?id=${wishId}`);
-    return this.http.get(`${this.baseUrl}/items?id=${wishId}`).pipe(
+    console.log(`${this.baseUrl}/wishes?id=${wishId}`);
+    return this.http.get(`${this.baseUrl}/wishes?id=${wishId}`).pipe(
       map((response: any): Wish => {
         console.log('Respuesta de la API:', response);
         const wishData = response[0];
@@ -103,7 +103,7 @@ export class CollectionsService {
    * @param wish Wish object to update
    */
   updateWish(wish: Wish) {
-    return this.http.put<Wish>(`${this.baseUrl}/items/${wish.id}`, wish);
+    return this.http.put<Wish>(`${this.baseUrl}/wishes/${wish.id}`, wish);
   }
 
   /**
@@ -154,7 +154,7 @@ export class CollectionsService {
    * @description Create a new Wish
    */
   createWish(wish: Wish) {
-    return this.http.post(`${this.baseUrl}/items`, wish);
+    return this.http.post(`${this.baseUrl}/wishes`, wish);
   }
 
   /**
@@ -163,7 +163,7 @@ export class CollectionsService {
    * @param id Wish ID
    */
   deleteWish(id: number) {
-    return this.http.delete(`${this.baseUrl}/items/${id}`);
+    return this.http.delete(`${this.baseUrl}/wishes/${id}`);
   }
 
   /**
@@ -181,7 +181,7 @@ export class CollectionsService {
    */
   getProductsByIdCollection(idCollection: number) {
     return this.http
-      .get<any[]>(`${this.baseUrl}/items?idCollection=${idCollection}`)
+      .get<any[]>(`${this.baseUrl}/wishes/collection/${idCollection}`)
       .pipe(
         map((response): Wish[] => {
           if (!response || !Array.isArray(response)) {
@@ -259,7 +259,7 @@ export class CollectionsService {
    */
   getTrashedItems() {
     return this.http
-      .get<any[]>(`${this.baseUrl}/items?isInTrash=true`)
+      .get<any[]>(`${this.baseUrl}/wishes?isInTrash=true`)
       .pipe(
         map((response): Wish[] => {
           console.log(response);
@@ -319,7 +319,7 @@ export class CollectionsService {
    */
   searchItems(query: string, collectionId: number): Observable<SearchResult[]> {
 
-    const wishSearchUrl = `${this.baseUrl}/items?idCollection=${collectionId}&title_like=${query}&isInTrash=false`;
+    const wishSearchUrl = `${this.baseUrl}/wishes?idCollection=${collectionId}&title_like=${query}&isInTrash=false`;
     const wishes$: Observable<SearchResult[]> = this.http.get<Wish[]>(wishSearchUrl).pipe(
       map((response): Wish[] => {
         if (!response || !Array.isArray(response)) {
