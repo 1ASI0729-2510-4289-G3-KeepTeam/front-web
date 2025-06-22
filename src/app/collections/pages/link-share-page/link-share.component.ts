@@ -2,18 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
+import { ToolbarComponent } from '../../../public/components/toolbar/toolbar.component';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
+
 /**
  * @Component LinkShareComponent
  * @description Displays a shareable link and handles navigation back to the share settings,
- *              passing along content type, item ID, and a return URL.
+ * passing along content type, item ID, and a return URL.
  */
 @Component({
   selector: 'app-share-link', // Updated selector
   templateUrl: './link-share.component.html',
   styleUrl: './link-share.component.css',
   standalone: true,
-  imports: [MatIconModule, MatButtonModule, ToolbarComponent],
+  imports: [MatIconModule, MatButtonModule, ToolbarComponent, TranslatePipe],
 })
 export class LinkShareComponent implements OnInit { // Updated class name
   /**
@@ -38,7 +40,8 @@ export class LinkShareComponent implements OnInit { // Updated class name
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private translate: TranslateService // Inject TranslateService
   ) {}
 
   /**

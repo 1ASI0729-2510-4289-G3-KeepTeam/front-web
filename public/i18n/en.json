@@ -49,6 +49,38 @@
     "deleteCollectionConfirm": "Are you sure you want to delete <strong>{{ title }}</strong>? <br> You can later restore it in the trashcan section",
     "deleteItemConfirm": "Are you sure you want to delete <strong>{{ title }}</strong>? <br> You can later restore it in the trashcan section"
   },
+  "login": {
+    "title": "Welcome back",
+    "emailLabel": "Email",
+    "emailPlaceholder": "Input your account email",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Input your password",
+    "noAccount": "Not a member yet?",
+    "signUpLink": "Sign Up",
+    "signInButton": "Sign in",
+    "fillAllFields": "Please complete all fields.",
+    "invalidEmail": "The email address is not valid.",
+    "incorrectCredentials": "Email or password is incorrect."
+  },
+  "signup": {
+    "title": "Welcome",
+    "emailLabel": "Email",
+    "emailPlaceholder": "Input your account email",
+    "usernameLabel": "Username",
+    "usernamePlaceholder": "Input your account's username",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Input a password",
+    "repeatPasswordLabel": "Repeat",
+    "repeatPasswordPlaceholder": "Repeat the password",
+    "alreadyMember": "Already a member?",
+    "signInLink": "Sign In",
+    "signUpButton": "Sign Up",
+    "allFieldsRequired": "All fields are required.",
+    "invalidEmail": "The email is not valid.",
+    "passwordMismatch": "Passwords do not match.",
+    "emailExists": "An account with this email already exists.",
+    "registrationSuccess": "Registration successful. You can now log in."
+  },
   "profile": {
     "greeting": "Hello, {{ name }} 👋",
     "editProfileButton": "Edit profile",
@@ -130,66 +162,32 @@
       "feature7": "Moodboard"
     }
   },
+
   "collectionPage": {
     "noContent": "There is no content in this collection or subcollections."
   },
-  "consoleMessages": {
-    "initializingNewWish": "Initializing for new wish creation (though this component primarily handles collections).",
-    "initializingCollection": "Initializing for collection with ID: {{ id }}.",
-    "initializingNewCollection": "Initializing to create a new top-level collection.",
-    "initializingNewSubCollection": "Initializing to create a new sub-collection under parent ID: {{ parentId }}.",
-    "warnNewWishInCollectionEdit": "Warning: CollectionEditComponent is attempting to handle a new Wish. Consider dedicated WishEditComponent.",
-    "collectionReceivedForEdit": "Collection received for editing: {{ collection }}.",
-    "errorLoadingCollection": "Error loading collection:",
-    "noCollectionToSave": "No collection selected to save.",
-    "attemptingCreateNewCollection": "Attempting to create new collection:",
-    "attemptingUpdateCollection": "Attempting to update collection:",
-    "collectionSavedSuccessfully": "Collection saved/updated successfully:",
-    "errorSavingCollection": "Error saving/updating collection:",
-    "editCanceled": "Edit canceled.",
-    "unsupportedSearchResultType": "Unsupported search result type:",
-    "errorLoadingCollections": "Error loading collections:",
-    "errorLoadingSubcollections": "Error loading subcollections:",
-    "errorMovingCollectionToTrash": "Error moving collection to trashcan:",
-    "errorMovingCurrentCollectionToTrash": "Error moving current collection to trashcan:",
-    "errorUpdatingWishToTrashcan": "Error updating wish to trashcan:",
-    "errorEditingWish": "Error editing wish (missing ID or collection ID):",
-    "errorSharingWish": "Error sharing wish (missing wish ID):",
-    "errorSharingWishQr": "Error sharing wish QR (missing wish ID):"
+
+  "shareSettings": {
+    "title": "Share Settings",
+    "almostThere": "Almost there",
+    "expiryDateLabel": "Expiracy date",
+    "enterExpiryDateLabel": "Enter expiracy date",
+    "invalidDateFormatError": "Please enter a valid date in YYYY-MM-DD format.",
+    "permissionsLabel": "People with this link can",
+    "viewPermission": "View",
+    "viewAndEditPermission": "View and Edit",
+    "getLinkButton": "Get Link"
   },
-  "login": {
-    "title": "Welcome back",
-    "emailLabel": "Email",
-    "emailPlaceholder": "Input your account email",
-    "passwordLabel": "Password",
-    "passwordPlaceholder": "Input your password",
-    "noAccount": "Not a member yet?",
-    "signUpLink": "Sign Up",
-    "signInButton": "Sign in",
-    "fillAllFields": "Please complete all fields.",
-    "invalidEmail": "The email address is not valid.",
-    "incorrectCredentials": "Email or password is incorrect."
+  "qrShare": {
+    "title": "Your QR code is ready for {{ title }}",
+    "qrCodeAlt": "QR Code for {{ title }}",
+    "downloadQrCodeButton": "Download QR Code",
+    "loadingQrCode": "Loading QR code...",
+    "downloadFileName": "keeplo-{{ contentType }}-{{ itemId }}-qr.png",
+    "noQrCodeAlert": "No QR code generated yet."
   },
-  "signup": {
-    "title": "Welcome",
-    "emailLabel": "Email",
-    "emailPlaceholder": "Input your account email",
-    "usernameLabel": "Username",
-    "usernamePlaceholder": "Input your account's username",
-    "passwordLabel": "Password",
-    "passwordPlaceholder": "Input a password",
-    "repeatPasswordLabel": "Repeat",
-    "repeatPasswordPlaceholder": "Repeat the password",
-    "alreadyMember": "Already a member?",
-    "signInLink": "Sign In",
-    "signUpButton": "Sign Up",
-    "allFieldsRequired": "All fields are required.",
-    "invalidEmail": "The email is not valid.",
-    "passwordMismatch": "Passwords do not match.",
-    "emailExists": "An account with this email already exists.",
-    "registrationSuccess": "Registration successful. You can now log in."
-  },
-  "buttons": {
-    "close": "Close"
+  "linkShare": {
+    "title": "Your link is ready",
+    "copyAndShareMessage": "You can copy and share this link!"
   }
 }

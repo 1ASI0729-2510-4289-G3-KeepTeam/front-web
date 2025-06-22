@@ -1,18 +1,17 @@
-<app-toolbar></app-toolbar>
-<div class="qr-share-container">
+  <div class="qr-share-container">
   <div class="header">
     <button mat-icon-button color="primary" (click)="goBack()">
       <mat-icon>arrow_back</mat-icon>
     </button>
-    <h3>Your QR code is ready for {{ wish?.title }}</h3>
+    <h3>{{ 'qrShare.title' | translate:{ title: wish?.title || collection?.title } }}</h3>
   </div>
   <div class="qr-content">
-    <img [src]="qrCodeValue" alt="QR Code for {{ wish?.title }}">
+    <img [src]="qrCodeValue" alt="{{ 'qrShare.qrCodeAlt' | translate:{ title: wish?.title || collection?.title } }}">
     <button mat-flat-button color="accent" (click)="downloadQrCode()">
-      Download QR Code
+      {{ 'qrShare.downloadQrCodeButton' | translate }}
     </button>
   </div>
 </div>
-<div *ngIf="!wish">
-  <p>Loading QR code...</p>
+<div *ngIf="!wish && !collection">
+  <p>{{ 'qrShare.loadingQrCode' | translate }}</p>
 </div>

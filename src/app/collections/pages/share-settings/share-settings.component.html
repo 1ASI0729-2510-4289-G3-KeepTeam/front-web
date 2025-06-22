@@ -4,19 +4,19 @@
     <button mat-icon-button color="primary" (click)="goBack()">
       <mat-icon>arrow_back</mat-icon>
     </button>
-    <h2>Share Settings</h2>
+    <h2>{{ 'shareSettings.title' | translate }}</h2>
   </div>
 
   <div class="content">
-    <h3>Almost there</h3>
+    <h3>{{ 'shareSettings.almostThere' | translate }}</h3>
 
     <div class="expiry-date">
-      <label>Expiracy date</label>
+      <label>{{ 'shareSettings.expiryDateLabel' | translate }}</label>
       <mat-slide-toggle [(ngModel)]="expiryEnabled"></mat-slide-toggle>
     </div>
 
     <mat-form-field>
-      <mat-label>Enter expiracy date</mat-label>
+      <mat-label>{{ 'shareSettings.enterExpiryDateLabel' | translate }}</mat-label>
       <input
         matInput
         [(ngModel)]="expiryDate"
@@ -34,18 +34,18 @@
       <mat-datepicker #picker [disabled]="!expiryEnabled"></mat-datepicker>
 
       <mat-error *ngIf="dateInput.invalid && dateInput.touched">
-        Please enter a valid date in YYYY-MM-DD format.
+        {{ 'shareSettings.invalidDateFormatError' | translate }}
       </mat-error>
     </mat-form-field>
 
     <div class="permissions">
-      <label>People with this link can</label>
+      <label>{{ 'shareSettings.permissionsLabel' | translate }}</label>
       <div class="permission-buttons">
-        <button [class.active]="permission === 'view'" (click)="setPermission('view')">View</button>
-        <button [class.active]="permission === 'edit'" (click)="setPermission('edit')">View and Edit</button>
+        <button [class.active]="permission === 'view'" (click)="setPermission('view')">{{ 'shareSettings.viewPermission' | translate }}</button>
+        <button [class.active]="permission === 'edit'" (click)="setPermission('edit')">{{ 'shareSettings.viewAndEditPermission' | translate }}</button>
       </div>
     </div>
 
-    <button class="get-link-button" (click)="getLink()">Get Link</button>
-</div>
+    <button class="get-link-button" (click)="getLink()">{{ 'shareSettings.getLinkButton' | translate }}</button>
+  </div>
 </div>

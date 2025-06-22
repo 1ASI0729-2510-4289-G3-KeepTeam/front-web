@@ -5,11 +5,13 @@ import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { NgIf } from '@angular/common';
 import { CollectionsService } from '../../services/collections.service';
-import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component'; // Importa el servicio
+import { ToolbarComponent } from '../../../public/components/toolbar/toolbar.component';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
+
 /**
  * @Component QrShareComponent
  * @description Generates and displays a QR code for a wish or collection item based on query parameters.
- *              Allows downloading the QR code and navigating back to the previous page.
+ * Allows downloading the QR code and navigating back to the previous page.
  */
 @Component({
   selector: 'app-qr-share',
@@ -22,6 +24,7 @@ import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.compo
     MatIconButton,
     NgIf,
     ToolbarComponent,
+    TranslatePipe,
   ]
 })
 export class QrShareComponent implements OnInit {
@@ -58,7 +61,8 @@ export class QrShareComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private collectionsService: CollectionsService
+    private collectionsService: CollectionsService,
+    private translate: TranslateService
   ) { }
 
   /**
@@ -77,7 +81,7 @@ export class QrShareComponent implements OnInit {
   /**
    * @function loadItemDetails
    * @description Fetches wish or collection details from the service based on contentType and itemId.
-   *              Calls QR code generation after data is loaded.
+   * Calls QR code generation after data is loaded.
    */
   loadItemDetails(): void {
     if (this.contentType === 'wish' && this.itemId) {
@@ -96,7 +100,7 @@ export class QrShareComponent implements OnInit {
   /**
    * @function generateQrCode
    * @description Generates a QR code using the redirectUrl for wishes or a collection-specific URI.
-   *              Sets the QR code image data URL to `qrCodeValue`.
+   * Sets the QR code image data URL to `qrCodeValue`.
    */
   generateQrCode(): void {
     let qrContent = '';
@@ -120,18 +124,23 @@ export class QrShareComponent implements OnInit {
   /**
    * @function downloadQrCode
    * @description Triggers download of the generated QR code as a PNG image file.
-   *              Alerts if no QR code has been generated yet.
+   * Alerts if no QR code has been generated yet.
    */
   downloadQrCode(): void {
     if (this.qrCodeValue) {
       const link = document.createElement('a');
       link.href = this.qrCodeValue;
-      link.download = `keeplo-${this.contentType}-${this.itemId}-qr.png`;
+      // **Use translate service for download file name**
+      this.translate.get('qrShare.downloadFileName', { contentType: this.contentType, itemId: this.itemId }).subscribe((res: string) => {
+        link.download = res;
+      });
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     } else {
-      alert('No QR code generated yet.');
+      this.translate.get('qrShare.noQrCodeAlert').subscribe((res: string) => {
+        alert(res);
+      });
     }
   }
 

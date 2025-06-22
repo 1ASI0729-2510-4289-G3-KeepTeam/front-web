@@ -8,15 +8,15 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
-import {NgIf} from '@angular/common';
-import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
+import { NgIf } from '@angular/common';
+import { ToolbarComponent } from '../../../public/components/toolbar/toolbar.component';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core'; // Import TranslateService
 
 /**
  * @Component ShareSettingsComponent
  * @description Component for configuring share settings of wishes or collections.
- *              Allows setting permissions, expiry dates, and generating shareable links.
+ * Allows setting permissions, expiry dates, and generating shareable links.
  */
-
 @Component({
   selector: 'app-share-settings',
   templateUrl: './share-settings.component.html',
@@ -33,12 +33,13 @@ import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.compo
     FormsModule,
     NgIf,
     ToolbarComponent,
+    TranslatePipe,
   ],
 })
 export class ShareSettingsComponent implements OnInit {
   /**
    * @property {string} contentType - Type of content to share ('wish', 'collection', or 'collections-list').
-   *                                  Defaults to 'collection'.
+   * Defaults to 'collection'.
    */
   contentType: string = 'collection';
 
@@ -67,7 +68,7 @@ export class ShareSettingsComponent implements OnInit {
    */
   permission: 'view' | 'edit' = 'view';
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(private router: Router, private route: ActivatedRoute, private translate: TranslateService) {} // Inject TranslateService
 
   /**
    * @function ngOnInit
@@ -86,7 +87,7 @@ export class ShareSettingsComponent implements OnInit {
   /**
    * @function goBack
    * @description Navigates back to the return URL if specified in query parameters,
-   *              otherwise navigates to the previousUrl property.
+   * otherwise navigates to the previousUrl property.
    */
   goBack(): void {
     this.route.queryParams.subscribe(queryParams => {
@@ -139,7 +140,7 @@ export class ShareSettingsComponent implements OnInit {
   allowOnlyNumbersAndHyphen(event: KeyboardEvent): boolean {
     const charCode = event.which ? event.which : event.keyCode;
     if (
-      (charCode >= 48 && charCode <= 57) || // Numbers 0-9
+      (charCode >= 48 && charCode <= 57) ||
       charCode === 45 // Hyphen (-)
     ) {
       return true;
@@ -171,7 +172,7 @@ export class ShareSettingsComponent implements OnInit {
   /**
    * @function getLink
    * @description Generates the shareable link and navigates to the link-share component with query params.
-   *              Logs warnings if itemId is undefined.
+   * Logs warnings if itemId is undefined.
    */
   getLink(): void {
     console.log('ShareSettingsComponent: getLink() called. contentType:', this.contentType, 'itemId:', this.itemId);

@@ -84,6 +84,7 @@
   "buttons": {
     "close": "Cerrar"
   },
+
   "profile": {
     "greeting": "Hola, {{ name }} 👋",
     "editProfileButton": "Editar perfil",
@@ -166,31 +167,32 @@
       "feature7": "Moodboard"
     }
   },
+
   "collectionPage": {
     "noContent": "No hay contenido en esta colección o subcolecciones."
   },
-  "consoleMessages": {
-    "initializingNewWish": "Inicializando para la creación de un nuevo deseo (aunque este componente maneja principalmente colecciones).",
-    "initializingCollection": "Inicializando para la colección con ID: {{ id }}.",
-    "initializingNewCollection": "Inicializando para crear una nueva colección de nivel superior.",
-    "initializingNewSubCollection": "Inicializando para crear una nueva subcolección bajo el ID padre: {{ parentId }}.",
-    "warnNewWishInCollectionEdit": "Advertencia: CollectionEditComponent está intentando manejar un nuevo deseo. Considere un WishEditComponent dedicado.",
-    "collectionReceivedForEdit": "Colección recibida para edición: {{ collection }}.",
-    "errorLoadingCollection": "Error al cargar la colección:",
-    "noCollectionToSave": "No hay colección seleccionada para guardar.",
-    "attemptingCreateNewCollection": "Intentando crear nueva colección:",
-    "attemptingUpdateCollection": "Intentando actualizar colección:",
-    "collectionSavedSuccessfully": "Colección guardada/actualizada exitosamente:",
-    "errorSavingCollection": "Error al guardar/actualizar la colección:",
-    "editCanceled": "Edición cancelada.",
-    "unsupportedSearchResultType": "Tipo de resultado de búsqueda no soportado:",
-    "errorLoadingCollections": "Error al cargar colecciones:",
-    "errorLoadingSubcollections": "Error al cargar subcolecciones:",
-    "errorMovingCollectionToTrash": "Error al mover la colección a la papelera:",
-    "errorMovingCurrentCollectionToTrash": "Error al mover la colección actual a la papelera:",
-    "errorUpdatingWishToTrashcan": "Error al actualizar el deseo a la papelera:",
-    "errorEditingWish": "Error al editar el deseo (ID o ID de colección faltante):",
-    "errorSharingWish": "Error al compartir el deseo (ID del deseo faltante):",
-    "errorSharingWishQr": "Error al compartir el deseo por QR (ID del deseo faltante):"
+
+  "shareSettings": {
+    "title": "Configuración de Compartir",
+    "almostThere": "Casi listo",
+    "expiryDateLabel": "Fecha de caducidad",
+    "enterExpiryDateLabel": "Ingresar fecha de caducidad",
+    "invalidDateFormatError": "Por favor, ingresa una fecha válida en formato AAAA-MM-DD.",
+    "permissionsLabel": "Las personas con este enlace pueden",
+    "viewPermission": "Ver",
+    "viewAndEditPermission": "Ver y Editar",
+    "getLinkButton": "Obtener Enlace"
+  },
+  "qrShare": {
+    "title": "Tu código QR está listo para {{ title }}",
+    "qrCodeAlt": "Código QR para {{ title }}",
+    "downloadQrCodeButton": "Descargar Código QR",
+    "loadingQrCode": "Cargando código QR...",
+    "downloadFileName": "keeplo-{{ contentType }}-{{ itemId }}-qr.png",
+    "noQrCodeAlert": "No se ha generado ningún código QR aún."
+  },
+  "linkShare": {
+    "title": "Tu enlace está listo",
+    "copyAndShareMessage": "¡Puedes copiar y compartir este enlace!"
   }
 }
