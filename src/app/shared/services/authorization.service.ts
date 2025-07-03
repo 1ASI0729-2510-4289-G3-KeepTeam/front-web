@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import {environment} from '../../../environments/environment.development';
 
 const AUTH_API = 'http://localhost:8080/api/v1/authentication/';
 
@@ -17,7 +18,7 @@ export class AuthorizationService {
 
   // Iniciar sesión
   login(email: string, password: string): Observable<any> {
-    return this.http.post('http://localhost:8080/api/v1/authentication/sign-in', {
+    return this.http.post(`${environment.apiBaseUrl}${environment.endpoints.auth.signIn}`, {
       email: email,          // 👈 usa "email" en lugar de "username"
       password: password
     }, {
@@ -27,7 +28,7 @@ export class AuthorizationService {
 
   // Registrar usuario
   registerUser(user: { name: string; email: string; password: string; roles: string[],profilePicture: string }): Observable<any> {
-    return this.http.post(AUTH_API + 'sign-up', {
+    return this.http.post(`${environment.apiBaseUrl}${environment.endpoints.auth.signUp}`, {
       name: user.name,
       email: user.email,
       password: user.password,

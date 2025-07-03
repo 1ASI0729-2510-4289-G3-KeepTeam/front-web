@@ -8,18 +8,18 @@ import {environment} from '../../../environments/environment';
   providedIn: 'root'
 })
 export class UserService {
-  private baseUrl = 'http://localhost:8080/api/v1/users';
-  private baseUrlCard = 'http://localhost:8080/api/v1/payment-cards';
-  // 🔁 Cambia a tu backend real
+
+  private usersUrl = `${environment.apiBaseUrl}${environment.endpoints.users}`;
+  private cardsUrl = `${environment.apiBaseUrl}${environment.endpoints.paymentCards}`;
 
   constructor(private http: HttpClient) {}
 
   getUserById(id: number): Observable<User> {
-    return this.http.get<User>(`${this.baseUrl}/${id}`);
+    return this.http.get<User>(`${this.usersUrl}/${id}`);
   }
 
   updateUser(user: User): Observable<User> {
-    return this.http.put<User>(`${this.baseUrl}/${user.id}`, {
+    return this.http.put<User>(`${this.usersUrl}/${user.id}`, {
       name: user.name,
       email: user.email,
       profilePicture: user.profilePicture
@@ -27,19 +27,19 @@ export class UserService {
   }
 
   deleteUser(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+    return this.http.delete<void>(`${this.usersUrl}/${id}`);
   }
 
   createUserCard(cardData: any): Observable<any> {
-    return this.http.post(`${this.baseUrl.replace('/users', '/payment-cards')}`, cardData);
+    return this.http.post(`${this.cardsUrl}`, cardData);
   }
 
   updateUserCard(paymentCardId: number, cardData: any): Observable<any> {
-    return this.http.put(`${this.baseUrl.replace('/users', '/payment-cards')}/${paymentCardId}`, cardData);
+    return this.http.put(`${this.cardsUrl}/${paymentCardId}`, cardData);
   }
 
   changePassword(userId: number, currentPassword: string, newPassword: string): Observable<any> {
-    const url = `http://localhost:8080/api/v1/users/${userId}/change-password`;
+    const url = `${environment.apiBaseUrl}${environment.endpoints.changePassword(userId)}`;
     return this.http.patch(url, {
       currentPassword,
       newPassword
