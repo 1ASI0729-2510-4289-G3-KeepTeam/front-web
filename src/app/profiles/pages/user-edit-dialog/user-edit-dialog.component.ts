@@ -81,11 +81,16 @@ export class UserEditDialogComponent {
   }
 
 
-
   saveChanges(): void {
-    this.userService.updateUser(this.user).subscribe(() => {
-      alert('Profile updated!');
-      this.router.navigate(['/user-profile']); // o tu ruta de perfil
+    this.userService.updateUser(this.user).subscribe({
+      next: (updatedUser) => {
+        alert('Profile updated!');
+        this.router.navigate(['/user-profile']);
+      },
+      error: (err) => {
+        console.error('Error updating profile:', err);
+        alert('Error updating profile');
+      }
     });
   }
 }

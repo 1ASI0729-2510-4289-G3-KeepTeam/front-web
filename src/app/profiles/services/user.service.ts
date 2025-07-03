@@ -8,7 +8,7 @@ import {environment} from '../../../environments/environment';
   providedIn: 'root'
 })
 export class UserService {
-  private baseUrl = environment.fakeAPIBaseUrl.replace(/\/$/, '') + environment.usersEndpointPath;
+  private baseUrl = 'http://localhost:8080/api/v1/users'; // 🔁 Cambia a tu backend real
 
   constructor(private http: HttpClient) {}
 
@@ -16,25 +16,12 @@ export class UserService {
     return this.http.get<User>(`${this.baseUrl}/${id}`);
   }
 
-  getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.baseUrl);
-  }
-
   updateUser(user: User): Observable<User> {
-    return this.http.put<User>(`${this.baseUrl}/${user.id}`, user);
+    return this.http.put<User>(`${this.baseUrl}/${user.id}`, {
+      name: user.name,
+      email: user.email,
+      profilePicture: user.profilePicture
+    });
   }
-
-  deleteUser(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}`);
-  }
-
-  updateUserCard(id: number, cardData: any): Observable<any> {
-    return this.http.patch(`${this.baseUrl}/${id}`, { card: cardData });
-  }
-
-  changePassword(id: number, currentPassword: string, newPassword: string): Observable<any> {
-    return this.http.patch(`${this.baseUrl}/${id}`, { password: newPassword });
-
-  }
-
 }
+
