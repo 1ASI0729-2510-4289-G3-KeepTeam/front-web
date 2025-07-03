@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import {MatButton} from "@angular/material/button";
-import {MatCard, MatCardContent} from "@angular/material/card";
-import {MatFormField, MatInput, MatLabel} from "@angular/material/input";
-import {Router, RouterLink} from '@angular/router';
-import {AuthorizationService} from '../../../../shared/services/authorization.service';
-import {FormsModule} from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { MatCard, MatCardContent } from '@angular/material/card';
+import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
+import { Router, RouterLink } from '@angular/router';
+import { AuthorizationService } from '../../../../shared/services/authorization.service';
+import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import {TranslatePipe, TranslateService} from '@ngx-translate/core';
-
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-sign-up-component',
+  standalone: true,
   imports: [
     MatButton,
     MatCard,
@@ -18,7 +18,6 @@ import {TranslatePipe, TranslateService} from '@ngx-translate/core';
     MatFormField,
     MatInput,
     MatLabel,
-    MatFormField,
     RouterLink,
     FormsModule,
     TranslatePipe
@@ -32,101 +31,72 @@ export class SignUpComponent {
   password: string = '';
   repeatPassword: string = '';
 
-
-  constructor(private authService: AuthorizationService, private snackBar: MatSnackBar, private router: Router, private translate: TranslateService) {};
+  constructor(
+    private authService: AuthorizationService,
+    private snackBar: MatSnackBar,
+    private router: Router,
+    private translate: TranslateService
+  ) {}
 
   onSignUp(): void {
-
     if (!this.email || !this.name || !this.password || !this.repeatPassword) {
-      this.snackBar.open(
-        this.translate.instant('signup.allFieldsRequired'),
-        this.translate.instant('buttons.close'),
-        {
-          duration: 3000,
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-          panelClass: ['snackbar-error']
-        }
-      );
+      this.showError('signup.allFieldsRequired');
       return;
     }
-
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(this.email)) {
-      this.snackBar.open(
-        this.translate.instant('signup.invalidEmail'),
-        this.translate.instant('buttons.close'),
-        {
-          duration: 3000,
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-          panelClass: ['snackbar-error']
-        }
-      );
+      this.showError('signup.invalidEmail');
       return;
     }
-
 
     if (this.password !== this.repeatPassword) {
-      this.snackBar.open(
-        this.translate.instant('signup.passwordMismatch'),
-        this.translate.instant('buttons.close'),
-        {
-          duration: 3000,
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-          panelClass: ['snackbar-error']
-        }
-      );
+      this.showError('signup.passwordMismatch');
       return;
     }
 
+    const newUser = {// si tu backend usa "username"
+      email: this.email,
+      password: this.password,
+      name: this.name,
+      profilePicture: 'https://example.com/default-profile.png',
+      roles: ['user'] // puedes personalizar según tu lógica
+    };
 
-    this.authService.getUserByEmail(this.email).subscribe(existingUsers => {
-      if (existingUsers.length > 0) {
+    this.authService.registerUser(newUser).subscribe({
+      next: () => {
         this.snackBar.open(
-          this.translate.instant('signup.emailExists'),
+          this.translate.instant('signup.registrationSuccess'),
           this.translate.instant('buttons.close'),
           {
-            duration: 3000,
+            duration: 2000,
             horizontalPosition: 'center',
             verticalPosition: 'top',
-            panelClass: ['snackbar-error']
+            panelClass: ['snackbar-success']
           }
         );
-      } else {
-        const newUser = {
-          email: this.email,
-          password: this.password,
-          name: this.name,
-          profilePicture: '',
-          settings: {}
-        };
-
-        this.authService.registerUser(newUser).subscribe(() => {
-          this.snackBar.open(
-            this.translate.instant('signup.registrationSuccess'),
-            this.translate.instant('buttons.close'),
-            {
-              duration: 20000,
-              horizontalPosition: 'center',
-              verticalPosition: 'top',
-              panelClass: ['snackbar-success']
-            }
-          );
-
-          setTimeout(() => {
-            this.router.navigate(['/login']);
-          }, 1500);
-        });
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 1500);
+      },
+      error: (err) => {
+        console.error(err);
+        const msg = err.status === 409 ? 'signup.emailExists' : 'signup.registrationError';
+        this.showError(msg);
       }
     });
   }
+
+  private showError(translationKey: string) {
+    this.snackBar.open(
+      this.translate.instant(translationKey),
+      this.translate.instant('buttons.close'),
+      {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: ['snackbar-error']
+      }
+    );
+  }
 }
-
-
-
-
-
-
