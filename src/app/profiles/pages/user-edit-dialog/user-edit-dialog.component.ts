@@ -93,21 +93,7 @@ export class UserEditDialogComponent {
       }
     });
   }
-  deleteAccount(): void {
-    if (confirm('Are you sure you want to delete your account?')) {
-      this.userService.deleteUser(this.user.id).subscribe({
-        next: () => {
-          localStorage.clear(); // O remover token, etc.
-          this.router.navigate(['/login']); // Redirige al home o login
-          alert('Account deleted');
-        },
-        error: err => {
-          console.error('Error deleting user:', err);
-          alert('Error deleting account');
-        }
-      });
-    }
-  }
+
 
 }
 

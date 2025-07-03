@@ -49,19 +49,16 @@ export class LoginComponent {
       return;
     }
 
-    this.authService.login(this.email, this.password).subscribe({
-      next: (response) => {
-        // ✅ Aquí se asume que el backend devuelve un token JWT
-        if (response.token) {
-          localStorage.setItem('access_token', response.token);
-          this.router.navigate(['/user-profile']);
-        } else {
-          this.showError('login.incorrectCredentials');
-        }
-      },
-      error: () => {
-        this.showError('login.incorrectCredentials');
-      }
+    this.authService.login(this.email, this.password).subscribe(response => {
+      const userId = response.id;
+      const token = response.token;
+
+      // 🔐 Guardar token y userId
+      localStorage.setItem('token', token);
+      localStorage.setItem('userId', userId.toString());
+
+      // Redirige, etc.
+      this.router.navigate(['/user-profile']);
     });
   }
 

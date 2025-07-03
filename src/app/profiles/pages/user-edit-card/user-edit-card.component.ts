@@ -62,10 +62,21 @@ export class UserEditCardComponent implements OnInit {
     if (this.paymentForm.valid) {
       const cardData = this.paymentForm.value;
 
-      this.userService.updateUserCard(this.user.id, cardData).subscribe({
-        next: () => alert('Card updated successfully!'),
-        error: () => alert('Failed to update card.')
-      });
+      if (this.user.card?.id) {
+        // Actualizar tarjeta existente
+        this.userService.updateUserCard(this.user.card.id, cardData).subscribe({
+          next: () => alert('Card updated successfully!'),
+          error: () => alert('Failed to update card.')
+        });
+      } else {
+        // Crear nueva tarjeta
+        const newCard = { ...cardData, userId: this.user.id };
+        this.userService.createUserCard(newCard).subscribe({
+          next: () => alert('Card created successfully!'),
+          error: () => alert('Failed to create card.')
+        });
+      }
+
     } else {
       this.paymentForm.markAllAsTouched();
     }

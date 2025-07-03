@@ -6,6 +6,7 @@ export class User {
   profilePicture: string;
   settings: any;
   card?: {
+    id: number;
     cardNumber: string;
     holder: string;
     expirationDate: string;
@@ -20,6 +21,7 @@ export class User {
     this.profilePicture = '';
     this.settings = {};
     this.card = {
+      id: 0,
       cardNumber: '',
       holder: '',
       expirationDate: '',
