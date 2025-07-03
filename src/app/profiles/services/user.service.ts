@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,  HttpHeaders } from '@angular/common/http';
 import { User } from '../model/user';
 import { Observable } from 'rxjs';
 import {environment} from '../../../environments/environment';
@@ -39,11 +39,11 @@ export class UserService {
   }
 
   changePassword(userId: number, currentPassword: string, newPassword: string): Observable<any> {
-    const body = {
+    const url = `http://localhost:8080/api/v1/users/${userId}/change-password`;
+    return this.http.patch(url, {
       currentPassword,
       newPassword
-    };
-    return this.http.patch(`${this.baseUrl}/${userId}/change-password`, body);
+    });
   }
 }
 
