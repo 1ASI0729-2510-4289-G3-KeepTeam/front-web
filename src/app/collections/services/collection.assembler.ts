@@ -14,7 +14,7 @@ export class CollectionAssembler {
   static toEntityFromResource(resource: any): Collection {
     const collection = new Collection();
     collection.id = resource.id;
-    collection.title = resource.name;
+    collection.title = resource.title;
     collection.idUser = resource.idUser ?? null;
     collection.isInTrash = resource.isPublic;
     collection.idParentCollection = resource.idParentCollection;

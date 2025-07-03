@@ -195,9 +195,9 @@ export class CollectionsService {
             wish.idCollection = item.collectionId;
             wish.title = item.title;
             wish.description = item.description;
-            wish.urlImg = item.url;
+            wish.urlImg = item.urlImg;
             wish.isInTrash =  Boolean(item.isInTrash) ?? false;
-            wish.redirectUrl = item.url;
+            wish.redirectUrl = item.redirectUrl;
             wish.tags = (item.tags ?? []).map((tag: any) => {
               const tagInstance = new Tag();
               tagInstance.name = tag.name;

@@ -158,7 +158,7 @@
       this.collectionsService.getCollectionById(collectionId).subscribe((collection: any) => {
         this.collection = {
           ...collection,
-          title: collection.name // 👈 ya puedes usar .title sin error
+          title: collection.title
         };
         console.log(this.collection);
         this.filterCreationButtonForSubCollection();
