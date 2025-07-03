@@ -4,44 +4,43 @@
     <img [src]="user.profilePicture" alt="Profile Picture">
     <div class="header-content">
       <div class="username-and-button">
-        <h1>Hola, {{ user.name }} 👋</h1>
-        <button mat-raised-button color="primary" (click)="goToEditProfile()">Edit profile</button>
+        <h1>{{ 'profile.greeting' | translate:{name: user.name} }} 👋</h1>
+        <button mat-raised-button color="primary" (click)="goToEditProfile()">{{ 'profile.editProfileButton' | translate }}</button>
       </div>
     </div>
   </div>
 
   <div class="section">
     <mat-card class="card">
-      <mat-card-title>Activity</mat-card-title>
+      <mat-card-title>{{ 'profile.activityTitle' | translate }}</mat-card-title>
       <mat-card-content>
-        <p><strong>My Collections:</strong> 13</p>
-        <p><strong>Saved Items:</strong> 230</p>
+        <p><strong>{{ 'navs.myCollections' | translate }}:</strong> 13</p>
+        <p><strong>{{ 'profile.savedItems' | translate }}:</strong> 230</p>
       </mat-card-content>
     </mat-card>
 
     <mat-card class="card">
-      <mat-card-title>Payment Information</mat-card-title>
+      <mat-card-title>{{ 'profile.paymentInformationTitle' | translate }}</mat-card-title>
       <mat-card-content>
-        <p><strong>Linked Card:</strong> ••••0342</p>
-        <p><strong>Holder:</strong> {{ user.name }}</p>
-        <button mat-raised-button class="editButton" color="accent" (click)="goToEditCardInformation()">Edit Card Information</button>
+        <p><strong>{{ 'profile.linkedCard' | translate }}:</strong> ••••0342</p>
+        <p><strong>{{ 'profile.holder' | translate }}:</strong> {{ user.name }}</p>
+        <button mat-raised-button class="editButton" color="accent" (click)="goToEditCardInformation()">{{ 'profile.editCardInfoButton' | translate }}</button>
       </mat-card-content>
     </mat-card>
   </div>
 
   <div class="section">
     <mat-card class="card">
-      <mat-card-title>Current Plan: Infinite</mat-card-title>
+      <mat-card-title>{{ 'profile.currentPlan' | translate }}: Infinite</mat-card-title>
       <mat-card-content>
         <p><strong>Email:</strong> {{ user.email }}</p>
-        <p><strong>Password:</strong> ********</p>
-        <button mat-raised-button class="change-password-Button" color="accent" (click)="goToEditPassword()">Change Password</button>
+        <p><strong>{{ 'profile.password' | translate }}:</strong> ********</p>
+        <button mat-raised-button class="change-password-Button" color="accent" (click)="goToEditPassword()">{{ 'profile.changePasswordButton' | translate }}</button>
       </mat-card-content>
     </mat-card>
   </div>
-</div>
 
-<div class="button-row">
-  <button mat-raised-button class="logout-button" style="color: #FFFFFF" (click)="goToLogin()">Log out</button>
-  <button mat-raised-button class="delete-button" style="background-color: #B40000; color: #FFFFFF" (click)="deleteProfile()">Delete Account</button>
+  <div class="bottom-buttons-container"> <button mat-raised-button class="delete-button" (click)="deleteProfile()">{{ 'profile.deleteAccountButton' | translate }}</button>
+    <button mat-raised-button class="logout-button" (click)="goToLogin()">{{ 'buttons.logout' | translate }}</button>
+  </div>
 </div>

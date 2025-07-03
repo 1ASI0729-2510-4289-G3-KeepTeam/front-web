@@ -18,7 +18,19 @@
     "goToItemsLink": "Ir a link de Deseo",
     "itemsLink": "Enlace de Ítem",
     "tags": "Etiquetas",
-    "selectImage": "Seleccionar Imagen"
+    "selectImage": "Seleccionar Imagen",
+    "newCollection": "Nueva Colección",
+    "newCollectionPlaceholder": "Título Nueva Colección",
+    "noImages": "No hay imágenes",
+    "imageAlt": "imagen {{ index }}",
+    "collectionName": "Nombre de Colección",
+    "color": "Color"
+  },
+  "colors": {
+    "cream": "Crema",
+    "orange": "Naranja",
+    "lemon": "Limón",
+    "sky": "Cielo"
   },
   "cancel": "Cancelar",
   "save": "Guardar",
@@ -28,10 +40,15 @@
     "share": "Compartir",
     "copyLink": "Copiar enlace",
     "shareQr": "Compartir como QR",
+    "shareLink": "Compartir como Enlace",
     "deleteCollection": "Eliminar colección",
     "deleteItem": "Eliminar ítem",
     "editCollection": "Editar colección",
-    "editItem": "Editar ítem"
+    "editItem": "Editar ítem",
+    "viewCollection": "Ver Colección",
+    "deleteCollectionConfirmTitle": "Confirmar Eliminación",
+    "deleteCollectionConfirm": "¿Estás seguro de que quieres eliminar <strong>{{ title }}</strong>? <br> Puedes restaurarlo más tarde en la sección de papelera",
+    "deleteItemConfirm": "¿Estás seguro de que quieres eliminar <strong>{{ title }}</strong>? <br> Puedes restaurarlo más tarde en la sección de papelera"
   },
   "login": {
     "title": "Bienvenido de nuevo",
@@ -42,7 +59,6 @@
     "noAccount": "¿Aún no tienes una cuenta?",
     "signUpLink": "Regístrate",
     "signInButton": "Iniciar sesión",
-
     "fillAllFields": "Por favor, complete todos los campos.",
     "invalidEmail": "El correo ingresado no es válido.",
     "incorrectCredentials": "Email o contraseña incorrectos."
@@ -60,7 +76,6 @@
     "alreadyMember": "¿Ya tienes una cuenta?",
     "signInLink": "Inicia sesión",
     "signUpButton": "Registrarse",
-
     "allFieldsRequired": "Todos los campos son obligatorios.",
     "invalidEmail": "El correo no es válido.",
     "passwordMismatch": "Las contraseñas no coinciden.",
@@ -68,6 +83,145 @@
     "registrationSuccess": "Registro exitoso. Ahora puedes iniciar sesión."
   },
   "buttons": {
-    "close": "Cerrar"
+    "close": "Cerrar",
+    "no": "No",
+    "yes": "Sí",
+    "logout": "Cerrar Sesión"
+  },
+  "profile": {
+    "greeting": "Hola, {{ name }} 👋",
+    "editProfileButton": "Editar perfil",
+    "activityTitle": "Actividad",
+    "savedItems": "Ítems Guardados",
+    "paymentInformationTitle": "Información de Pago",
+    "linkedCard": "Tarjeta Vinculada",
+    "holder": "Titular",
+    "editCardInfoButton": "Editar Información de Tarjeta",
+    "currentPlan": "Plan Actual",
+    "password": "Contraseña",
+    "changePasswordButton": "Cambiar Contraseña",
+    "deleteAccountButton": "Eliminar Cuenta",
+    "deleteProfileSuccess": "¡Perfil eliminado exitosamente!"
+  },
+  "passwordEdit": {
+    "title": "Editar Contraseña",
+    "currentPassword": "Contraseña Actual",
+    "newPassword": "Nueva Contraseña",
+    "repeatNewPassword": "Repetir Nueva Contraseña",
+    "passwordMismatchError": "Las contraseñas no coinciden",
+    "changePasswordButton": "Cambiar Contraseña",
+    "passwordChangedSuccess": "¡Contraseña cambiada exitosamente!",
+    "passwordChangedError": "Fallo al cambiar contraseña."
+  },
+  "profileEdit": {
+    "title": "Editar perfil",
+    "uploadPhotoButton": "Subir Foto",
+    "usernameLabel": "Nombre de usuario",
+    "saveChangesButton": "Guardar Cambios",
+    "uploadPhotoNotImplemented": "Funcionalidad de subir foto no implementada aún.",
+    "profileUpdatedSuccess": "¡Perfil actualizado!"
+  },
+  "paymentInfo": {
+    "title": "Información de Pago",
+    "cardNumber": "Número de Tarjeta",
+    "cardNumberPlaceholder": "Ingresa el número de tarjeta",
+    "holder": "Titular",
+    "holderPlaceholder": "Ingresa el nombre del titular de la tarjeta",
+    "expirationDate": "Fecha de Vencimiento",
+    "expirationDatePlaceholder": "Fecha de Vencimiento",
+    "changeCardButton": "Cambiar Tarjeta",
+    "cardUpdateSuccess": "¡Tarjeta actualizada exitosamente!",
+    "cardUpdateError": "Fallo al actualizar la tarjeta."
+  },
+  "plansPage": {
+    "chooseYourPlanTitle": "Elige tu plan",
+    "subtitlePart1": "Desde coleccionistas casuales hasta organizadores profesionales —",
+    "subtitlePart2": "tenemos lo que necesitas.",
+    "perMonth": "/ mes",
+    "upgradeNowButton": "Mejorar ahora",
+    "starterPlan": {
+      "title": "Inicial",
+      "price": "Gratis",
+      "feature1": "Hasta 2 colecciones",
+      "feature2": "Hasta 20 ítems por Colección",
+      "feature3": "Compartir básico vía enlace",
+      "feature4": "Solo acceso web",
+      "feature5": "Sin etiquetas personalizadas",
+      "feature6": "Sin personalizables",
+      "feature7": "Sin compartir"
+    },
+    "plusPlan": {
+      "title": "Plus",
+      "feature1": "Hasta 15 colecciones",
+      "feature2": "Hasta 300 ítems por Colección",
+      "feature3": "Compartir básico vía QR",
+      "feature4": "Colecciones personalizables",
+      "feature5": "Etiquetas personalizadas",
+      "feature6": "Compartir"
+    },
+    "infinitePlan": {
+      "title": "Infinito",
+      "feature1": "Hasta 100 colecciones",
+      "feature2": "Hasta 8000 ítems por Colección",
+      "feature3": "Compartir vía QR y PDF",
+      "feature4": "Colecciones personalizables",
+      "feature5": "Etiquetas personalizadas",
+      "feature6": "Compartir vía QR/Enlace/Exportar",
+      "feature7": "Moodboard"
+    }
+  },
+  "collectionPage": {
+    "noContent": "No hay contenido en esta colección o subcolecciones."
+  },
+  "shareSettings": {
+    "title": "Configuración de Compartir",
+    "almostThere": "Casi listo",
+    "expiryDateLabel": "Fecha de caducidad",
+    "enterExpiryDateLabel": "Ingresar fecha de caducidad",
+    "invalidDateFormatError": "Por favor, ingresa una fecha válida en formato AAAA-MM-DD.",
+    "permissionsLabel": "Las personas con este enlace pueden",
+    "viewPermission": "Ver",
+    "viewAndEditPermission": "Ver y Editar",
+    "getLinkButton": "Obtener Enlace"
+  },
+  "qrShare": {
+    "title": "Tu código QR está listo para {{ title }}",
+    "qrCodeAlt": "Código QR para {{ title }}",
+    "downloadQrCodeButton": "Descargar Código QR",
+    "loadingQrCode": "Cargando código QR...",
+    "downloadFileName": "keeplo-{{ contentType }}-{{ itemId }}-qr.png",
+    "noQrCodeAlert": "No se ha generado ningún código QR aún."
+  },
+  "linkShare": {
+    "title": "Tu enlace está listo",
+    "copyAndShareMessage": "¡Puedes copiar y compartir este enlace!"
+  },
+  "trashcanPage": {
+    "title": "Papelera",
+    "tableHeaders": {
+      "id": "ID",
+      "photo": "Foto",
+      "name": "Nombre",
+      "type": "Tipo",
+      "actions": "Acciones"
+    },
+    "tableCells": {
+      "collectionText": "Colección",
+      "itemText": "Ítem"
+    },
+    "restoreButtonAria": "Restaurar",
+    "deleteButtonAria": "Eliminar permanentemente",
+    "confirmPermanentDeletion": {
+      "title": "Confirmar Eliminación Permanente",
+      "message": "¿Estás seguro de que quieres eliminar <strong>{{ title }}</strong> permanentemente?<br>Después de aceptar, no podrás restaurar este elemento."
+    },
+    "itemDeletedPermanently": "{{ title }} eliminado permanentemente.",
+    "collectionDeletedPermanently": "Colección {{ title }} eliminada permanentemente.",
+    "confirmRestore": {
+      "title": "Confirmar Restauración",
+      "message": "¿Estás seguro de que quieres restaurar <strong>{{ title }}</strong>?"
+    },
+    "itemRestored": "{{ title }} restaurado.",
+    "collectionRestored": "Colección {{ title }} restaurada."
   }
 }

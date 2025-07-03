@@ -5,6 +5,7 @@ import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
 import {MatButton} from '@angular/material/button';
 import {Router} from '@angular/router';
 import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile',
@@ -14,7 +15,8 @@ import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.compo
     MatButton,
     MatCardTitle,
     MatCardContent,
-    ToolbarComponent
+    ToolbarComponent,
+    TranslatePipe
   ],
   styleUrls: ['./user-profile.component.css']
 })

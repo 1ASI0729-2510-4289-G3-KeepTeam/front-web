@@ -1,110 +1,169 @@
 .profile-container {
-  display: block;
-  font-family: 'Roboto', sans-serif;
-  background-color: #fff;
-  color: #4E1B12; /* marrón oscuro */
-}
-
-.profile-container {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  width: 100%;
-}
-
-.profile-header img {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  object-fit: cover;
+  align-items: center; /* Center content horizontally */
+  padding: 2rem;
+  font-family: 'Roboto', sans-serif;
+  background-color: #fff;
+  color: #4E1B12; /* Dark brown */
+  max-width: 900px; /* Limit width for better readability */
+  margin: 0 auto;
 }
 
 .profile-header {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
   width: 100%;
+  margin-bottom: 2rem;
+}
+
+.profile-header img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #FF8B68;
 }
 
 .header-content {
-  flex: 1; /* Esto hace que ocupe el resto del espacio */
+  flex: 1;
+}
+
+.username-and-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.username-and-button h1 {
+  font-size: 1.8rem;
+  margin: 0;
+  color: #4E1B12;
+}
+
+.username-and-button button {
+  background-color: #FFFAF3;
+  color: #FF8B68;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  box-shadow: none;
 }
 
 .section {
-  margin-top: 2rem;
+  width: 100%;
+  margin-bottom: 2rem;
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
-
+  justify-content: center;
 }
 
 .card {
   background-color: #fff;
   border-radius: 12px;
   padding: 1.5rem;
-  width: 300px;
-  justify-content: center;
+  width: 380px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
-.card h3 {
+.card mat-card-title {
   color: #4E1B12;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
 }
 
-.card button{
+.card p {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.card strong {
+  color: #FF8B68;
+}
+
+.card button.editButton {
   border-radius: 10px;
-  background-color: #FF8B68;
+  background-color: #FF8B68; /* Orange */
   color: #FFFFFF;
+  margin-top: 1rem;
+  width: 100%;
 }
 
-button.mat-raised-button {
+.change-password-Button {
+  background-color: #FFFCD7 !important;
+  color: #FF9A7C !important;
   border-radius: 10px;
   margin-top: 1rem;
-
+  width: 100%;
 }
 
-.username-and-button {
-  display: flex;
-  align-items: center;
+.bottom-buttons-container {
   width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  padding: 0 1rem;
 }
 
 .delete-button {
+  background-color: #E60000; /
+color: #E60000;
   border-radius: 10px;
+  font-weight: 500;
+}
+
+
+.logout-button {
+  background-color: #4E1B12;
   color: #FFFFFF;
-  margin-left: auto;
-  margin-right: 4rem;
-  justify-content: flex-start;
-}
-.button-container {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.profile-header {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 1rem;
-  width: 100%;
-}
-
-.profile-header h2 {
-  font-size: 1.8rem;
-  margin: 0;
-  flex-shrink: 0;
-}
-
-.profile-header button {
-  background-color: #ffe49e;
-  color: #4E1B12;
-  flex-shrink: 0;
   border-radius: 10px;
-  margin-left: auto;
-  margin-right: 4rem;
+  font-weight: 500;
 }
 
-.change-password-Button{
-  background-color: #FFFCD7 !important;
-  color: #FF9A7C !important;
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 1rem;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+
+  .username-and-button {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .username-and-button h1 {
+    font-size: 1.5rem;
+  }
+
+  .username-and-button button {
+    width: 80%;
+  }
+
+  .section {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .bottom-buttons-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .delete-button,
+  .logout-button {
+    width: 100%;
+  }
 }

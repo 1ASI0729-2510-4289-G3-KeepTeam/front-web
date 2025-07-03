@@ -5,7 +5,7 @@
     "trashcan": "Trashcan"
   },
   "navs": {
-    "myCollections": "My Colllections",
+    "myCollections": "My Collections",
     "subCollections": "SubCollections",
     "search": "Search",
     "addCollection": "Add Collection",
@@ -18,7 +18,19 @@
     "goToItemsLink": "Go to Items Link",
     "itemsLink": "Items Link",
     "tags": "Tags",
-    "selectImage": "Select Image"
+    "selectImage": "Select Image",
+    "newCollection": "New Collection",
+    "newCollectionPlaceholder": "New Collection Title",
+    "noImages": "No images",
+    "imageAlt": "image {{ index }}",
+    "collectionName": "Collection Name",
+    "color": "Color"
+  },
+  "colors": {
+    "cream": "Cream",
+    "orange": "Orange",
+    "lemon": "Lemon",
+    "sky": "Sky"
   },
   "cancel": "Cancel",
   "save": "Save",
@@ -28,10 +40,15 @@
     "share": "Share",
     "copyLink": "Copy Link",
     "shareQr": "Share as QR",
+    "shareLink": "Share as Link",
     "deleteCollection": "Delete Collection",
     "deleteItem": "Delete Item",
     "editCollection": "Edit Collection",
-    "editItem": "Edit Item"
+    "editItem": "Edit Item",
+    "viewCollection": "View Collection",
+    "deleteCollectionConfirmTitle": "Confirm Deletion",
+    "deleteCollectionConfirm": "Are you sure you want to delete <strong>{{ title }}</strong>? <br> You can later restore it in the trashcan section",
+    "deleteItemConfirm": "Are you sure you want to delete <strong>{{ title }}</strong>? <br> You can later restore it in the trashcan section"
   },
   "login": {
     "title": "Welcome back",
@@ -42,7 +59,6 @@
     "noAccount": "Not a member yet?",
     "signUpLink": "Sign Up",
     "signInButton": "Sign in",
-
     "fillAllFields": "Please complete all fields.",
     "invalidEmail": "The email address is not valid.",
     "incorrectCredentials": "Email or password is incorrect."
@@ -60,7 +76,6 @@
     "alreadyMember": "Already a member?",
     "signInLink": "Sign In",
     "signUpButton": "Sign Up",
-
     "allFieldsRequired": "All fields are required.",
     "invalidEmail": "The email is not valid.",
     "passwordMismatch": "Passwords do not match.",
@@ -68,6 +83,144 @@
     "registrationSuccess": "Registration successful. You can now log in."
   },
   "buttons": {
-    "close": "Close"
+    "close": "Close",
+    "no": "No",
+    "yes": "Yes",
+    "logout": "Log Out"
+  },
+  "profile": {
+    "greeting": "Hello, {{ name }} 👋",
+    "editProfileButton": "Edit profile",
+    "activityTitle": "Activity",
+    "savedItems": "Saved Items",
+    "paymentInformationTitle": "Payment Information",
+    "linkedCard": "Linked Card",
+    "holder": "Holder",
+    "editCardInfoButton": "Edit Card Information",
+    "currentPlan": "Current Plan",
+    "password": "Password",
+    "changePasswordButton": "Change Password",
+    "deleteAccountButton": "Delete Account",
+    "deleteProfileSuccess": "Profile deleted successfully!"
+  },
+  "passwordEdit": {
+    "title": "Edit Password",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "repeatNewPassword": "Repeat New Password",
+    "passwordMismatchError": "Passwords do not match",
+    "changePasswordButton": "Change Password",
+    "passwordChangedSuccess": "Password changed successfully!",
+    "passwordChangedError": "Failed to change password."
+  },
+  "profileEdit": {
+    "title": "Edit profile",
+    "uploadPhotoButton": "Upload Photo",
+    "usernameLabel": "Username",
+    "saveChangesButton": "Save Changes",
+    "uploadPhotoNotImplemented": "Upload photo feature not implemented yet.",
+    "profileUpdatedSuccess": "Profile updated!"
+  },
+  "paymentInfo": {
+    "title": "Payment Information",
+    "cardNumber": "Card Number",
+    "cardNumberPlaceholder": "Input the card number",
+    "holder": "Holder",
+    "expirationDate": "FV",
+    "expirationDatePlaceholder": "Expiration Date",
+    "changeCardButton": "Change Card",
+    "cardUpdateSuccess": "Card updated successfully!",
+    "cardUpdateError": "Failed to update card."
+  },
+  "plansPage": {
+    "chooseYourPlanTitle": "Choose your plan",
+    "subtitlePart1": "From casual collectors to power organizers —",
+    "subtitlePart2": "we’ve got you covered.",
+    "perMonth": "/ month",
+    "upgradeNowButton": "Upgrade now",
+    "starterPlan": {
+      "title": "Starter",
+      "price": "Free",
+      "feature1": "Up to 2 collections",
+      "feature2": "Up to 20 items per Collection",
+      "feature3": "Basic sharing via link",
+      "feature4": "Web access only",
+      "feature5": "No custom tags",
+      "feature6": "No customizables",
+      "feature7": "No sharing"
+    },
+    "plusPlan": {
+      "title": "Plus",
+      "feature1": "Up to 15 collections",
+      "feature2": "Up to 300 items per Collection",
+      "feature3": "Basic sharing via QR",
+      "feature4": "Customizable Collections",
+      "feature5": "Custom tags",
+      "feature6": "Sharing"
+    },
+    "infinitePlan": {
+      "title": "Infinite",
+      "feature1": "Up to 100 collections",
+      "feature2": "Up to 8000 items per Collection",
+      "feature3": "Sharing via QR and PDF",
+      "feature4": "Customizable Collections",
+      "feature5": "Custom tags",
+      "feature6": "Sharing via QR/Link/Export",
+      "feature7": "Moodboard"
+    }
+  },
+  "collectionPage": {
+    "noContent": "There is no content in this collection or subcollections."
+  },
+  "shareSettings": {
+    "title": "Share Settings",
+    "almostThere": "Almost there",
+    "expiryDateLabel": "Expiracy date",
+    "enterExpiryDateLabel": "Enter expiracy date",
+    "invalidDateFormatError": "Please enter a valid date in IHDA-MM-DD format.",
+    "permissionsLabel": "People with this link can",
+    "viewPermission": "View",
+    "viewAndEditPermission": "View and Edit",
+    "getLinkButton": "Get Link"
+  },
+  "qrShare": {
+    "title": "Your QR code is ready for {{ title }}",
+    "qrCodeAlt": "QR Code for {{ title }}",
+    "downloadQrCodeButton": "Download QR Code",
+    "loadingQrCode": "Loading QR code...",
+    "downloadFileName": "keeplo-{{ contentType }}-{{ itemId }}-qr.png",
+    "noQrCodeAlert": "No QR code generated yet."
+  },
+  "linkShare": {
+    "title": "Your link is ready",
+    "copyAndShareMessage": "You can copy and share this link!"
+  },
+  "trashcanPage": {
+    "title": "Trashcan",
+    "tableHeaders": {
+      "id": "ID",
+      "photo": "Photo",
+      "name": "Name",
+      "type": "Type",
+      "actions": "Actions"
+    },
+    "tableCells": {
+      "collectionText": "Collection",
+      "itemText": "Item"
+    },
+    "restoreButtonAria": "Restore",
+    "deleteButtonAria": "Delete permanently",
+    "confirmPermanentDeletion": {
+      "title": "Confirm Permanent Deletion",
+      "message": "Are you sure you want to delete <strong>{{ title }}</strong> permanently?<br>After accepting you can't restore this element, it will be deleted permanently."
+    },
+    "itemDeletedPermanently": "{{ title }} deleted permanently.",
+    "collectionDeletedPermanently": "Collection {{ title }} deleted permanently.",
+    "confirmRestore": {
+      "title": "Confirm Restore",
+      "message": "Are you sure you want to restore <strong>{{ title }}</strong>?"
+    },
+    "itemRestored": "{{ title }} Restored.",
+    "collectionRestored": "Collection {{ title }} Restored."
   }
 }
