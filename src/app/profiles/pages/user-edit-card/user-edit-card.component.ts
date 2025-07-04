@@ -10,7 +10,6 @@ import { Location } from '@angular/common';
 import { UserService } from '../../services/user.service';
 import {User} from '../../model/user';
 import {Router} from '@angular/router';
-import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
 
 @Component({
@@ -23,8 +22,7 @@ import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.compo
     MatInput,
     MatLabel,
     ReactiveFormsModule,
-    ToolbarComponent,
-    TranslatePipe
+    ToolbarComponent
   ],
   templateUrl: './user-edit-card.component.html',
   styleUrl: './user-edit-card.component.css'
@@ -32,13 +30,7 @@ import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.compo
 export class UserEditCardComponent implements OnInit {
   paymentForm!: FormGroup;
   user: User = new User();
-  constructor(
-    private fb: FormBuilder,
-    private location: Location,
-    private userService: UserService,
-    private router: Router,
-    private translate: TranslateService
-  ) {
+  constructor(private fb: FormBuilder, private location: Location, private userService: UserService, private router: Router) {
     this.paymentForm = this.fb.group({
       cardNumber: ['', Validators.required],
       holder: ['', Validators.required],
@@ -54,7 +46,8 @@ export class UserEditCardComponent implements OnInit {
       this.userService.getUserById(userId).subscribe(user => {
         this.user = user;
 
-         this.paymentForm = this.fb.group({
+        // Rellenar el formulario con los datos existentes si hay
+        this.paymentForm = this.fb.group({
           cardNumber: [user.card?.cardNumber || ''],
           holder: [user.card?.holder || ''],
           expirationDate: [user.card?.expirationDate || ''],
@@ -69,18 +62,21 @@ export class UserEditCardComponent implements OnInit {
     if (this.paymentForm.valid) {
       const cardData = this.paymentForm.value;
 
-      this.userService.updateUserCard(this.user.id, cardData).subscribe({
-        next: () => {
-          this.translate.get('paymentInfo.cardUpdateSuccess').subscribe((res: string) => {
-            alert(res);
-          });
-        },
-        error: () => {
-          this.translate.get('paymentInfo.cardUpdateError').subscribe((res: string) => {
-            alert(res);
-          });
-        }
-      });
+      if (this.user.card?.id) {
+        // Actualizar tarjeta existente
+        this.userService.updateUserCard(this.user.card.id, cardData).subscribe({
+          next: () => alert('Card updated successfully!'),
+          error: () => alert('Failed to update card.')
+        });
+      } else {
+        // Crear nueva tarjeta
+        const newCard = { ...cardData, userId: this.user.id };
+        this.userService.createUserCard(newCard).subscribe({
+          next: () => alert('Card created successfully!'),
+          error: () => alert('Failed to create card.')
+        });
+      }
+
     } else {
       this.paymentForm.markAllAsTouched();
     }

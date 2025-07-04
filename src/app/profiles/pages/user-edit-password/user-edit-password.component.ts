@@ -1,22 +1,23 @@
-import { Component, OnInit  } from '@angular/core';
-import {MatButton, MatIconButton} from '@angular/material/button';
-import {MatFormField} from '@angular/material/form-field';
-import {MatIcon} from '@angular/material/icon';
-import {MatLabel} from '@angular/material/input';
-import {ReactiveFormsModule} from '@angular/forms';
-import {MatInput} from '@angular/material/input';
-import {UserService} from '../../services/user.service';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import {User} from '../../model/user';
-import {NgIf} from '@angular/common';
-import {Router} from '@angular/router';
 import { Location } from '@angular/common';
-import {MatError} from '@angular/material/input';
-import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
-import {TranslatePipe, TranslateService} from '@ngx-translate/core';
+import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
+import { User } from '../../model/user';
+
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatFormField } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatIcon } from '@angular/material/icon';
+import { MatLabel } from '@angular/material/input';
+import { MatError } from '@angular/material/input';
+import { NgIf } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ToolbarComponent } from '../../../public/components/toolbar/toolbar.component';
 
 @Component({
   selector: 'app-user-edit-password',
+  standalone: true,
   imports: [
     MatLabel,
     MatFormField,
@@ -27,8 +28,7 @@ import {TranslatePipe, TranslateService} from '@ngx-translate/core';
     MatIcon,
     MatIconButton,
     MatError,
-    ToolbarComponent,
-    TranslatePipe
+    ToolbarComponent
   ],
   templateUrl: './user-edit-password.component.html',
   styleUrl: './user-edit-password.component.css'
@@ -41,24 +41,22 @@ export class UserEditPasswordComponent implements OnInit {
     private fb: FormBuilder,
     private location: Location,
     private userService: UserService,
-    private router: Router,
-  private translate: TranslateService
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    // Inicializar el formulario inmediatamente para evitar errores de binding
+    this.passwordForm = this.fb.group({
+      currentPassword: ['', Validators.required],
+      newPassword: ['', [Validators.required, Validators.minLength(6)]],
+      repeatPassword: ['', Validators.required]
+    }, { validators: this.passwordMatchValidator });
+
     const userId = Number(localStorage.getItem('userId'));
-    if (!userId) {
-       return;
-    }
+    if (!userId) return;
 
     this.userService.getUserById(userId).subscribe(user => {
       this.user = user;
-
-      this.passwordForm = this.fb.group({
-        currentPassword: ['', Validators.required],
-        newPassword: ['', [Validators.required, Validators.minLength(6)]],
-        repeatPassword: ['', Validators.required]
-      }, { validators: this.passwordMatchValidator });
     });
   }
 
@@ -84,16 +82,8 @@ export class UserEditPasswordComponent implements OnInit {
     if (this.passwordForm.valid) {
       const { currentPassword, newPassword } = this.passwordForm.value;
       this.userService.changePassword(this.user.id, currentPassword, newPassword).subscribe({
-        next: () => {
-          this.translate.get('passwordEdit.passwordChangedSuccess').subscribe((res: string) => {
-            alert(res);
-          });
-        },
-        error: () => {
-          this.translate.get('passwordEdit.passwordChangedError').subscribe((res: string) => {
-            alert(res);
-          });
-        }
+        next: () => alert('Password changed successfully!'),
+        error: () => alert('Failed to change password.')
       });
       this.passwordForm.reset();
     } else {
@@ -105,4 +95,3 @@ export class UserEditPasswordComponent implements OnInit {
     this.location.back();
   }
 }
-
