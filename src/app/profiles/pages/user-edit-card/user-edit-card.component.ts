@@ -33,7 +33,7 @@ export class UserEditCardComponent implements OnInit {
   constructor(private fb: FormBuilder, private location: Location, private userService: UserService, private router: Router) {
     this.paymentForm = this.fb.group({
       cardNumber: ['', Validators.required],
-      holder: ['', Validators.required],
+      holderName: ['', Validators.required],
       expirationDate: ['', Validators.required],
       cvv: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(4)]]
     });
@@ -49,7 +49,7 @@ export class UserEditCardComponent implements OnInit {
         // Rellenar el formulario con los datos existentes si hay
         this.paymentForm = this.fb.group({
           cardNumber: [user.card?.cardNumber || ''],
-          holder: [user.card?.holder || ''],
+          holderName: [user.card?.holderName || ''],
           expirationDate: [user.card?.expirationDate || ''],
           cvv: [user.card?.cvv || '']
         });
