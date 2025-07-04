@@ -14,6 +14,7 @@ import { MatError } from '@angular/material/input';
 import { NgIf } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToolbarComponent } from '../../../public/components/toolbar/toolbar.component';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-edit-password',
@@ -28,7 +29,8 @@ import { ToolbarComponent } from '../../../public/components/toolbar/toolbar.com
     MatIcon,
     MatIconButton,
     MatError,
-    ToolbarComponent
+    ToolbarComponent,
+    TranslatePipe
   ],
   templateUrl: './user-edit-password.component.html',
   styleUrl: './user-edit-password.component.css'
@@ -81,10 +83,10 @@ export class UserEditPasswordComponent implements OnInit {
   changePassword(): void {
     if (this.passwordForm.valid) {
       const { currentPassword, newPassword } = this.passwordForm.value;
-      this.userService.changePassword(this.user.id, currentPassword, newPassword).subscribe({
+     /* this.userService.changePassword(this.user.id, currentPassword, newPassword).subscribe({
         next: () => alert('Password changed successfully!'),
         error: () => alert('Failed to change password.')
-      });
+      });*/
       this.passwordForm.reset();
     } else {
       this.passwordForm.markAllAsTouched();

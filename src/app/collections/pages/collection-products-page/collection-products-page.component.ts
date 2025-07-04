@@ -106,7 +106,6 @@
         this.getCollection(this.collectionId);
         this.getProducts();
         this.loadCollections();
-        this.loadSubCollections();
       });
     }
 
@@ -219,25 +218,7 @@
           this.collections = data.filter(c => !c.isInTrash);
         },
         error: (error) => {
-
           console.error(this.translate.instant('consoleMessages.errorLoadingCollections'), error);
-        }
-      });
-    }
-
-    /**
-     * @function loadSubCollections
-     * @description Fetches sub-collections (as Collection) for the sidebar navigation.
-     */
-    loadSubCollections() {
-      this.subCollections = [];
-      this.collectionsService.getSubCollectionsByParentId(this.collectionId).subscribe({
-        next: (subCollections: Collection[]) => {
-          this.subCollections = subCollections.filter(c => !c.isInTrash);
-        },
-        error: (err) => {
-
-          console.error(this.translate.instant('consoleMessages.errorLoadingSubcollections'), err);
         }
       });
     }
@@ -277,9 +258,7 @@
           const updatedItem = { ...collection, isInTrash: true };
           this.collectionsService.updateCollection(updatedItem).subscribe(() => {
             this.loadCollections();
-            this.loadSubCollections();
           }, error => {
-            // Mensaje de error traducido
             console.error(this.translate.instant('consoleMessages.errorMovingCollectionToTrash'), error);
           });
         }
@@ -385,8 +364,8 @@
      * @param wish - The Wish object to edit.
      */
     editWish(wish: Wish) {
-      if (wish && wish.id && wish.idCollection) {
-        this.router.navigate(['/collections', wish.idCollection, wish.id, 'edit']);
+      if (wish && wish.id && wish.collectionId) {
+        this.router.navigate(['/collections', wish.collectionId, wish.id, 'edit']);
       } else {
 
         console.warn(this.translate.instant('consoleMessages.errorEditingWish'), wish);

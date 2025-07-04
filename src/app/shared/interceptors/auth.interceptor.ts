@@ -2,9 +2,10 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
 export const authInterceptorFn: HttpInterceptorFn = (req, next) => {
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoiZW1haWwxMjNAZ21haWwuY29tIiwiaWF0IjoxNzUwNjA1MjI1LCJleHAiOjE3NTEyMTAwMjV9.LqMPXK0PdNTkjbs3l9Pgi_b-skD7OPbEZVNB7BuNu-M';
+    const token = localStorage.getItem('token');
+    const isCloudinary = req.url.includes('https://api.cloudinary.com/');
 
-  if (token) {
+    if (token && !isCloudinary) {
     const authReq = req.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`

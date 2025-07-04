@@ -10,6 +10,7 @@ import {MatLabel} from '@angular/material/input';
 import {MatIcon} from '@angular/material/icon';
 import {UploadService} from '../../../shared/services/images.service'
 import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-edit-dialog',
@@ -22,6 +23,7 @@ import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.compo
     MatIcon,
     MatIconButton,
     ToolbarComponent,
+    TranslatePipe,
   ],
   templateUrl: './user-edit-dialog.component.html',
   styleUrl: './user-edit-dialog.component.css'

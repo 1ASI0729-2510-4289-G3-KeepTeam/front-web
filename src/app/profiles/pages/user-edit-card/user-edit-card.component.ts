@@ -11,6 +11,7 @@ import { UserService } from '../../services/user.service';
 import {User} from '../../model/user';
 import {Router} from '@angular/router';
 import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-edit-card',
@@ -22,7 +23,8 @@ import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.compo
     MatInput,
     MatLabel,
     ReactiveFormsModule,
-    ToolbarComponent
+    ToolbarComponent,
+    TranslatePipe
   ],
   templateUrl: './user-edit-card.component.html',
   styleUrl: './user-edit-card.component.css'

@@ -16,7 +16,7 @@ import { SearchResult } from '../../shared/models/search-result.interface';
   providedIn: 'root',
 })
 export class CollectionsService {
-  private readonly baseUrl = environment.APIBaseUrl;
+  private readonly baseUrl = environment.apiBaseUrl;
 
   constructor(private http: HttpClient) {}
   /**
@@ -63,7 +63,7 @@ export class CollectionsService {
   }
 
   getSubCollectionsByParentId(parentId: number): Observable<FullCollection[]> {
-    return this.http.get<FullCollection[]>(`${this.baseUrl}/collections?idParentCollection=${parentId}`);
+    return this.http.get<FullCollection[]>(`${this.baseUrl}/collections/parentCollection/${parentId}`);
   }
 
   /**
@@ -80,10 +80,10 @@ export class CollectionsService {
         const wish = new Wish();
 
         wish.id = wishId;
-        wish.idCollection = wishData.collectionId  ?? 1;
+        wish.collectionId = wishData.collectionId  ?? 1;
         wish.title = wishData.title;
         wish.description = wishData.description;
-        wish.urlImg = wishData.url;
+        wish.urlImg = wishData.urlImg;
         wish.redirectUrl = wishData.redirectUrl ?? null;
 
         wish.tags = (wishData.tags || []).map((tag: any) => {
@@ -181,7 +181,7 @@ export class CollectionsService {
    */
   getProductsByIdCollection(idCollection: number) {
     return this.http
-      .get<any[]>(`${this.baseUrl}/items?idCollection=${idCollection}`)
+      .get<any[]>(`${this.baseUrl}/wishes/collection/${idCollection}`)
       .pipe(
         map((response): Wish[] => {
           if (!response || !Array.isArray(response)) {
@@ -192,7 +192,7 @@ export class CollectionsService {
           return response.map((item) => {
             const wish = new Wish();
             wish.id = item.id;
-            wish.idCollection = item.collectionId;
+            wish.collectionId = item.collectionId;
             wish.title = item.title;
             wish.description = item.description;
             wish.urlImg = item.urlImg;
@@ -211,7 +211,7 @@ export class CollectionsService {
   }
 
   getSubCollectionsFromCollection(idCollection: number){
-    const subCollections = this.http.get<Collection[]>(`${this.baseUrl}/collections?idParentCollection=${idCollection}`).pipe(
+    const subCollections = this.http.get<Collection[]>(`${this.baseUrl}/collections/parentCollection/${idCollection}`).pipe(
       map(response => CollectionAssembler.toEntitiesFromResponse(response))
     )
     return this.transformToFullCollection(subCollections);
@@ -270,7 +270,7 @@ export class CollectionsService {
           return response.map((item) => {
             const wish = new Wish();
             wish.id = item.id;
-            wish.idCollection = item.idCollection;
+            wish.collectionId = item.idCollection;
             wish.title = item.title;
             wish.description = item.description;
             wish.urlImg = item.urlImg;
@@ -329,7 +329,7 @@ export class CollectionsService {
         return response.map((item) => {
           const wish = new Wish();
           wish.id = item.id;
-          wish.idCollection = item.idCollection;
+          wish.collectionId = item.collectionId;
           wish.title = item.title;
           wish.description = item.description;
           wish.urlImg = item.urlImg;

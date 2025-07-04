@@ -5,6 +5,7 @@ import { RouterModule, Router } from '@angular/router';
 import {MatChip, MatChipSet} from '@angular/material/chips';
 import {Tag} from '../../model/tag.entity';
 import { EntityOptionsMenuComponent } from '../../../public/components/entity-options-menu/entity-options-menu.component';
+import {Wish} from '../../model/wish.entity';
 
 /**
  * @component ProductItemCardComponent
@@ -62,7 +63,7 @@ export class ProductItemCardComponent {
    * @description The full item object, passed to the options menu y usado para la navegación.
    * Debe contener 'id' (el ID del producto) y 'idCollection' para que la navegación funcione.
    */
-  @Input() item: any; // Consider strongly typing this, e.g., 'Wish' if applicable.
+  @Input() item: any;
 
   /**
    * @output delete
@@ -126,8 +127,8 @@ export class ProductItemCardComponent {
    * @description Navega a la página de detalles del ítem cuando la tarjeta es clickeada.
    */
   navigateToItem(): void {
-    if (this.item && this.item.id && this.item.idCollection) {
-      this.router.navigate(['/collections', this.item.idCollection, this.item.id]);
+    if (this.item && this.item.id && this.item.collectionId) {
+      this.router.navigate(['/collections', this.item.collectionId, this.item.id]);
     } else {
       console.warn(
         'ProductItemCardComponent: No se puede navegar al ítem. Falta item.id o item.idCollection en el input "item".',

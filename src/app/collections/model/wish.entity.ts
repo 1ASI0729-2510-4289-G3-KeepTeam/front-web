@@ -7,7 +7,7 @@ import { Tag } from './tag.entity';
  */
 export class Wish {
   id: number;
-  idCollection: number;
+  collectionId: number;
   title: string;
   description: string;
   isInTrash: boolean;
@@ -17,7 +17,7 @@ export class Wish {
 
   constructor() {
     this.id = 0;
-    this.idCollection = 0;
+    this.collectionId = 0;
     this.title = '';
     this.isInTrash = false;
     this.description = '';

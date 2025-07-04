@@ -89,7 +89,7 @@ export class WishEditItemComponent implements OnInit {
         this.wish = new Wish();
         const collectionIdParam = params.get('collectionId');
         if (collectionIdParam) {
-          this.wish.idCollection = Number(collectionIdParam);
+          this.wish.collectionId = Number(collectionIdParam);
         } else {
           console.warn('No se recibió collectionId en la ruta');
         }
@@ -216,7 +216,7 @@ export class WishEditItemComponent implements OnInit {
       return;
     }
 
-    if (!this.wish.idCollection) {
+    if (!this.wish.collectionId) {
       alert('No se ha establecido una colección válida');
       return;
     }
@@ -234,7 +234,10 @@ export class WishEditItemComponent implements OnInit {
       });
     } else {
       // Create
+      console.log("raw wish:", this.wish);
+
       this.collectionsService.createWish(this.wish).subscribe({
+
         next: (createdWish) => {
           console.log('Wish created:', createdWish);
           history.back();
