@@ -39,7 +39,11 @@
 
       </mat-card-content>
     </mat-card>
-      <button mat-flat-button class="upgrade-plus-button" color="primary" routerLink="/upgrade">Upgrade now</button>
+      <!-- Plus (id: 2) -->
+      <button mat-flat-button class="upgrade-plus-button" color="primary"
+              (click)="goToPurchase(2)">
+        Upgrade now
+      </button>
     </div>
 
 
@@ -60,7 +64,10 @@
         </ul>
       </mat-card-content>
     </mat-card>
-      <button mat-flat-button class="upgrade-infinite-button" color="accent" routerLink="/upgrade">Upgrade now</button>
+      <button mat-flat-button class="upgrade-infinite-button" color="accent"
+              (click)="goToPurchase(3)">
+        Upgrade now
+      </button>
     </div>
 
   </div>

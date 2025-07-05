@@ -7,6 +7,7 @@ import { AuthorizationService } from '../../../../shared/services/authorization.
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TokenStorageService} from '../../../../shared/services/tokenStorage.service';
 
 @Component({
   selector: 'app-login-component',
@@ -34,7 +35,8 @@ export class LoginComponent {
     private authService: AuthorizationService,
     private snackBar: MatSnackBar,
     private router: Router,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private tokenStorageService: TokenStorageService
   ) {}
 
   onLogin(): void {
@@ -50,12 +52,18 @@ export class LoginComponent {
     }
 
     this.authService.login(this.email, this.password).subscribe(response => {
-      const userId = response.id;
+      //const userId = response.id;
+      //const token = response.token;
       const token = response.token;
 
+      // Ajustamos aquí: usamos directamente el response como "user"
+      this.tokenStorageService.saveToken(token);
+      this.tokenStorageService.saveUser(response); // response tiene el id directamente
+
+
       // 🔐 Guardar token y userId
-      localStorage.setItem('token', token);
-      localStorage.setItem('userId', userId.toString());
+      //localStorage.setItem('token', token);
+      //localStorage.setItem('userId', userId.toString());
 
       // Redirige, etc.
       this.router.navigate(['/user-profile']);

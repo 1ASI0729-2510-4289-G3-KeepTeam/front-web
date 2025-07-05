@@ -17,6 +17,9 @@ import {Router, RouterLink} from '@angular/router';
 export class PlansContentComponent {
   constructor(private router: Router) {
   }
+  goToPurchase(membershipId: number): void {
+    this.router.navigate(['/purchase'], { queryParams: { membershipId } });
+  }
 
 
 }
