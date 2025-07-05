@@ -6,6 +6,7 @@ import {MatButton} from '@angular/material/button';
 import {Router} from '@angular/router';
 import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
 import {TranslatePipe} from '@ngx-translate/core';
+import {TokenStorageService} from '../../../shared/services/tokenStorage.service';
 
 @Component({
   selector: 'app-profile',
@@ -22,10 +23,11 @@ import {TranslatePipe} from '@ngx-translate/core';
 })
 export class UserProfileComponent implements OnInit {
   user: User = new User();
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private router: Router,
+              private tokenStorageService: TokenStorageService) {}
 
   ngOnInit(): void {
-    const userId = Number(localStorage.getItem('userId'));
+    const userId = Number(this.tokenStorageService.getUserId());
     console.log('User ID from localStorage:', userId);  // <-- Aquí para verificar el ID
 
     if (userId) {
@@ -68,6 +70,11 @@ export class UserProfileComponent implements OnInit {
   }
 
   goToLogin(): void {
+    this.router.navigate(['/login']);
+  }
+
+  logout() {
+    this.tokenStorageService.signOut(); // 🔐 Limpia token, userId y user
     this.router.navigate(['/login']);
   }
 

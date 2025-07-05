@@ -56,6 +56,11 @@ export class PurchaseSubscriptionComponent implements OnInit {
   }
 
   onSubmit({ membershipId, paymentCardId }: { membershipId: number; paymentCardId: number }) {
+    console.log('Enviando suscripción:', {
+      userId: this.userId,
+      membershipId,
+      paymentCardId
+    });
     this.subscriptionService
       .createSubscription({ userId: this.userId, membershipId, paymentCardId })
       .subscribe({

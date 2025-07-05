@@ -7,7 +7,7 @@ import { AuthorizationService } from '../../../../shared/services/authorization.
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { TokenStorageService} from '../../../../shared/services/tokenStorage.service';
+import { TokenStorageService } from '../../../../shared/services/tokenStorage.service';
 
 @Component({
   selector: 'app-login-component',
@@ -18,7 +18,6 @@ import { TokenStorageService} from '../../../../shared/services/tokenStorage.ser
     MatFormField,
     MatLabel,
     MatInput,
-    MatFormField,
     MatButton,
     RouterLink,
     FormsModule,
@@ -51,22 +50,20 @@ export class LoginComponent {
       return;
     }
 
-    this.authService.login(this.email, this.password).subscribe(response => {
-      //const userId = response.id;
-      //const token = response.token;
-      const token = response.token;
+    this.authService.login(this.email, this.password).subscribe({
+      next: (response) => {
+        const token = response.token;
+        const user = response; // Asegúrate de que el backend retorna el objeto completo con `id`, `email`, etc.
 
-      // Ajustamos aquí: usamos directamente el response como "user"
-      this.tokenStorageService.saveToken(token);
-      this.tokenStorageService.saveUser(response); // response tiene el id directamente
+        this.tokenStorageService.saveToken(token);
+        this.tokenStorageService.saveUser(user);
 
-
-      // 🔐 Guardar token y userId
-      //localStorage.setItem('token', token);
-      //localStorage.setItem('userId', userId.toString());
-
-      // Redirige, etc.
-      this.router.navigate(['/user-profile']);
+        console.log('✅ Login exitoso. ID guardado:', user.id);
+        this.router.navigate(['/user-profile']);
+      },
+      error: () => {
+        this.showError('login.failed');
+      }
     });
   }
 
