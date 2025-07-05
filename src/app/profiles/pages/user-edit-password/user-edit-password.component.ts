@@ -14,6 +14,7 @@ import { MatError } from '@angular/material/input';
 import { NgIf } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToolbarComponent } from '../../../public/components/toolbar/toolbar.component';
+import { TokenStorageService } from '../../../shared/services/tokenStorage.service'; // ✅ importado
 
 @Component({
   selector: 'app-user-edit-password',
@@ -41,7 +42,8 @@ export class UserEditPasswordComponent implements OnInit {
     private fb: FormBuilder,
     private location: Location,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private tokenStorageService: TokenStorageService // ✅ inyectado
   ) {}
 
   ngOnInit(): void {
@@ -52,11 +54,16 @@ export class UserEditPasswordComponent implements OnInit {
       repeatPassword: ['', Validators.required]
     }, { validators: this.passwordMatchValidator });
 
-    const userId = Number(localStorage.getItem('userId'));
-    if (!userId) return;
+    const userId = this.tokenStorageService.getUserId(); // ✅ uso correcto del servicio
 
-    this.userService.getUserById(userId).subscribe(user => {
-      this.user = user;
+    if (!userId) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    this.userService.getUserById(userId).subscribe({
+      next: user => this.user = user,
+      error: err => console.error('Error al obtener el usuario:', err)
     });
   }
 

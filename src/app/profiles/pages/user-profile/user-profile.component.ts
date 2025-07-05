@@ -7,6 +7,8 @@ import {Router} from '@angular/router';
 import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
 import {TranslatePipe} from '@ngx-translate/core';
 import {TokenStorageService} from '../../../shared/services/tokenStorage.service';
+import {SubscriptionService} from '../../../payment/services/subscription.service';
+
 
 @Component({
   selector: 'app-profile',
@@ -23,7 +25,11 @@ import {TokenStorageService} from '../../../shared/services/tokenStorage.service
 })
 export class UserProfileComponent implements OnInit {
   user: User = new User();
-  constructor(private userService: UserService, private router: Router,
+  currentPlanName: string= '';
+  last4Digits: string = '';
+  constructor(private userService: UserService,
+              private subscriptionService: SubscriptionService,
+              private router: Router,
               private tokenStorageService: TokenStorageService) {}
 
   ngOnInit(): void {
@@ -34,6 +40,15 @@ export class UserProfileComponent implements OnInit {
       this.userService.getUserById(userId).subscribe(user => {
         console.log('User API response:', user); // <-- Aquí para ver qué devuelve la API
         this.user = user;
+        this.subscriptionService.getUserSubscription(userId).subscribe((subscription: any) => {
+          if (subscription && subscription.membership && subscription.paymentCard) {
+            this.currentPlanName = subscription.membership.name;
+            this.last4Digits = subscription.paymentCard.cardNumber.slice(-4);
+          } else {
+            this.currentPlanName = 'No plan';
+            this.last4Digits = '----';
+          }
+        });
       }, error => {
         console.error('Error fetching user:', error); // <-- Opcional, para errores
       });

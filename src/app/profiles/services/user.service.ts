@@ -3,6 +3,7 @@ import { HttpClient,  HttpHeaders } from '@angular/common/http';
 import { User } from '../model/user';
 import { Observable } from 'rxjs';
 import {environment} from '../../../environments/environment';
+import { PaymentCard } from '../../payment/model/payment-card';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,11 @@ export class UserService {
   createUserCard(cardData: any): Observable<any> {
     return this.http.post(`${this.cardsUrl}`, cardData);
   }
+
+  getCardsByUserId(userId: number): Observable<PaymentCard[]> {
+    return this.http.get<PaymentCard[]>(`${this.cardsUrl}/user/${userId}`);
+  }
+
 
   updateUserCard(paymentCardId: number, cardData: any): Observable<any> {
     return this.http.put(`${this.cardsUrl}/${paymentCardId}`, cardData);

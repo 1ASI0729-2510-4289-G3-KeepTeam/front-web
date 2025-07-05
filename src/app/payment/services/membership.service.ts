@@ -15,4 +15,6 @@ export class MembershipService {
   getAll(): Observable<Membership[]> {
     return this.http.get<Membership[]>(this.apiUrl);
   }
+
+
 }
