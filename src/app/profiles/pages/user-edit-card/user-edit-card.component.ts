@@ -11,6 +11,7 @@ import { UserService } from '../../services/user.service';
 import {User} from '../../model/user';
 import {Router} from '@angular/router';
 import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
+import {TokenStorageService} from '../../../shared/services/tokenStorage.service';
 
 @Component({
   selector: 'app-user-edit-card',
@@ -30,7 +31,9 @@ import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.compo
 export class UserEditCardComponent implements OnInit {
   paymentForm!: FormGroup;
   user: User = new User();
-  constructor(private fb: FormBuilder, private location: Location, private userService: UserService, private router: Router) {
+  constructor(private fb: FormBuilder, private location: Location,
+              private userService: UserService,
+              private router: Router, private tokenStorageService: TokenStorageService,) {
     this.paymentForm = this.fb.group({
       cardNumber: ['', Validators.required],
       holderName: ['', Validators.required],
@@ -41,7 +44,7 @@ export class UserEditCardComponent implements OnInit {
 
 
   ngOnInit(): void {
-    const userId = Number(localStorage.getItem('userId'));
+    const userId = this.tokenStorageService.getUserId();
     if (userId) {
       this.userService.getUserById(userId).subscribe(user => {
         this.user = user;
