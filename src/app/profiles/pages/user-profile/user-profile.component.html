@@ -22,7 +22,7 @@
     <mat-card class="card">
       <mat-card-title>{{ 'profile.paymentInformationTitle' | translate }}</mat-card-title>
       <mat-card-content>
-        <p><strong>{{ 'profile.linkedCard' | translate }}:</strong> ••••0342</p>
+        <p><strong>{{ 'profile.linkedCard' | translate }}:</strong> ••••{{ last4Digits }}</p>
         <p><strong>{{ 'profile.holder' | translate }}:</strong> {{ user.name }}</p>
         <button mat-raised-button class="editButton" color="accent" (click)="goToEditCardInformation()">{{ 'profile.editCardInfoButton' | translate }}</button>
       </mat-card-content>
@@ -31,7 +31,7 @@
 
   <div class="section">
     <mat-card class="card">
-      <mat-card-title>{{ 'profile.currentPlan' | translate }}: Infinite</mat-card-title>
+      <mat-card-title>{{ 'profile.currentPlan' | translate }}: {{ currentPlanName }}</mat-card-title>
       <mat-card-content>
         <p><strong>Email:</strong> {{ user.email }}</p>
         <p><strong>{{ 'profile.password' | translate }}:</strong> ********</p>
@@ -41,6 +41,6 @@
   </div>
 
   <div class="bottom-buttons-container"> <button mat-raised-button class="delete-button" (click)="deleteProfile()">{{ 'profile.deleteAccountButton' | translate }}</button>
-    <button mat-raised-button class="logout-button" (click)="goToLogin()">{{ 'buttons.logout' | translate }}</button>
+    <button mat-raised-button class="logout-button" (click)="logout()">{{ 'buttons.logout' | translate }}</button>
   </div>
 </div>

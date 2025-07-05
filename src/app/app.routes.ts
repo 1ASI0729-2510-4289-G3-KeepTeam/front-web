@@ -17,6 +17,7 @@ import {ShareSettingsComponent} from './collections/pages/share-settings/share-s
 import {LinkShareComponent} from './collections/pages/link-share-page/link-share.component';
 import {QrShareComponent} from './collections/pages/qr-share-page/qr-share.component';
 import {TrashcanComponent} from './collections/pages/trashcan/trashcan.component';
+import {PurchaseSubscriptionComponent} from './payment/pages/purchase-subscription/purchase-subscription.component';
 
 export const routes: Routes = [
   {
@@ -63,6 +64,9 @@ export const routes: Routes = [
   { path: 'share-qr', component: QrShareComponent },
   { path: 'trashcan', component: TrashcanComponent },
 { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'collections/new/edit', component: CollectionEditPageComponent },
+  { path: 'collections/:collectionId/edit', component: CollectionEditPageComponent },
+  {path: 'purchase', component: PurchaseSubscriptionComponent },
 ];
 
 @NgModule({

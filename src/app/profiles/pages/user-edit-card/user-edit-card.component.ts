@@ -11,6 +11,7 @@ import { UserService } from '../../services/user.service';
 import {User} from '../../model/user';
 import {Router} from '@angular/router';
 import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
+import {TokenStorageService} from '../../../shared/services/tokenStorage.service';
 import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
@@ -32,10 +33,12 @@ import {TranslatePipe} from '@ngx-translate/core';
 export class UserEditCardComponent implements OnInit {
   paymentForm!: FormGroup;
   user: User = new User();
-  constructor(private fb: FormBuilder, private location: Location, private userService: UserService, private router: Router) {
+  constructor(private fb: FormBuilder, private location: Location,
+              private userService: UserService,
+              private router: Router, private tokenStorageService: TokenStorageService,) {
     this.paymentForm = this.fb.group({
-      cardNumber: ['', Validators.required],
-      holder: ['', Validators.required],
+      cardNumber: ['', [Validators.required, Validators.pattern(/^\d{16}$/)]],
+      holderName: ['', Validators.required],
       expirationDate: ['', Validators.required],
       cvv: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(4)]]
     });
@@ -43,22 +46,36 @@ export class UserEditCardComponent implements OnInit {
 
 
   ngOnInit(): void {
-    const userId = Number(localStorage.getItem('userId'));
+    const userId = this.tokenStorageService.getUserId();
     if (userId) {
       this.userService.getUserById(userId).subscribe(user => {
         this.user = user;
 
-        // Rellenar el formulario con los datos existentes si hay
-        this.paymentForm = this.fb.group({
-          cardNumber: [user.card?.cardNumber || ''],
-          holder: [user.card?.holder || ''],
-          expirationDate: [user.card?.expirationDate || ''],
-          cvv: [user.card?.cvv || '']
+        // Llamada adicional para obtener la tarjeta
+        this.userService.getCardsByUserId(userId).subscribe(cards => {
+          if (cards.length > 0) {
+            this.user.card = cards[0]; // Asignamos la tarjeta al usuario
+          }
+
+          this.paymentForm = this.fb.group({
+            cardNumber: [this.user.card?.cardNumber || '', [
+              Validators.required,
+              Validators.pattern(/^\d{16}$/)
+            ]],
+            holderName: [this.user.card?.holderName || '', Validators.required],
+            expirationDate: [this.user.card?.expirationDate || '', Validators.required],
+            cvv: [this.user.card?.cvv || '', [
+              Validators.required,
+              Validators.minLength(3),
+              Validators.maxLength(4)
+            ]]
+          });
         });
       });
     } else {
       this.router.navigate(['/login']);
     }
+
   }
   changeCard(): void {
     if (this.paymentForm.valid) {
@@ -74,7 +91,8 @@ export class UserEditCardComponent implements OnInit {
         // Crear nueva tarjeta
         const newCard = { ...cardData, userId: this.user.id };
         this.userService.createUserCard(newCard).subscribe({
-          next: () => alert('Card created successfully!'),
+          next: () => {alert('Card created successfully!');
+          this.router.navigate(['/user-profile']);},
           error: () => alert('Failed to create card.')
         });
       }

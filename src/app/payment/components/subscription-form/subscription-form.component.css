@@ -1,0 +1,75 @@
+.subscription-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  color: #3f51b5;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.carousel {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding: 1rem 0;
+  margin-bottom: 1.5rem;
+  scroll-snap-type: x mandatory;
+}
+
+.card {
+  flex: 0 0 auto;
+  min-width: 220px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  scroll-snap-align: start;
+  border: 2px solid transparent;
+}
+
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.card.selected {
+  border: 2px solid #3f51b5;
+  background-color: #e8eaf6;
+  transform: scale(1.05);
+}
+
+.card p {
+  margin: 0.4rem 0;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.button-wrapper {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.no-cards-message {
+  text-align: center;
+  margin-top: 1rem;
+}
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
