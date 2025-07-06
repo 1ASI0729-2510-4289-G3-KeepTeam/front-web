@@ -34,7 +34,6 @@ import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.compo
     CommonModule,
     TranslatePipe,
     ToolbarComponent,
-    // ToolbarComponent, // Assuming ToolbarComponent is already correctly imported and displays its own translations
   ],
   templateUrl: './collections-grid.component.html',
   styleUrl: './collections-grid.component.css',
@@ -103,7 +102,7 @@ export class CollectionsGridComponent implements OnInit, OnDestroy {
   loadCollections() {
     this.collectionsService.getFullCollections().subscribe({
       next: (data: FullCollection[]) => {
-        this.collections = data.filter(col => !col.isInTrash);
+        this.collections = data.filter(col => !col.isInTrash && col.idParentCollection === 0);
         console.log(this.collections);
       },
       error: (error) => {
@@ -136,7 +135,7 @@ export class CollectionsGridComponent implements OnInit, OnDestroy {
   deleteCollection(collection: any){
     // Use forkJoin to get multiple translations at once
     forkJoin({
-      title: this.translate.get('itemsAction.deleteCollectionConfirmTitle'), // New key for dialog title
+      title: this.translate.get('itemsAction.deleteCollectionConfirmTitle'),
       message: this.translate.get('itemsAction.deleteCollectionConfirm', { title: collection.title })
     }).subscribe(translations => {
       const dialogRef = this.dialog.open(PopConfirmDialogComponent, {

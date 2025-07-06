@@ -286,7 +286,7 @@ export class CollectionsService {
    * @returns Observable of SearchResult array.
    */
   searchCollections(query: string): Observable<SearchResult[]> {
-    const url = `${this.baseUrl}/collections?title_like=${query}&isInTrash=false&idParentCollection=0`; // <-- ¡NUEVO FILTRO!
+    const url = `${this.baseUrl}/collections?title_like=${query}&isInTrash=false&idParentCollection=0`;
     if (!query.trim()) {
       return this.getFullCollections().pipe(
 
@@ -351,7 +351,7 @@ export class CollectionsService {
           map(wishes => wishes.map(wish => ({ id: wish.id, title: wish.title, type: 'wish' } as SearchResult)))
         ),
         this.getSubCollectionsFromCollection(collectionId).pipe(
-          map(cols => cols.filter(c => !c.isInTrash)), // Filtro por si acaso
+          map(cols => cols.filter(c => !c.isInTrash)),
           map(subCols => subCols.map(subCol => ({ id: subCol.id, title: subCol.title, type: 'collection' } as SearchResult)))
         )
       ]).pipe(map(([wishes, subCollections]) => [...wishes, ...subCollections]));
