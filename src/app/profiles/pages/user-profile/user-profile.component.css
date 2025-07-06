@@ -101,6 +101,27 @@
   width: 100%;
 }
 
+.upgrade-container {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.upgrade-container button {
+  width: 100%;
+  background-color: #FF8B68;
+  color: white;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+.addCardbutton{
+  width: 100%;
+  background-color: #FF8B68 !important;
+  color: white !important;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
 .bottom-buttons-container {
   width: 100%;
   display: flex;

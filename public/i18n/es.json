@@ -101,7 +101,9 @@
     "password": "Contraseña",
     "changePasswordButton": "Cambiar Contraseña",
     "deleteAccountButton": "Eliminar Cuenta",
-    "deleteProfileSuccess": "¡Perfil eliminado exitosamente!"
+    "deleteProfileSuccess": "¡Perfil eliminado exitosamente!",
+    "upgradePlanButton": "Actualiza tu plan"
+
   },
   "passwordEdit": {
     "title": "Editar Contraseña",
