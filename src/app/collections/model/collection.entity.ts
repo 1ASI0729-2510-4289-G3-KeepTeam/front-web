@@ -11,5 +11,4 @@ export class Collection {
   idUser ='';
   isInTrash = false;
   idParentCollection = 0;
-  color: string = '';
 }

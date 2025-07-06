@@ -3,7 +3,7 @@ import { MatIconButton } from '@angular/material/button';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatIcon } from '@angular/material/icon';
 import { CollectionsService } from '../../services/collections.service';
-import { forkJoin } from 'rxjs';
+import {forkJoin, map, switchMap} from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { PopConfirmDialogComponent } from '../../../public/components/pop-confirm-dialog/pop-confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,6 +12,7 @@ import { SnackbarComponent } from '../../../public/components/snackbar/snackbar.
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ToolbarComponent } from '../../../public/components/toolbar/toolbar.component';
 import {TranslatePipe, TranslateService} from '@ngx-translate/core';
+import {Wish} from '../../model/wish.entity';
 
 @Component({
   selector: 'app-trashcan',
@@ -49,12 +50,25 @@ export class TrashcanComponent implements OnInit {
    * @description Fetches trashed items and collections from the service and populates the table.
    */
   loadTrashItems() {
-    forkJoin([
-      this.collectionService.getTrashedItems(),
-      this.collectionService.getTrashedCollections()
-    ]).subscribe(([items, collections]) => {
-      const formattedItems = items.map(item => ({ ...item, isCollection: false }));
-      const formattedCollections = collections.map(col => ({ ...col, isCollection: true }));
+    this.collectionService.getCollections().pipe(
+      switchMap((allCollections) => {
+        const collectionIds = allCollections.map(c => c.id); // 🔁 busca en todas las colecciones
+
+        const wishesRequests = collectionIds.map(id =>
+          this.collectionService.getTrashedItemsByCollectionId(id) // este ya filtra items por trash
+        );
+
+        return forkJoin(wishesRequests).pipe(
+          map((wishesPerCollection: Wish[][]) => {
+            const allTrashedWishes = wishesPerCollection.flat();
+            const trashedCollections = allCollections.filter(c => c.isInTrash); // ✅ solo las colecciones en papelera
+            return { trashedCollections, allTrashedWishes };
+          })
+        );
+      })
+    ).subscribe(({ trashedCollections, allTrashedWishes }) => {
+      const formattedItems = allTrashedWishes.map(item => ({ ...item, isCollection: false }));
+      const formattedCollections = trashedCollections.map(col => ({ ...col, isCollection: true }));
 
       this.dataSource.data = [...formattedItems, ...formattedCollections];
     });

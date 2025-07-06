@@ -68,6 +68,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   goToLogin(): void {
+    localStorage.clear();
     this.router.navigate(['/login']);
   }
 

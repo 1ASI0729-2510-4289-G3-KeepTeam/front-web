@@ -21,7 +21,7 @@ import {TrashcanComponent} from './collections/pages/trashcan/trashcan.component
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'collections',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
   {
@@ -62,7 +62,7 @@ export const routes: Routes = [
   { path: 'collections/:collectionId/:productId', component: WishItemComponent },
   { path: 'share-qr', component: QrShareComponent },
   { path: 'trashcan', component: TrashcanComponent },
-{ path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', redirectTo: 'login' }
 ];
 
 @NgModule({

@@ -96,12 +96,11 @@ export class CollectionEditComponent implements OnInit {
       this.selectedCollection = new Collection();
       this.selectedCollection.id = 0;
       this.selectedCollection.title = '';
-      this.selectedCollection.color = this.colors[0].value;
+      this.selectedCollection.idUser = localStorage.getItem("userId")!;
       const parentId = Number(this.route.snapshot.queryParamMap.get('parentId')) || 0;
       this.selectedCollection.idParentCollection = parentId;
 
       this.collectionName = this.selectedCollection.title;
-      this.selectedColor = this.selectedCollection.color;
       this.items = [];
       this.imageUrls = [];
       console.log('Inicializando para crear una nueva colección. parentId:', parentId);
@@ -112,7 +111,6 @@ export class CollectionEditComponent implements OnInit {
         collection => {
           this.selectedCollection = collection;
           this.collectionName = collection.title;
-          this.selectedColor = collection.color || this.colors[0].value;
 
           this.collectionsService.getProductsByIdCollection(id).subscribe(items => {
             this.items = items;
@@ -139,15 +137,6 @@ export class CollectionEditComponent implements OnInit {
   }
 
   /**
-   * @function setColor
-   * @description Sets the selected color for the collection.
-   * @param color - The color value to set.
-   */
-  setColor(color: string) {
-    this.selectedColor = color;
-  }
-
-  /**
    * @function save
    * @description Saves changes to the collection's title and color.
    * If it's a new collection, it creates it. Otherwise, it updates.
@@ -160,7 +149,6 @@ export class CollectionEditComponent implements OnInit {
     }
 
     this.selectedCollection.title = this.collectionName;
-    this.selectedCollection.color = this.selectedColor;
 
 
     let saveObservable: Observable<Collection>;
@@ -192,16 +180,6 @@ export class CollectionEditComponent implements OnInit {
   cancel() {
     console.log('Edición cancelada.');
     history.back()
-  }
-
-  /**
-   * @function getSelectedBgColor
-   * @description Returns the background color hex code of the selected color.
-   * @returns {string} The background color hex or white if no match.
-   */
-  getSelectedBgColor(): string {
-    const colorObj = this.colors.find(c => c.value === this.selectedColor);
-    return colorObj ? colorObj.bg : '#fff';
   }
 
   /**

@@ -6,7 +6,7 @@
   </div>
 
   <div class="edit-container">
-    <div class="preview" [ngStyle]="{ 'background-color': getSelectedBgColor() }">
+    <div class="preview">
       <div class="images">
         <img *ngFor="let imageUrl of imageUrls; let i = index"
              [src]="imageUrl"
@@ -25,24 +25,6 @@
           <input type="text" [(ngModel)]="collectionName" maxlength="20" class="collection-input" />
           <span class="char-counter">{{ collectionName.length }} / 20</span>
         </div>
-
-        <div class="color-selector">
-          <div class="color-list">
-            <div *ngFor="let color of colors" class="color-item">
-              <div
-                class="color-circle"
-                [ngStyle]="{ 'background-color': color.hex }"
-                (click)="setColor(color.value)"
-                [class.selected]="selectedColor === color.value"
-                [title]="color.label | translate"
-              >
-                <span *ngIf="selectedColor === color.value" class="checkmark">✔</span>
-              </div>
-              <div class="color-label">{{ color.label | translate }}</div>
-            </div>
-          </div>
-        </div>
-        <label>{{ 'item.color' | translate }}</label>
         <div class="buttons">
           <button class="save" (click)="save()">{{ 'save' | translate }}</button>
           <button class="cancel" (click)="cancel()">{{ 'cancel' | translate }}</button>

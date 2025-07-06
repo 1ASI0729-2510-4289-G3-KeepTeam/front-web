@@ -103,8 +103,8 @@ export class CollectionsGridComponent implements OnInit, OnDestroy {
   loadCollections() {
     this.collectionsService.getFullCollections().subscribe({
       next: (data: FullCollection[]) => {
-        this.collections = data
-        console.log(this.collections)
+        this.collections = data.filter(col => !col.isInTrash);
+        console.log(this.collections);
       },
       error: (error) => {
         console.error('Error loading collections:', error);

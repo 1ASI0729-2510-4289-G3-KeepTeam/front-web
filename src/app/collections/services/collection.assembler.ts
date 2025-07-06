@@ -16,9 +16,8 @@ export class CollectionAssembler {
     collection.id = resource.id;
     collection.title = resource.title;
     collection.idUser = resource.idUser ?? null;
-    collection.isInTrash = resource.isPublic;
+    collection.isInTrash = resource.isInTrash;
     collection.idParentCollection = resource.idParentCollection;
-    collection.color = resource.color ?? null;
     return collection;
   }
 
