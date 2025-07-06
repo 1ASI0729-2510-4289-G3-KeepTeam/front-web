@@ -1,0 +1,66 @@
+<div *ngIf="collection" id="pdf-content-{{collection.id}}" class="pdf-template-container">
+
+  <div *ngIf="parentCollectionTitle" class="parent-collection-info">
+    <p class="parent-collection-text">{{ 'pdfExport.partOfCollection' | translate }}:</p>
+    <h2 class="parent-collection-title">{{ parentCollectionTitle }}</h2>
+  </div>
+
+  <h1 class="collection-title">{{ 'pdfExport.collectionTitle' | translate }}: {{ collection.title }}</h1>
+
+  <h2 *ngIf="items && items.length > 0" class="items-title">{{ 'pdfExport.itemsInCollection' | translate }}</h2>
+  <p *ngIf="!items || items.length === 0" class="no-items">{{ 'pdfExport.noItems' | translate }}</p>
+
+  <div *ngFor="let item of items" class="item-card">
+    <h3 class="item-title-detail">{{ 'pdfExport.item' | translate }}: {{ item.title }}</h3>
+    <div *ngIf="item.urlImg" class="item-image-full-width-wrapper">
+      <img [src]="item.urlImg" alt="Item Image" class="item-image-full-width"/>
+    </div>
+    <p *ngIf="item.description" class="item-description">
+      <strong>{{ 'pdfExport.description' | translate }}:</strong> {{ item.description }}
+    </p>
+    <div *ngIf="item.tags && item.tags.length > 0" class="item-tags">
+      <strong>{{ 'pdfExport.tags' | translate }}:</strong>
+      <span *ngFor="let tag of item.tags" class="tag" [style.background-color]="tag.color">
+        {{ tag.name }}
+      </span>
+    </div>
+    <p *ngIf="item.redirectUrl" class="item-link">
+      <strong>{{ 'pdfExport.link' | translate }}:</strong>
+      <a [href]="item.redirectUrl" target="_blank">{{ item.redirectUrl }}</a>
+    </p>
+  </div>
+
+  <div *ngIf="subcollectionsData && subcollectionsData.length > 0" class="subcollections-section">
+    <h2 class="subcollections-title">{{ 'pdfExport.subcollections' | translate }}</h2>
+
+    <div *ngFor="let subcollectionData of subcollectionsData" class="subcollection-card">
+      <h3 class="subcollection-name">{{ 'pdfExport.subcollection' | translate }}: {{ subcollectionData.collectionInfo.title }}</h3>
+
+      <div *ngIf="subcollectionData.items && subcollectionData.items.length > 0" class="subcollection-items">
+        <h4 class="subcollection-items-title">{{ 'pdfExport.itemsInSubcollection' | translate }}</h4>
+        <div *ngFor="let subItem of subcollectionData.items" class="item-card sub-item-card">
+          <h5 class="item-title-detail">{{ 'pdfExport.item' | translate }}: {{ subItem.title }}</h5>
+          <div *ngIf="subItem.urlImg" class="item-image-full-width-wrapper">
+            <img [src]="subItem.urlImg" alt="Sub-Item Image" class="item-image-full-width"/>
+          </div>
+          <p *ngIf="subItem.description" class="item-description">
+            <strong>{{ 'pdfExport.description' | translate }}:</strong> {{ subItem.description }}
+          </p>
+          <div *ngIf="subItem.tags && subItem.tags.length > 0" class="item-tags">
+            <strong>{{ 'pdfExport.tags' | translate }}:</strong>
+            <span *ngFor="let tag of subItem.tags" class="tag" [style.background-color]="tag.color">
+              {{ tag.name }}
+            </span>
+          </div>
+          <p *ngIf="subItem.redirectUrl" class="item-link">
+            <strong>{{ 'pdfExport.link' | translate }}:</strong>
+            <a [href]="subItem.redirectUrl" target="_blank">{{ subItem.redirectUrl }}</a>
+          </p>
+        </div>
+      </div>
+      <p *ngIf="!subcollectionData.items || subcollectionData.items.length === 0" class="no-items subcollection-no-items">
+        {{ 'pdfExport.noItemsInSubcollection' | translate }}
+      </p>
+    </div>
+  </div>
+</div>
