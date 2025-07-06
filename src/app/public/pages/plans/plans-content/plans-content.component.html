@@ -42,8 +42,10 @@
           </ul>
         </mat-card-content>
       </mat-card>
-      <button mat-flat-button class="upgrade-plus-button" color="primary" routerLink="/upgrade">{{ 'plansPage.upgradeNowButton' | translate }}</button>
+      <button mat-flat-button class="upgrade-plus-button" color="primary"  (click)="goToPurchase(2)">{{ 'plansPage.upgradeNowButton' | translate }}</button>
     </div>
+
+
 
     <div class="plan-group">
       <mat-card class="plan-card infinite">
@@ -61,7 +63,8 @@
           </ul>
         </mat-card-content>
       </mat-card>
-      <button mat-flat-button class="upgrade-infinite-button" color="accent" routerLink="/upgrade">{{ 'plansPage.upgradeNowButton' | translate }}</button>
+      <button mat-flat-button class="upgrade-infinite-button" color="accent" (click)="goToPurchase(3)">{{ 'plansPage.upgradeNowButton' | translate }}</button>
     </div>
+
   </div>
 </div>

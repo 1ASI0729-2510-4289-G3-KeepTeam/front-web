@@ -1,17 +1,17 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
-import {Router} from '@angular/router';
-import {UserService} from '../../services/user.service';
-import { User } from '../../model/user'
-import {MatFormField} from '@angular/material/form-field';
-import {FormsModule} from '@angular/forms';
-import {MatInput} from '@angular/material/input';
-import {MatButton, MatIconButton} from '@angular/material/button';
-import {MatLabel} from '@angular/material/input';
-import {MatIcon} from '@angular/material/icon';
-import {UploadService} from '../../../shared/services/images.service'
-import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserService } from '../../services/user.service';
+import { User } from '../../model/user';
+import { MatFormField } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { MatInput } from '@angular/material/input';
+import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatLabel } from '@angular/material/input';
+import { MatIcon } from '@angular/material/icon';
+import { UploadService } from '../../../shared/services/images.service';
+import { ToolbarComponent } from '../../../public/components/toolbar/toolbar.component';
+import { TokenStorageService } from '../../../shared/services/tokenStorage.service';
 import {TranslatePipe} from '@ngx-translate/core';
-
 @Component({
   selector: 'app-user-edit-dialog',
   imports: [
@@ -30,17 +30,26 @@ import {TranslatePipe} from '@ngx-translate/core';
 })
 export class UserEditDialogComponent {
   user: User = {} as User;
+  defaultImage = 'assets/default-avatar.png';
+
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
   constructor(
     private userService: UserService,
     private router: Router,
-    private uploadService: UploadService
+    private uploadService: UploadService,
+    private tokenStorageService: TokenStorageService // ✅ Inyección del servicio
   ) {}
 
   ngOnInit(): void {
-    const userId = Number(localStorage.getItem('userId')); // o tu lógica de login
+    const userId = this.tokenStorageService.getUserId(); // ✅ Usamos el servicio
     if (userId) {
-      this.userService.getUserById(userId).subscribe(data => this.user = data);
+      this.userService.getUserById(userId).subscribe({
+        next: (data) => this.user = data,
+        error: (err) => console.error('Error al obtener usuario:', err)
+      });
+    } else {
+      this.router.navigate(['/login']);
     }
   }
 
@@ -52,12 +61,8 @@ export class UserEditDialogComponent {
     return name?.charAt(0).toUpperCase();
   }
 
-  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>; // Importa ElementRef y ViewChild
-  defaultImage = 'assets/default-avatar.png';
-
   uploadPhoto() {
     this.fileInput.nativeElement.click();
-    alert('Upload photo feature not implemented yet.');
   }
 
   onFileSelected(event: Event): void {
@@ -66,12 +71,10 @@ export class UserEditDialogComponent {
       const file = input.files[0];
       console.log('Archivo seleccionado:', file);
 
-
       this.uploadService.uploadImage(file).subscribe({
         next: res => {
           console.log('Imagen subida correctamente:', res);
           this.user.profilePicture = res.secure_url;
-          // Aquí puedes guardar res.secure_url en tu modelo de usuario, por ejemplo
         },
         error: err => {
           console.error('Error al subir imagen a Cloudinary:', err);
@@ -82,10 +85,9 @@ export class UserEditDialogComponent {
     }
   }
 
-
   saveChanges(): void {
     this.userService.updateUser(this.user).subscribe({
-      next: (updatedUser) => {
+      next: () => {
         alert('Profile updated!');
         this.router.navigate(['/user-profile']);
       },
@@ -95,7 +97,4 @@ export class UserEditDialogComponent {
       }
     });
   }
-
-
 }
-

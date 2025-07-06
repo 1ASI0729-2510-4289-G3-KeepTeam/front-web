@@ -1,0 +1,47 @@
+<div class="subscription-container">
+  <h2 class="title">Pago de Suscripción</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <!-- Select de membresía -->
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Membresía</mat-label>
+      <mat-select formControlName="membershipId">
+        <mat-option *ngFor="let m of memberships" [value]="m.id">
+          {{ m.name }} - S/ {{ m.price }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Carrusel de tarjetas -->
+    <div class="carousel">
+      <div
+        *ngFor="let card of cards"
+        class="card"
+        [class.selected]="card.id === selectedCardId"
+        (click)="selectCard(card.id)">
+        <p><strong>{{ card.holderName }}</strong></p>
+        <p>**** **** **** {{ card.cardNumber.slice(-4) }}</p>
+        <p>Vence: {{ card.expirationDate }}</p>
+      </div>
+    </div>
+
+    <!-- Si no hay tarjetas -->
+    <div *ngIf="cards.length === 0" class="no-cards-message">
+      <p>No tienes tarjetas registradas.</p>
+      <button mat-raised-button color="primary" (click)="goToAddCard()">Agregar tarjeta</button>
+    </div>
+
+    <!-- Botón de compra -->
+    <div class="button-wrapper">
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+        Comprar suscripción
+      </button>
+
+      <button mat-stroked-button color="warn" type="button" (click)="goBack()" style="margin-left: 1rem;">
+        Cancelar
+      </button>
+
+
+    </div>
+  </form>
+</div>

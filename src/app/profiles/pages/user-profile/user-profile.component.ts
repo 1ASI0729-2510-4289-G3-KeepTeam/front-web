@@ -6,6 +6,9 @@ import {MatButton} from '@angular/material/button';
 import {Router} from '@angular/router';
 import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
 import {TranslatePipe} from '@ngx-translate/core';
+import {TokenStorageService} from '../../../shared/services/tokenStorage.service';
+import {SubscriptionService} from '../../../payment/services/subscription.service';
+
 
 @Component({
   selector: 'app-profile',
@@ -22,16 +25,30 @@ import {TranslatePipe} from '@ngx-translate/core';
 })
 export class UserProfileComponent implements OnInit {
   user: User = new User();
-  constructor(private userService: UserService, private router: Router) {}
+  currentPlanName: string= '';
+  last4Digits: string = '';
+  constructor(private userService: UserService,
+              private subscriptionService: SubscriptionService,
+              private router: Router,
+              private tokenStorageService: TokenStorageService) {}
 
   ngOnInit(): void {
-    const userId = Number(localStorage.getItem('userId'));
+    const userId = Number(this.tokenStorageService.getUserId());
     console.log('User ID from localStorage:', userId);  // <-- Aquí para verificar el ID
 
     if (userId) {
       this.userService.getUserById(userId).subscribe(user => {
         console.log('User API response:', user); // <-- Aquí para ver qué devuelve la API
         this.user = user;
+        this.subscriptionService.getUserSubscription(userId).subscribe((subscription: any) => {
+          if (subscription && subscription.membership && subscription.paymentCard) {
+            this.currentPlanName = subscription.membership.name;
+            this.last4Digits = subscription.paymentCard.cardNumber.slice(-4);
+          } else {
+            this.currentPlanName = 'No plan';
+            this.last4Digits = '----';
+          }
+        });
       }, error => {
         console.error('Error fetching user:', error); // <-- Opcional, para errores
       });
@@ -69,6 +86,11 @@ export class UserProfileComponent implements OnInit {
 
   goToLogin(): void {
     localStorage.clear();
+    this.router.navigate(['/login']);
+  }
+
+  logout() {
+    this.tokenStorageService.signOut(); // 🔐 Limpia token, userId y user
     this.router.navigate(['/login']);
   }
 

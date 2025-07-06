@@ -8,7 +8,7 @@ export class User {
   card?: {
     id: number;
     cardNumber: string;
-    holder: string;
+    holderName: string;
     expirationDate: string;
     cvv: string;
   };
@@ -23,7 +23,7 @@ export class User {
     this.card = {
       id: 0,
       cardNumber: '',
-      holder: '',
+      holderName: '',
       expirationDate: '',
       cvv: ''
     };

@@ -21,6 +21,9 @@ import {ToolbarComponent} from '../../../components/toolbar/toolbar.component';
 export class PlansContentComponent {
   constructor(private router: Router) {
   }
+  goToPurchase(membershipId: number): void {
+    this.router.navigate(['/purchase'], { queryParams: { membershipId } });
+  }
 
 
 }

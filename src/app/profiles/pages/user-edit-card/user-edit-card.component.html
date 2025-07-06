@@ -15,7 +15,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>{{ 'paymentInfo.holder' | translate }}</mat-label>
-      <input matInput formControlName="holder" [placeholder]="'paymentInfo.holderPlaceholder' | translate" required />
+      <input matInput formControlName="holderName" [placeholder]="'paymentInfo.holderPlaceholder' | translate" required />
     </mat-form-field>
 
     <div class="row">
@@ -33,3 +33,5 @@
     <button mat-raised-button color="accent" type="submit">{{ 'paymentInfo.changeCardButton' | translate }}</button>
   </form>
 </div>
+
+
