@@ -7,6 +7,7 @@ import { Membership } from '../../model/membership';
 import { SubscriptionFormComponent } from '../../components/subscription-form/subscription-form.component';
 import {TokenStorageService} from '../../../shared/services/tokenStorage.service';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-purchase-subscription',
@@ -15,6 +16,7 @@ import { Router } from '@angular/router';
       [userId]="userId"
       [memberships]="memberships"
       [cards]="cards"
+      [selectedMembershipId]="selectedMembershipId"
       (submitForm)="onSubmit($event)">
     </app-subscription-form>
   `,
@@ -25,13 +27,16 @@ export class PurchaseSubscriptionComponent implements OnInit {
   userId!: number;
   cards: PaymentCard[] = [];
   memberships: Membership[] = [];
+  selectedMembershipId?: number;
 
   constructor(
+    private route: ActivatedRoute,
     private subscriptionService: SubscriptionService,
     private membershipService: MembershipService,
     private paymentCardService: PaymentCardService,
     private tokenStorageService: TokenStorageService,
-    private router: Router
+    private router: Router,
+
 
   ) {}
 
@@ -44,6 +49,9 @@ export class PurchaseSubscriptionComponent implements OnInit {
       console.error('User ID inválido:', userIdString);
       return;
     }
+
+    const membershipIdParam = this.route.snapshot.queryParamMap.get('membershipId');
+    this.selectedMembershipId = membershipIdParam ? Number(membershipIdParam) : undefined;
 
     this.membershipService.getAll().subscribe(data => {
       this.memberships = data;
