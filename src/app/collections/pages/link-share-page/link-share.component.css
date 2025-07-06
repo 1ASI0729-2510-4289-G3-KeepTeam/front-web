@@ -35,3 +35,21 @@ h2 {
   word-break: break-all;
   text-align: center;
 }
+
+
+.success-snackbar {
+  background-color: #4caf50;
+  color: white;
+}
+
+.error-snackbar {
+  background-color: #f44336;
+  color: white;
+}
+
+.mat-mdc-snack-bar-container.success-snackbar .mat-mdc-button.mat-mdc-snack-bar-action {
+  color: white;
+}
+.mat-mdc-snack-bar-container.error-snackbar .mat-mdc-button.mat-mdc-snack-bar-action {
+  color: white;
+}

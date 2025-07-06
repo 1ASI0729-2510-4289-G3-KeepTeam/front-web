@@ -5,9 +5,16 @@
       <mat-icon>arrow_back</mat-icon>
     </button>
   </div>
+
   <div class="content">
     <h2>{{ 'linkShare.title' | translate }}</h2>
-    <p class="link">{{ shareableLink }}</p>
+
+    <h3>{{ 'linkShare.copyHeading' | translate }}</h3> <p class="link">{{ shareableLink }}</p>
     <p>{{ 'linkShare.copyAndShareMessage' | translate }}</p>
+
+    <button mat-flat-button color="primary" (click)="copyLinkToClipboard()">
+      <mat-icon>content_copy</mat-icon>
+      {{ 'linkShare.copyLinkButton' | translate }}
+    </button>
   </div>
 </div>

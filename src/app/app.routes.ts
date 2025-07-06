@@ -13,7 +13,6 @@ import {PlansContentComponent} from './public/pages/plans/plans-content/plans-co
 import {UserEditDialogComponent} from './profiles/pages/user-edit-dialog/user-edit-dialog.component';
 import {UserEditCardComponent} from './profiles/pages/user-edit-card/user-edit-card.component';
 import {UserEditPasswordComponent} from './profiles/pages/user-edit-password/user-edit-password.component';
-import {ShareSettingsComponent} from './collections/pages/share-settings/share-settings.component';
 import {LinkShareComponent} from './collections/pages/link-share-page/link-share.component';
 import {QrShareComponent} from './collections/pages/qr-share-page/qr-share.component';
 import {TrashcanComponent} from './collections/pages/trashcan/trashcan.component';
@@ -58,7 +57,6 @@ export const routes: Routes = [
   {path: 'edit-profile', component: UserEditDialogComponent },
   {path: 'edit-card', component: UserEditCardComponent },
   {path: 'edit-password', component: UserEditPasswordComponent },
-  { path: 'share-settings', component: ShareSettingsComponent },
   {path: 'link-share', component: LinkShareComponent },
   { path: 'collections/:collectionId/:productId', component: WishItemComponent },
   { path: 'share-qr', component: QrShareComponent },

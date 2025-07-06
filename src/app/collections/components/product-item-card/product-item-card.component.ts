@@ -34,7 +34,7 @@ export class ProductItemCardComponent {
   @Input() imageUrl: string = '';
   /**
    * @input tags
-   * @description tags array of a wish / item.
+   * @description Tags array of a wish / item.
    */
   @Input() tags?: Tag[];
 
@@ -53,15 +53,15 @@ export class ProductItemCardComponent {
   /**
    * @input link
    * @description URL to navigate to for more details or actions related to the item.
-   * Este input ya no se usa directamente para la navegación de la tarjeta,
-   * pero se mantiene por compatibilidad si lo necesitas en otro lugar.
+   * This input is no longer used directly for card navigation,
+   * but is kept for compatibility if needed elsewhere.
    */
   @Input() link: number = 0;
 
   /**
    * @input item
-   * @description The full item object, passed to the options menu y usado para la navegación.
-   * Debe contener 'id' (el ID del producto) y 'idCollection' para que la navegación funcione.
+   * @description The full item object, passed to the options menu and used for navigation.
+   * It must contain 'id' (the product ID) and 'collectionId' for navigation to work.
    */
   @Input() item: any;
 
@@ -94,14 +94,15 @@ export class ProductItemCardComponent {
 
   /**
    * @constructor
-   * @param router - Servicio Router de Angular para navegación.
+   * @param router - Angular Router service for navigation.
    */
   constructor(private router: Router) { }
 
   /**
    * @function handleItemAction
    * @description Handles actions emitted by the EntityOptionsMenuComponent.
-   * @param event - Object containing actionType and entity.
+   * Dispatches the corresponding event based on the action type.
+   * @param event - Object containing `actionType` (string) and `entity` (any).
    */
   handleItemAction(event: { actionType: string, entity: any }): void {
     const { actionType, entity } = event;
@@ -124,16 +125,17 @@ export class ProductItemCardComponent {
 
   /**
    * @function navigateToItem
-   * @description Navega a la página de detalles del ítem cuando la tarjeta es clickeada.
+   * @description Navigates to the item's detail page when the card is clicked.
+   * Requires `item.id` and `item.collectionId` to be present for successful navigation.
    */
   navigateToItem(): void {
     if (this.item && this.item.id && this.item.collectionId) {
       this.router.navigate(['/collections', this.item.collectionId, this.item.id]);
     } else {
       console.warn(
-        'ProductItemCardComponent: No se puede navegar al ítem. Falta item.id o item.idCollection en el input "item".',
-        'Objeto "item" actual:', this.item,
-        'Ruta esperada:', '/collections/:collectionId/:productId'
+        'ProductItemCardComponent: Cannot navigate to item. Missing item.id or item.collectionId in "item" input.',
+        'Current "item" object:', this.item,
+        'Expected route:', '/collections/:collectionId/:productId'
       );
     }
   }

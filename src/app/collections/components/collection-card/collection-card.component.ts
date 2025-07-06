@@ -12,7 +12,6 @@ import {EntityOptionsMenuComponent} from '../../../public/components/entity-opti
  * displaying its name, image, and tags, along with an options menu to view, edit,
  * share, or delete the collection.
  */
-
 @Component({
   selector: 'app-collection-card',
   standalone: true,
@@ -26,7 +25,6 @@ export class CollectionCardComponent {
    * @constructor
    * @param router - Angular Router used for navigation.
    */
-
   constructor(private router: Router) {}
 
 
@@ -55,6 +53,12 @@ export class CollectionCardComponent {
   @Input() collection: any;
 
   /**
+   * @input isSubCollection
+   * @description A boolean indicating if the current collection is a sub-collection.
+   */
+  @Input() isSubCollection: boolean = false;
+
+  /**
    * @output delete
    * @description Emits an event when the collection is deleted.
    */
@@ -67,10 +71,10 @@ export class CollectionCardComponent {
   @Output() edit = new EventEmitter<any>();
 
   /**
-   * @output share
-   * @description Emits an event when the share action is triggered.
+   * @output exportPdf
+   * @description Emits an event when the export PDF action is triggered.
    */
-  @Output() share = new EventEmitter<any>();
+  @Output() exportPdf  = new EventEmitter<any>();
 
   /**
    * @output view
@@ -81,16 +85,22 @@ export class CollectionCardComponent {
   /**
    * @function displayedTags
    * @description Returns the first three tags to be displayed on the card.
-   * @returns {Array<{ name: string; color: string }>}
+   * @returns {Array<{ name: string; color: string }>} An array containing the first three tags.
    */
-
-  @Output() shareQr = new EventEmitter<any>();
-
   get displayedTags(): { name: string; color: string }[] {
     return this.tags.slice(0, 3);
   }
 
+  /**
+   * @function handleCollectionAction
+   * @description Handles actions emitted from the `EntityOptionsMenuComponent`.
+   * Dispatches the corresponding action (delete, edit, exportPdf) based on the `actionType`.
+   * @param event - An object containing the `actionType` (string) and the `entity` (any) to act upon.
+   */
   handleCollectionAction(event: { actionType: string, entity: any }): void {
+    console.log('--- Inside handleCollectionAction in CollectionCardComponent ---');
+    console.log('Action event RECEIVED from entity-options-menu:', event);
+
     const { actionType, entity } = event;
 
     switch (actionType) {
@@ -100,11 +110,8 @@ export class CollectionCardComponent {
       case 'edit':
         this.onEdit();
         break;
-      case 'shareQr':
-        this.onShareQr(entity);
-        break;
-      case 'shareLink':
-        this.onShareLink();
+      case 'exportPdf':
+        this.onExportPdf(entity);
         break;
     }
   }
@@ -112,45 +119,37 @@ export class CollectionCardComponent {
   /**
    * @function onDelete
    * @description Emits the delete event with the collection object.
+   * @param collection - The collection object to be deleted.
    */
   onDelete(collection: any): void {
     this.delete.emit(collection);
   }
+
   /**
    * @function onEdit
-   * @description Navigates to the collection with the id edit page.
+   * @description Navigates to the edit page for the current collection, identified by its ID.
    */
   onEdit(): void {
     this.router.navigate(['/collections', this.collection.id, 'edit']);
   }
 
   /**
-   * @function onShare
-   * @description Emits the share event with the collection object.
+   * @function onExportPdf
+   * @description Emits the exportPdf event with the collection object,
+   * typically to trigger a PDF export action in the parent component.
+   * @param collection - The collection object to be exported to PDF.
    */
-  onShare(): void {
-    this.share.emit(this.collection);
+  onExportPdf(collection: any): void {
+    console.log('--- Inside onExportPdf in CollectionCardComponent (before emitting exportPdf) ---');
+    console.log('Collection to be emitted to parent (CollectionProductsPageComponent):', collection);
+    this.exportPdf.emit(collection);
   }
 
   /**
    * @function onView
-   * @description Emits the view event when the collection is viewed.
+   * @description Emits the view event when the collection card is clicked to view its contents.
    */
   onView(): void {
     this.view.emit();
-  }
-
-  onShareLink(): void {
-    this.router.navigate(['/share-settings'], {
-      queryParams: {
-        contentType: 'collection',
-        itemId: this.collection.id,
-        previousUrl: this.router.url
-      }
-    });
-  }
-
-  onShareQr(collection: any): void {
-    this.shareQr.emit(collection);
   }
 }

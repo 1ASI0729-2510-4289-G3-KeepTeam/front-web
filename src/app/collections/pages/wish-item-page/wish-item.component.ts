@@ -20,14 +20,14 @@ import {ToolbarComponent} from "../../../public/components/toolbar/toolbar.compo
  */
 @Component({
   selector: 'app-wish-item',
-    imports: [
-        MatIconModule,
-        ItemActionsComponent,
-        MatButtonModule,
-        TagListComponent,
-        TranslatePipe,
-        ToolbarComponent,
-    ],
+  imports: [
+    MatIconModule,
+    ItemActionsComponent,
+    MatButtonModule,
+    TagListComponent,
+    TranslatePipe,
+    ToolbarComponent,
+  ],
 
   templateUrl: './wish-item.component.html',
   styleUrl: './wish-item.component.css',
@@ -38,7 +38,13 @@ export class WishItemComponent implements OnInit {
    * The productId extracted from the URL route parameters.
    */
   wishId: number | null = null;
+
+  /**
+   * @property collectionId
+   * The ID of the collection to which this wish item belongs, extracted from route parameters.
+   */
   collectionId: string | null = null;
+
   /**
    * @property wish
    * The Wish object to display, fetched from the service.
@@ -47,11 +53,11 @@ export class WishItemComponent implements OnInit {
 
   /**
    * @constructor
-   * @param route ActivatedRoute for route parameters
-   * @param dialog Service to fetch Wish details
-   * @param collectionsService Service to fetch Wish details
-   * @param router
-   * @param location
+   * @param route - ActivatedRoute for accessing route parameters.
+   * @param dialog - MatDialog service for opening dialogs (e.g., confirmation dialog).
+   * @param collectionsService - Service to fetch and update Wish details.
+   * @param router - Angular Router for programmatic navigation.
+   * @param location - Location service for interacting with the browser's history.
    */
   constructor(
     private route: ActivatedRoute,
@@ -63,12 +69,13 @@ export class WishItemComponent implements OnInit {
 
   /**
    * @function ngOnInit
-   * Fetches the productId from route params and loads Wish details if present.
+   * @description Fetches the productId and collectionId from route parameters and
+   * loads Wish details if productId is present.
    */
   ngOnInit(): void {
-    this.route.params.subscribe(params => { // Use subscribe
+    this.route.params.subscribe(params => {
       this.wishId = Number(params['productId']);
-      this.collectionId = params['collectionId']; // Get collectionId from route
+      this.collectionId = params['collectionId'];
       if (this.wishId) {
         this.getWishDetails(this.wishId);
       }
@@ -77,9 +84,9 @@ export class WishItemComponent implements OnInit {
 
   /**
    * @function getWishDetails
-   * Fetches Wish details by ID and assigns it to the component property.
-   * Ensures tags array exists to avoid null references.
-   * @param id The Wish ID to fetch
+   * @description Fetches Wish details by ID from the collections service and assigns
+   * it to the component's `wish` property. Ensures the tags array exists to avoid null references.
+   * @param id - The ID of the Wish to fetch.
    */
   getWishDetails(id: number): void {
     this.collectionsService.getWishById(id).subscribe({
@@ -98,30 +105,29 @@ export class WishItemComponent implements OnInit {
 
   /**
    * @function goBack
-   * Navigates back in browser history.
+   * @description Navigates back to the collection page if `collectionId` is available,
+   * otherwise navigates back in browser history.
    */
   goBack(): void {
     if (this.collectionId) {
-      this.router.navigate(['/collections', this.collectionId]); // Navigate to collection
+      this.router.navigate(['/collections', this.collectionId]);
     } else {
-      this.location.back(); // Fallback to history.back()
+      this.location.back();
     }
   }
 
   /**
    * @function handleDelete
-   * @description
-   * Handles the deletion process of an item by showing a confirmation dialog.
+   * @description Handles the deletion process of an item by showing a confirmation dialog.
    * If the user confirms, it performs a soft delete by setting `isInTrash` to true
    * and updating the item using the CollectionsService.
-   *
    * @param item - The item object to be soft-deleted.
    */
-  handleDelete(item: any) {
+  handleDelete(item: any): void {
     const dialogRef = this.dialog.open(PopConfirmDialogComponent, {
       data: {
         title: 'Confirm Deletion',
-        message: `¿Are you sure you want to delete ${item.title || item.name}?`
+        message: `Are you sure you want to delete ${item.title || item.name}?`
       }
     });
 
@@ -131,25 +137,45 @@ export class WishItemComponent implements OnInit {
         this.collectionsService.updateWish(updatedItem).subscribe(() => {
           console.log('Item moved to trashcan');
         });
-        history.back();
+        history.back(); // Navigate back after deletion
       }
     });
+  }
 
-}
+  /**
+   * @function shareWish
+   * @description Handles the action to share the wish link.
+   * Navigates to the '/link-share' page, passing the wish's `redirectUrl`
+   * and other relevant information as query parameters.
+   */
   shareWish(): void {
     if (this.wish) {
-      this.router.navigate(['/share-settings'], {
+      const shareableLink = this.wish.redirectUrl;
+
+      if (!shareableLink || shareableLink.trim() === '') {
+        console.warn('The wish does not have a valid redirectUrl to share the link:', this.wish);
+        return;
+      }
+
+      this.router.navigate(['/link-share'], {
         queryParams: {
+          link: shareableLink,
           contentType: 'wish',
           itemId: this.wish.id,
-          previousUrl: this.router.url // Asegúrate de pasar la URL actual
+          returnUrl: this.router.url
         }
       });
     }
   }
 
-
-  shareWishQr(item: Wish | undefined): void { // Allow 'undefined'
+  /**
+   * @function shareWishQr
+   * @description Handles the action to share the wish via a QR code.
+   * Navigates to the '/share-qr' page, passing the wish's ID and content type
+   * to generate the QR code.
+   * @param item - The Wish object for which to generate the QR code.
+   */
+  shareWishQr(item: Wish | undefined): void {
     if (item) {
       this.router.navigate(['/share-qr'], {
         queryParams: {
@@ -160,6 +186,4 @@ export class WishItemComponent implements OnInit {
       });
     }
   }
-
-
 }

@@ -27,9 +27,8 @@
           [tags]="collection.tags"
           (delete)="deleteCollection($event)"
           (edit)="editCollection($event)"
-          (share)="shareCollection($event)"
-          (shareQr)="navigateToQrShare(collection)"
-          (view)="navigateToCollection(collection.id)">
+          (exportPdf)="exportCollectionToPdf($event)"
+        (view)="navigateToCollection(collection.id)">
         </app-collection-card>
       </div>
     </div>

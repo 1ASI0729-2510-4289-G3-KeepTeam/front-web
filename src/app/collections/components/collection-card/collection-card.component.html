@@ -23,15 +23,12 @@
     <h3>{{ name }}</h3>
 
     <div class="more-options">
-
       <app-entity-options-menu
         [entityType]="'collection'"
         [entity]="collection"
-        (action)="handleCollectionAction($event)">
+        [isSubCollection]="isSubCollection" (action)="handleCollectionAction($event)">
       </app-entity-options-menu>
-
     </div>
-
   </div>
 
   <mat-chip-set aria-label="Tag List">

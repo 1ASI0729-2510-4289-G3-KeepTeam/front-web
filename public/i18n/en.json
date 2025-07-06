@@ -19,7 +19,7 @@
     "itemsLink": "Items Link",
     "tags": "Tags",
     "selectImage": "Select Image",
-    "newCollection": "New Collection",
+    "newCollection": "NewCollection",
     "newCollectionPlaceholder": "New Collection Title",
     "noImages": "No images",
     "imageAlt": "image {{ index }}",
@@ -41,6 +41,7 @@
     "copyLink": "Copy Link",
     "shareQr": "Share as QR",
     "shareLink": "Share as Link",
+    "exportPdf": "Export as PDF",
     "deleteCollection": "Delete Collection",
     "deleteItem": "Delete Item",
     "editCollection": "Edit Collection",
@@ -61,7 +62,8 @@
     "signInButton": "Sign in",
     "fillAllFields": "Please complete all fields.",
     "invalidEmail": "The email address is not valid.",
-    "incorrectCredentials": "Email or password is incorrect."
+    "incorrectCredentials": "Email or password is incorrect.",
+    "failed": "Login failed."
   },
   "signup": {
     "title": "Welcome",
@@ -80,7 +82,8 @@
     "invalidEmail": "The email is not valid.",
     "passwordMismatch": "Passwords do not match.",
     "emailExists": "An account with this email already exists.",
-    "registrationSuccess": "Registration successful. You can now log in."
+    "registrationSuccess": "Registration successful. You can now log in.",
+    "registrationError": "There was an error while trying to registrate your account."
   },
   "buttons": {
     "close": "Close",
@@ -192,9 +195,18 @@
     "noQrCodeAlert": "No QR code generated yet."
   },
   "linkShare": {
-    "title": "Your link is ready",
-    "copyAndShareMessage": "You can copy and share this link!"
+    "title": "Shareable Link",
+    "copyHeading": "Copy the link:",
+    "copyAndShareMessage": "Copy the link below and share it:",
+    "copyLinkButton": "Copy Link",
+    "copiedToClipboard": "Link copied to clipboard!",
+    "copyFailed": "Failed to copy link. Please try manually."
   },
+
+  "actions": {
+    "close": "Close"
+  },
+
   "trashcanPage": {
     "title": "Trashcan",
     "tableHeaders": {
@@ -222,5 +234,19 @@
     },
     "itemRestored": "{{ title }} Restored.",
     "collectionRestored": "Collection {{ title }} Restored."
+  },
+  "pdfExport": {
+    "collectionTitle": "Collection",
+    "tags": "Tags",
+    "itemsInCollection": "Items in this collection",
+    "item": "Item",
+    "description": "Description",
+    "noItems": "No items in this collection.",
+    "link": "Item Link",
+    "subcollections": "Subcollections",
+    "subcollection": "Subcollection",
+    "itemsInSubcollection": "Items in this subcollection",
+    "noItemsInSubcollection": "No items in this subcollection.",
+    "partOfCollection": "Part of collection"
   }
 }

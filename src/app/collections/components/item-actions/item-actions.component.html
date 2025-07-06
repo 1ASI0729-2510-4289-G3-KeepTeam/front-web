@@ -5,19 +5,25 @@
     </mat-icon>
   </a>
 
-  <div class="share-menu-container">
-    <a [matMenuTriggerFor]="shareMenu">
-      <mat-icon style="color: #FF8B68">share</mat-icon>
-    </a>
-    <mat-menu #shareMenu="matMenu">
-      <button mat-menu-item (click)="onShareLink()">
-        <span>{{ 'itemsAction.copyLink' | translate }}</span>
-      </button>
-      <button mat-menu-item (click)="onShareQr()">
-        <span>{{ 'itemsAction.shareQr' | translate }}</span>
-      </button>
-    </mat-menu>
-  </div>
+  <ng-container *ngIf="isCollectionContext && showPdfExportButton">
+    <button mat-icon-button (click)="onExportPdfAction($event)" class="exportPdfButton">
+      <mat-icon style="color: #FF8B68">picture_as_pdf</mat-icon>
+    </button>
+  </ng-container>
+
+  <ng-container *ngIf="!isCollectionContext">
+    <div class="share-menu-container">
+      <a [matMenuTriggerFor]="shareMenu">
+        <mat-icon style="color: #FF8B68">share</mat-icon>
+      </a>
+      <mat-menu #shareMenu="matMenu">
+        <button mat-menu-item (click)="copyLinkAction($event)"> <span>{{ 'itemsAction.copyLink' | translate }}</span>
+        </button>
+        <button mat-menu-item (click)="shareQrAction($event)"> <span>{{ 'itemsAction.shareQr' | translate }}</span>
+        </button>
+      </mat-menu>
+    </div>
+  </ng-container>
 
   <button mat-flat-button (click)="editRoute()" class="editButton">
     {{ 'itemsAction.edit' | translate }}

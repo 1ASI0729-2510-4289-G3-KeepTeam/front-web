@@ -4,6 +4,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { ToolbarComponent } from '../../../public/components/toolbar/toolbar.component';
 import {TranslatePipe, TranslateService} from '@ngx-translate/core';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import {forkJoin} from 'rxjs';
 
 /**
  * @Component LinkShareComponent
@@ -11,13 +13,19 @@ import {TranslatePipe, TranslateService} from '@ngx-translate/core';
  * passing along content type, item ID, and a return URL.
  */
 @Component({
-  selector: 'app-share-link', // Updated selector
+  selector: 'app-share-link',
   templateUrl: './link-share.component.html',
   styleUrl: './link-share.component.css',
   standalone: true,
-  imports: [MatIconModule, MatButtonModule, ToolbarComponent, TranslatePipe],
+  imports: [
+    MatIconModule,
+    MatButtonModule,
+    ToolbarComponent,
+    TranslatePipe,
+    MatSnackBarModule
+  ],
 })
-export class LinkShareComponent implements OnInit { // Updated class name
+export class LinkShareComponent implements OnInit {
   /**
    * @property {string | null} shareableLink - The URL that can be shared.
    */
@@ -41,7 +49,8 @@ export class LinkShareComponent implements OnInit { // Updated class name
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private translate: TranslateService // Inject TranslateService
+    private translate: TranslateService,
+    private snackBar: MatSnackBar
   ) {}
 
   /**
@@ -60,15 +69,48 @@ export class LinkShareComponent implements OnInit { // Updated class name
 
   /**
    * @function goBack
-   * @description Navigates back to the share-settings page, passing along the content type, item ID, and return URL.
+   * @description Navigates back to the return URL provided in query parameters,
+   * or a default URL if not specified.
    */
   goBack(): void {
-    this.router.navigate(['/share-settings'], {
-      queryParams: {
-        contentType: this.contentType,
-        itemId: this.itemId,
-        returnUrl: this.returnUrl
-      }
-    });
+    if (this.returnUrl) {
+      console.log('LinkShareComponent: Navigating back to:', this.returnUrl);
+      this.router.navigateByUrl(this.returnUrl);
+    } else {
+      console.warn('LinkShareComponent: returnUrl no encontrado, redirigiendo a /collections como fallback.');
+      this.router.navigate(['/collections']);
+    }
+  }
+
+  /**
+   * @function copyLinkToClipboard
+   * @description Copies the shareableLink to the clipboard and shows a confirmation message.
+   */
+  copyLinkToClipboard(): void {
+    if (this.shareableLink) {
+      forkJoin({
+        copiedMessage: this.translate.get('linkShare.copiedToClipboard'),
+        closeButtonText: this.translate.get('actions.close'),
+        copyFailedMessage: this.translate.get('linkShare.copyFailed')
+      }).subscribe(({ copiedMessage, closeButtonText, copyFailedMessage }) => {
+
+        navigator.clipboard.writeText(this.shareableLink!).then(() => {
+          this.snackBar.open(copiedMessage, closeButtonText, {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+            panelClass: ['success-snackbar']
+          });
+        }).catch(err => {
+          console.error('Error al copiar el texto: ', err);
+          this.snackBar.open(copyFailedMessage, closeButtonText, {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+            panelClass: ['error-snackbar']
+          });
+        });
+      });
+    }
   }
 }

@@ -10,8 +10,7 @@
         <p>{{ description }}</p>
         <div class="item-options">
           <app-entity-options-menu
-            [entityType]="'item'"
-            [entity]="item"
+            [entityType]="'wish'" [entity]="item"
             (action)="handleItemAction($event)"
             (click)="$event.stopPropagation()">
           </app-entity-options-menu>

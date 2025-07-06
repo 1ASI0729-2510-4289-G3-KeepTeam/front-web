@@ -1,0 +1,211 @@
+/* src/app/components/collection-pdf-template/collection-pdf-template.component.css */
+
+.pdf-template-container {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  color: #333;
+  background-color: #fff;
+  box-sizing: border-box;
+  width: 190mm;
+  min-height: 277mm;
+  margin: 0 auto;
+}
+
+.collection-title {
+  font-size: 28px;
+  color: #3f51b5;
+  margin-bottom: 25px; /* Más espacio después del título de la colección */
+  text-align: center;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 10px;
+}
+
+.collection-tags, .item-tags {
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-right: 5px;
+  font-size: 12px;
+  color: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  white-space: nowrap;
+}
+
+.collection-image-wrapper, .item-image-wrapper { /* Esto puede que ya no sea necesario si solo usas item-image-full-width-wrapper */
+  text-align: center;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.collection-main-image {
+  max-width: 80%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  display: block;
+  margin: 0 auto;
+}
+
+.items-title {
+  font-size: 22px;
+  color: #555;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  text-align: center;
+  padding-bottom: 5px;
+  border-bottom: 1px dashed #ddd;
+}
+
+.no-items {
+  text-align: center;
+  font-style: italic;
+  color: #777;
+  padding: 20px;
+  border: 1px dashed #eee;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+}
+
+.item-card {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 30px; /* Más espacio entre las tarjetas de los ítems */
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  page-break-inside: avoid; /* Sugerencia para html2canvas */
+}
+
+/* --- Nuevos/modificados estilos para el formato de ítem --- */
+
+.item-title-detail {
+  font-size: 20px; /* Un poco más grande para el título del artículo */
+  color: #007bff;
+  margin-top: 0;
+  margin-bottom: 15px; /* Espacio después del título */
+}
+
+.item-image-full-width-wrapper {
+  text-align: center;
+  margin-bottom: 15px; /* Espacio después de la imagen */
+  /* Puedes ajustar el padding o margen si la imagen queda muy pegada a los bordes de la tarjeta */
+  padding: 5px; /* Pequeño padding dentro del wrapper */
+  background-color: #fff; /* Fondo blanco para la imagen */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.item-image-full-width {
+  max-width: 90%; /* La imagen será más grande, pero con margen */
+  height: auto; /* Mantiene la proporción */
+  border-radius: 5px;
+  /* Si quieres un tamaño fijo más grande, podrías probar: */
+  /* width: 150mm; */
+  /* height: 100mm; */
+  /* object-fit: contain; /* o 'cover' dependiendo de cómo quieras que se ajuste */
+}
+
+.item-description {
+  font-size: 14px;
+  line-height: 1.6; /* Mayor interlineado para mejor lectura */
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.item-link {
+  font-size: 14px;
+  margin-top: 15px; /* Espacio antes del enlace */
+  word-break: break-all; /* Rompe palabras largas para evitar desbordamiento */
+}
+
+.item-link a {
+  color: #007bff; /* Color de enlace estándar */
+  text-decoration: underline;
+}
+
+.subcollections-section {
+  margin-top: 50px; /* Espacio antes de la sección de subcolecciones */
+  border-top: 2px solid #ccc;
+  padding-top: 30px;
+}
+
+.subcollections-title {
+  font-size: 28px; /* Título para la sección de subcolecciones */
+  color: #3f51b5;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.subcollection-card {
+  border: 1px dashed #bbb; /* Borde diferente para subcolecciones */
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 40px; /* Espacio entre subcolecciones */
+  background-color: #f0f4f8; /* Fondo ligeramente diferente */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  page-break-inside: avoid; /* Sugerencia para html2canvas */
+  page-break-after: always; /* Sugiere salto de página después de cada subcolección */
+}
+
+/* Para evitar una página en blanco al final si la última subcollection-card tiene page-break-after: always; */
+.subcollection-card:last-of-type {
+  page-break-after: auto;
+}
+
+.subcollection-name {
+  font-size: 22px; /* Tamaño del nombre de la subcolección */
+  color: #0056b3;
+  margin-top: 0;
+  margin-bottom: 25px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.subcollection-items-title {
+  font-size: 18px; /* Título para los ítems dentro de la subcolección */
+  color: #666;
+  margin-top: 25px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.sub-item-card {
+  margin-top: 20px; /* Espacio entre ítems de subcolección */
+  border: 1px solid #ddd; /* Borde más suave para ítems de subcolección */
+  background-color: #ffffff;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+}
+
+.subcollection-no-items {
+  font-size: 14px;
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #eef2f6;
+  border: 1px dashed #cdd7e1;
+}
+.parent-collection-info {
+  text-align: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.parent-collection-text {
+  font-size: 16px;
+  color: #777;
+  margin-bottom: 5px;
+}
+
+.parent-collection-title {
+  font-size: 24px;
+  color: #555;
+  margin-top: 0;
+  margin-bottom: 10px;
+}

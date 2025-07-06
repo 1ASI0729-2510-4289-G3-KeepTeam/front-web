@@ -41,6 +41,7 @@
     "copyLink": "Copiar enlace",
     "shareQr": "Compartir como QR",
     "shareLink": "Compartir como Enlace",
+    "exportPdf": "Exportar como PDF",
     "deleteCollection": "Eliminar colección",
     "deleteItem": "Eliminar ítem",
     "editCollection": "Editar colección",
@@ -61,7 +62,9 @@
     "signInButton": "Iniciar sesión",
     "fillAllFields": "Por favor, complete todos los campos.",
     "invalidEmail": "El correo ingresado no es válido.",
-    "incorrectCredentials": "Email o contraseña incorrectos."
+    "incorrectCredentials": "Email o contraseña incorrectos.",
+    "failed": "Fallo al iniciar sesión."
+
   },
   "signup": {
     "title": "Bienvenido",
@@ -193,8 +196,16 @@
     "noQrCodeAlert": "No se ha generado ningún código QR aún."
   },
   "linkShare": {
-    "title": "Tu enlace está listo",
-    "copyAndShareMessage": "¡Puedes copiar y compartir este enlace!"
+    "title": "Enlace Compartible",
+    "copyHeading": "Copia el enlace:",
+    "copyAndShareMessage": "Copia el enlace a continuación y compártelo:",
+    "copyLinkButton": "Copiar Enlace",
+    "copiedToClipboard": "¡Enlace copiado al portapapeles!",
+    "copyFailed": "No se pudo copiar el enlace. Intenta manualmente."
+  },
+
+  "actions": {
+    "close": "Cerrar"
   },
   "trashcanPage": {
     "title": "Papelera",
@@ -223,5 +234,19 @@
     },
     "itemRestored": "{{ title }} restaurado.",
     "collectionRestored": "Colección {{ title }} restaurada."
+  },
+  "pdfExport": {
+    "collectionTitle": "Colección",
+    "tags": "Etiquetas",
+    "itemsInCollection": "Ítems en esta colección",
+    "item": "Artículo",
+    "description": "Descripción",
+    "noItems": "No hay ítems en esta colección.",
+    "link": "Link del item",
+    "subcollections": "Subcolecciones",
+    "subcollection": "Subcolección",
+    "itemsInSubcollection": "Ítems en esta subcolección",
+    "noItemsInSubcollection": "No hay ítems en esta subcolección.",
+    "partOfCollection": "Parte de la colección"
   }
 }

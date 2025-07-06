@@ -25,7 +25,12 @@
     </span>
   </button>
 
-  <button mat-menu-item [matMenuTriggerFor]="shareSubMenu">
+  <button mat-menu-item *ngIf="entityType === 'collection' && !isSubCollection" (click)="onAction('exportPdf')">
+    <mat-icon>picture_as_pdf</mat-icon>
+    <span>{{ 'itemsAction.exportPdf' | translate }}</span>
+  </button>
+
+  <button mat-menu-item *ngIf="entityType === 'wish'" [matMenuTriggerFor]="shareSubMenu">
     <mat-icon>share</mat-icon>
     <span>{{ 'itemsAction.share' | translate }}</span>
   </button>

@@ -4,18 +4,18 @@ import { MatButtonModule } from '@angular/material/button';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 import {TranslatePipe} from '@ngx-translate/core';
+import {NgIf} from '@angular/common';
 
 /**
  * @component ItemActionsComponent
- * @description This component provides action buttons for deleting, editing and sharing
- * for a specific item. It allows users to interact with the item,
+ * @description This component provides action buttons for deleting, editing, and sharing
+ * a specific item. It allows users to interact with the item,
  * such as confirming and performing a soft delete.
  */
-
 @Component({
   selector: 'app-item-actions',
   standalone: true,
-  imports: [MatIconModule, MatButtonModule, MatMenuTrigger, MatMenu, MatMenuItem, TranslatePipe,],
+  imports: [MatIconModule, MatButtonModule, MatMenuTrigger, MatMenu, MatMenuItem, TranslatePipe, NgIf,],
   templateUrl: './item-actions.component.html',
   styleUrl: './item-actions.component.css',
 })
@@ -27,16 +27,21 @@ export class ItemActionsComponent {
   @Input() item: any;
 
   /**
-   * @output onShare
-   * You can use placeholder segments like ':id' that will be replaced dynamically.
+   * @input isCollectionContext
+   * @description If true, this component is used in the context of a Collection,
+   * showing the PDF export option instead of regular share options.
    */
-  @Output() onShare = new EventEmitter<void>();
+  @Input() isCollectionContext: boolean = false;
+
+
+  @Input() showPdfExportButton: boolean = true;
+
 
   /**
-   * @output shareQr
-   * Emits the item when the share as QR action is triggered.
+   * @output onExportPdf
+   * Emits the item when the export PDF action is triggered.
    */
-  @Output() shareQr = new EventEmitter<any>();
+  @Output() onExportPdf = new EventEmitter<any>();
 
   /**
    * @output onDelete
@@ -44,36 +49,84 @@ export class ItemActionsComponent {
    */
   @Output() onDelete = new EventEmitter();
 
+  /**
+   * @output onCopyLink
+   * Emits the current item when the copy link action is triggered.
+   */
+  @Output() onCopyLink = new EventEmitter<any>();
+
+  /**
+   * @output onShareQr
+   * Emits the current item when the share via QR code action is triggered.
+   */
+  @Output() onShareQr = new EventEmitter<any>();
+
+
   constructor(private router: Router, private route: ActivatedRoute) {}
 
   /**
    * @function editRoute
    * @description
-   * Routing to edit page of current page
+   * Navigates to the edit page of the current item or collection.
+   * Constructs the route based on the current URL segments.
    */
-  editRoute(){
-    let baseRouteSegments = this.route.snapshot.url;
-    let baseRoute = ''
+  editRoute(): void {
+    const baseRouteSegments = this.route.snapshot.url;
+    let baseRoute = '';
     console.log('Segments: ', baseRouteSegments);
-    for(let segment in baseRouteSegments) {
-      baseRoute = baseRoute + '/' + baseRouteSegments[segment].path;
+    for (const segment of baseRouteSegments) {
+      baseRoute = baseRoute + '/' + segment.path;
       console.log(baseRoute);
     }
     console.log('Final:', baseRoute);
     this.router.navigate([baseRoute, 'edit']);
   }
 
-  onShareLink(){
-    this.onShare.emit();
-  }
-
-  onShareQr(){
-    console.log('onShareQr function in ItemActionsComponent called', this.item);
-    this.shareQr.emit(this.item);
-  }
-
-  deleteEntity(event: MouseEvent){
+  /**
+   * @function deleteEntity
+   * @description
+   * Emits the current item to initiate the deletion process.
+   * Stops the propagation of the DOM event to prevent unwanted behavior.
+   * @param event - The mouse event that triggered the action, used to stop propagation.
+   */
+  deleteEntity(event: MouseEvent): void {
     event.stopPropagation();
     this.onDelete.emit(this.item);
+  }
+
+  /**
+   * @function onExportPdfAction
+   * @description
+   * Emits the current item to initiate the PDF export action.
+   * Stops the propagation of the DOM event.
+   * @param event - The mouse event that triggered the action, used to stop propagation.
+   */
+  onExportPdfAction(event: MouseEvent): void {
+    event.stopPropagation();
+    this.onExportPdf.emit(this.item);
+  }
+
+  /**
+   * @function copyLinkAction
+   * @description
+   * Emits the current item to initiate the copy link action.
+   * Stops the propagation of the DOM event.
+   * @param event - The mouse event that triggered the action, used to stop propagation.
+   */
+  copyLinkAction(event: MouseEvent): void {
+    event.stopPropagation();
+    this.onCopyLink.emit(this.item);
+  }
+
+  /**
+   * @function shareQrAction
+   * @description
+   * Emits the current item to initiate the share via QR code action.
+   * Stops the propagation of the DOM event.
+   * @param event - The mouse event that triggered the action, used to stop propagation.
+   */
+  shareQrAction(event: MouseEvent): void {
+    event.stopPropagation();
+    this.onShareQr.emit(this.item);
   }
 }
