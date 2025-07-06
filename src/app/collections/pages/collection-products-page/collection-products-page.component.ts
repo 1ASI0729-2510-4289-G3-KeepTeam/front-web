@@ -118,7 +118,7 @@ export class CollectionProductsPageComponent implements OnInit, OnDestroy {
    * @description Configures the creation buttons, translating their names and setting their links.
    */
   private setCreationButtons(): void {
-    this.creationButtons = [
+    let buttons = [
       {  id: 1,
         name: this.translate.instant('navs.addSubCollection'),
         link: ['/collections', 'new', 'edit'],
@@ -128,6 +128,10 @@ export class CollectionProductsPageComponent implements OnInit, OnDestroy {
 
       { id: 2, name: this.translate.instant('navs.addWish'), link: ['/collections', this.collectionId, 'products', 'new', 'edit'], backgroundColor: '#FF8B68', color: '#FFFAF3' }
     ];
+
+    if (this.collection!.idParentCollection !== 0) {
+      this.creationButtons = buttons!.filter(b => b.id !== 1);
+    }
   }
 
   /**
@@ -145,7 +149,7 @@ export class CollectionProductsPageComponent implements OnInit, OnDestroy {
       this.collectionId = Number(idParam);
 
 
-      this.setCreationButtons();
+
       this.getCollection(this.collectionId);
       this.getProducts();
       this.loadCollections();
@@ -198,16 +202,6 @@ export class CollectionProductsPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  /**
-   * @function filterCreationButtonForSubCollection
-   * @description Adjusts creation buttons based on whether the current collection is a sub-collection.
-   * If it's a sub-collection (not top-level), removes the "Add Sub-collection" button.
-   */
-  filterCreationButtonForSubCollection(): void {
-    if (this.collection!.idParentCollection !== 0) {
-      this.creationButtons = this.creationButtons!.filter(b => b.id !== 1);
-    }
-  }
 
   /**
    * @function goBack
@@ -234,8 +228,8 @@ export class CollectionProductsPageComponent implements OnInit, OnDestroy {
         ...collection,
         title: collection.title
       };
-      console.log(this.collection);
-      this.filterCreationButtonForSubCollection();
+      console.log(this.collection)
+      this.setCreationButtons();
     });
   }
 
