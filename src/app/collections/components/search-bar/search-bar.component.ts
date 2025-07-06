@@ -113,15 +113,15 @@ export class SearchBarComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this.searchInputSubject.pipe(
-      debounceTime(300), // Waits 300ms after the last keystroke to initiate the search
-      distinctUntilChanged(), // Only proceeds if the text has changed from the previous value
-      switchMap(value => this.filterResults(value)), // Calls the search service
-      takeUntil(this.destroy$) // Unsubscribes when the component is destroyed
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap(value => this.filterResults(value)),
+      takeUntil(this.destroy$)
     ).subscribe(results => {
       this.filteredOptions = results;
-      // Show suggestions only if there is text in the input and results were returned
+
       this.showSuggestions = this.searchText.length > 0 && results.length > 0;
-      this.highlightedOption = null; // Resets highlighting when new options are loaded
+      this.highlightedOption = null;
     });
   }
 
@@ -168,6 +168,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
       if (this.currentCollectionId === null) {
         return new Observable<SearchResult[]>(observer => observer.next([]));
       }
+      console.log("miauuuu",this.collectionsService.searchItems(value, this.currentCollectionId))
       return this.collectionsService.searchItems(value, this.currentCollectionId);
     }
   }

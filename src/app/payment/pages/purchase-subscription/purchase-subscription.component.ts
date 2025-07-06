@@ -39,7 +39,7 @@ export class PurchaseSubscriptionComponent implements OnInit {
     const userIdString = this.tokenStorageService.getUserId();
     this.userId = Number(userIdString);
 
-    // ✅ Verifica que no sea NaN o 0
+
     if (!this.userId || isNaN(this.userId)) {
       console.error('User ID inválido:', userIdString);
       return;
