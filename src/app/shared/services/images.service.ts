@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+/**
+ * Upload service.
+ * Handles uploading image files to Cloudinary.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -11,7 +14,11 @@ export class UploadService {
   private uploadPreset = 'images_preset';
 
   constructor(private http: HttpClient) {}
-
+  /**
+   * Uploads an image file to the configured Cloudinary account.
+   *
+   * @param file The image file to be uploaded.
+   */
   uploadImage(file: File): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);

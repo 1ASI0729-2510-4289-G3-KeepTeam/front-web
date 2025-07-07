@@ -8,7 +8,10 @@ import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import {SubscriptionService} from '../../../../payment/services/subscription.service';
-
+/**
+ * Sign-up component.
+ * Allows users to register a new account and assigns them a free subscription plan by default.
+ */
 @Component({
   selector: 'app-sign-up-component',
   standalone: true,
@@ -32,6 +35,15 @@ export class SignUpComponent {
   password: string = '';
   repeatPassword: string = '';
 
+  /**
+   * Creates an instance of the sign-up component.
+   *
+   * @param authService Handles user registration.
+   * @param snackBar Displays success or error messages.
+   * @param router Used to redirect the user after registration.
+   * @param translate Translates strings for localization.
+   * @param subscriptionService Automatically registers user with a free subscription.
+   */
   constructor(
     private authService: AuthorizationService,
     private snackBar: MatSnackBar,
@@ -39,7 +51,10 @@ export class SignUpComponent {
     private translate: TranslateService,
     private subscriptionService: SubscriptionService
   ) {}
-
+  /**
+   * Handles the registration process.
+   * Validates inputs, registers the user, and assigns them a default free subscription.
+   */
   onSignUp(): void {
     if (!this.email || !this.name || !this.password || !this.repeatPassword) {
       this.showError('signup.allFieldsRequired');
@@ -108,7 +123,11 @@ export class SignUpComponent {
       }
     });
   }
-
+  /**
+   * Displays a translated snackbar with the given error key.
+   *
+   * @param translationKey The key used for looking up the translation message.
+   */
   private showError(translationKey: string) {
     this.snackBar.open(
       this.translate.instant(translationKey),

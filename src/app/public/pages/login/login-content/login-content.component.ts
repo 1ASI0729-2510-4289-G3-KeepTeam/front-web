@@ -8,7 +8,10 @@ import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { TokenStorageService } from '../../../../shared/services/tokenStorage.service';
-
+/**
+ * Login component.
+ * Provides a form for users to authenticate with email and password.
+ */
 @Component({
   selector: 'app-login-component',
   standalone: true,
@@ -37,7 +40,10 @@ export class LoginComponent {
     private translate: TranslateService,
     private tokenStorageService: TokenStorageService
   ) {}
-
+  /**
+   * Validates the login form and performs the login operation.
+   * Shows translated error messages when validation or login fails.
+   */
   onLogin(): void {
     if (!this.email || !this.password) {
       this.showError('login.fillAllFields');
@@ -65,7 +71,11 @@ export class LoginComponent {
       }
     });
   }
-
+  /**
+   * Shows a translated snackbar error message.
+   *
+   * @param key Translation key for the error message.
+   */
   private showError(key: string): void {
     this.snackBar.open(
       this.translate.instant(key),

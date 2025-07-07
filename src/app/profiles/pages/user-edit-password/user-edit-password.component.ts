@@ -37,7 +37,15 @@ import {TranslatePipe} from '@ngx-translate/core';
   styleUrl: './user-edit-password.component.css'
 })
 export class UserEditPasswordComponent implements OnInit {
+  /**
+   * Reactive form for password change.
+   * Includes fields: currentPassword, newPassword, and repeatPassword.
+   */
   passwordForm!: FormGroup;
+
+  /**
+   * Currently authenticated user, retrieved using the userId from the token.
+   */
   user: User = new User();
 
   constructor(
@@ -47,7 +55,10 @@ export class UserEditPasswordComponent implements OnInit {
     private router: Router,
     private tokenStorageService: TokenStorageService // ✅ inyectado
   ) {}
-
+  /**
+   * Initializes the component and the reactive form.
+   * Checks the user's token and loads the user's data.
+   */
   ngOnInit(): void {
     // Inicializar el formulario inmediatamente para evitar errores de binding
     this.passwordForm = this.fb.group({
@@ -69,24 +80,39 @@ export class UserEditPasswordComponent implements OnInit {
     });
   }
 
+  /**
+   * Gets the form control for the current password.
+   */
   get currentPassword() {
     return this.passwordForm.get('currentPassword');
   }
 
+  /**
+   * Gets the form control for the current password.
+   */
   get newPassword() {
     return this.passwordForm.get('newPassword');
   }
-
+  /**
+   * Gets the form control for the repeated new password.
+   */
   get repeatPassword() {
     return this.passwordForm.get('repeatPassword');
   }
-
+  /**
+   * Custom validator to check that newPassword and repeatPassword fields match.
+   *
+   * @param group The form group containing the password fields.
+   */
   passwordMatchValidator(group: AbstractControl): { [key: string]: boolean } | null {
     const newPassword = group.get('newPassword')?.value;
     const repeatPassword = group.get('repeatPassword')?.value;
     return newPassword === repeatPassword ? null : { passwordMismatch: true };
   }
-
+  /**
+   * Handles the password change process.
+   * Submits the form if valid, sends data to the backend, and handles the response.
+   */
   changePassword(): void {
     if (this.passwordForm.valid) {
       const { currentPassword, newPassword } = this.passwordForm.value;
@@ -99,7 +125,9 @@ export class UserEditPasswordComponent implements OnInit {
       this.passwordForm.markAllAsTouched();
     }
   }
-
+  /**
+   * Navigates back to the previous page using the browser's history.
+   */
   goBack(): void {
     this.location.back();
   }

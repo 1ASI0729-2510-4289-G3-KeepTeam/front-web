@@ -9,7 +9,11 @@ import {TokenStorageService} from '../../../shared/services/tokenStorage.service
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
-
+/**
+ * Component responsible for handling the subscription purchase flow.
+ * It loads available memberships, payment cards, and optionally a preselected membership.
+ * It also detects if the user has an existing subscription and handles both creation and upgrade.
+ */
 @Component({
   selector: 'app-purchase-subscription',
   template: `
@@ -25,10 +29,26 @@ import { ActivatedRoute } from '@angular/router';
   imports: [SubscriptionFormComponent]
 })
 export class PurchaseSubscriptionComponent implements OnInit {
+  /**
+   * ID of the current user.
+   */
   userId!: number;
+  /**
+   * List of the user's saved payment cards.
+   */
   cards: PaymentCard[] = [];
+
+  /**
+   * List of available membership plans.
+   */
   memberships: Membership[] = [];
+  /**
+   * Membership ID preselected from route query parameters.
+   */
   selectedMembershipId?: number;
+  /**
+   * ID of the existing subscription, if any.
+   */
   existingSubscriptionId: number | null = null;
 
 
@@ -42,7 +62,10 @@ export class PurchaseSubscriptionComponent implements OnInit {
 
 
   ) {}
-
+  /**
+   * Lifecycle method that initializes user ID, loads memberships, user cards,
+   * and checks for existing subscriptions.
+   */
   ngOnInit(): void {
     const userIdString = this.tokenStorageService.getUserId();
     this.userId = Number(userIdString);
@@ -74,7 +97,13 @@ export class PurchaseSubscriptionComponent implements OnInit {
       error: err => console.error('Error al obtener tarjetas:', err)
     });
   }
-
+  /**
+   * Handles the form submission event.
+   * Decides between creating a new subscription or upgrading an existing one.
+   *
+   * @param membershipId The selected membership ID.
+   * @param paymentCardId The selected payment card ID.
+   */
   onSubmit({ membershipId, paymentCardId }: { membershipId: number; paymentCardId: number }) {
     const request = {
       userId: this.userId,

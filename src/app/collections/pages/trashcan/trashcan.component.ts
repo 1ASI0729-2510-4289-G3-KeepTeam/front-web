@@ -13,7 +13,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ToolbarComponent } from '../../../public/components/toolbar/toolbar.component';
 import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 import {Wish} from '../../model/wish.entity';
-
+/**
+ * TrashcanComponent
+ *
+ * Displays a table of trashed collections and wish items, allowing the user to restore or permanently delete them.
+ */
 @Component({
   selector: 'app-trashcan',
   standalone: true,
@@ -37,10 +41,15 @@ export class TrashcanComponent implements OnInit {
     private _snackBar: MatSnackBar,
     private translate: TranslateService
   ) { }
-
+  /**
+   * Lifecycle hook that runs after component initialization.
+   */
   ngOnInit() {
     this.loadTrashItems();
   }
+  /**
+   * Table columns to be displayed.
+   */
 
   displayedColumns: string[] = ['id', 'photo', 'title', 'type', 'actions'];
   dataSource = new MatTableDataSource<any>();
@@ -73,7 +82,11 @@ export class TrashcanComponent implements OnInit {
       this.dataSource.data = [...formattedItems, ...formattedCollections];
     });
   }
-
+  /**
+   * Confirms and performs permanent deletion of a wish item or collection.
+   *
+   * @param element The item or collection to delete.
+   */
   delete(element: any) {
     console.log('Eliminar:', element);
 
@@ -112,7 +125,11 @@ export class TrashcanComponent implements OnInit {
       });
     });
   }
-
+  /**
+   * Confirms and restores a trashed item or collection.
+   *
+   * @param element The item or collection to restore.
+   */
   restore(element: any) {
     console.log('Recuperar:', element);
 
@@ -155,7 +172,11 @@ export class TrashcanComponent implements OnInit {
       });
     });
   }
-
+  /**
+   * Displays a snackbar with a custom message.
+   *
+   * @param message The message to show in the snackbar.
+   */
   openSnackBar(message: string) {
     this._snackBar.openFromComponent(SnackbarComponent, {
       duration: 5000,

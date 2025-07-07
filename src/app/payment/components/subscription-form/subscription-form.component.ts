@@ -10,7 +10,12 @@ import { MatOptionModule } from '@angular/material/core';
 import {TokenStorageService} from '../../../shared/services/tokenStorage.service';
 import { Router } from '@angular/router';
 
-
+/**
+ * SubscriptionFormComponent
+ *
+ * Component responsible for rendering and handling the subscription form,
+ * allowing the user to select a membership and a payment card.
+ */
 @Component({
   selector: 'app-subscription-form',
   standalone: true,
@@ -26,12 +31,26 @@ import { Router } from '@angular/router';
   styleUrls: ['./subscription-form.component.css']
 })
 export class SubscriptionFormComponent implements OnInit {
+  /**
+   * The ID of the authenticated user.
+   */
   @Input() userId!: number;
+  /**
+   * List of available payment cards for the user.
+   */
   @Input() cards: PaymentCard[] = [];
+  /**
+   * List of available memberships.
+   */
   @Input() memberships: Membership[] = [];
+  /**
+   * Event emitted when the form is submitted with valid data.
+   */
   @Output() submitForm = new EventEmitter<{ membershipId: number; paymentCardId: number }>();
   @Input() selectedMembershipId?: number;
-
+  /**
+   * Reactive form group for subscription selection.
+   */
   form!: FormGroup;
 
   constructor(
@@ -41,6 +60,9 @@ export class SubscriptionFormComponent implements OnInit {
     ) {}
 
 
+  /**
+   * Initializes the form and sets the userId and preselected membership if provided.
+   */
 
   ngOnInit(): void {
     const userId = this.tokenStorageService.getUserId();
@@ -54,6 +76,9 @@ export class SubscriptionFormComponent implements OnInit {
     }
   }
 
+  /**
+   * Handles form submission, emitting the selected membership and card.
+   */
   onSubmit(): void {
     if (this.form.invalid) return;
     const formValue = this.form.value;
@@ -62,19 +87,29 @@ export class SubscriptionFormComponent implements OnInit {
       paymentCardId: formValue.paymentCardId// si lo necesitas pasar como parte del comando
     });
   }
-
+  /**
+   * Selects a payment card by its ID and updates the form control.
+   *
+   * @param cardId The ID of the selected card.
+   */
   selectCard(cardId: number) {
     this.form.get('paymentCardId')?.setValue(cardId);
   }
-
+  /**
+   * Gets the currently selected payment card ID.
+   */
   get selectedCardId(): number | null {
     return this.form.get('paymentCardId')?.value ?? null;
   }
-
+  /**
+   * Navigates to the screen for registering a new payment card.
+   */
   goToAddCard() {
     this.router.navigate(['/edit-card']); // O la ruta que tengas para registrar tarjetas
   }
-
+  /**
+   * Navigates back to the user profile page.
+   */
   goBack() {
     this.router.navigate(['/user-profile']);
   }

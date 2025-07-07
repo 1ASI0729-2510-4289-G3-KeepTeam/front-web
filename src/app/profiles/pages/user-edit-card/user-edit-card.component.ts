@@ -13,7 +13,10 @@ import {Router} from '@angular/router';
 import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
 import {TokenStorageService} from '../../../shared/services/tokenStorage.service';
 import {TranslatePipe} from '@ngx-translate/core';
-
+/**
+ * Component that allows users to add or update their payment card information.
+ * It uses a reactive form and interacts with the UserService to persist changes.
+ */
 @Component({
   selector: 'app-user-edit-card',
   imports: [
@@ -44,6 +47,10 @@ export class UserEditCardComponent implements OnInit {
     });
   }
 
+  /**
+   * On component initialization, retrieves the user data and pre-fills
+   * the form if a payment card is already associated with the user.
+   */
 
   ngOnInit(): void {
     const userId = this.tokenStorageService.getUserId();
@@ -77,6 +84,11 @@ export class UserEditCardComponent implements OnInit {
     }
 
   }
+  /**
+   * Submits the form to create or update the user's payment card.
+   * If the card exists, it sends an update request.
+   * Otherwise, it creates a new card associated with the user.
+   */
   changeCard(): void {
     if (this.paymentForm.valid) {
       const cardData = this.paymentForm.value;
@@ -101,7 +113,9 @@ export class UserEditCardComponent implements OnInit {
       this.paymentForm.markAllAsTouched();
     }
   }
-
+  /**
+   * Navigates back to the previous page.
+   */
   goBack(): void {
     this.location.back();
   }
