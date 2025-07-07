@@ -7,6 +7,8 @@ import { Membership } from '../../model/membership';
 import { SubscriptionFormComponent } from '../../components/subscription-form/subscription-form.component';
 import {TokenStorageService} from '../../../shared/services/tokenStorage.service';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-purchase-subscription',
@@ -15,6 +17,7 @@ import { Router } from '@angular/router';
       [userId]="userId"
       [memberships]="memberships"
       [cards]="cards"
+      [selectedMembershipId]="selectedMembershipId"
       (submitForm)="onSubmit($event)">
     </app-subscription-form>
   `,
@@ -25,13 +28,18 @@ export class PurchaseSubscriptionComponent implements OnInit {
   userId!: number;
   cards: PaymentCard[] = [];
   memberships: Membership[] = [];
+  selectedMembershipId?: number;
+  existingSubscriptionId: number | null = null;
+
 
   constructor(
+    private route: ActivatedRoute,
     private subscriptionService: SubscriptionService,
     private membershipService: MembershipService,
     private paymentCardService: PaymentCardService,
     private tokenStorageService: TokenStorageService,
-    private router: Router
+    private router: Router,
+
 
   ) {}
 
@@ -45,8 +53,20 @@ export class PurchaseSubscriptionComponent implements OnInit {
       return;
     }
 
+    const membershipIdParam = this.route.snapshot.queryParamMap.get('membershipId');
+    this.selectedMembershipId = membershipIdParam ? Number(membershipIdParam) : undefined;
+
     this.membershipService.getAll().subscribe(data => {
       this.memberships = data;
+    });
+
+    this.subscriptionService.getUserSubscription(this.userId).subscribe({
+      next: (subscription: any) => {
+        this.existingSubscriptionId = subscription.id; // guarda el ID para el PUT
+      },
+      error: () => {
+        this.existingSubscriptionId = null; // no tiene suscripción
+      }
     });
 
     this.paymentCardService.getUserCards(this.userId).subscribe({
@@ -56,18 +76,35 @@ export class PurchaseSubscriptionComponent implements OnInit {
   }
 
   onSubmit({ membershipId, paymentCardId }: { membershipId: number; paymentCardId: number }) {
-    console.log('Enviando suscripción:', {
+    const request = {
       userId: this.userId,
       membershipId,
       paymentCardId
-    });
-    this.subscriptionService
-      .createSubscription({ userId: this.userId, membershipId, paymentCardId })
-      .subscribe({
-        next: () => {alert('✅ Suscripción creada correctamente'),
-          this.router.navigate(['/user-profile']);
-        },
-        error: () => alert('❌ Error al crear la suscripción')
-      });
+    };
+
+    if (this.existingSubscriptionId) {
+      // Si ya tiene una suscripción, hacer PUT (upgrade)
+      this.subscriptionService
+        .upgradePlan(this.existingSubscriptionId, request)
+        .subscribe({
+          next: () => {
+            alert('✅ Suscripción actualizada correctamente');
+            this.router.navigate(['/user-profile']);
+          },
+          error: () => alert('❌ Error al actualizar la suscripción')
+        });
+    } else {
+      // Si no tiene una suscripción, hacer POST (crear)
+      this.subscriptionService
+        .createSubscription(request)
+        .subscribe({
+          next: () => {
+            alert('✅ Suscripción creada correctamente');
+            this.router.navigate(['/user-profile']);
+          },
+          error: () => alert('❌ Error al crear la suscripción')
+        });
+    }
   }
+
 }

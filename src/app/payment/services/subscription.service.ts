@@ -16,4 +16,10 @@ export class SubscriptionService {
   getUserSubscription(userId: number) {
     return this.http.get(`${this.apiUrl}/user/${userId}`);
   }
+
+  upgradePlan(subscriptionId: number, request: { userId: number; membershipId: number; paymentCardId: number }) {
+    return this.http.put(`${this.apiUrl}/${subscriptionId}`, request);
+  }
+
+
 }

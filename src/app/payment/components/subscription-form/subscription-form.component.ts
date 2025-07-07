@@ -30,6 +30,7 @@ export class SubscriptionFormComponent implements OnInit {
   @Input() cards: PaymentCard[] = [];
   @Input() memberships: Membership[] = [];
   @Output() submitForm = new EventEmitter<{ membershipId: number; paymentCardId: number }>();
+  @Input() selectedMembershipId?: number;
 
   form!: FormGroup;
 
@@ -48,6 +49,9 @@ export class SubscriptionFormComponent implements OnInit {
       membershipId: [null, Validators.required],
       paymentCardId: [null, Validators.required]
     });
+    if (this.selectedMembershipId) {
+      this.form.patchValue({ membershipId: this.selectedMembershipId });
+    }
   }
 
   onSubmit(): void {
