@@ -98,7 +98,7 @@ export class CollectionEditComponent implements OnInit {
       this.selectedCollection = new Collection();
       this.selectedCollection.id = 0;
       this.selectedCollection.title = '';
-      this.selectedCollection.idUser = this.tokenStorageService.getUserId();
+      this.selectedCollection.idUser = localStorage.getItem("userId")!
       const parentId = Number(this.route.snapshot.queryParamMap.get('parentId')) || 0;
       this.selectedCollection.idParentCollection = parentId;
 

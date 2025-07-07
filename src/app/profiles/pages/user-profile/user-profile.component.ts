@@ -129,6 +129,7 @@ export class UserProfileComponent implements OnInit {
   logout() {
     this.tokenStorageService.signOut();
     localStorage.clear();
+    window.sessionStorage.clear();
     this.router.navigate(['/login']);
   }
 
