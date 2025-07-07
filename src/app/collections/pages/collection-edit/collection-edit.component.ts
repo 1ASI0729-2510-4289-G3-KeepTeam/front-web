@@ -10,6 +10,7 @@ import {Observable} from 'rxjs';
 import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
 import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 import {TokenStorageService} from '../../../shared/services/tokenStorage.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 /**
  * @component CollectionEditComponent
@@ -23,7 +24,7 @@ import {TokenStorageService} from '../../../shared/services/tokenStorage.service
   standalone: true,
   templateUrl: './collection-edit.component.html',
   styleUrls: ['./collection-edit.component.css'],
-  imports: [CommonModule, FormsModule, ToolbarComponent,TranslatePipe]
+  imports: [CommonModule, FormsModule, ToolbarComponent,TranslatePipe, ]
 })
 export class CollectionEditComponent implements OnInit {
 
@@ -82,7 +83,8 @@ export class CollectionEditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private translate: TranslateService,// Injected TranslateService
-    private tokenStorageService: TokenStorageService) {}
+    private tokenStorageService: TokenStorageService,
+    private snackBar: MatSnackBar) {}
 
   /**
    * @function ngOnInit
@@ -170,6 +172,25 @@ export class CollectionEditComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error al guardar/actualizar la colección:', err);
+
+        const message = err.error?.message?.toLowerCase() || '';
+        if (err.status === 409 && message.includes('maximum') && message.includes('collections')) {
+          const snackBarRef = this.snackBar.open(
+            'Has alcanzado el límite de colecciones. Revisa nuestros planes.',
+            'Ir ahora',
+            { duration: 3000 }
+          );
+
+          // Si el usuario hace clic en "Ir ahora"
+          snackBarRef.onAction().subscribe(() => {
+            this.router.navigate(['/plans']);
+          });
+
+          // Si no hace clic, redirigir automáticamente después de 5 segundos
+          setTimeout(() => {
+            this.router.navigate(['/plans']);
+          }, 5000);
+        }
       }
     });
   }
