@@ -44,13 +44,15 @@ export class TokenStorageService {
   public getUser(): any {
     const user = window.sessionStorage.getItem(USER_KEY);
     if (user) {
-      return JSON.parse(user).id;
+      return JSON.parse(user); // ✅ Retorna el objeto completo
     }
-    return {};
+    return null;
   }
+
 
   public getCompanyId(): any {
     return window.sessionStorage.getItem(COMPANY_ID);
   }
+
 
 }

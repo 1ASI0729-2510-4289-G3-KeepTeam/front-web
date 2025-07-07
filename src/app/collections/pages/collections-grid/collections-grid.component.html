@@ -19,18 +19,16 @@
     <app-creation-buttons [buttons]="creationButtons"></app-creation-buttons>
 
     <div class="collections-container">
-      <div *ngFor="let collection of collections">
-        <app-collection-card
-          [collection]="collection"
-          [name]="collection.title"
-          [imageUrls]="collection.imageUrls"
-          [tags]="collection.tags"
-          (delete)="deleteCollection($event)"
-          (edit)="editCollection($event)"
-          (exportPdf)="exportCollectionToPdf($event)"
-        (view)="navigateToCollection(collection.id)">
-        </app-collection-card>
-      </div>
+      <app-collection-card
+        *ngFor="let collection of collections"
+        [collection]="collection"
+        [name]="collection.title"
+        [imageUrls]="collection.imageUrls"
+        [tags]="collection.tags"
+        (edit)="editCollection(collection)"
+        (delete)="deleteCollection(collection)"
+        (exportPdf)="exportCollectionToPdf(collection)"
+      ></app-collection-card>
     </div>
   </div>
 </div>

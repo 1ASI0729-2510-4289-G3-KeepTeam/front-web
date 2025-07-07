@@ -8,7 +8,7 @@ import {Collection} from '../model/collection.entity';
 import {CollectionAssembler} from './collection.assembler';
 import {FullCollection} from '../model/fullCollection.entity';
 import { SearchResult } from '../../shared/models/search-result.interface';
-
+import {TokenStorageService} from '../../shared/services/tokenStorage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,17 +16,26 @@ import { SearchResult } from '../../shared/models/search-result.interface';
 export class CollectionsService {
   private readonly baseUrl = environment.apiBaseUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private tokenStorageService: TokenStorageService) {}
   /**
    * @function getCollections
    * @description Fetch all collections belonging to the current user.
    * @returns {Observable<Collection[]>} An observable array of Collection entities.
    */
   getCollections() {
-    return this.http.get<Collection[]>(`${this.baseUrl}/collections/user/${localStorage.getItem("userId")}`).pipe(
+    const userId = this.tokenStorageService.getUserId();
+
+
+    if (!userId) {
+      console.error("❌ User ID not found in session storage");
+      return of([]);
+    }
+
+    return this.http.get<Collection[]>(`${this.baseUrl}/collections/user/${userId}`).pipe(
       map(response => CollectionAssembler.toEntitiesFromResponse(response))
-    )
+    );
   }
+
 
 
   /**
@@ -321,7 +330,14 @@ export class CollectionsService {
    * @returns {Observable<SearchResult[]>} An observable array of SearchResult entities representing collections.
    */
   searchCollections(query: string): Observable<SearchResult[]> {
-    return this.http.get<Collection[]>(`${this.baseUrl}/collections/user/${localStorage.getItem("userId")}`).pipe(
+    const userId = this.tokenStorageService.getUserId();
+
+    if (!userId) {
+      console.error("❌ User ID not found in session storage");
+      return of([]);
+    }
+
+    return this.http.get<Collection[]>(`${this.baseUrl}/collections/user/${userId}`).pipe(
       map(response => CollectionAssembler.toEntitiesFromResponse(response)),
       map(collections =>
         collections
