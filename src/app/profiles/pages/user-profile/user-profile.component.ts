@@ -73,7 +73,7 @@ export class UserProfileComponent implements OnInit {
       this.userService.deleteUser(this.user.id).subscribe({
         next: () => {
           localStorage.clear(); // O remover token, etc.
-          this.router.navigate(['/login']); // Redirige al home o login
+          this.router.navigate(['/login']);
           alert('Account deleted');
         },
         error: err => {
@@ -90,7 +90,8 @@ export class UserProfileComponent implements OnInit {
   }
 
   logout() {
-    this.tokenStorageService.signOut(); // 🔐 Limpia token, userId y user
+    this.tokenStorageService.signOut();
+    localStorage.clear();
     this.router.navigate(['/login']);
   }
 

@@ -53,8 +53,7 @@ export class LoginComponent {
     this.authService.login(this.email, this.password).subscribe({
       next: (response) => {
         const token = response.token;
-        const user = response; // Asegúrate de que el backend retorna el objeto completo con `id`, `email`, etc.
-
+        const user = response;
         this.tokenStorageService.saveToken(token);
         this.tokenStorageService.saveUser(user);
 

@@ -118,22 +118,37 @@ export class CollectionProductsPageComponent implements OnInit, OnDestroy {
    * @description Configures the creation buttons, translating their names and setting their links.
    */
   private setCreationButtons(): void {
-    let buttons = [
-      {  id: 1,
+    if (!this.collection) {
+      console.warn('[setCreationButtons] La colección no está definida todavía.');
+      return;
+    }
+
+    const buttons = [
+      {
+        id: 1,
         name: this.translate.instant('navs.addSubCollection'),
         link: ['/collections', 'new', 'edit'],
         queryParams: { parentId: this.collectionId },
         backgroundColor: '#FEDD72',
-        color: '#BD6412'},
-
-      { id: 2, name: this.translate.instant('navs.addWish'), link: ['/collections', this.collectionId, 'products', 'new', 'edit'], backgroundColor: '#FF8B68', color: '#FFFAF3' }
+        color: '#BD6412'
+      },
+      {
+        id: 2,
+        name: this.translate.instant('navs.addWish'),
+        link: ['/collections', this.collectionId, 'products', 'new', 'edit'],
+        backgroundColor: '#FF8B68',
+        color: '#FFFAF3'
+      }
     ];
 
-    if (this.collection!.idParentCollection !== 0) {
-      this.creationButtons = buttons!.filter(b => b.id !== 1);
+    if (this.collection.idParentCollection !== 0) {
+      this.creationButtons = buttons.filter(b => b.id !== 1);
+    } else {
+      this.creationButtons = buttons;
     }
-  }
 
+    console.log('Botones creados:', this.creationButtons);
+  }
   /**
    * @function ngOnInit
    * @description Lifecycle hook that fetches items and sub-collections for the current collection
@@ -147,8 +162,6 @@ export class CollectionProductsPageComponent implements OnInit, OnDestroy {
         return;
       }
       this.collectionId = Number(idParam);
-
-
 
       this.getCollection(this.collectionId);
       this.getProducts();
@@ -228,7 +241,7 @@ export class CollectionProductsPageComponent implements OnInit, OnDestroy {
         ...collection,
         title: collection.title
       };
-      console.log(this.collection)
+      console.log("coleccion",this.collection)
       this.setCreationButtons();
     });
   }

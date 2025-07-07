@@ -216,6 +216,7 @@ export class CollectionsGridComponent implements OnInit, OnDestroy {
    * @param id - The ID of the collection to navigate to.
    */
   navigateToCollection(id: number): void {
+    console.log('Navigate to Collection ', id);
     this.router.navigate(['/collections', id]);
   }
 }

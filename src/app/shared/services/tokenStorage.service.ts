@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
-const TOKEN_KEY = 'auth-token';
+const TOKEN_KEY = 'token';
 const USER_KEY = 'auth-user';
-const USER_ID = 'auth-user-id';
+const USER_ID = 'userId';
 const COMPANY_ID = 'company-id';
 
 @Injectable({
@@ -12,37 +12,36 @@ export class TokenStorageService {
   constructor() { }
 
   signOut(): void {
-    window.sessionStorage.clear();
+    localStorage.clear();
   }
 
   public saveToken(token: string): void {
-    window.sessionStorage.removeItem(TOKEN_KEY);
-    window.sessionStorage.setItem(TOKEN_KEY, token);
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.setItem(TOKEN_KEY, token);
   }
 
   public getToken(): string | null {
-    //console.log('TokenStorageService.getToken()', window.sessionStorage.getItem(TOKEN_KEY));
-    return window.sessionStorage.getItem(TOKEN_KEY);
+    return localStorage.getItem(TOKEN_KEY);
   }
 
   public saveUser(user: any): void {
-    window.sessionStorage.removeItem(USER_KEY);
-    window.sessionStorage.removeItem(USER_ID);
-    window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
-    window.sessionStorage.setItem(USER_ID, user.id);
+    localStorage.removeItem(USER_KEY);
+    localStorage.removeItem(USER_ID);
+    localStorage.setItem(USER_KEY, JSON.stringify(user));
+    localStorage.setItem(USER_ID, user.id);
   }
 
   public saveCompanyId(companyId: any): void {
-    window.sessionStorage.removeItem(COMPANY_ID);
-    window.sessionStorage.setItem(COMPANY_ID, companyId);
+    localStorage.removeItem(COMPANY_ID);
+    localStorage.setItem(COMPANY_ID, companyId);
   }
 
   public getUserId(): any {
-    return window.sessionStorage.getItem(USER_ID);
+    return localStorage.getItem(USER_ID);
   }
 
   public getUser(): any {
-    const user = window.sessionStorage.getItem(USER_KEY);
+    const user = localStorage.getItem(USER_KEY);
     if (user) {
       return JSON.parse(user).id;
     }
@@ -50,7 +49,7 @@ export class TokenStorageService {
   }
 
   public getCompanyId(): any {
-    return window.sessionStorage.getItem(COMPANY_ID);
+    return localStorage.getItem(COMPANY_ID);
   }
 
 }
