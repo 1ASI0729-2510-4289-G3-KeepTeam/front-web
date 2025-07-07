@@ -8,12 +8,15 @@ import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.compo
 import {TranslatePipe} from '@ngx-translate/core';
 import {TokenStorageService} from '../../../shared/services/tokenStorage.service';
 import {SubscriptionService} from '../../../payment/services/subscription.service';
-
+import {PaymentCardService} from '../../../payment/services/payment-card.service';
+import {PaymentCard} from '../../../payment/model/payment-card';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './user-profile.component.html',
   imports: [
+    CommonModule,
     MatCard,
     MatButton,
     MatCardTitle,
@@ -27,10 +30,15 @@ export class UserProfileComponent implements OnInit {
   user: User = new User();
   currentPlanName: string= '';
   last4Digits: string = '';
+  hasCard: boolean = false;
+  cards: PaymentCard[] = [];
+  isFreePlan: boolean = false;
+
   constructor(private userService: UserService,
               private subscriptionService: SubscriptionService,
               private router: Router,
-              private tokenStorageService: TokenStorageService) {}
+              private tokenStorageService: TokenStorageService,
+              private paymentCardService: PaymentCardService) {}
 
   ngOnInit(): void {
     const userId = Number(this.tokenStorageService.getUserId());
@@ -40,15 +48,39 @@ export class UserProfileComponent implements OnInit {
       this.userService.getUserById(userId).subscribe(user => {
         console.log('User API response:', user); // <-- Aquí para ver qué devuelve la API
         this.user = user;
+        this.paymentCardService.getUserCards(userId).subscribe({
+          next: (cards: PaymentCard[]) => {
+            this.cards = cards;
+            this.hasCard = cards.length > 0;
+            if (this.hasCard) {
+              this.last4Digits = cards[0].cardNumber.slice(-4); // Opcional si quieres mostrar tarjeta aquí también
+            }
+          },
+          error: err => {
+            console.error('Error al obtener tarjetas del usuario:', err);
+            this.hasCard = false;
+          }
+        });
+
+
+
         this.subscriptionService.getUserSubscription(userId).subscribe((subscription: any) => {
-          if (subscription && subscription.membership && subscription.paymentCard) {
+          console.log('🔄 Subscripción recibida:', subscription);
+          if (subscription && subscription.membership) {
             this.currentPlanName = subscription.membership.name;
-            this.last4Digits = subscription.paymentCard.cardNumber.slice(-4);
+            this.isFreePlan = subscription.membership.name.toLowerCase() === 'starter';
+            console.log('🧪 isFreePlan:', this.isFreePlan);
+            if (subscription.paymentCard) {
+              this.last4Digits = subscription.paymentCard.cardNumber.slice(-4);
+            } else {
+              this.last4Digits = '----'; // No tiene tarjeta (plan gratuito)
+            }
           } else {
             this.currentPlanName = 'No plan';
             this.last4Digits = '----';
           }
         });
+
       }, error => {
         console.error('Error fetching user:', error); // <-- Opcional, para errores
       });
@@ -88,6 +120,11 @@ export class UserProfileComponent implements OnInit {
     localStorage.clear();
     this.router.navigate(['/login']);
   }
+
+  goToUpgrade(): void {
+    this.router.navigate(['/purchase']); // Cambia esta ruta según tu app
+  }
+
 
   logout() {
     this.tokenStorageService.signOut();

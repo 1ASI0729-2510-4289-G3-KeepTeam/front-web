@@ -9,6 +9,7 @@ import {MatButton} from '@angular/material/button';
 import {Observable} from 'rxjs';
 import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
 import {TranslatePipe, TranslateService} from '@ngx-translate/core';
+import {TokenStorageService} from '../../../shared/services/tokenStorage.service';
 
 /**
  * @component CollectionEditComponent
@@ -74,13 +75,14 @@ export class CollectionEditComponent implements OnInit {
    * @param route - ActivatedRoute for accessing route parameters.
    * @param router - Angular Router for programmatic navigation.
    * @param translate - TranslateService for internationalization.
+   *
    */
   constructor(
     private collectionsService: CollectionsService,
     private route: ActivatedRoute,
     private router: Router,
-    private translate: TranslateService // Injected TranslateService
-  ) {}
+    private translate: TranslateService,// Injected TranslateService
+    private tokenStorageService: TokenStorageService) {}
 
   /**
    * @function ngOnInit
@@ -96,7 +98,7 @@ export class CollectionEditComponent implements OnInit {
       this.selectedCollection = new Collection();
       this.selectedCollection.id = 0;
       this.selectedCollection.title = '';
-      this.selectedCollection.idUser = localStorage.getItem("userId")!;
+      this.selectedCollection.idUser = this.tokenStorageService.getUserId();
       const parentId = Number(this.route.snapshot.queryParamMap.get('parentId')) || 0;
       this.selectedCollection.idParentCollection = parentId;
 

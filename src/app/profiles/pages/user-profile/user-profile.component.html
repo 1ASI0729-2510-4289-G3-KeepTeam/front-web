@@ -22,11 +22,24 @@
     <mat-card class="card">
       <mat-card-title>{{ 'profile.paymentInformationTitle' | translate }}</mat-card-title>
       <mat-card-content>
-        <p><strong>{{ 'profile.linkedCard' | translate }}:</strong> ••••{{ last4Digits }}</p>
-        <p><strong>{{ 'profile.holder' | translate }}:</strong> {{ user.name }}</p>
-        <button mat-raised-button class="editButton" color="accent" (click)="goToEditCardInformation()">{{ 'profile.editCardInfoButton' | translate }}</button>
+        <ng-container *ngIf="hasCard; else noCard">
+          <p><strong>{{ 'profile.linkedCard' | translate }}:</strong> ••••{{ last4Digits }}</p>
+          <p><strong>{{ 'profile.holder' | translate }}:</strong> {{ user.name }}</p>
+          <button mat-raised-button class="editButton" color="accent" (click)="goToEditCardInformation()">
+            {{ 'profile.editCardInfoButton' | translate }}
+          </button>
+        </ng-container>
+
+        <ng-template #noCard>
+          <p>No tienes tarjetas registradas.</p>
+          <button mat-raised-button class="addCardbutton" (click)="goToEditCardInformation()">
+            Agregar tarjeta
+          </button>
+        </ng-template>
       </mat-card-content>
     </mat-card>
+
+
   </div>
 
   <div class="section">
@@ -36,6 +49,12 @@
         <p><strong>Email:</strong> {{ user.email }}</p>
         <p><strong>{{ 'profile.password' | translate }}:</strong> ********</p>
         <button mat-raised-button class="change-password-Button" color="accent" (click)="goToEditPassword()">{{ 'profile.changePasswordButton' | translate }}</button>
+        <div *ngIf="isFreePlan" class="upgrade-container">
+          <button mat-raised-button color="primary" (click)="goToUpgrade()">
+            {{ 'profile.upgradePlanButton' | translate }}
+          </button>
+        </div>
+
       </mat-card-content>
     </mat-card>
   </div>

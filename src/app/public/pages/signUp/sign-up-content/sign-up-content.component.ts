@@ -7,6 +7,7 @@ import { AuthorizationService } from '../../../../shared/services/authorization.
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import {SubscriptionService} from '../../../../payment/services/subscription.service';
 
 @Component({
   selector: 'app-sign-up-component',
@@ -35,7 +36,8 @@ export class SignUpComponent {
     private authService: AuthorizationService,
     private snackBar: MatSnackBar,
     private router: Router,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private subscriptionService: SubscriptionService
   ) {}
 
   onSignUp(): void {
@@ -64,25 +66,45 @@ export class SignUpComponent {
     };
 
     this.authService.registerUser(newUser).subscribe({
-      next: () => {
-        this.snackBar.open(
-          this.translate.instant('signup.registrationSuccess'),
-          this.translate.instant('buttons.close'),
-          {
-            duration: 2000,
-            horizontalPosition: 'center',
-            verticalPosition: 'top',
-            panelClass: ['snackbar-success']
+      next: (createdUser) => {
+        const userId = createdUser.id;
+
+        const freeSubscription = {
+          userId: userId,
+          membershipId: 1, // 👈 Asegúrate de que 1 sea el ID del plan Free
+          paymentCardId: null
+        };
+
+        this.subscriptionService.createSubscription(freeSubscription).subscribe({
+          next: () => {
+            this.snackBar.open(
+              this.translate.instant('signup.registrationSuccess'),
+              this.translate.instant('buttons.close'),
+              {
+                duration: 2000,
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+                panelClass: ['snackbar-success']
+              }
+            );
+            setTimeout(() => {
+              this.router.navigate(['/login']);
+            }, 1500);
+          },
+          error: () => {
+            this.snackBar.open(
+              this.translate.instant('signup.freeSubscriptionError'),
+              this.translate.instant('buttons.close'),
+              {
+                duration: 3000,
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+                panelClass: ['snackbar-warning']
+              }
+            );
+            this.router.navigate(['/login']);
           }
-        );
-        setTimeout(() => {
-          this.router.navigate(['/login']);
-        }, 1500);
-      },
-      error: (err) => {
-        console.error(err);
-        const msg = err.status === 409 ? 'signup.emailExists' : 'signup.registrationError';
-        this.showError(msg);
+        });
       }
     });
   }

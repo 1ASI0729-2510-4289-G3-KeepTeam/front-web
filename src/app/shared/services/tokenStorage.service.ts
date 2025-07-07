@@ -43,13 +43,15 @@ export class TokenStorageService {
   public getUser(): any {
     const user = localStorage.getItem(USER_KEY);
     if (user) {
-      return JSON.parse(user).id;
+      return JSON.parse(user); // ✅ Retorna el objeto completo
     }
-    return {};
+    return null;
   }
+
 
   public getCompanyId(): any {
     return localStorage.getItem(COMPANY_ID);
   }
+
 
 }
