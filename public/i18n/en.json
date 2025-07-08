@@ -259,12 +259,15 @@
   "cardCreateError": "Failed to create card.",
   "success": {
     "profileUpdate": "Profile updated!",
-    "imageUpload": "Image uploaded successfully!"
+    "imageUpload": "Image uploaded successfully!",
+    "passwordChange": "Password change successfully!"
   },
   "errors": {
     "profileUpdate": "Error updating profile.",
     "imageUpload": "Failed to upload image.",
     "noFileSelected": "No file selected.",
-    "userLoad": "Failed to load user."
+    "userLoad": "Failed to load user.",
+    "passwordChange": "Failed to change password!"
+
   }
 }

@@ -15,7 +15,8 @@ import { NgIf } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToolbarComponent } from '../../../public/components/toolbar/toolbar.component';
 import { TokenStorageService } from '../../../shared/services/tokenStorage.service'; // ✅ importado
-import {TranslatePipe} from '@ngx-translate/core';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-edit-password',
@@ -53,7 +54,9 @@ export class UserEditPasswordComponent implements OnInit {
     private location: Location,
     private userService: UserService,
     private router: Router,
-    private tokenStorageService: TokenStorageService // ✅ inyectado
+    private tokenStorageService: TokenStorageService,
+    private snackBar: MatSnackBar,
+    private translate: TranslateService// ✅ inyectado
   ) {}
   /**
    * Initializes the component and the reactive form.
@@ -118,15 +121,11 @@ export class UserEditPasswordComponent implements OnInit {
       const { currentPassword, newPassword } = this.passwordForm.value;
       this.userService.changePassword(this.user.id, currentPassword, newPassword).subscribe({
         next: () => {
-          this.successMessage = '¡Contraseña cambiada con éxito!';
-
-          // Redirigir después de un pequeño delay
-          setTimeout(() => {
-            this.router.navigate(['/user-profile']);
-          }, 2000); // Espera 2 segundos antes de redirigir
+          this.showSnackBar('success.passwordChange');
+          this.router.navigate(['/user-profile']);
         },
         error: () => {
-          alert('No se pudo cambiar la contraseña');
+          this.showSnackBar('errors.passwordChange');
         }
       });
       this.passwordForm.reset();
@@ -139,5 +138,18 @@ export class UserEditPasswordComponent implements OnInit {
    */
   goBack(): void {
     this.location.back();
+  }
+
+  private showSnackBar(key: string): void {
+    this.snackBar.open(
+      this.translate.instant(key),
+      this.translate.instant('buttons.close'),
+      {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: ['snackbar-error-login']
+      }
+    );
   }
 }
