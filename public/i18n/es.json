@@ -259,12 +259,14 @@
   "cardCreateError": "No se pudo crear la tarjeta.",
   "success": {
     "profileUpdate": "¡Perfil actualizado!",
-    "imageUpload": "¡Imagen subida con éxito!"
+    "imageUpload": "¡Imagen subida con éxito!",
+    "passwordChange": "Contraseña cambiada con exito!"
   },
   "errors": {
     "profileUpdate": "Error al actualizar el perfil.",
     "imageUpload": "Error al subir la imagen.",
     "noFileSelected": "No se seleccionó ningún archivo.",
-    "userLoad": "Error al cargar el usuario."
+    "userLoad": "Error al cargar el usuario.",
+    "passwordChange": "Fallo al cambiar contraseña!"
   }
 }
