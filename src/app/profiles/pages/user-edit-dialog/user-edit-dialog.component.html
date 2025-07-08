@@ -18,15 +18,6 @@
       <input matInput [(ngModel)]="user.name" name="username" />
     </mat-form-field>
 
-    <div class="avatar-field">
-      <div class="avatar">{{ getInitial(user.name) }}</div>
-    </div>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Email</mat-label>
-      <input matInput [(ngModel)]="user.email" name="email" disabled />
-    </mat-form-field>
-
     <button mat-raised-button color="primary" (click)="saveChanges()">{{ 'profileEdit.saveChangesButton' | translate }}</button>
   </form>
 </div>

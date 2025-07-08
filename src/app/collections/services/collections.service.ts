@@ -193,7 +193,7 @@ export class CollectionsService {
    * @param {number} idCollection Collection ID.
    * @returns {Observable<Wish[]>} An observable array of Wish entities belonging to the specified collection.
    */
-  getProductsByIdCollection(idCollection: number) {
+  getProductsByIdCollection(idCollection: number): Observable<Wish[]> {
     return this.http
       .get<any[]>(`${this.baseUrl}/wishes/collection/${idCollection}`)
       .pipe(
