@@ -97,6 +97,8 @@
     "activityTitle": "Actividad",
     "savedItems": "Ítems Guardados",
     "paymentInformationTitle": "Información de Pago",
+    "noCard": "No tienes tarjetas registradas.",
+    "addCard": "Añadir Tarjeta",
     "linkedCard": "Tarjeta Vinculada",
     "holder": "Titular",
     "editCardInfoButton": "Editar Información de Tarjeta",
@@ -250,5 +252,19 @@
     "itemsInSubcollection": "Ítems en esta subcolección",
     "noItemsInSubcollection": "No hay ítems en esta subcolección.",
     "partOfCollection": "Parte de la colección"
+  },
+  "cardUpdateSuccess": "¡Tarjeta actualizada exitosamente!",
+  "cardUpdateError": "No se pudo actualizar la tarjeta.",
+  "cardCreateSuccess": "¡Tarjeta creada exitosamente!",
+  "cardCreateError": "No se pudo crear la tarjeta.",
+  "success": {
+    "profileUpdate": "¡Perfil actualizado!",
+    "imageUpload": "¡Imagen subida con éxito!"
+  },
+  "errors": {
+    "profileUpdate": "Error al actualizar el perfil.",
+    "imageUpload": "Error al subir la imagen.",
+    "noFileSelected": "No se seleccionó ningún archivo.",
+    "userLoad": "Error al cargar el usuario."
   }
 }

@@ -11,7 +11,8 @@ import { MatIcon } from '@angular/material/icon';
 import { UploadService } from '../../../shared/services/images.service';
 import { ToolbarComponent } from '../../../public/components/toolbar/toolbar.component';
 import { TokenStorageService } from '../../../shared/services/tokenStorage.service';
-import {TranslatePipe} from '@ngx-translate/core';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
+import {MatSnackBar} from '@angular/material/snack-bar';
 /**
  * Component that allows the user to edit their profile details including name and profile picture.
  * Loads the user from tokenStorage, and allows uploading a profile image via UploadService.
@@ -42,7 +43,9 @@ export class UserEditDialogComponent {
     private userService: UserService,
     private router: Router,
     private uploadService: UploadService,
-    private tokenStorageService: TokenStorageService // ✅ Inyección del servicio
+    private tokenStorageService: TokenStorageService,
+    private snackBar: MatSnackBar,
+    private translate: TranslateService
   ) {}
   /**
    * Loads the user data on component initialization using the stored user ID.
@@ -112,13 +115,29 @@ export class UserEditDialogComponent {
   saveChanges(): void {
     this.userService.updateUser(this.user).subscribe({
       next: () => {
-        alert('Profile updated!');
+        this.showSnackBar('success.profileUpdate');
         this.router.navigate(['/user-profile']);
       },
       error: (err) => {
         console.error('Error updating profile:', err);
-        alert('Error updating profile');
+        this.showSnackBar('errors.profileUpdate');
       }
     });
+  }
+  /**
+   * Shows a translated snackbar message.
+   * @param key Translation key
+   */
+  private showSnackBar(key: string): void {
+    this.snackBar.open(
+      this.translate.instant(key),
+      this.translate.instant('buttons.close'),
+      {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: ['snackbar-error-login']
+      }
+    );
   }
 }

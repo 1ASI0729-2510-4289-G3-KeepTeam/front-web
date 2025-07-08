@@ -98,6 +98,8 @@
     "savedItems": "Saved Items",
     "paymentInformationTitle": "Payment Information",
     "linkedCard": "Linked Card",
+    "noCard": "You don't have any registered credit card",
+    "addCard": "Add Card",
     "holder": "Holder",
     "editCardInfoButton": "Edit Card Information",
     "currentPlan": "Current Plan",
@@ -132,6 +134,7 @@
     "holder": "Holder",
     "expirationDate": "FV",
     "expirationDatePlaceholder": "Expiration Date",
+    "holderPlaceholder": "Enter the name of the cardholder",
     "changeCardButton": "Change Card",
     "cardUpdateSuccess": "Card updated successfully!",
     "cardUpdateError": "Failed to update card."
@@ -249,5 +252,19 @@
     "itemsInSubcollection": "Items in this subcollection",
     "noItemsInSubcollection": "No items in this subcollection.",
     "partOfCollection": "Part of collection"
+  },
+  "cardUpdateSuccess": "Card updated successfully!",
+  "cardUpdateError": "Failed to update card.",
+  "cardCreateSuccess": "Card created successfully!",
+  "cardCreateError": "Failed to create card.",
+  "success": {
+    "profileUpdate": "Profile updated!",
+    "imageUpload": "Image uploaded successfully!"
+  },
+  "errors": {
+    "profileUpdate": "Error updating profile.",
+    "imageUpload": "Failed to upload image.",
+    "noFileSelected": "No file selected.",
+    "userLoad": "Failed to load user."
   }
 }

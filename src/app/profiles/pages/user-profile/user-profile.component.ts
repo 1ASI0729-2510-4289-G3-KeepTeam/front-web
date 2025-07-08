@@ -5,12 +5,13 @@ import {MatCard, MatCardContent, MatCardTitle} from '@angular/material/card';
 import {MatButton} from '@angular/material/button';
 import {Router} from '@angular/router';
 import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
-import {TranslatePipe} from '@ngx-translate/core';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 import {TokenStorageService} from '../../../shared/services/tokenStorage.service';
 import {SubscriptionService} from '../../../payment/services/subscription.service';
 import {PaymentCardService} from '../../../payment/services/payment-card.service';
 import {PaymentCard} from '../../../payment/model/payment-card';
 import { CommonModule } from '@angular/common';
+import {MatSnackBar} from '@angular/material/snack-bar';
 /**
  * Represents the user profile page.
  * Displays user information, subscription plan, and payment card status.
@@ -58,6 +59,7 @@ export class UserProfileComponent implements OnInit {
 
   constructor(private userService: UserService,
               private subscriptionService: SubscriptionService,
+
               private router: Router,
               private tokenStorageService: TokenStorageService,
               private paymentCardService: PaymentCardService) {}
@@ -79,7 +81,7 @@ export class UserProfileComponent implements OnInit {
             this.cards = cards;
             this.hasCard = cards.length > 0;
             if (this.hasCard) {
-              this.last4Digits = cards[0].cardNumber.slice(-4); // Opcional si quieres mostrar tarjeta aquí también
+              this.last4Digits = cards[0].cardNumber.slice(-4);
             }
           },
           error: err => {
@@ -99,7 +101,7 @@ export class UserProfileComponent implements OnInit {
             if (subscription.paymentCard) {
               this.last4Digits = subscription.paymentCard.cardNumber.slice(-4);
             } else {
-              this.last4Digits = '----'; // No tiene tarjeta (plan gratuito)
+              this.last4Digits = '----';
             }
           } else {
             this.currentPlanName = 'No plan';
@@ -108,7 +110,7 @@ export class UserProfileComponent implements OnInit {
         });
 
       }, error => {
-        console.error('Error fetching user:', error); // <-- Opcional, para errores
+        console.error('Error fetching user:', error);
       });
     } else {
       // Si no hay ID, redirigir al login
@@ -178,5 +180,7 @@ export class UserProfileComponent implements OnInit {
     window.sessionStorage.clear();
     this.router.navigate(['/login']);
   }
+
+
 
 }
