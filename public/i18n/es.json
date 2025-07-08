@@ -97,6 +97,8 @@
     "activityTitle": "Actividad",
     "savedItems": "Ítems Guardados",
     "paymentInformationTitle": "Información de Pago",
+    "noCard": "No tienes tarjetas registradas.",
+    "addCard": "Añadir Tarjeta",
     "linkedCard": "Tarjeta Vinculada",
     "holder": "Titular",
     "editCardInfoButton": "Editar Información de Tarjeta",

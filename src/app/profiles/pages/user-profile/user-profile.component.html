@@ -24,9 +24,9 @@
         </ng-container>
 
         <ng-template #noCard>
-          <p>No tienes tarjetas registradas.</p>
+          <p>{{'profile.noCard' | translate}}</p>
           <button mat-raised-button class="addCardbutton" (click)="goToEditCardInformation()">
-            Agregar tarjeta
+            <p>{{'profile.addCard' | translate}}</p>
           </button>
         </ng-template>
       </mat-card-content>
@@ -52,7 +52,7 @@
     </mat-card>
   </div>
 
-  <div class="bottom-buttons-container"> <button mat-raised-button class="delete-button" (click)="deleteProfile()">{{ 'profile.deleteAccountButton' | translate }}</button>
+  <div class="bottom-buttons-container">
     <button mat-raised-button class="logout-button" (click)="logout()">{{ 'buttons.logout' | translate }}</button>
   </div>
 </div>
