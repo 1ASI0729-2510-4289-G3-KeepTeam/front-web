@@ -174,19 +174,17 @@ export class CollectionEditComponent implements OnInit {
         console.error('Error al guardar/actualizar la colección:', err);
 
         const message = err.error?.message?.toLowerCase() || '';
-        if (err.status === 409 && message.includes('maximum') && message.includes('collections')) {
+        if (err.status === 409) {
           const snackBarRef = this.snackBar.open(
             'Has alcanzado el límite de colecciones. Revisa nuestros planes.',
             'Ir ahora',
             { duration: 3000 }
           );
 
-          // Si el usuario hace clic en "Ir ahora"
           snackBarRef.onAction().subscribe(() => {
             this.router.navigate(['/plans']);
           });
 
-          // Si no hace clic, redirigir automáticamente después de 5 segundos
           setTimeout(() => {
             this.router.navigate(['/plans']);
           }, 5000);
