@@ -47,7 +47,7 @@ export class UserEditPasswordComponent implements OnInit {
    * Currently authenticated user, retrieved using the userId from the token.
    */
   user: User = new User();
-
+  successMessage: string | null = null;
   constructor(
     private fb: FormBuilder,
     private location: Location,
@@ -117,8 +117,17 @@ export class UserEditPasswordComponent implements OnInit {
     if (this.passwordForm.valid) {
       const { currentPassword, newPassword } = this.passwordForm.value;
       this.userService.changePassword(this.user.id, currentPassword, newPassword).subscribe({
-        next: () => alert('Password changed successfully!'),
-        error: () => alert('Failed to change password.')
+        next: () => {
+          this.successMessage = '¡Contraseña cambiada con éxito!';
+
+          // Redirigir después de un pequeño delay
+          setTimeout(() => {
+            this.router.navigate(['/user-profile']);
+          }, 2000); // Espera 2 segundos antes de redirigir
+        },
+        error: () => {
+          alert('No se pudo cambiar la contraseña');
+        }
       });
       this.passwordForm.reset();
     } else {
