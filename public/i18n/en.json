@@ -249,5 +249,19 @@
     "itemsInSubcollection": "Items in this subcollection",
     "noItemsInSubcollection": "No items in this subcollection.",
     "partOfCollection": "Part of collection"
+  },
+  "cardUpdateSuccess": "Card updated successfully!",
+  "cardUpdateError": "Failed to update card.",
+  "cardCreateSuccess": "Card created successfully!",
+  "cardCreateError": "Failed to create card.",
+  "success": {
+    "profileUpdate": "Profile updated!",
+    "imageUpload": "Image uploaded successfully!"
+  },
+  "errors": {
+    "profileUpdate": "Error updating profile.",
+    "imageUpload": "Failed to upload image.",
+    "noFileSelected": "No file selected.",
+    "userLoad": "Failed to load user."
   }
 }

@@ -12,7 +12,8 @@ import {User} from '../../model/user';
 import {Router} from '@angular/router';
 import {ToolbarComponent} from '../../../public/components/toolbar/toolbar.component';
 import {TokenStorageService} from '../../../shared/services/tokenStorage.service';
-import {TranslatePipe} from '@ngx-translate/core';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
+import {MatSnackBar} from '@angular/material/snack-bar';
 /**
  * Component that allows users to add or update their payment card information.
  * It uses a reactive form and interacts with the UserService to persist changes.
@@ -38,7 +39,9 @@ export class UserEditCardComponent implements OnInit {
   user: User = new User();
   constructor(private fb: FormBuilder, private location: Location,
               private userService: UserService,
-              private router: Router, private tokenStorageService: TokenStorageService,) {
+              private router: Router, private tokenStorageService: TokenStorageService,
+              private snackBar: MatSnackBar,
+              private translate: TranslateService) {
     this.paymentForm = this.fb.group({
       cardNumber: ['', [Validators.required, Validators.pattern(/^\d{16}$/)]],
       holderName: ['', Validators.required],
@@ -94,18 +97,25 @@ export class UserEditCardComponent implements OnInit {
       const cardData = this.paymentForm.value;
 
       if (this.user.card?.id) {
-        // Actualizar tarjeta existente
         this.userService.updateUserCard(this.user.card.id, cardData).subscribe({
-          next: () => alert('Card updated successfully!'),
-          error: () => alert('Failed to update card.')
+          next: () => {
+            this.showSuccess('cardUpdateSuccess');
+          },
+          error: () => {
+            this.showError('cardUpdateError');
+          }
         });
       } else {
         // Crear nueva tarjeta
         const newCard = { ...cardData, userId: this.user.id };
         this.userService.createUserCard(newCard).subscribe({
-          next: () => {alert('Card created successfully!');
-          this.router.navigate(['/user-profile']);},
-          error: () => alert('Failed to create card.')
+          next: () => {
+            this.showSuccess('cardCreateSuccess');
+            this.router.navigate(['/user-profile']);
+          },
+          error: () => {
+            this.showError('cardCreateError');
+          }
         });
       }
 
@@ -119,5 +129,36 @@ export class UserEditCardComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
+  /**
+   * Shows a translated snackbar error message.
+   *
+   * @param key Translation key for the error message.
+   */
+  private showError(key: string): void {
 
+    this.snackBar.open(
+
+      this.translate.instant(key),
+      this.translate.instant('buttons.close'),
+      {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: ['snackbar-error-login']
+      }
+    );
+  }
+
+  private showSuccess(key: string): void {
+    this.snackBar.open(
+      this.translate.instant(key),
+      this.translate.instant('buttons.close'),
+      {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: ['snackbar-success']
+      }
+    );
+  }
 }

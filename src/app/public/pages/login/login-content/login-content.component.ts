@@ -16,8 +16,6 @@ import { TokenStorageService } from '../../../../shared/services/tokenStorage.se
   selector: 'app-login-component',
   standalone: true,
   imports: [
-    MatCard,
-    MatCardContent,
     MatFormField,
     MatLabel,
     MatInput,
